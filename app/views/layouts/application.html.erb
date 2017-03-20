@@ -17,6 +17,7 @@
   <% if session[:user_id] %>
   <div id="header">
   	<a href="/users/new">Register User</a>
+    <a href="/users/update/<%= session[:user_id] %>">Update User
   	<a href="/hotels/new">Register Hotel</a>
   	<a href="/hotels">View Hotels</a>
   	<a href="/rooms">Make Reseveration</a>

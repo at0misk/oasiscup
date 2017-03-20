@@ -1,0 +1,13 @@
+<h3>Edit User Info</h3>
+<form action="/users" method="POST">
+<input name="_method" value="PATCH" type="hidden">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	First Name: <input type="text" name="user[first]" value="<%= @user.first %>">
+	Last Name: <input type="text" name="user[last]" value="<%= @user.last %>">
+	Email: <input type="text" name="user[email]" value="<%= @user.email %>">
+	Password: <input type="password" name="user[password]">
+	Confirm Password: <input type="password" name="user[password_confirmation]">
+	Team Name: <input type="text" name="user[team]" value="<%= @user.team %>">
+	<input type="hidden" name="user[fee_status]" value="true">
+	<input type="submit" value="submit">
+</form>

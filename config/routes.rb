@@ -16,4 +16,6 @@ Rails.application.routes.draw do
   get 'logout' => 'sessions#logout'
   get 'login' => 'sessions#login'
   post 'sessions/new' => 'sessions#new'
+  get '/users/update/:id' => 'users#edit'
+  patch '/users' => 'users#update'
 end

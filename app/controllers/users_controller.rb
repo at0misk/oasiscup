@@ -18,4 +18,12 @@ class UsersController < ApplicationController
   	def user_params
   	params.require(:user).permit(:first, :last, :email, :team, :fee_status, :password) 
   	end
+  	def edit
+  		@user = User.find(session[:user_id])
+  	end
+   	def update
+  		@user = User.find(session[:user_id])
+	    @user.update(user_params)
+	    redirect_to :back
+  	end
 end
