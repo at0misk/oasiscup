@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Oasis</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <style>
+  	#header a{
+  		display: inline;
+  	}
+  </style>
+  </head>
+
+  <body>
+  <% if session[:user_id] %>
+  <div id="header">
+  	<a href="/users/new">Register User</a>
+  	<a href="/hotels/new">Register Hotel</a>
+  	<a href="/hotels">View Hotels</a>
+  	<a href="/rooms">Make Reseveration</a>
+    <a href="/booked">My Booked Rooms</a>
+    <a href="/logout">Logout</a>
+  </div>
+  <% end %>
+    <%= yield %>
+  </body>
+</html>

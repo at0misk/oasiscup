@@ -1,0 +1,16 @@
+<p>Hotel Name: <%= @room.hotel.name %></p>
+<p>Hotel Address: <%= @room.hotel.address %></p>
+<p>Price: <%= @room.price %></p>
+<p>Room Number: <%= @room.number %></p>
+<p>Smoking: <%= @room.smoking %></p>
+<p>Type: <%= @room.room_type %></p>
+<form action="/book_rooms/create/<%= @room.id %>" method="POST">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type="hidden" name="book[price]" value="<%= @room.price %>">
+	<input type="hidden" name="book[number]" value="<%= @room.number %>">
+	<input type="hidden" name="book[smoking]" value="<%= @room.smoking %>">
+	<input type="hidden" name="book[room_type]" value="<%= @room.room_type %>">
+	<input type="hidden" name="book[hotel_id]" value="<%= @room.hotel.id %>">
+	<input type="hidden" name="book[user_id]" value="<%= session[:user_id] %>">
+	<input type="submit" value="Book Now">
+</form>

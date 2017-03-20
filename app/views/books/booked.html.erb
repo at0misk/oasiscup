@@ -1,0 +1,17 @@
+<% @booked_rooms.each do |val| %>
+<p>Hotel Name: <%= val.hotel.name %></p>
+<p>Hotel Address: <%= val.hotel.address %></p>
+<p>Room Number: <%= val.number %></p>
+<p>Room Type: <%= val.room_type %></p>
+<p>Smoking: <%= val.smoking %></p>
+<p>Price: <%= val.price %></p>
+<form action="/book_rooms/cancel/<%= val.id %>" method="POST">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type="hidden" name="room[price]" value="<%= val.price %>">
+	<input type="hidden" name="room[number]" value="<%= val.number %>">
+	<input type="hidden" name="room[smoking]" value="<%= val.smoking %>">
+	<input type="hidden" name="room[room_type]" value="<%= val.room_type %>">
+	<input type="hidden" name="room[hotel_id]" value="<%= val.hotel.id %>">
+	<input type="submit" value="Cancel">
+</form>
+<% end %>

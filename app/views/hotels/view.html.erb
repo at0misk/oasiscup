@@ -1,0 +1,12 @@
+<p><%= @hotel.name %></p>
+<p><%= @hotel.address %></p>
+<h3>Register room for this hotel:</h3>
+<form action="/rooms/create" method="POST">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	Price: $<input type="text" name="room[price]">
+	Number: <input type="number" name="room[number]">
+	Smoking: <input type="text" name="room[smoking]">
+	Type: <input type="text" name="room[room_type]">
+	<input type="hidden" name="room[hotel_id]" value="<%= @hotel.id %>">
+	<input type="submit" value="submit">
+</form>

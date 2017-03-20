@@ -1,0 +1,3 @@
+<% @rooms.each do |val| %>
+<p><a href="/rooms/<%= val.id %>"><%= val.hotel.name %>, Room#<%= val.number %></a></p>
+<% end %>

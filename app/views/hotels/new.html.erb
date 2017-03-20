@@ -1,0 +1,7 @@
+<h3>Registration Form - Hotel</h3>
+<form action="/hotels/create" method="POST">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	Name: <input type="text" name="hotel[name]">
+	Address: <input type="text" name="hotel[address]">
+	<input type="submit" value="submit">
+</form>
