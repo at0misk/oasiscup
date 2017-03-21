@@ -4,13 +4,13 @@
 <p>Room Number: <%= @room.number %></p>
 <p>Smoking: <%= @room.smoking %></p>
 <p>Type: <%= @room.room_type %></p>
-<form action="/book_rooms/create/<%= @room.id %>" method="POST">
+<form action="/cart/create/<%= @room.id %>" method="POST">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-	<input type="hidden" name="book[price]" value="<%= @room.price %>">
-	<input type="hidden" name="book[number]" value="<%= @room.number %>">
-	<input type="hidden" name="book[smoking]" value="<%= @room.smoking %>">
-	<input type="hidden" name="book[room_type]" value="<%= @room.room_type %>">
-	<input type="hidden" name="book[hotel_id]" value="<%= @room.hotel.id %>">
-	<input type="hidden" name="book[user_id]" value="<%= session[:user_id] %>">
-	<input type="submit" value="Book Now">
+	<input type="hidden" name="cart[price]" value="<%= @room.price %>">
+	<input type="hidden" name="cart[number]" value="<%= @room.number %>">
+	<input type="hidden" name="cart[smoking]" value="<%= @room.smoking %>">
+	<input type="hidden" name="cart[room_type]" value="<%= @room.room_type %>">
+	<input type="hidden" name="cart[hotel_id]" value="<%= @room.hotel.id %>">
+	<input type="hidden" name="cart[user_id]" value="<%= session[:user_id] %>">
+	<input type="submit" value="Add To Cart">
 </form>

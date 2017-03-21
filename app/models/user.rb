@@ -5,4 +5,6 @@ class User < ApplicationRecord
 	validates :email, :uniqueness => true, :format => { :with => email_regex }
 	validates_uniqueness_of :email, :case_sensitive => false
 	has_many :books
+	has_many :reservations
+	has_many :carts
 end

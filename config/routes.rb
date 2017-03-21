@@ -18,4 +18,10 @@ Rails.application.routes.draw do
   post 'sessions/new' => 'sessions#new'
   get '/users/update/:id' => 'users#edit'
   patch '/users' => 'users#update'
+  post 'cart/create/:id' => 'carts#create'
+  get 'cart' => 'carts#view'
+  post 'cart/cancel/:id' => 'carts#cancel'
+  post 'cart/checkout' => 'carts#checkout'
+  get '/payment' => 'sessions#payment'
+  post '/registerpay' => 'sessions#registerpay'
 end

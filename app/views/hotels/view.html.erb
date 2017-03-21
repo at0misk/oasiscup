@@ -1,9 +1,43 @@
-<p><%= @hotel.name %></p>
-<p><%= @hotel.address %></p>
+<style type="text/css">
+	tr{
+		/*padding: 1%;*/
+	}
+	td{
+		padding: 8px;
+	}
+	th{
+		padding: 8px;
+	}
+</style>
+<h3><%= @hotel.name %></h3>
+<h3><%= @hotel.address %></h3>
+<p>Rooms:</p>
+<div class="table-responsive">
+<table class="table-striped">
+	<thead>
+		<tr>
+			<th>Room Number</th>
+			<th>Room Price</th>
+			<th>Smoking</th>
+			<th>Type</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @hotel.rooms.each do |val| %>
+		<tr>
+		<td><a href="/rooms/<%= val.id %>"><%= val.number %></a></td>
+		<td><%= val.price %></td>
+		<td><%= val.smoking %></td>
+		<td><%= val.room_type %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+</div>
 <h3>Register room for this hotel:</h3>
 <form action="/rooms/create" method="POST">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-	Price: $<input type="text" name="room[price]">
+	Price: <input type="text" name="room[price]">
 	Number: <input type="number" name="room[number]">
 	Smoking: <input type="text" name="room[smoking]">
 	Type: <input type="text" name="room[room_type]">
