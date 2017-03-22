@@ -19,4 +19,13 @@ class RoomsController < ApplicationController
   	def all
   		@rooms = Room.all
   	end
+  	def search
+  		if params[:id] == '1'
+  			@rooms = Room.where(price: 70..120).order(:price)
+  		elsif params[:id] == '2'
+  			@rooms = Room.where(price: 120..150).order(:price)
+  		elsif params[:id] == '3'
+  			@rooms = Room.where(price: 150..200).order(:price)
+  		end
+  	end
 end

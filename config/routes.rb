@@ -26,4 +26,6 @@ Rails.application.routes.draw do
   post '/registerpay' => 'sessions#registerpay'
   get 'transactions/new' => 'transactions#new'
   post 'transactions' => 'transactions#create'
+  post 'rooms/search/:id' => 'hotels#search'
+  get 'roomByPrice/:id' => 'rooms#search'
 end

@@ -8,10 +8,23 @@
 	th{
 		padding: 8px;
 	}
+	#roomSearchForm input{
+		display: inline;
+	}
 </style>
 <h3><%= @hotel.name %></h3>
 <h3><%= @hotel.address %></h3>
-<p>Rooms:</p>
+<div>
+	<form action="/rooms/search/<%= @hotel.id %>" method="post" id="roomSearchForm">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		Single: <input type="checkbox" name="tag_ids[]" value="1" />
+		Double: <input type="checkbox" name="tag_ids[]" value="2" />
+		Suite: <input type="checkbox" name="tag_ids[]" value="3" />
+		Cheapest: <input type="checkbox" name="tag_ids[]" value="4" />
+		<input type="submit" value="Search Rooms">
+	</form>
+</div>
+<h4>Rooms:</h4>
 <div class="table-responsive">
 <table class="table-striped">
 	<thead>
@@ -23,7 +36,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @hotel.rooms.each do |val| %>
+		<% @rooms.each do |val| %>
 		<tr>
 		<td><a href="/rooms/<%= val.id %>"><%= val.number %></a></td>
 		<td><%= val.price %></td>

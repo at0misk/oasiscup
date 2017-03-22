@@ -38,9 +38,6 @@
 			<td></td>
 	</tbody>
 </table>
-<% if @cart_rooms.length < 1 %>
-<h3>You must book at least 10 rooms</h3>
-<% else %>
 <div class="col-md-6">
 <form id="checkout" method="post" action="/cart/checkout">
 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -61,4 +58,3 @@ braintree.setup("<%= @token %>", "dropin", {
   container: "payment-form"
 });
 </script>
-<% end %>

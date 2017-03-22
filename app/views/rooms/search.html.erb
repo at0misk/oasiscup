@@ -1,0 +1,22 @@
+<div class="table-responsive">
+<table class="table-striped">
+	<thead>
+		<tr>
+			<th>Room Number</th>
+			<th>Room Price</th>
+			<th>Smoking</th>
+			<th>Type</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @rooms.each do |val| %>
+		<tr>
+		<td><a href="/rooms/<%= val.id %>"><%= val.number %></a></td>
+		<td><%= val.price %></td>
+		<td><%= val.smoking %></td>
+		<td><%= val.room_type %></td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+</div>
