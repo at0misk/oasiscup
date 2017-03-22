@@ -13,6 +13,8 @@ class CartsController < ApplicationController
 		redirect_to :back
 	end
 	def view
+	    gon.client_token = generate_client_token
+	    @token = gon.client_token
 		@cart_rooms = Cart.where(user_id: session[:user_id])
 		@total = 0
 		@cart_rooms.each do |val|
@@ -20,22 +22,46 @@ class CartsController < ApplicationController
 		end
 	end
 	def checkout
-		@cart = Cart.where(user_id: session[:user_id])
-		@cart.each do |val|
-			@booked = Book.new
-			@booked.hotel_id = val.hotel_id
-			@booked.user_id = val.user_id
-			@booked.price = val.price
-			@booked.number = val.number
-			@booked.smoking = val.smoking
-			@booked.room_type = val.room_type
-			@booked.save
-			@room = Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
+		@user = User.find(session[:user_id])
+		@result = Braintree::Transaction.sale(
+			:amount => params['total'],
+			:payment_method_nonce => 'fake-valid-nonce',
+            customer: {
+              first_name: @user.first,
+              last_name: @user.last,
+              email: @user.email
+            },
+            options: {
+              store_in_vault: true,
+			  :submit_for_settlement => true
+            }
+		)
+		if @result.success?
+			@cart = Cart.where(user_id: session[:user_id])
+			@cart.each do |val|
+				@booked = Book.new
+				@booked.hotel_id = val.hotel_id
+				@booked.user_id = val.user_id
+				@booked.price = val.price
+				@booked.number = val.number
+				@booked.smoking = val.smoking
+				@booked.room_type = val.room_type
+				@booked.save
+				@room = Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 		end
 		@cart = Cart.where(user_id: session[:user_id]).destroy_all
 		redirect_to :back
+		else
+			flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
+			gon.client_token = generate_client_token
+			redirect_to :back
+		end
 	end
   	def cart_params
   		params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type) 
   	end
+	private
+	def generate_client_token
+		Braintree::ClientToken.generate
+	end
 end

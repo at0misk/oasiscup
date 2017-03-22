@@ -24,4 +24,6 @@ Rails.application.routes.draw do
   post 'cart/checkout' => 'carts#checkout'
   get '/payment' => 'sessions#payment'
   post '/registerpay' => 'sessions#registerpay'
+  get 'transactions/new' => 'transactions#new'
+  post 'transactions' => 'transactions#create'
 end

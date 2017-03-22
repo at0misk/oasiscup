@@ -1,4 +1,5 @@
 <h3>Registration Form</h3>
+<div>
 <form action="/users/create" method="POST">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	First Name: <input type="text" name="user[first]">
@@ -10,3 +11,4 @@
 	<input type="hidden" name="user[fee_status]" value="">
 	<input type="submit" value="submit">
 </form>
+</div>

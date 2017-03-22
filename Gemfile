@@ -32,6 +32,9 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 gem 'hirb'
+gem 'braintree', '~> 2.72'
+gem 'figaro'
+gem 'gon', '~> 5.1.2'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
