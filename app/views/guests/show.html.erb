@@ -1,29 +1,109 @@
+<style type="text/css">
+/*	.table { display: table; } 
+	.table>* { display: table-row; }*/
+	/*.table>*>* { display: table-cell; }*/
+	input{
+		display: inline;
+	}
+	form{
+		display: inline;
+	}
+/*	.row span{
+		margin: 15px 0;
+	}*/
+	.table{
+		height: 810px;
+		overflow: scroll;
+		/*font-size: .85em;*/
+    	/*overflow-wrap: break-word;*/
+	}
+	.rowG{
+		display: block;
+		margin-top: 8px;
+		height: auto;
+	}
+	.rowG input{
+		vertical-align: top;
+	}
+	.cell{
+		/*display: inline-block;*/
+	    width: 83px;
+	    height: 50px;
+	    margin: 1%;
+	    vertical-align: top;
+	}
+	.header{
+		font-size: 2em;
+	}
+	.last{
+		margin-left: 99px;
+	}
+/*	.cart-div form{
+		display: inline;
+	}*/
+</style>
 <% if @guests.empty? %>
 <h3>Your guest list is empty.</h3>
 <h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
 <% else %>
 <h3>Guests</h3>
-<table class="table-striped">
-	<thead>
-		<tr>
-			<th>First</th>
-			<th>Last</th>
-			<th></th>
-		</tr>
-	</thead>
-	<tbody>
-		<% @guests.each do |val| %>
-		<tr>
-		<td><%= val.first %></td>
-		<td><%= val.last %></td>
-		<td><%= val.guest_type %></td>
-		<td><form action="/guests/delete/<%= val.id %>" method="POST" class="cancelForm">
-				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-				<button type="submit" class="btn btn-danger">Remove Guest</button>
-			</form>
-		</td>
-		</tr>
-		<% end %>
-	</tbody>
-</table>
+		<span class="table">
+			<span class="rowG">
+				<span class="cell header">First</span>
+				<span class="cell header last">Last</span>		
+			</span>
+			<% @guests.each do |val| %>
+			<span class="rowG">
+				<span class="cell"><form action="/guests/<%= val.id %>" method="POST"><input type="text" name="first" value="<%= val.first %>"></span>
+				<span class="cell"><input type="text" name="last" value="<%= val.last %>"></span>
+				<% if val.guest_type == 'Child' %>
+				<span class="cell">Child: <input type='radio' name="guest_type" value='Child' checked="checked" />
+					Adult: <input type='radio' name="guest_type" value='Adult' /></span>
+				<% else %>
+				<span class="cell">Child: <input type='radio' name="guest_type" value='Child' />
+					Adult: <input type='radio' name="guest_type" value='Adult' checked="checked" /></span>
+				<% end %>
+				<span class="cell"><button type="button" class="btn btn-primary">Update</button></form></span>
+					<span class="cell"><form action="/guests/delete/<%= val.id %>" method="POST" class="cancelForm"><input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"></span>
+					<span class="cell"><button type="button" class="btn btn-danger">Remove Guest</button></form></span>
+			</span>
+			<% end %>
+		</span>
+<!-- 		<div>
+			<div>
+				<div>First</div>
+				<div>Last</div>
+				<div></div>
+				<div></div>
+			</div>
+		</div>
+		<div>
+			<% @guests.each do |val| %>
+			<div>
+			<div><form action="/guests/<%= val.id %>" method="POST">
+				<input type="text" name="first" value="<%= val.first %>"></div>
+			<div><input type="text" name="last" value="<%= val.last %>"></div>
+				<% if val.guest_type == 'Child' %>
+			<div>Child: <input type='radio' name="guest_type" value='Child' checked="checked" />
+				Adult: <input type='radio' name="guest_type" value='Adult' /></div>
+				<% else %>
+			<div>Child: <input type='radio' name="guest_type" value='Child' />
+				Adult: <input type='radio' name="guest_type" value='Adult' checked="checked" /></div>
+				<% end %>
+			<div><button type="button" class="btn btn-primary">Update</button></form></div>
+			<div><form action="/guests/delete/<%= val.id %>" method="POST" class="cancelForm">
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<button type="button" class="btn btn-danger">Remove Guest</button>
+				</form>
+			</div>
+			</div>
+			<% end %>
+		</div>
+	</div> -->
+<!-- 	<div class="table"> 
+	    <form>
+	        <div>snake<input type="hidden" name="cartitem" value="55"></div>
+	        <div><input name="count" value=4/></div>
+	    </form>
+	</div> -->
 <% end %>
