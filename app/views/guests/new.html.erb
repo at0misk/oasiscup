@@ -24,10 +24,10 @@
 		display: inline;
 	}
 </style>
-<h3 class="addh3">Guest List</h3><button class="btn btn-primary add">Add More Guests</button>
 <% if flash[:errors] %>
 <%= flash[:errors] %>
 <% end %>
+<h3 class="addh3">Guest List</h3><button class="btn btn-primary add">Add More Guests</button>
 <div class="cont">
 <form action="/guests/create" method="POST">
 <% y = 0 %>
