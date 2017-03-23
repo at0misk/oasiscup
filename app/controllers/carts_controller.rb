@@ -1,4 +1,5 @@
 class CartsController < ApplicationController
+	before_action :authenticate_user!
 	def create
 		@cart = Cart.new(cart_params)
 		if @cart.save
@@ -13,6 +14,12 @@ class CartsController < ApplicationController
 		redirect_to :back
 	end
 	def view
+		@user = User.find(session[:user_id])
+		if @user.guests.empty?
+			@noGuests = true
+		else
+			@noGuests = false
+		end
 	    gon.client_token = generate_client_token
 	    @token = gon.client_token
 		@cart_rooms = Cart.where(user_id: session[:user_id])
@@ -47,9 +54,9 @@ class CartsController < ApplicationController
 				@booked.smoking = val.smoking
 				@booked.room_type = val.room_type
 				@booked.save
-				@room = Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
+				Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
+				Cart.where(user_id: session[:user_id]).destroy_all
 		end
-		@cart = Cart.where(user_id: session[:user_id]).destroy_all
 		redirect_to :back
 		else
 			flash[:alert] = "Something went wrong while processing your transaction. Please try again!"

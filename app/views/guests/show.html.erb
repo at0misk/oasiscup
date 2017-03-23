@@ -1,0 +1,29 @@
+<% if @guests.empty? %>
+<h3>Your guest list is empty.</h3>
+<h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
+<% else %>
+<h3>Guests</h3>
+<table class="table-striped">
+	<thead>
+		<tr>
+			<th>First</th>
+			<th>Last</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @guests.each do |val| %>
+		<tr>
+		<td><%= val.first %></td>
+		<td><%= val.last %></td>
+		<td><%= val.guest_type %></td>
+		<td><form action="/guests/delete/<%= val.id %>" method="POST" class="cancelForm">
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<button type="submit" class="btn btn-danger">Remove Guest</button>
+			</form>
+		</td>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+<% end %>

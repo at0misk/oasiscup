@@ -28,4 +28,8 @@ Rails.application.routes.draw do
   post 'transactions' => 'transactions#create'
   post 'rooms/search/:id' => 'hotels#search'
   get 'roomByPrice/:id' => 'rooms#search'
+  get 'guests/new' => 'guests#new'
+  post 'guests/create' => 'guests#create'
+  get 'guests/show' => 'guests#show'
+  post 'guests/delete/:id' => 'guests#delete'
 end

@@ -1,3 +1,10 @@
+<% if @noGuests %>
+<h3>Your guest list is empty.</h3>
+<h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
+<h4>Searching for <%= session[:adultCount] %> Adult.</h4>
+<% else %>
+<h4>Searching for <%= session[:childCount] %> Children and <%= session[:adultCount] %> Adults.</h4>
+<% end %>
 <% @hotels.each do |val| %>
 <h3><a href="/hotels/<%= val.id %>"><%= val.name %></a></h3>
 <% end %>

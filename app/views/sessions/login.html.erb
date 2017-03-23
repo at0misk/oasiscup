@@ -5,3 +5,10 @@
 	Password: <input type="password" name="password">
 	<input type="submit" value="login">
 </form>
+<% if flash[:errors] %>
+	<% if flash[:errors].any? %>
+	  <% flash[:errors].each do |error_message| %>
+	    <%= error_message %> <br />
+	  <% end %>
+	<% end %>
+<% end %>

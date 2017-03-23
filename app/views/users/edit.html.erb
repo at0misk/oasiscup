@@ -11,3 +11,10 @@
 	<input type="hidden" name="user[fee_status]" value="true">
 	<input type="submit" value="submit">
 </form>
+<% if flash[:errors] %>
+	<% if flash[:errors].any? %>
+	  <% flash[:errors].each do |error_message| %>
+	    <%= error_message %> <br />
+	  <% end %>
+	<% end %>
+<% end %>

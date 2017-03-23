@@ -71,6 +71,10 @@
       float: right;
       margin: 0 2%;
     }
+    /* Braintree Paypal Disable: */
+    .payment-method-options{
+      display: none;
+    }
   </style>
   </head>
 
@@ -91,8 +95,17 @@
       </div>
       <div id="navbar3" class="navbar-collapse collapse">
         <ul class="nav navbar-nav loginReg">
-          <li class="nav-item">
-            <!-- <a href="/hotels/new" class="nav-link">Register Hotel</a> -->
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Guest List <span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/guests/show">View Guests</a></li>
+              <li><a href="/guests/new">Edit Guests</a></li>
+<!--               <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">One more separated link</a></li> -->
+            </ul>
           </li>
           <li class="nav-item">
             <a href="/hotels" class="nav-link">Book Rooms</a>
@@ -100,7 +113,7 @@
           <li class="nav-item">
             <!-- <a href="/rooms" class="nav-link">Make Reseveration</a> -->
           </li>
-          <li class="nav-item">
+          <li class="nav-item" data-no-turbolink>
             <a href="/cart" class="nav-link">Cart</a>
           </li>
           <li class="nav-item">

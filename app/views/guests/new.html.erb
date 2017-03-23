@@ -1,0 +1,70 @@
+<style type="text/css">
+	.staticDiv{
+		display: inline-block;
+		margin-left: 3%;
+	}
+	.appDiv{
+		display: inline-block;
+    	margin-left: 3%;
+	}
+	.app{
+		display: inline;
+	}
+	.add{
+		display: inline;
+		margin-left: 5%;
+	}
+	.addh3{
+		display: inline;
+	}
+	.cont{
+		margin-top: 3%;
+	}
+	.subDiv{
+		display: inline;
+	}
+</style>
+<h3 class="addh3">Guest List</h3><button class="btn btn-primary add">Add More Guests</button>
+<% if flash[:errors] %>
+<%= flash[:errors] %>
+<% end %>
+<div class="cont">
+<form action="/guests/create" method="POST">
+<% y = 0 %>
+	<% if @guests %>
+		<% @guests.each do |val| %>
+			<div class="staticDiv">
+				First Name: <input type='text' name="guest[first<%= y %>]" value="<%= val.first %>">
+				Last Name: <input type='text' name="guest[last<%= y %>]" value="<%= val.last %>">
+				<% if val.guest_type == 'Child' %>
+				Child: <input type='radio' name="guest[type<%= y %>]" value='Child' checked="checked" />
+				Adult: <input type='radio' name="guest[type<%= y %>]" value='Adult' />
+				<% else %>
+				Child: <input type='radio' name="guest[type<%= y %>]" value='Child' />
+				Adult: <input type='radio' name="guest[type<%= y %>]" value='Adult' checked="checked" />
+				<% end %>
+			</div>
+			<% y += 1 %>
+		<% end %>
+	<% end %>
+	<div class="staticDiv">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		First Name: <input type='text' name='guest[first<%= y %>]'>
+		Last Name: <input type='text' name='guest[last<%= y %>]'>
+		Child: <input type='radio' name='guest[type<%= y %>]' value='Child' />
+		Adult: <input type='radio' name='guest[type<%= y %>]' value='Adult' />
+	</div>
+	<div class="app"></div>
+	<div class="subDiv"><input type="submit" value="Submit" class="btn btn-primary"></div>
+</form>
+</div>
+<script type="text/javascript">
+	$(document).ready(function(){
+		var x = <%= y %>
+		x++;
+		$('.add').click(function(){
+			$('.app').append("<div class='appDiv'> First Name: <input type='text' name='guest[first" + x + "]'> Last Name: <input type='text' name='guest[last" + x + "]'> Child: <input type='radio' name='guest[type" + x + "]' value='Child' /> Adult: <input type='radio' name='guest[type" + x + "]' value='Adult' /></div>");
+			x++;
+		})
+	})
+</script>

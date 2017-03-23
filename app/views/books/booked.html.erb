@@ -1,3 +1,7 @@
+<% if @booked_rooms.empty? %>
+<h3>You haven't booked any rooms.</h3>
+<h4>If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
+<% else %>
 <h3>My Booked Rooms</h3>
 <div class="table-responsive">
 <table class="table-striped">
@@ -43,3 +47,4 @@
 	</tbody>
 </table>
 </div>
+<% end %>

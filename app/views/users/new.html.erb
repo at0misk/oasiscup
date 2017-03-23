@@ -12,3 +12,10 @@
 	<input type="submit" value="submit">
 </form>
 </div>
+<% if flash[:errors] %>
+	<% if flash[:errors].any? %>
+	  <% flash[:errors].each do |error_message| %>
+	    <%= error_message %> <br />
+	  <% end %>
+	<% end %>
+<% end %>

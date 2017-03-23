@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+	before_action :authenticate_user!, :except => [:login, :logout, :new]
 	def login
 		if session[:user_id]
 			redirect_to '/'
