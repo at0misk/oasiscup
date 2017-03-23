@@ -28,25 +28,27 @@
 <%= flash[:errors] %>
 <% end %>
 <h3 class="addh3">Guest List</h3><button class="btn btn-primary add">Add More Guests</button>
+	<% if @guests %>
+		<table class="table-striped">
+			<thead>
+				<td>First</td>
+				<td>Last</td>
+				<td></td>
+			</thead>
+			<tbody>
+			<% @guests.each do |val| %>
+				<tr>
+					<td><%= val.first %></td>
+					<td><%= val.last %></td>
+					<td><%= val.guest_type %></td>
+				</tr>
+			<% end %>
+			</tbody>
+		</table>
+	<% end %>
 <div class="cont">
 <form action="/guests/create" method="POST">
 <% y = 0 %>
-	<% if @guests %>
-		<% @guests.each do |val| %>
-			<div class="staticDiv">
-				First Name: <input type='text' name="guest[first<%= y %>]" value="<%= val.first %>">
-				Last Name: <input type='text' name="guest[last<%= y %>]" value="<%= val.last %>">
-				<% if val.guest_type == 'Child' %>
-				Child: <input type='radio' name="guest[type<%= y %>]" value='Child' checked="checked" />
-				Adult: <input type='radio' name="guest[type<%= y %>]" value='Adult' />
-				<% else %>
-				Child: <input type='radio' name="guest[type<%= y %>]" value='Child' />
-				Adult: <input type='radio' name="guest[type<%= y %>]" value='Adult' checked="checked" />
-				<% end %>
-			</div>
-			<% y += 1 %>
-		<% end %>
-	<% end %>
 	<div class="staticDiv">
 		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 		First Name: <input type='text' name='guest[first<%= y %>]'>

@@ -61,4 +61,12 @@ class GuestsController < ApplicationController
   		Guest.destroy(params[:id])
   		redirect_to :back
   	end
+  	def update
+  		@guest = Guest.find(params[:id])
+  		@guest.first = params['first']
+  		@guest.last = params['last']
+  		@guest.guest_type = params['guest_type']
+  		@guest.save
+  		redirect_to :back
+  	end
 end

@@ -54,7 +54,7 @@
 			</span>
 			<% @guests.each do |val| %>
 			<span class="rowG">
-				<span class="cell"><form action="/guests/<%= val.id %>" method="POST"><input type="text" name="first" value="<%= val.first %>"></span>
+				<span class="cell"><form action="/guests/<%= val.id %>" method="POST"><input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"><input type="hidden" name="_method" value="PATCH"><input type="text" name="first" value="<%= val.first %>"></span>
 				<span class="cell"><input type="text" name="last" value="<%= val.last %>"></span>
 				<% if val.guest_type == 'Child' %>
 				<span class="cell">Child: <input type='radio' name="guest_type" value='Child' checked="checked" />
@@ -63,9 +63,9 @@
 				<span class="cell">Child: <input type='radio' name="guest_type" value='Child' />
 					Adult: <input type='radio' name="guest_type" value='Adult' checked="checked" /></span>
 				<% end %>
-				<span class="cell"><button type="button" class="btn btn-primary">Update</button></form></span>
+				<span class="cell"><button type="submit" class="btn btn-primary">Update</button></form></span>
 					<span class="cell"><form action="/guests/delete/<%= val.id %>" method="POST" class="cancelForm"><input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"></span>
-					<span class="cell"><button type="button" class="btn btn-danger">Remove Guest</button></form></span>
+					<span class="cell"><button type="submit" class="btn btn-danger">Remove Guest</button></form></span>
 			</span>
 			<% end %>
 		</span>

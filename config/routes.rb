@@ -32,4 +32,5 @@ Rails.application.routes.draw do
   post 'guests/create' => 'guests#create'
   get 'guests/show' => 'guests#show'
   post 'guests/delete/:id' => 'guests#delete'
+  patch 'guests/:id' => 'guests#update'
 end
