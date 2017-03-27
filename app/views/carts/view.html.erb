@@ -34,7 +34,7 @@
 			<th>Smoking</th>
 			<th>Type</th>
 			<th>Room Price</th>
-			<th>Action</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -48,7 +48,7 @@
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
 		<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-				<button type="submit" class="btn btn-danger">Cancel</button>
+				<button type="submit" class="btn btn-danger">Remove</button>
 			</form>
 		</td>
 		</tr>

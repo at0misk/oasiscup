@@ -104,13 +104,16 @@
     .navbar-brand-text{
       padding: 15px 20px;
     }
+    body { 
+      padding-top: 50px; 
+    }
   </style>
   </head>
 
   <body>
   <% if session[:user_id] && session[:payed] %>
   <div class="example3">
-  <nav class="navbar navbar-dark navbar-static-top">
+  <nav class="navbar navbar-dark navbar-fixed-top">
     <!-- <div class="container"> -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar3">
