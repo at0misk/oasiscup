@@ -56,8 +56,8 @@ class CartsController < ApplicationController
 				@booked.save
 				Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 				Cart.where(user_id: session[:user_id]).destroy_all
-		end
-		redirect_to :back
+			end
+			redirect_to '/booked'
 		else
 			flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
 			gon.client_token = generate_client_token

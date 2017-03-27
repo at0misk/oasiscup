@@ -24,22 +24,39 @@ class HotelsController < ApplicationController
   	params.require(:hotel).permit(:name, :address) 
   	end
   	def all
+      if !session[:fromCount]
   		session[:childCount] = 0
   		session[:adultCount] = 1
-		@user = User.find(session[:user_id])
-		if @user.guests.empty?
-			@noGuests = true
-		else
-			@noGuests = false
-			@user.guests.each do |val|
-				if val.guest_type == "Child"
-					session[:childCount] += 1
-				elsif val.guest_type == "Adult"
-					session[:adultCount] += 1
-				end
-			end
-		end
-  		@hotels = Hotel.all
+  		@user = User.find(session[:user_id])
+  		if @user.guests.empty?
+  			@noGuests = true
+  		else
+  			@noGuests = false
+  			@user.guests.each do |val|
+  				if val.guest_type == "Child"
+  					session[:childCount] += 1
+  				elsif val.guest_type == "Adult"
+  					session[:adultCount] += 1
+  				end
+  		  end
+    	end
+      else
+      @user = User.find(session[:user_id])
+      if @user.guests.empty?
+        @noGuests = true
+      else
+        @noGuests = false
+        @user.guests.each do |val|
+          if val.guest_type == "Child"
+            session[:childCount] += 1
+          elsif val.guest_type == "Adult"
+            session[:adultCount] += 1
+          end
+        end
+      end
+        session[:fromCount] = false
+      end
+    		@hotels = Hotel.all
   	end
   	def search
   		searchArr = []

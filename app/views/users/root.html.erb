@@ -1,1 +1,233 @@
-<h1>Landing Page</h1>
+<style type="text/css">
+	.landingimg img{
+		width: 100%;
+		display: block;
+		margin-top: 0!important;
+	}
+	.text{
+		/*background-color: black;*/
+		padding: 5%;
+	}
+.img-wrapper {
+  position: relative;
+ }
+
+.img-overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.img-overlay:before {
+  content: ' ';
+  display: block;
+  /* adjust 'height' to position overlay content vertically */
+  height: 35%;
+}
+.btn-responsive {
+  /* matches 'btn-md' */
+  padding: 10px 16px;
+  font-size: 18px;
+  line-height: 1.3333333;
+  border-radius: 6px;
+}
+
+.header-img {
+  /* matches 'btn-md' */
+  padding: 10px 16px;
+  /*font-size: 18px;*/
+  line-height: 1.3333333;
+  border-radius: 6px;
+  color: white;
+}
+
+.tab-content{
+	margin-top: 1%;
+}
+
+@media (max-width:760px) { 
+    /* matches 'btn-xs' */
+    .btn-responsive {
+        padding: 1px 5px;
+        font-size: 12px;
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+    .header-img {
+        padding: 1px 5px;
+        /*font-size: 12px;*/
+        line-height: 1.5;
+        border-radius: 3px;
+    }
+}
+.form-horizontal .control-label{
+	padding-top: 0px!important;
+}
+.nav-tabs{
+	border: none;
+}
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+	border: none;
+}
+
+.modalButtons{
+	text-align: center;
+}
+
+</style>
+<div class="row img-wrapper">
+<span class='landingimg'><%= image_tag("secondcrop.png") %>
+</span>
+<div class="img-overlay">
+<h1 class='header-img'>Oasis Cup Palm Desert</h1>
+<% if session[:user_id] %>
+<% else %>
+<button class="btn btn-primary btn-responsive regButton" data-toggle="modal" data-target="#myModal">Register</button>
+<button class="btn btn-primary btn-responsive loginButton" data-toggle="modal" data-target="#myModal">Login</button>
+<% end %>
+</div>
+</div>
+<div class="row">
+<div class="col-md-4 text">
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum posuere est, pulvinar finibus orci tempor non. Mauris facilisis lorem at fringilla accumsan. Phasellus ullamcorper maximus elit vel varius.
+</div>
+<div class="col-md-4 text">
+Curabitur scelerisque nulla velit, vel tincidunt libero consectetur at. Maecenas condimentum lectus sit amet nisi pharetra fermentum. Sed et congue dolor. Nulla quis interdum dolor.
+</div>
+<div class="col-md-4 text">
+Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id fermentum elit, a fermentum mauris. Vivamus posuere tincidunt felis, at tempor turpis malesuada quis. 
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    ×</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    Login/Registration</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Nav tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active regTab"><a href="#Registration" data-toggle="tab">Registration</a></li>
+                            <li class="loginTab"><a href="#Login" data-toggle="tab">Login</a></li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div class="tab-pane" id="Login">
+                                <form class="form-horizontal" method="POST" action="sessions/new">
+                                <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-3 control-label">
+                                        Email</label>
+                                    <div class="col-sm-6">
+                                        <input name="email" type="email" class="form-control" id="email1" placeholder="Email" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputPassword1" class="col-sm-3 control-label">
+                                        Password</label>
+                                    <div class="col-sm-6">
+                                        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    </div>
+                                    <div class="col-sm-6 modalButtons">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Login</button>
+                                        <!-- <a href="javascript:;">Forgot your password?</a> -->
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                            <div class="tab-pane active" id="Registration">
+                                <form class="form-horizontal" method="post" action="users/create">
+                                <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+                            	<div class="form-group">
+                                    <label for="email" class="col-sm-3 control-label">
+                                        First Name</label>
+                                    <div class="col-sm-6">
+                                        <input name="user[first]" type="text" class="form-control" id="email" placeholder="First Name" />
+                                    </div>
+                                </div>
+                            	<div class="form-group">
+                                    <label for="email" class="col-sm-3 control-label">
+                                        Last Name</label>
+                                    <div class="col-sm-6">
+                                        <input name="user[last]" type="text" class="form-control" id="email" placeholder="Last Name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email" class="col-sm-3 control-label">
+                                        Email</label>
+                                    <div class="col-sm-6">
+                                        <input name="user[email]" type="email" class="form-control" id="email" placeholder="Email" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-sm-3 control-label">
+                                        Password</label>
+                                    <div class="col-sm-6">
+                                        <input name="user[password]" type="password" class="form-control" id="password" placeholder="Password" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-sm-3 control-label">
+                                        Password Confirmation</label>
+                                    <div class="col-sm-6">
+                                        <input name="user[password_confirmation]" type="password" class="form-control" id="password" placeholder="Password Confirmation" />
+                                    </div>
+                                </div>
+                            	<div class="form-group">
+                                    <label for="email" class="col-sm-3 control-label">
+                                        Team Name</label>
+                                    <div class="col-sm-6">
+                                        <input name="user[team]" type="text" class="form-control" id="email" placeholder="Team Name" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                    </div>
+                                    <div class="col-sm-6 modalButtons">
+                                        <button type="submit" class="btn btn-primary btn-sm">
+                                            Register</button>
+<!--                                         <button type="button" class="btn btn-default btn-sm">
+                                            Cancel</button> -->
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+	$(document).on('turbolinks:load', function() {
+		    $('.loginButton').on('click', function(){
+			  	$('#Registration').removeClass('active');
+			  	$('.regTab').removeClass('active');
+			  	$('#Login').addClass('active');
+			  	$('.loginTab').addClass('active');
+		  })
+		    $('.regButton').on('click', function(){
+			  	$('#Registration').addClass('active');
+			  	$('.regTab').addClass('active');
+			  	$('#Login').removeClass('active');
+			  	$('.loginTab').removeClass('active');
+		})
+	})
+</script>

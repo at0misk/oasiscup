@@ -1,5 +1,5 @@
 class TransactionsController < ApplicationController
-	# before_action :check_cart!
+	before_action :authenticate_user!
 
 	def new
 	  gon.client_token = generate_client_token

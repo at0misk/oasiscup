@@ -1,13 +1,88 @@
+<style type="text/css">
+	.countForm{
+		text-align: center;
+		margin-top: 2%;
+	}
+	.countForm input{
+		display: inline;
+    	width: 5%;
+	}
+	.countForm button{
+		display: inline-block;
+	    vertical-align: top;
+	    margin-left: 2%;
+	}
+	.countForm h4{
+		display: inline;
+		vertical-align: -webkit-baseline-middle;
+	}
+	.countForm h3{
+		display: inline;
+		vertical-align: -webkit-baseline-middle;
+	}
+	#map {
+		height: 400px;
+		width: 100%;
+	}
+	.hotelBox img{
+		/*background-image: url(/assets/hotel.jpg);*/
+		height: 200px;
+		/*margin: 1% 1%;*/
+		/*width: 100%;*/
+	}
+	.hotelBox img:hover{
+		opacity: .8;
+	}
+	.hotelBoxRow{
+		margin-top: 2%;
+	}
+</style>
+<div id="map"></div>
 <% if @noGuests %>
 <h3>Your guest list is empty.</h3>
 <h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
-<h4>Searching for <%= session[:adultCount] %> Adult.</h4>
+<form action="count" method="post" class="countForm">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<h4>Searching for <input name="child" type="number" value="<%= session[:childCount] %>" min="0"> Children and <input name="adult" type="number" value="<%= session[:adultCount] %>" min="1"> Adults.</h4><button class="btn btn-primary">Find Rooms!</button></form>
 <% else %>
-<h4>Searching for <%= session[:childCount] %> Children and <%= session[:adultCount] %> Adults.</h4>
+<form action="count" method="post" class="countForm">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<h3>Searching for <input name="child" type="number" value="<%= session[:childCount] %>" min="0"> Children and <input name="adult" type="number" value="<%= session[:adultCount] %>" min="1"> Adults.</h3><button class="btn btn-primary">Find Rooms!</button></form>
 <% end %>
+<div class="row hotelBoxRow">
+	<div class="col-md-3 hotelBox">
+		<%= image_tag("hotel.jpg") %>
+	</div>
+	<div class="col-md-3 hotelBox">
+		<%= image_tag("hotel.jpg") %>
+	</div>
+	<div class="col-md-3 hotelBox">
+		<%= image_tag("hotel.jpg") %>
+	</div>
+	<div class="col-md-3 hotelBox">
+		<%= image_tag("hotel.jpg") %>
+	</div>
+</div>
 <% @hotels.each do |val| %>
 <h3><a href="/hotels/<%= val.id %>"><%= val.name %></a></h3>
 <% end %>
 <h2><a href="/roomByPrice/1">$70-$120</a></h2>
 <h2><a href="/roomByPrice/2">$120-$150</a></h2>
 <h2><a href="/roomByPrice/3">$150-$200</a></h2>
+<script type="text/javascript">
+		function initMap() {
+        var palmSprings = {lat: 33.830296, lng: -116.545292};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: palmSprings
+        });
+        var marker = new google.maps.Marker({
+          position: palmSprings,
+          map: map
+        });
+      }
+	$(document).on('turbolinks:load', function() {
+		// initMap();
+	})
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoGMPOpQH15g01IyT8sEixBSGrunT4GDY&callback=initMap"></script>

@@ -1,8 +1,20 @@
 <style type="text/css">
-/*	#braintree-paypal-button{
+/*	.payment-method-options{
       display: none!important;
     }*/
+    .checkoutButton{
+    	float: right;
+    	margin-top: 1%;
+    }
+    .checkoutDiv{
+    	margin-top: 2%;
+    	width: 100%;
+    }
 </style>
+<div class="row">
+<div class="col-md-3">
+</div>
+<div class="col-md-6">
 <% if @cart_rooms.empty? %>
 <h3>Your cart is empty</h3>
 <h4>If you've already booked rooms, you can view them <a href="booked">here</a>, or book more <a href='hotels'>rooms.</a></h4>
@@ -53,15 +65,18 @@
 	</tbody>
 </table>
 </div>
-<div class="col-md-6">
+<div class="checkoutDiv">
 <form id="checkout" method="post" action="/cart/checkout">
 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
   <div id="payment-form"></div>
   <input type="hidden" name="total" value="<%= @total %>">
-  <button type="submit" class="btn btn-success">Checkout</button>
+  <button type="submit" class="btn btn-success checkoutButton">Checkout</button>
 </form>
 </div>
-
+</div>
+<div class="col-md-3">
+</div>
+</div>
 <script src="https://js.braintreegateway.com/js/braintree-2.31.0.min.js"></script>
 <script>
 // We generated a client token for you so you can test out this code

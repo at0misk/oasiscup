@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 			session[:user_id] = @user.id
 	  		session[:payed] = false
 	  		# Default Mailer
-	  		UserMailer.welcome_email(@user).deliver_later(wait: 4.minutes)
+	  		UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
 			redirect_to '/payment'
 		else
 			flash[:errors] = @user.errors.full_messages

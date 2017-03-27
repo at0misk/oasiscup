@@ -11,12 +11,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
   <style>
+    .container{
+      /*margin: 0px auto;*/
+    }
 /*  	#header a{
   		display: inline;
   	}*/
@@ -38,30 +41,31 @@
     table button{
       width: 100%;
     }
-    nav{
-      background-color: #00458c;
+    .example3 nav{
+      background-color: #0275d8;
     }
-    nav a{
+    .example3 nav a{
       color: white;
     }
-    nav a:hover{
-      color: #00458c;
+    .navbar-brand:hover{
+      color: white;
+      /*background-color: white;*/
     }
-    .navbar-brand img{
-      /*display: inline;*/
+    .navbar-brand{
+      /*padding: 0px 15px;*/
     }
     /* EXAMPLE 3
 
     line height is 20px by default so add 30px top and bottom to equal the new .navbar-brand 80px height  */
 
     .example3 .navbar-brand {
-      height: 90px;
+      /*height: 90px;*/
     }
 
     .example3 .nav >li >a {
-      font-size: 1.3em;
-      padding-top: 40px;
-      padding-bottom: 40px;
+      /*font-size: 1.3em;*/
+      /*padding-top: 40px;*/
+      /*padding-bottom: 40px;*/
     }
     .example3 .navbar-toggle {
       padding: 10px;
@@ -71,9 +75,34 @@
       float: right;
       margin: 0 2%;
     }
+   .example3 ul.nav a:hover { 
+      color: white !important;
+      background-color: #0275d8;
+    }
+   .example3 .nav .open>a {
+      color: white !important;
+      background-color: #0275d8 !important;
+    }
     /* Braintree Paypal Disable: */
     .payment-method-options{
       display: none;
+    }
+   .navbar{
+      margin-bottom: 0px;
+    }
+    .dropdown-menu li a{
+      background-color: white;
+      color: black;
+    }
+    .dropdown-menu li:hover{
+      background-color: white;
+      color: black;
+    }
+    .navbar-brand-logo{
+      padding: 5px 10px;
+    }
+    .navbar-brand-text{
+      padding: 15px 20px;
     }
   </style>
   </head>
@@ -81,7 +110,7 @@
   <body>
   <% if session[:user_id] && session[:payed] %>
   <div class="example3">
-  <nav class="navbar navbar-light navbar-static-top">
+  <nav class="navbar navbar-dark navbar-static-top">
     <!-- <div class="container"> -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar3">
@@ -90,7 +119,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><%= image_tag("header1.png") %>
+        <a class="navbar-brand navbar-brand-logo" href="/"><%= image_tag("logo3.png") %></a><a class="navbar-brand navbar-brand-text" href="/">Oasis Cup Palm Desert
         </a>
       </div>
       <div id="navbar3" class="navbar-collapse collapse">
@@ -171,18 +200,18 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/"><%= image_tag("header1.png") %>
+        <a class="navbar-brand" href="/"><%= image_tag("logo3.png") %><a class="navbar-brand" href="/">Oasis Cup Palm Desert
         </a>
       </div>
       <div id="navbar3" class="navbar-collapse collapse">
-    <ul class="nav navbar-nav loginReg">
+<!--     <ul class="nav navbar-nav loginReg">
       <li class="nav-item">
-        <a href="/users/new" class="nav-link">Register</a>
+        <a href="/users/new" class="nav-link" data-turbolinks="false">Register</a>
       </li>
       <li class="nav-item">
         <a href="/login" class="nav-link">Login</a>
       </li>
-    </ul>
+    </ul> -->
       </div>
       <!--/.nav-collapse -->
     <!-- </div> -->

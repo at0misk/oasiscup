@@ -1,72 +1,129 @@
 <style type="text/css">
 	.staticDiv{
 		display: inline-block;
-		margin-left: 3%;
+		/*margin-left: 2%;*/
 	}
 	.appDiv{
 		display: inline-block;
-    	margin-left: 3%;
+    	/*margin-left: 2%;*/
 	}
 	.app{
 		display: inline;
 	}
 	.add{
-		display: inline;
-		margin-left: 5%;
+		display: inline-block;
+		/*margin: 0px auto;*/
+		/*margin-left: 1%;*/
 	}
 	.addh3{
 		display: inline;
 	}
 	.cont{
+	    display: inline-block;
+	    vertical-align: top;
 		margin-top: 3%;
 	}
 	.subDiv{
+		display: inline-block;
+	}
+	.left{
+		display: inline-block;
+	}
+	.addGuests{
+		/*text-align: center;*/
+		margin-top: 2%;
+	}
+/*	.reminder{
 		display: inline;
+	}*/
+	.form-check{
+		display: inline;
+	}
+	.form-check label{
+		margin-right: 5%;
+		font-weight: bold;
 	}
 </style>
 <% if flash[:errors] %>
 <%= flash[:errors] %>
 <% end %>
-<h3 class="addh3">Guest List</h3><button class="btn btn-primary add">Add More Guests</button>
-	<% if @guests %>
-		<table class="table-striped">
-			<thead>
-				<td>First</td>
-				<td>Last</td>
-				<td></td>
-			</thead>
-			<tbody>
-			<% @guests.each do |val| %>
-				<tr>
-					<td><%= val.first %></td>
-					<td><%= val.last %></td>
-					<td><%= val.guest_type %></td>
-				</tr>
-			<% end %>
-			</tbody>
-		</table>
-	<% end %>
-<div class="cont">
-<form action="/guests/create" method="POST">
-<% y = 0 %>
-	<div class="staticDiv">
+<!-- <div class="container"> -->
+<div class="addGuests">
+<% if @guests.empty? %>
+<h3 class="">Please add all guests you plan on booking for:</h3>
+<% else %>
+<h3 class="">Guest List</h3>
+<% end %>
+<button class="btn btn-primary add">Add More Guests</button>
+<button class="btn btn-primary submitAdd">Submit Guest List</button>
+</div>
+<div class="row">
+<!-- <div class="col-md-2"></div> -->
+	<form action="/guests/create" method="POST" id="guestCreateForm">
+<div class="cont col-md-3 staticDiv">
+	<% y = 0 %>
 		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-		First Name: <input type='text' name='guest[first<%= y %>]'>
+        <div class="form-group">
+            <label for="email" class=" control-label">
+                First Name</label>
+            <div class="">
+                <input name="guest[first<%= y %>]" type="text" class="form-control" id="email1" placeholder="First Name" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email" class=" control-label">
+                Last Name</label>
+            <div class="">
+                <input name="guest[last<%= y %>]" type="text" class="form-control" id="email1" placeholder="Last Name" />
+            </div>
+        </div>
+            <div class="radio">
+                <div class="form-check form-check-inline">
+			      <label class="form-check-label">
+			        <input type="radio" class="form-check-input" name='guest[type<%= y %>]' value='Child'>
+			        Child
+			      </label>
+			    </div>
+			    <div class="form-check form-check-inline">
+			      <label class="form-check-label">
+			        <input type="radio" class="form-check-input" name='guest[type<%= y %>]' value='Adult'>
+			        Adult
+			      </label>
+			    </div>
+            </div>
+<!-- 		First Name: <input type='text' name='guest[first<%= y %>]'>
 		Last Name: <input type='text' name='guest[last<%= y %>]'>
 		Child: <input type='radio' name='guest[type<%= y %>]' value='Child' />
-		Adult: <input type='radio' name='guest[type<%= y %>]' value='Adult' />
+		Adult: <input type='radio' name='guest[type<%= y %>]' value='Adult' /> -->
 	</div>
 	<div class="app"></div>
-	<div class="subDiv"><input type="submit" value="Submit" class="btn btn-primary"></div>
+<!-- </div> -->
+<!-- <div class="col-md-2"></div> -->
+<!-- </div> -->
+<!-- <div class="row"> -->
+<!-- <div class="subDiv"><input type="submit" value="Submit" class="btn btn-primary"></div> -->
+<!-- </div> -->
 </form>
 </div>
+<!-- </div> -->
 <script type="text/javascript">
 	$(document).ready(function(){
 		var x = <%= y %>
 		x++;
 		$('.add').click(function(){
-			$('.app').append("<div class='appDiv'> First Name: <input type='text' name='guest[first" + x + "]'> Last Name: <input type='text' name='guest[last" + x + "]'> Child: <input type='radio' name='guest[type" + x + "]' value='Child' /> Adult: <input type='radio' name='guest[type" + x + "]' value='Adult' /></div>");
+			$('.app').append("<div class='cont col-md-3 staticDiv'><button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button><div class='form-group'><label for='email' class=' control-label'>First Name</label><div class=''><input name='guest[first" + x + "]' type='text' class='form-control' id='email1' placeholder='First Name' /></div></div><div class='form-group'><label for='email' class=' control-label'>Last Name</label><div class=''><input name='guest[last" + x + "]' type='text' class='form-control' id='email1' placeholder='Last Name' /></div></div><div class='radio'><div class='form-check form-check-inline'><label class='form-check-label'><input type='radio' class='form-check-input' name='guest[type" + x + "]' value='Child'>Child</label></div><div class='form-check form-check-inline'><label class='form-check-label'><input type='radio' class='form-check-input'  name='guest[type" + x + "]' value='Adult'>Adult</label></div></div></div>");
 			x++;
+			$(".close").click(function(){
+		    	$(this).parent().remove();
+	    	});
+		})
+		$('.submitAdd').click(function(){
+			$('#guestCreateForm').submit();
 		})
 	})
+	// $(document).on('ready', function(){
+	// 	// $(".close").click(function(){
+	// 	//     $(this).parent().remove();
+	//  //    });
+	// })
 </script>

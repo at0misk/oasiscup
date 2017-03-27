@@ -1,10 +1,28 @@
-<h3>Payment</h3>
-<form id="checkout" method="post" action="/transactions">
-<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-  <div id="payment-form"></div>
-  <input type="submit" value="Pay $10">
-</form>
+<style type="text/css">
+	.paymentDiv{
+		margin-top: 5%;
+	}
+	#payButtonDiv{
+		/*text-align: center;*/
+		margin-top: 3%;
+	}
+</style>
 
+<div class="row paymentDiv">
+	<div class="col-md-3">
+	</div>
+	<div class="col-md-6">
+		<h3>Payment</h3>
+		<p>Aenean eu fringilla sem, in consequat ex. Maecenas ultrices, quam in sollicitudin vestibulum, dui diam congue neque, a elementum nulla risus accumsan magna. Praesent vitae ex a dui faucibus mollis. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam interdum fermentum odio sit amet laoreet. Vestibulum lacinia leo sit amet urna sodales, ac sagittis lacus tempor. Praesent tristique risus id semper luctus. Phasellus quam quam, lacinia non tellus a, tristique hendrerit ex. Donec sollicitudin, diam ut imperdiet venenatis, urna odio elementum metus, a porta est ante vel leo. Donec nisi ipsum, aliquet eu magna sed, bibendum lobortis purus. Nulla in rhoncus justo. Phasellus vitae sapien pellentesque, accumsan massa et, vulputate dui. Praesent lobortis metus ac turpis fermentum, vitae dapibus augue auctor.</p>
+		<form id="checkout" method="post" action="/transactions">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		  <div id="payment-form"></div>
+		  <div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay $10"></div>
+		</form>
+	</div>
+	<div class="col-md-3">
+	</div>
+</div>
 <script src="https://js.braintreegateway.com/js/braintree-2.31.0.min.js"></script>
 <script>
 // We generated a client token for you so you can test out this code
@@ -16,4 +34,4 @@ braintree.setup("<%= @token %>", "dropin", {
   container: "payment-form"
 });
 </script>
-<p>Fee Status: <%= @user.fee_status %></p>
+<!-- <p>Fee Status: <%= @user.fee_status %></p> -->

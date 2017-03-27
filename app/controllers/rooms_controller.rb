@@ -29,4 +29,10 @@ class RoomsController < ApplicationController
   			@rooms = Room.where(price: 150..200).order(:price)
   		end
   	end
+  	def count
+  		session[:fromCount] = true
+  		session[:childCount] = params['child'].to_i
+  		session[:adultCount] = params['adult'].to_i
+  		redirect_to :back
+  	end
 end
