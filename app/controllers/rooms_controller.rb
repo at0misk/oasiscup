@@ -33,6 +33,6 @@ class RoomsController < ApplicationController
   		session[:fromCount] = true
   		session[:childCount] = params['child'].to_i
   		session[:adultCount] = params['adult'].to_i
-  		redirect_to :back
+  		redirect_to '/hotels'
   	end
 end
