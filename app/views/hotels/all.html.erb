@@ -36,8 +36,22 @@
 	.hotelBoxRow{
 		margin-top: 2%;
 	}
+      #legend {
+        font-family: Arial, sans-serif;
+        background: #fff;
+        padding: 10px;
+        margin: 10px;
+        border: 1px solid #000;
+      }
+      #legend h3 {
+        margin-top: 0;
+      }
+    .keys{
+    	cursor: pointer;
+    }
 </style>
 <div id="map"></div>
+<div id="legend"><h5>Hotels</h5></div>
 <% if @noGuests %>
 <h3>Your guest list is empty.</h3>
 <h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
@@ -84,7 +98,7 @@
         var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
-            '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+            '<h3 id="firstHeading" class="firstHeading">Uluru</h3>'+
             '<div id="bodyContent">'+
             '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
             'sandstone rock formation in the southern part of the '+
@@ -108,6 +122,18 @@
         marker.addListener('click', function() {
           infowindow.open(map, marker);
         });
+
+        var legend = document.getElementById('legend');
+	      var div = document.createElement('div');
+	      div.innerHTML = "<span class='holidayInnKey keys'><img src='http://maps.google.com/mapfiles/ms/icons/red-dot.png'>" + "Holiday Inn</span>";
+	      legend.appendChild(div);
+
+        map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
+
+        $('.holidayInnKey').on('click', function(){
+          infowindow.open(map, marker);
+        })
+
       }
 	$(document).on('turbolinks:load', function() {
 		// initMap();
