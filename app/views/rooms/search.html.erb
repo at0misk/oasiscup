@@ -2,6 +2,7 @@
 <table class="table-striped">
 	<thead>
 		<tr>
+			<th>Hotel</th>
 			<th>Room Number</th>
 			<th>Room Price</th>
 			<th>Smoking</th>
@@ -11,6 +12,7 @@
 	<tbody>
 		<% @rooms.each do |val| %>
 		<tr>
+		<td><%= val.hotel.name %></td>
 		<td><a href="/rooms/<%= val.id %>"><%= val.number %></a></td>
 		<td><%= val.price %></td>
 		<td><%= val.smoking %></td>

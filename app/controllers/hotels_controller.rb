@@ -15,8 +15,11 @@ class HotelsController < ApplicationController
 		@hotel = Hotel.find(params[:id])
 		if session[:searching] == true
 			@rooms = @@roomSwitch
+      # puts '============'
+      # puts @rooms.first
+      # fail
 		else
-  			@rooms = @hotel.rooms
+  		@rooms = @hotel.rooms
   		end
   		session[:searching] = false
 	end
@@ -64,11 +67,13 @@ class HotelsController < ApplicationController
   		tag_ids = params[:tag_ids]
   		if tag_ids
   			if tag_ids.include? '4'
+          cheapestOnly = true
   				@@roomSwitch = @hotel.rooms.order(:price)
   			else
   				@@roomSwitch = @hotel.rooms
   			end
   			if tag_ids.include? '1'
+          cheapestOnly = false
   				@@roomSwitch.each do |val|
   					if val.room_type == 'Single'
   						searchArr << val
@@ -76,22 +81,29 @@ class HotelsController < ApplicationController
 				end
 			end
 			if tag_ids.include? '2'
+          cheapestOnly = false
   				@@roomSwitch.each do |val|
   					if val.room_type == 'Double'
   						searchArr << val
   					end
 				end
-  			end
+  		end
 			if tag_ids.include? '3'
+          cheapestOnly = false
   				@@roomSwitch.each do |val|
   					if val.room_type == 'Suite'
   						searchArr << val
   					end
 				end
-  			end
- 			@@roomSwitch = searchArr
+  		end
+        if cheapestOnly
+          @@roomSwitch = @hotel.rooms.order(:price)
+        else
+   			@@roomSwitch = searchArr
+        end
   		else
-  			session[:searching] = false
+        @@roomSwitch = @hotel.rooms
+  			# session[:searching] = false
   		end
    		redirect_to "/hotels/#{@hotel.id}"
   	end

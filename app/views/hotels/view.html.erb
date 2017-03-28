@@ -11,8 +11,21 @@
 	#roomSearchForm input{
 		display: inline;
 	}
+	.hotelImg img{
+		height: 400px;
+	}
+	#map{
+		height: 400px;
+	}
 </style>
 <h3><%= @hotel.name %></h3>
+<div class="row">
+	<div class="col-md-6 hotelImg">
+		<%= image_tag("hotel.jpg") %>
+	</div>
+	<div class="col-md-6" id="map">
+	</div>
+</div>
 <h3><%= @hotel.address %></h3>
 <div>
 	<form action="/rooms/search/<%= @hotel.id %>" method="post" id="roomSearchForm">
@@ -57,3 +70,18 @@
 	<input type="hidden" name="room[hotel_id]" value="<%= @hotel.id %>">
 	<input type="submit" value="submit">
 </form>
+<script type="text/javascript">
+		function initMap() {
+        var palmSprings = {lat: 33.830296, lng: -116.545292};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 15,
+          center: palmSprings
+        });
+        var marker = new google.maps.Marker({
+          position: palmSprings,
+          map: map,
+          title: 'Palm Springs'
+        });
+    }
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoGMPOpQH15g01IyT8sEixBSGrunT4GDY&callback=initMap"></script>

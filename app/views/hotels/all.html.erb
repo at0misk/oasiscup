@@ -64,23 +64,14 @@
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <h3>Searching for <input name="child" type="number" value="<%= session[:childCount] %>" min="0"> Children and <input name="adult" type="number" value="<%= session[:adultCount] %>" min="1"> Adults.</h3><button class="btn btn-primary">Find Rooms!</button></form>
 <% end %>
-<div class="row hotelBoxRow">
-	<div class="col-md-3 hotelBox">
-		<%= image_tag("hotel.jpg") %>
-	</div>
-	<div class="col-md-3 hotelBox">
-		<%= image_tag("hotel.jpg") %>
-	</div>
-	<div class="col-md-3 hotelBox">
-		<%= image_tag("hotel.jpg") %>
-	</div>
-	<div class="col-md-3 hotelBox">
-		<%= image_tag("hotel.jpg") %>
-	</div>
-</div>
+<div class="row hotelBoxRow" data-turbolinks="false">
 <% @hotels.each do |val| %>
-<h3><a href="/hotels/<%= val.id %>"><%= val.name %></a></h3>
+	<div class="col-md-3 hotelBox">
+		<a href="/hotels/<%= val.id %>"><%= image_tag("hotel.jpg") %></a>
+		<h3><%= val.name %></h3>
+	</div>
 <% end %>
+</div>
 <h2><a href="/roomByPrice/1">$70-$120</a></h2>
 <h2><a href="/roomByPrice/2">$120-$150</a></h2>
 <h2><a href="/roomByPrice/3">$150-$200</a></h2>
