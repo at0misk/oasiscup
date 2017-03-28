@@ -1,5 +1,6 @@
 class HotelsController < ApplicationController
 	before_action :authenticate_user!
+  @@roomSwitch = {}
 	def new
 	end
 	def create
@@ -13,6 +14,11 @@ class HotelsController < ApplicationController
 	end
 	def view
 		@hotel = Hotel.find(params[:id])
+    @cart = Cart.where(user_id: session[:user_id])
+    @cartNumberArr = []
+    @cart.each do |val|
+      @cartNumberArr << val.number
+    end
 		if session[:searching] == true
 			@rooms = @@roomSwitch
       # puts '============'
@@ -20,7 +26,7 @@ class HotelsController < ApplicationController
       # fail
 		else
   		@rooms = @hotel.rooms
-  		end
+  	end
   		session[:searching] = false
 	end
   	def hotel_params

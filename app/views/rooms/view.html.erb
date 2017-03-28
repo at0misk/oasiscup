@@ -1,16 +1,24 @@
-<p>Hotel Name: <%= @room.hotel.name %></p>
-<p>Hotel Address: <%= @room.hotel.address %></p>
-<p>Price: <%= @room.price %></p>
-<p>Room Number: <%= @room.number %></p>
-<p>Smoking: <%= @room.smoking %></p>
-<p>Type: <%= @room.room_type %></p>
-<form action="/cart/create/<%= @room.id %>" method="POST">
-	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-	<input type="hidden" name="cart[price]" value="<%= @room.price %>">
-	<input type="hidden" name="cart[number]" value="<%= @room.number %>">
-	<input type="hidden" name="cart[smoking]" value="<%= @room.smoking %>">
-	<input type="hidden" name="cart[room_type]" value="<%= @room.room_type %>">
-	<input type="hidden" name="cart[hotel_id]" value="<%= @room.hotel.id %>">
-	<input type="hidden" name="cart[user_id]" value="<%= session[:user_id] %>">
-	<input type="submit" value="Add To Cart">
-</form>
+<div class="row">
+	<div class="col-md-3">
+	</div>
+	<div class="col-md-6">
+		<h3>Hotel Name: <%= @room.hotel.name %></h3>
+		<h3>Hotel Address: <%= @room.hotel.address %></h3>
+		<h3>Price: <%= @room.price %></h3>
+		<h3>Room Number: <%= @room.number %></h3>
+		<h3>Smoking: <%= @room.smoking %></h3>
+		<h3>Type: <%= @room.room_type %></h3>
+		<form action="/cart/create/<%= @room.id %>" method="POST">
+			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			<input type="hidden" name="cart[price]" value="<%= @room.price %>">
+			<input type="hidden" name="cart[number]" value="<%= @room.number %>">
+			<input type="hidden" name="cart[smoking]" value="<%= @room.smoking %>">
+			<input type="hidden" name="cart[room_type]" value="<%= @room.room_type %>">
+			<input type="hidden" name="cart[hotel_id]" value="<%= @room.hotel.id %>">
+			<input type="hidden" name="cart[user_id]" value="<%= session[:user_id] %>">
+			<button type="submit" class="btn btn-primary">Add To Cart</button>
+		</form>
+	</div>
+	<div class="col-md-3">
+	</div>
+</div>

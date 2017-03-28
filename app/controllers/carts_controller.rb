@@ -3,10 +3,10 @@ class CartsController < ApplicationController
 	def create
 		@cart = Cart.new(cart_params)
 		if @cart.save
-			redirect_to :back
+			redirect_to "/hotels/#{@cart.hotel.id}"
 		else
 			flash[:errors] = @cart.errors.full_messages
-			redirect_to :back
+			redirect_to '/cart'
 		end
 	end
 	def cancel
