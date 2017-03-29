@@ -65,6 +65,10 @@
 	</tbody>
 </table>
 </div>
+<!-- Must have 10 room conditional -->
+<%# if @cart_rooms.length < 10 %>
+<!-- <h3>You must book at least 10 rooms to checkout.</h3> -->
+<%# else %>
 <%= form_tag charges_path do %>
   <article>
     <% if flash[:error].present? %>
@@ -73,17 +77,19 @@
       </div>
     <% end %>
     <label class="amount">
-      <span>Amount: $5.00</span>
+      <span>Amount: <%= number_to_currency(@total, :precision => 2) %></span>
     </label>
   </article>
-
+  <% @stripeTotal = (@total * 100).to_i %>
+<input type="hidden" name="amount" value="<%= @stripeTotal %>">
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="A month's subscription"
-          data-amount="500"
+          data-amount="<%= @stripeTotal %>"
           data-locale="auto"></script>
 <% end %>
 </div>
+<%# end %>
 <div class="col-md-3">
 </div>
 </div>
