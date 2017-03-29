@@ -22,7 +22,7 @@ class TransactionsController < ApplicationController
 		)
 		if @result.success?
 			@user.update_attribute(:fee_status, true)
-			session[:payed] = true
+			# session[:payed] = true
 			redirect_to '/guests/new'
 		else
 			flash[:alert] = "Something went wrong while processing your transaction. Please try again!"

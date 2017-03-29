@@ -6,7 +6,7 @@ class CartsController < ApplicationController
 			redirect_to "/hotels/#{@cart.hotel.id}"
 		else
 			flash[:errors] = @cart.errors.full_messages
-			redirect_to '/cart'
+			redirect_to "/hotels/#{params['hotel_id']}"
 		end
 	end
 	def cancel

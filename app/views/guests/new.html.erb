@@ -44,9 +44,6 @@
 		font-weight: bold;
 	}
 </style>
-<% if flash[:errors] %>
-<%= flash[:errors] %>
-<% end %>
 <!-- <div class="container"> -->
 <div class="addGuests">
 <% if @guests.empty? %>
@@ -56,6 +53,9 @@
 <% end %>
 <button class="btn btn-primary add">Add More Guests</button>
 <button class="btn btn-primary submitAdd">Submit Guest List</button>
+<% if flash[:errors] %>
+<p><%= flash[:errors] %></p>
+<% end %>
 </div>
 <div class="row">
 <!-- <div class="col-md-2"></div> -->

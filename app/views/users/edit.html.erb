@@ -11,48 +11,48 @@
 </div>
 <div class="col-md-6">
 <h3 class="editHeader">Edit User Info</h3>
-<form class="form-horizontal" method="post" action="users/create">
+<form class="form-horizontal" method="post" action="users/create" id="editForm">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	<div class="form-group">
-	    <label for="email" class="col-sm-3 control-label">
+	    <label for="user[first]" class="col-sm-3 control-label">
 	        First Name</label>
 	    <div class="col-sm-6">
-	        <input name="user[first]" type="text" class="form-control" id="email" value="<%= @user.first %>" />
+	        <input name="user[first]" type="text" class="form-control" id="user[first]" value="<%= @user.first %>" />
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label for="email" class="col-sm-3 control-label">
+	    <label for="user[last]" class="col-sm-3 control-label">
 	        Last Name</label>
 	    <div class="col-sm-6">
-	        <input name="user[last]" type="text" class="form-control" id="email" value="<%= @user.last %>" />
+	        <input name="user[last]" type="text" class="form-control" id="user[last]" value="<%= @user.last %>" />
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label for="email" class="col-sm-3 control-label">
+	    <label for="user[email]" class="col-sm-3 control-label">
 	        Email</label>
 	    <div class="col-sm-6">
-	        <input name="user[email]" type="email" class="form-control" id="email" value="<%= @user.email %>" />
+	        <input name="user[email]" type="email" class="form-control" id="user[email]" value="<%= @user.email %>" />
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label for="password" class="col-sm-3 control-label">
+	    <label for="user[password]" class="col-sm-3 control-label">
 	        Password</label>
 	    <div class="col-sm-6">
-	        <input name="user[password]" type="password" class="form-control" id="password" placeholder="Password" />
+	        <input name="user[password]" type="password" class="form-control" id="user[password]" placeholder="Password" />
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label for="password" class="col-sm-3 control-label">
+	    <label for="user[password_confirmation]" class="col-sm-3 control-label">
 	        Password Confirmation</label>
 	    <div class="col-sm-6">
-	        <input name="user[password_confirmation]" type="password" class="form-control" id="password" placeholder="Password Confirmation" />
+	        <input name="user[password_confirmation]" type="password" class="form-control" id="user[password_confirmation]" placeholder="Password Confirmation" />
 	    </div>
 	</div>
 	<div class="form-group">
-	    <label for="email" class="col-sm-3 control-label">
+	    <label for="user[team]" class="col-sm-3 control-label">
 	        Team Name</label>
 	    <div class="col-sm-6">
-	        <input name="user[team]" type="text" class="form-control" id="email" value="<%= @user.team %>" />
+	        <input name="user[team]" type="text" class="form-control" id="user[team]" value="<%= @user.team %>" />
 	    </div>
 	</div>
 	<div class="row">
@@ -75,3 +75,37 @@
 	  <% end %>
 	<% end %>
 <% end %>
+<script type="text/javascript">
+$(document).on('turbolinks:load', function() {
+    $('#editForm').validate({
+        rules: {
+            "user[email]": {
+                required: true,
+                email: true
+            },
+            "user[password]": {
+                required: true
+            },
+            "user[password_confirmation]": {
+            	required: true
+            },
+            "user[first]": {
+            	required: true
+            },
+            "user[last]": {
+            	required: true
+            },
+            "user[team]": {
+            	required: true
+            }
+
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            element.closest('.form-group').removeClass('has-error').addClass('has-success');
+        }
+    });
+});
+</script>

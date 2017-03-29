@@ -20,7 +20,8 @@ class SessionsController < ApplicationController
   			# redirect_to '/payment'
   			# end
 	  	else
-	  		flash[:errors] = ['Invalid email / password combination']
+	  		# flash[:errors] = @user.errors.full_messages
+	  		session[:modalFail] = true
 	  		redirect_to :back
 	  	end
 	end
@@ -35,9 +36,9 @@ class SessionsController < ApplicationController
 		# session[:payed] = true
 		redirect_to '/'
 	end
-	def new
-	  gon.client_token = generate_client_token
-	end
+	# def new
+	#   gon.client_token = generate_client_token
+	# end
 	private
 	def generate_client_token
 		Braintree::ClientToken.generate

@@ -104,7 +104,7 @@ Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id
 
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true">
+    aria-hidden="true" data-turbolinks="false">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -124,20 +124,20 @@ Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id
                         <!-- Tab panes -->
                         <div class="tab-content">
                             <div class="tab-pane" id="Login">
-                                <form class="form-horizontal" method="POST" action="sessions/new">
+                                <form class="form-horizontal" method="post" action="sessions/new" id="loginForm">
                                 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
                                 <div class="form-group">
                                     <label for="email" class="col-sm-3 control-label">
                                         Email</label>
                                     <div class="col-sm-6">
-                                        <input name="email" type="email" class="form-control" id="email1" placeholder="Email" />
+                                        <input name="email" type="email" class="form-control" id="emailLog" placeholder="Email" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="exampleInputPassword1" class="col-sm-3 control-label">
+                                    <label for="password" class="col-sm-3 control-label">
                                         Password</label>
                                     <div class="col-sm-6">
-                                        <input name="password" type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" />
+                                        <input name="password" type="password" class="form-control" id="passwordLog" placeholder="Password" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -152,48 +152,48 @@ Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id
                                 </form>
                             </div>
                             <div class="tab-pane active" id="Registration">
-                                <form class="form-horizontal" method="post" action="users/create">
+                                <form class="form-horizontal" method="post" action="users/create" id="registrationForm">
                                 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
                             	<div class="form-group">
-                                    <label for="email" class="col-sm-3 control-label">
+                                    <label for="user[first]" class="col-sm-3 control-label">
                                         First Name</label>
                                     <div class="col-sm-6">
-                                        <input name="user[first]" type="text" class="form-control" id="email" placeholder="First Name" />
+                                        <input name="user[first]" type="text" class="form-control" id="user[first]" placeholder="First Name" />
                                     </div>
                                 </div>
                             	<div class="form-group">
-                                    <label for="email" class="col-sm-3 control-label">
+                                    <label for="user[last]" class="col-sm-3 control-label">
                                         Last Name</label>
                                     <div class="col-sm-6">
-                                        <input name="user[last]" type="text" class="form-control" id="email" placeholder="Last Name" />
+                                        <input name="user[last]" type="text" class="form-control" id="user[last]" placeholder="Last Name" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email" class="col-sm-3 control-label">
+                                    <label for="user[email]" class="col-sm-3 control-label">
                                         Email</label>
                                     <div class="col-sm-6">
-                                        <input name="user[email]" type="email" class="form-control" id="email" placeholder="Email" />
+                                        <input name="user[email]" type="email" class="form-control" id="user[email]" placeholder="Email" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="password" class="col-sm-3 control-label">
+                                    <label for="user[password]" class="col-sm-3 control-label">
                                         Password</label>
                                     <div class="col-sm-6">
-                                        <input name="user[password]" type="password" class="form-control" id="password" placeholder="Password" />
+                                        <input name="user[password]" type="password" class="form-control" id="user[password]" placeholder="Password" />
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label for="password" class="col-sm-3 control-label">
+                                    <label for="user[password_confirmation]" class="col-sm-3 control-label">
                                         Password Confirmation</label>
                                     <div class="col-sm-6">
-                                        <input name="user[password_confirmation]" type="password" class="form-control" id="password" placeholder="Password Confirmation" />
+                                        <input name="user[password_confirmation]" type="password" class="form-control" id="user[password_confirmation]" placeholder="Password Confirmation" />
                                     </div>
                                 </div>
                             	<div class="form-group">
-                                    <label for="email" class="col-sm-3 control-label">
+                                    <label for="user[team]" class="col-sm-3 control-label">
                                         Team Name</label>
                                     <div class="col-sm-6">
-                                        <input name="user[team]" type="text" class="form-control" id="email" placeholder="Team Name" />
+                                        <input name="user[team]" type="text" class="form-control" id="user[team]" placeholder="Team Name" />
                                     </div>
                                 </div>
                                 <div class="row">
@@ -217,6 +217,10 @@ Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id
 </div>
 <script type="text/javascript">
 	$(document).on('turbolinks:load', function() {
+		<% if session[:modalFail] %>
+			alert('Something went wrong');
+			<% session[:modalFail] = false %>
+		<% end %>
 		    $('.loginButton').on('click', function(){
 			  	$('#Registration').removeClass('active');
 			  	$('.regTab').removeClass('active');
@@ -229,5 +233,52 @@ Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id
 			  	$('#Login').removeClass('active');
 			  	$('.loginTab').removeClass('active');
 		})
+    $('#loginForm').validate({
+        rules: {
+            email: {
+                required: true,
+                email: true
+            },
+            password: {
+                required: true
+            },
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            element.closest('.form-group').removeClass('has-error').addClass('has-success');
+        }
+    });
+    $('#registrationForm').validate({
+        rules: {
+            "user[email]": {
+                required: true,
+                email: true
+            },
+            "user[password]": {
+                required: true
+            },
+            "user[password_confirmation]": {
+            	required: true
+            },
+            "user[first]": {
+            	required: true
+            },
+            "user[last]": {
+            	required: true
+            },
+            "user[team]": {
+            	required: true
+            }
+
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            element.closest('.form-group').removeClass('has-error').addClass('has-success');
+        }
+    });
 	})
 </script>
