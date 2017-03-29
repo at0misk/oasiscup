@@ -13,7 +13,7 @@ class ChargesController < ApplicationController
 	  charge = Stripe::Charge.create(
 	    :customer    => customer.id,
 	    :amount      => @amount,
-	    :description => 'Rails Stripe customer',
+	    :description => 'Oasis Cup Booking, Customer ID #' + session[:user_id].to_s,
 	    :currency    => 'usd'
 	  )
 	  	@user = User.find(session[:user_id])
