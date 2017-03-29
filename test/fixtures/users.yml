@@ -5,13 +5,13 @@ one:
   last: MyString
   email: MyString
   team: MyString
-  fee_status: MyString
-  password_digest: MyString
+  fee_status: 
+  password_digest: <%= BCrypt::Password.create('secret') %>
 
 two:
   first: MyString
   last: MyString
   email: MyString
   team: MyString
-  fee_status: MyString
-  password_digest: MyString
+  fee_status: 
+  password_digest: <%= BCrypt::Password.create('secret') %>
