@@ -13,11 +13,11 @@ class SessionsController < ApplicationController
   	@user = User.find_by(email: params['email'])
 	  	if @user && @user.authenticate(params[:password])
 	  		session[:user_id] = @user.id
-	  		if @user.fee_status == true
-	  			session[:payed] = true
-	  			redirect_to '/hotels'
-	  		else
-  			redirect_to '/payment'
+	  		# if @user.fee_status == true
+	  		# 	session[:payed] = true
+			redirect_to '/guests/new'
+	  		# else
+  			# redirect_to '/payment'
   			end
 	  	else
 	  		flash[:errors] = ['Invalid email / password combination']
@@ -32,7 +32,7 @@ class SessionsController < ApplicationController
 	def registerpay
 		@user = User.find(session[:user_id])
 		@user.update_attribute(:fee_status, true)
-		session[:payed] = true
+		# session[:payed] = true
 		redirect_to '/'
 	end
 	def new

@@ -5,12 +5,12 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
-			@user.update(:fee_status => false)
+			# @user.update(:fee_status => false)
 			session[:user_id] = @user.id
-	  		session[:payed] = false
+	  		# session[:payed] = false
 	  		# Default Mailer
-	  		UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
-			redirect_to '/payment'
+	  		# UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
+			redirect_to '/'
 		else
 			flash[:errors] = @user.errors.full_messages
 			redirect_to :back
