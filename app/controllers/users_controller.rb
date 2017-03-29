@@ -10,9 +10,10 @@ class UsersController < ApplicationController
 	  		# session[:payed] = false
 	  		# Default Mailer
 	  		# UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
-	  		flash[:errors] = ''
+	  		flash[:errors] = nil
 			redirect_to '/guests/new'
 		else
+			session[:modalFail] = true
 			flash[:errors] = @user.errors.full_messages
 			redirect_to :back
 		end
@@ -34,7 +35,7 @@ class UsersController < ApplicationController
    	def update
   		@user = User.find(session[:user_id])
 	    if @user.update(user_params)
-	    	flash[:errors] = ''
+	    	flash[:errors] = nil
 	    else
 	    	flash[:errors] = @user.errors.full_messages
 	    end

@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
   			# redirect_to '/payment'
   			# end
 	  	else
-	  		# flash[:errors] = @user.errors.full_messages
+	  		flash[:errors] = ['Email / Password not valid']
 	  		session[:modalFail] = true
 	  		redirect_to :back
 	  	end

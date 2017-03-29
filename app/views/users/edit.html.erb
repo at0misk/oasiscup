@@ -5,14 +5,18 @@
 	.modalButtons{
 		text-align: center;
 	}
+	.has-success{
+		margin-bottom: 0px;
+	}
 </style>
 <div class="row">
 <div class="col-md-3">
 </div>
 <div class="col-md-6">
 <h3 class="editHeader">Edit User Info</h3>
-<form class="form-horizontal" method="post" action="users/create" id="editForm">
+<form class="form-horizontal" method="post" action="/users" id="editForm">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input name="_method" value="patch" type="hidden">
 	<div class="form-group">
 	    <label for="user[first]" class="col-sm-3 control-label">
 	        First Name</label>
@@ -38,14 +42,14 @@
 	    <label for="user[password]" class="col-sm-3 control-label">
 	        Password</label>
 	    <div class="col-sm-6">
-	        <input name="user[password]" type="password" class="form-control" id="user[password]" placeholder="Password" />
+	        <input name="user[password]" type="password" class="form-control" id="password" placeholder="Password" />
 	    </div>
 	</div>
 	<div class="form-group">
 	    <label for="user[password_confirmation]" class="col-sm-3 control-label">
 	        Password Confirmation</label>
 	    <div class="col-sm-6">
-	        <input name="user[password_confirmation]" type="password" class="form-control" id="user[password_confirmation]" placeholder="Password Confirmation" />
+	        <input name="user[password_confirmation]" type="password" class="form-control passwordconf" id="user[password_confirmation]" placeholder="Password Confirmation" />
 	    </div>
 	</div>
 	<div class="form-group">
@@ -107,5 +111,8 @@ $(document).on('turbolinks:load', function() {
             element.closest('.form-group').removeClass('has-error').addClass('has-success');
         }
     });
+	$(".passwordconf").rules("add", { 
+	  equalTo: "#password"
+	});
 });
 </script>

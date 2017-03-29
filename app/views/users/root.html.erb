@@ -77,6 +77,22 @@
 	text-align: center;
 }
 
+#errorModal{
+	text-align: center;
+}
+
+.errModalBody{
+	color: red;
+}
+
+.has-success{
+	margin-bottom: 0px!important;
+}
+
+#errorModalLabel{
+	display: inline;
+}
+
 </style>
 <div class="row img-wrapper">
 <span class='landingimg'><%= image_tag("secondcrop.png") %>
@@ -179,14 +195,14 @@ Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id
                                     <label for="user[password]" class="col-sm-3 control-label">
                                         Password</label>
                                     <div class="col-sm-6">
-                                        <input name="user[password]" type="password" class="form-control" id="user[password]" placeholder="Password" />
+                                        <input name="user[password]" type="password" class="form-control" id="password" placeholder="Password" class="userpw"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="user[password_confirmation]" class="col-sm-3 control-label">
                                         Password Confirmation</label>
                                     <div class="col-sm-6">
-                                        <input name="user[password_confirmation]" type="password" class="form-control" id="user[password_confirmation]" placeholder="Password Confirmation" />
+                                        <input name="user[password_confirmation]" type="password" class="form-control passwordconf" id="user[password_confirmation]" placeholder="Password Confirmation" data-val-equalto-other=".userpw" data-msg-equalto="Passwords do not match"/>
                                     </div>
                                 </div>
                             	<div class="form-group">
@@ -215,10 +231,35 @@ Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="errorModalLabel">Something Went Wrong</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body errModalBody">
+		<% if flash[:errors] %>
+			<% if flash[:errors].any? %>
+			  <% flash[:errors].each do |error_message| %>
+			    <%= error_message %> <br />
+			  <% end %>
+			<% end %>
+		<% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script type="text/javascript">
 	$(document).on('turbolinks:load', function() {
 		<% if session[:modalFail] %>
-			alert('Something went wrong');
+			$('#errorModal').modal('show') 
 			<% session[:modalFail] = false %>
 		<% end %>
 		    $('.loginButton').on('click', function(){
@@ -280,5 +321,8 @@ Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id
             element.closest('.form-group').removeClass('has-error').addClass('has-success');
         }
     });
+	$(".passwordconf").rules("add", { 
+	  equalTo: "#password"
+	});
 	})
 </script>
