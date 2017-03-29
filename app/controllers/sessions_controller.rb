@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
 			redirect_to '/guests/new'
 	  		# else
   			# redirect_to '/payment'
-  			end
+  			# end
 	  	else
 	  		flash[:errors] = ['Invalid email / password combination']
 	  		redirect_to :back

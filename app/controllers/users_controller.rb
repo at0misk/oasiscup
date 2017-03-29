@@ -10,7 +10,7 @@ class UsersController < ApplicationController
 	  		# session[:payed] = false
 	  		# Default Mailer
 	  		# UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
-			redirect_to '/'
+			redirect_to '/guests/new'
 		else
 			flash[:errors] = @user.errors.full_messages
 			redirect_to :back
