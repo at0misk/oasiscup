@@ -27,13 +27,16 @@ class SessionsController < ApplicationController
 	def payment
 		@user = User.find(session[:user_id])
     	gon.client_token = generate_client_token
-    	@token = gon.client_token
+    	@token = generate_client_token
 	end
 	def registerpay
 		@user = User.find(session[:user_id])
 		@user.update_attribute(:fee_status, true)
 		session[:payed] = true
 		redirect_to '/'
+	end
+	def new
+	  gon.client_token = generate_client_token
 	end
 	private
 	def generate_client_token
