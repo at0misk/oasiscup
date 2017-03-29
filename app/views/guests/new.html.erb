@@ -67,20 +67,21 @@
             <label for="email" class=" control-label">
                 First Name</label>
             <div class="">
-                <input name="guest[first<%= y %>]" type="text" class="form-control" id="email1" placeholder="First Name" />
+                <input name="guest[first<%= y %>]" type="text" class="form-control" id="first<%= y %>" placeholder="First Name" />
             </div>
         </div>
         <div class="form-group">
             <label for="email" class=" control-label">
                 Last Name</label>
             <div class="">
-                <input name="guest[last<%= y %>]" type="text" class="form-control" id="email1" placeholder="Last Name" />
+                <input name="guest[last<%= y %>]" type="text" class="form-control" id="last<%= y %>" placeholder="Last Name" />
             </div>
         </div>
-            <div class="radio">
+        <!-- <div class="form-group">             -->
+        <div class="radio">
                 <div class="form-check form-check-inline">
 			      <label class="form-check-label">
-			        <input type="radio" class="form-check-input" name='guest[type<%= y %>]' value='Child'>
+			        <input type="radio" class="form-check-input" name='guest[type<%= y %>]' value='Child' required>
 			        Child
 			      </label>
 			    </div>
@@ -90,7 +91,9 @@
 			        Adult
 			      </label>
 			    </div>
+			<label for="guest[type<%= y %>]" class="error" style="display:none; font-weight:bold; color:black">* Please pick an option above</label>
             </div>
+         <!-- </div> -->
 <!-- 		First Name: <input type='text' name='guest[first<%= y %>]'>
 		Last Name: <input type='text' name='guest[last<%= y %>]'>
 		Child: <input type='radio' name='guest[type<%= y %>]' value='Child' />
@@ -108,16 +111,44 @@
 <!-- </div> -->
 <script type="text/javascript">
 	$(document).ready(function(){
-		var x = <%= y %>
+    $('#guestCreateForm').validate({
+        rules: {
+            "guest[first<%= y %>]": {
+                required: true,
+            },
+            "guest[last<%= y %>]": {
+                required: true,
+            }
+
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+            $(element).closest('.radio').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            element.closest('.form-group').removeClass('has-error').addClass('has-success');
+            element.closest('.radio').removeClass('has-error').addClass('has-success');
+        }
+    });
+		var x = <%= y %>;
 		x++;
 		$('.add').click(function(){
-			$('.app').append("<div class='cont col-md-3 staticDiv'><button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button><div class='form-group'><label for='email' class=' control-label'>First Name</label><div class=''><input name='guest[first" + x + "]' type='text' class='form-control' id='email1' placeholder='First Name' /></div></div><div class='form-group'><label for='email' class=' control-label'>Last Name</label><div class=''><input name='guest[last" + x + "]' type='text' class='form-control' id='email1' placeholder='Last Name' /></div></div><div class='radio'><div class='form-check form-check-inline'><label class='form-check-label'><input type='radio' class='form-check-input' name='guest[type" + x + "]' value='Child'>Child</label></div><div class='form-check form-check-inline'><label class='form-check-label'><input type='radio' class='form-check-input'  name='guest[type" + x + "]' value='Adult'>Adult</label></div></div></div>");
+			$('.app').append("<div class='cont col-md-3 staticDiv'><button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button><div class='form-group'><label for='email' class=' control-label'>First Name</label><div class=''><input name='guest[first" + x + "]' type='text' class='form-control' id='first" + x + "' placeholder='First Name'  required='true'/></div></div><div class='form-group'><label for='email' class=' control-label'>Last Name</label><div class=''><input name='guest[last" + x + "]' type='text' class='form-control' id='last" + x + "' placeholder='Last Name' required='true'/></div></div><div class='radio'><div class='form-check form-check-inline'><label class='form-check-label'><input type='radio' class='form-check-input' name='guest[type" + x + "]' value='Child' required>Child</label></div><div class='form-check form-check-inline'><label class='form-check-label'><input type='radio' class='form-check-input'  name='guest[type" + x + "]' value='Adult'>Adult</label></div><label for='guest[type" + x + "]' class='error' style='color:black; display:none; font-weight:bold'>* Please pick an option above</label></div></div>");
 			x++;
 			$(".close").click(function(){
 		    	$(this).parent().remove();
 	    	});
+	    	firstString = "#first" + x;
+	    	console.log(firstString);
+			$(firstString).rules("add", { 
+			  required: true,
+			});	
+			$("#last" + x).rules("add", { 
+			  required: true,
+			});
 		})
 		$('.submitAdd').click(function(){
+			$('#guestCreateForm').validate();
 			$('#guestCreateForm').submit();
 		})
 	})

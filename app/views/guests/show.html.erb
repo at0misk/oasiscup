@@ -58,7 +58,7 @@
 			</span>
 			<% @guests.each do |val| %>
 			<span class="rowG">
-				<span class="cell"><form action="/guests/<%= val.id %>" method="POST"><input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"><input type="hidden" name="_method" value="PATCH"><input type="text" name="first" value="<%= val.first %>"></span>
+				<span class="cell"><form action="/guests/<%= val.id %>" method="POST" id="currentGuestForm"><input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"><input type="hidden" name="_method" value="PATCH"><input type="text" name="first" value="<%= val.first %>"></span>
 				<span class="cell"><input type="text" name="last" value="<%= val.last %>"></span>
 				<% if val.guest_type == 'Child' %>
 				<span class="cell">Child: <input type='radio' name="guest_type" value='Child' checked="checked" />
@@ -115,3 +115,6 @@
 <div class="col-md-2">
 </div>
 </div>
+<script type="text/javascript">
+	// $('#currentGuestForm').validate();
+</script>
