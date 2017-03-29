@@ -65,14 +65,24 @@
 	</tbody>
 </table>
 </div>
-<div class="checkoutDiv">
-<form id="checkout" method="post" action="/cart/checkout">
-<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-  <div id="payment-form"></div>
-  <input type="hidden" name="total" value="<%= @total %>">
-  <button type="submit" class="btn btn-success checkoutButton">Checkout</button>
-</form>
-</div>
+<%= form_tag charges_path do %>
+  <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+    <label class="amount">
+      <span>Amount: $5.00</span>
+    </label>
+  </article>
+
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="A month's subscription"
+          data-amount="500"
+          data-locale="auto"></script>
+<% end %>
 </div>
 <div class="col-md-3">
 </div>

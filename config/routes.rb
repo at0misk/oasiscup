@@ -34,4 +34,5 @@ Rails.application.routes.draw do
   post 'guests/delete/:id' => 'guests#delete'
   patch 'guests/:id' => 'guests#update'
   post 'count' => 'rooms#count'
+  resources :charges
 end

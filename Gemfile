@@ -35,6 +35,7 @@ gem 'hirb'
 gem 'braintree', '~> 2.72'
 gem 'figaro'
 gem 'gon', '~> 5.1.2'
+gem 'stripe'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

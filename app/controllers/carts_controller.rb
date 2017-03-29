@@ -64,6 +64,7 @@ class CartsController < ApplicationController
 			redirect_to :back
 		end
 	end
+
   	def cart_params
   		params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type) 
   	end
