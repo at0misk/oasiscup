@@ -30,11 +30,25 @@
 		/*margin: 1% 1%;*/
 		/*width: 100%;*/
 	}
+	.hotelBox{
+		margin-top: 2%;
+	}
 	.hotelBox img:hover{
 		opacity: .8;
 	}
+	.priceBox:hover{
+		opacity: .8;
+	}
+	.priceBox{
+	    height: 200px;
+	    border: 1px solid black;
+	    text-align: center;
+	}
+	.priceBox h2{
+		margin-top: 80px;
+	}
 	.hotelBoxRow{
-		margin-top: 2%;
+/*		margin-top: 2%;*/
 	}
       #legend {
         font-family: Arial, sans-serif;
@@ -65,6 +79,15 @@
 <h3>Searching for <input name="child" type="number" value="<%= session[:childCount] %>" min="0"> Children and <input name="adult" type="number" value="<%= session[:adultCount] %>" min="1"> Adults.</h3><button class="btn btn-primary">Find Rooms!</button></form>
 <% end %>
 <div class="row hotelBoxRow" data-turbolinks="false">
+<div class="col-md-3 hotelBox">
+<a href="/roomByPrice/1"><%= image_tag("70.png") %></a>
+</div>
+<div class="col-md-3 hotelBox">
+<a href="/roomByPrice/2"><%= image_tag("120.png") %></a>
+</div>
+<div class="col-md-3 hotelBox">
+<a href="/roomByPrice/3"><%= image_tag("150.png") %></a>
+</div>
 <% @hotels.each do |val| %>
 	<div class="col-md-3 hotelBox">
 		<a href="/hotels/<%= val.id %>"><%= image_tag("hotel.jpg") %></a>
@@ -72,9 +95,6 @@
 	</div>
 <% end %>
 </div>
-<h2><a href="/roomByPrice/1">$70-$120</a></h2>
-<h2><a href="/roomByPrice/2">$120-$150</a></h2>
-<h2><a href="/roomByPrice/3">$150-$200</a></h2>
 <script type="text/javascript">
 		function initMap() {
         var palmSprings = {lat: 33.830296, lng: -116.545292};
