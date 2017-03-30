@@ -8,4 +8,5 @@ class User < ApplicationRecord
 	has_many :reservations
 	has_many :carts
 	has_many :guests
+	has_many :transactions
 end

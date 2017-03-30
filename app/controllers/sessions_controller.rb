@@ -15,7 +15,7 @@ class SessionsController < ApplicationController
 	  		session[:user_id] = @user.id
 	  		# if @user.fee_status == true
 	  		# 	session[:payed] = true
-			redirect_to '/guests/new'
+			redirect_to '/hotels'
 	  		# else
   			# redirect_to '/payment'
   			# end

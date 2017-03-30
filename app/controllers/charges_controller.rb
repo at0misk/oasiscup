@@ -4,7 +4,8 @@ class ChargesController < ApplicationController
 	  # puts params['amount']
 	  # fail
 	  @amount = params['amount'].to_i
-
+	  @user = User.find(session[:user_id])
+	  @cart = Cart.where(user_id: session[:user_id])
 	  customer = Stripe::Customer.create(
 	    :email => params[:stripeEmail],
 	    :source  => params[:stripeToken]
@@ -16,8 +17,6 @@ class ChargesController < ApplicationController
 	    :description => 'Oasis Cup Booking, Customer ID #' + session[:user_id].to_s,
 	    :currency    => 'usd'
 	  )
-	  	@user = User.find(session[:user_id])
-		@cart = Cart.where(user_id: session[:user_id])
 		@cart.each do |val|
 			@booked = Book.new
 			@booked.hotel_id = val.hotel_id
@@ -30,6 +29,10 @@ class ChargesController < ApplicationController
 			Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 			Cart.where(user_id: session[:user_id]).destroy_all
 		end
+
+		@transaction = Transaction.new(user_id: session[:user_id], total: (@amount/100).to_f)
+		@transaction.save
+		
 		redirect_to '/booked'
 	end
 end
