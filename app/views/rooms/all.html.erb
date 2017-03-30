@@ -51,7 +51,14 @@
 	.roomBtn{
 		margin-top: 2%;
 	}
+	.tableCol{
+		padding-left: 8%;
+	}
 </style>
+<div class="searchFormRow row">
+<div class="col-md-2">
+</div>
+<div class="col-md-8">
 <form class="form-inline" action="/rooms/searchAll" method="post" id="roomSearchForm">
 <span class="countForm">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -81,10 +88,14 @@
 	<button type="submit" class="btn btn-primary btn-md roomBtn">Search Rooms!</button>
 </div>
 </form>
+</div>
+<div class="col-md-2">
+</div>
+</div>
 <div class="row tableRow">
 <div class="col-md-2">
 </div>
-<div class="col-md-8">
+<div class="col-md-8 tableCol">
 <table class="table-striped">
 	<thead>
 		<tr>

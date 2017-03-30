@@ -64,17 +64,20 @@
     .keys{
     	cursor: pointer;
     }
+    .mapHeading{
+    	text-align: center;
+    }
 </style>
 <div id="map"></div>
 <div id="legend"><h5>Hotels</h5></div>
 <% if @noGuests %>
 <h3>Your guest list is empty.</h3>
 <h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
-<form action="count" method="post" class="countForm">
+<form action="count" method="post" class="countForm" data-turbolinks="false">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <h4>Searching for <input name="child" type="number" value="<%= session[:childCount] %>" min="0"> Children and <input name="adult" type="number" value="<%= session[:adultCount] %>" min="1"> Adults.</h4><button class="btn btn-primary">Find Rooms!</button></form>
 <% else %>
-<form action="count" method="post" class="countForm">
+<form action="count" method="post" class="countForm" data-turbolinks="false">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <h3>Searching for <input name="child" type="number" value="<%= session[:childCount] %>" min="0"> Children and <input name="adult" type="number" value="<%= session[:adultCount] %>" min="1"> Adults.</h3><button class="btn btn-primary">Find Rooms!</button></form>
 <% end %>
@@ -110,7 +113,7 @@
         var contentString = '<div id="content">'+
             '<div id="siteNotice">'+
             '</div>'+
-            '<h3 id="firstHeading" class="firstHeading">Holiday Inn</h3>'+
+            '<h3 id="firstHeading" class="mapHeading">Holiday Inn</h3>'+
             '<div id="bodyContent">'+
             '<ul>' +
             '<li>Vivamus maximus lectus vel nisi mollis interdum.</li>' +
