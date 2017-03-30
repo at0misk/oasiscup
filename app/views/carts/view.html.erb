@@ -11,7 +11,7 @@
     	width: 100%;
     }
     #stripeDiv{
-    	float: right;
+    	text-align: center;
     }
 </style>
 <div class="row">
@@ -35,9 +35,9 @@
 			<th>Address</th>
 			<th>Room Number</th>
 			<th>Smoking</th>
+			<th>Occupancy</th>
 			<th>Type</th>
 			<th>Room Price</th>
-			<th>Occupancy</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -49,9 +49,9 @@
 		<td><%= val.hotel.address %></td>
 		<td><%= val.number %></td>
 		<td><%= val.smoking %></td>
+		<td><%= val.occupancy_a %></td>
 		<td><%= val.room_type %></td>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
-		<td><%= val.occupancy_a %></td>
 		<% @totalOccupancy += val.occupancy_a.to_i %>
 		<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -61,6 +61,7 @@
 		</tr>
 		<% end %>
 		<tr>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
@@ -75,8 +76,8 @@
 <% if @noGuests %>
 <%else %>
 <% if @guestCount > @totalOccupancy %>
-<h3>You are currently booking for <%= @guestCount %> people, and have rooms in your cart that accomodate <%= @totalOccupancy %> people.</h3>
-<h3>Please book more <a href="/hotels">rooms</a></h3>
+<h3>You are currently booking for <%= @guestCount %> people, and have rooms in your cart that only accomodate <%= @totalOccupancy %> people.</h3>
+<h3>Please book more <a href="/hotels">rooms</a>.</h3>
 <% else %>
 <!-- Must have 10 room conditional -->
 <%# if @cart_rooms.length < 10 %>

@@ -6,7 +6,7 @@ class RoomsController < ApplicationController
 	def create
 		@room = Room.new(room_params)
 		if @room.save
-			redirect_to "/rooms/#{@room.id}"
+			redirect_to :back
 		else
 			flash[:errors] = @room.errors.full_messages
 			redirect_to :back
@@ -19,41 +19,47 @@ class RoomsController < ApplicationController
   		params.require(:room).permit(:hotel_id, :price, :number, :smoking, :room_type, :occupancy_a) 
   	end
   	def all
-      @user = User.find(session[:user_id])
-      @cart = Cart.where(user_id: session[:user_id])
-      @cartNumberArr = []
-      @cart.each do |val|
-        @cartNumberArr << val.number
-      end
-      if session[:price_range]
-        if session[:price_range] == 1
-            @rooms = Room.where(price: 70..120).order(:price)
-        elsif session[:price_range] == 2
-            @rooms = Room.where(price: 120..150).order(:price)
-        elsif session[:price_range] == 3
-            @rooms = Room.where(price: 150..200).order(:price)
+        @user = User.find(session[:user_id])
+        @cart = Cart.where(user_id: session[:user_id])
+        @cartNumberArr = []
+        @cart.each do |val|
+          @cartNumberArr << val.number
         end
-        session[:price_range] = nil
-      else
-        if session[:searchingAll] == true
+        if session[:from_cart]
           @rooms = @@roomSwitch
-          # puts '============'
-          # puts @rooms.first
-          # fail
         else
-          @rooms = Room.all
-          # if @user.guests != nil
-          #   @user.guests.each do |val|
-          #     if val.guest_type == "Child"
-          #       session[:childCount] += 1
-          #     elsif val.guest_type == "Adult"
-          #       session[:adultCount] += 1
-          #     end
-          #   end
-          # end
+        if session[:price_range]
+          if session[:price_range] == 1
+              @rooms = Room.where(price: 70..120).order(:price)
+          elsif session[:price_range] == 2
+              @rooms = Room.where(price: 120..150).order(:price)
+          elsif session[:price_range] == 3
+              @rooms = Room.where(price: 150..200).order(:price)
+          end
+          session[:price_range] = nil
+        else
+          if session[:searchingAll] == true
+            @rooms = @@roomSwitch
+            # puts '============'
+            # puts @rooms.first
+            # fail
+          else
+            @rooms = Room.all
+            # if @user.guests != nil
+            #   @user.guests.each do |val|
+            #     if val.guest_type == "Child"
+            #       session[:childCount] += 1
+            #     elsif val.guest_type == "Adult"
+            #       session[:adultCount] += 1
+            #     end
+            #   end
+            # end
+          end
+          session[:searchingAll] = false
         end
-        session[:searchingAll] = false
       end
+      @@roomSwitch = @rooms
+      session[:from_cart] = false
   	end
   	def search
   		if params[:id] == '1'
@@ -79,7 +85,6 @@ class RoomsController < ApplicationController
       searchArr = []
       session[:childCount] = params['child'].to_i
       session[:adultCount] = params['adult'].to_i
-      session[:searching] = true
       @rooms = Room.all
       tag_ids = params[:tag_ids]
       if tag_ids

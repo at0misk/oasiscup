@@ -17,6 +17,11 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://js.braintreegateway.com/v2/braintree.js"></script>
     <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.js""></script>
+    <script type="text/javascript">
+      jQuery.extend(jQuery.validator.messages, {
+        equalTo: "Please re-enter your password."
+      });
+    </script>
   <style>
     .container{
       /*margin: 0px auto;*/
@@ -107,6 +112,17 @@
     }
     body { 
       padding-top: 50px; 
+    }
+    .footerDiv{
+      background-color: #0275d8;
+      color: white;
+      padding-top: 5px;
+    }
+    footer{
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
     }
   </style>
   </head>
@@ -226,5 +242,10 @@
   <div class="container">
     <%= yield %>
   </div>
+<!--   <footer class="footer">
+    <div class="col-md-12 footerDiv">
+      <p>Footer Content</p>
+    </div>
+  </footer> -->
   </body>
 </html>
