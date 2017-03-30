@@ -62,7 +62,7 @@
 <form class="form-inline" action="/rooms/searchAll" method="post" id="roomSearchForm">
 <span class="countForm">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-<h3>Searching for <input name="child" type="number" value="<%= session[:childCount] %>" min="0"> Children and <input name="adult" type="number" value="<%= session[:adultCount] %>" min="1"> Adults.</h3></span><br>
+<h3>Searching for <input name="child" type="hidden" value="<%= session[:childCount] %>"><%= session[:childCount] %> Children and <input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><%= session[:adultCount] %> Adults.</h3><button class="btn btn-primary">Find Rooms!</button></form>
 <div class="formBreak">
 	<div class="form-check form-check-inline">
 	  <label class="form-check-label">
