@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+  @@roomSwitch
 	before_action :authenticate_user!
 	def new
 	end
@@ -15,10 +16,33 @@ class RoomsController < ApplicationController
 		@room = Room.find(params[:id])
 	end
   	def room_params
-  		params.require(:room).permit(:hotel_id, :price, :number, :smoking, :room_type) 
+  		params.require(:room).permit(:hotel_id, :price, :number, :smoking, :room_type, :occupancy_a) 
   	end
   	def all
-  		@rooms = Room.all
+      @user = User.find(session[:user_id])
+      @cart = Cart.where(user_id: session[:user_id])
+      @cartNumberArr = []
+      @cart.each do |val|
+        @cartNumberArr << val.number
+      end
+      if session[:searchingAll] == true
+        @rooms = @@roomSwitch
+        # puts '============'
+        # puts @rooms.first
+        # fail
+      else
+        @rooms = Room.all
+        # if @user.guests != nil
+        #   @user.guests.each do |val|
+        #     if val.guest_type == "Child"
+        #       session[:childCount] += 1
+        #     elsif val.guest_type == "Adult"
+        #       session[:adultCount] += 1
+        #     end
+        #   end
+        # end
+      end
+      session[:searchingAll] = false
   	end
   	def search
   		if params[:id] == '1'
@@ -33,6 +57,56 @@ class RoomsController < ApplicationController
   		session[:fromCount] = true
   		session[:childCount] = params['child'].to_i
   		session[:adultCount] = params['adult'].to_i
-  		redirect_to '/hotels'
+  		redirect_to '/rooms'
   	end
+    def searchAll
+      session[:searchingAll] = true
+      searchArr = []
+      session[:childCount] = params['child'].to_i
+      session[:adultCount] = params['adult'].to_i
+      session[:searching] = true
+      @rooms = Room.all
+      tag_ids = params[:tag_ids]
+      if tag_ids
+        if tag_ids.include? '4'
+          cheapestOnly = true
+          @@roomSwitch = @rooms.order(:price)
+        else
+          @@roomSwitch = @rooms
+        end
+        if tag_ids.include? '1'
+          cheapestOnly = false
+          @@roomSwitch.each do |val|
+            if val.room_type == 'Single'
+              searchArr << val
+            end
+        end
+      end
+      if tag_ids.include? '2'
+          cheapestOnly = false
+          @@roomSwitch.each do |val|
+            if val.room_type == 'Double'
+              searchArr << val
+            end
+        end
+      end
+      if tag_ids.include? '3'
+          cheapestOnly = false
+          @@roomSwitch.each do |val|
+            if val.room_type == 'Suite'
+              searchArr << val
+            end
+        end
+      end
+        if cheapestOnly
+          @@roomSwitch = @rooms.order(:price)
+        else
+        @@roomSwitch = searchArr
+        end
+      else
+        @@roomSwitch = @rooms
+        # session[:searchingAll] = false
+      end
+      redirect_to :back
+    end
 end

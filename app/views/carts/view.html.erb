@@ -37,10 +37,12 @@
 			<th>Smoking</th>
 			<th>Type</th>
 			<th>Room Price</th>
+			<th>Occupancy</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
+	<% @totalOccupancy = 0 %>
 		<% @cart_rooms.each do |val| %>
 		<tr>
 		<td><%= val.hotel.name %></td>
@@ -49,6 +51,8 @@
 		<td><%= val.smoking %></td>
 		<td><%= val.room_type %></td>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
+		<td><%= val.occupancy_a %></td>
+		<% @totalOccupancy += val.occupancy_a.to_i %>
 		<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<button type="submit" class="btn btn-danger">Remove</button>
@@ -68,9 +72,16 @@
 	</tbody>
 </table>
 </div>
+<% if @noGuests %>
+<%else %>
+<% if @guestCount > @totalOccupancy %>
+<h3>You are currently booking for <%= @guestCount %> people, and have rooms in your cart that accomodate <%= @totalOccupancy %> people.</h3>
+<h3>Please book more <a href="/hotels">rooms</a></h3>
+<% else %>
 <!-- Must have 10 room conditional -->
 <%# if @cart_rooms.length < 10 %>
 <!-- <h3>You must book at least 10 rooms to checkout.</h3> -->
+<!-- <h3>Please book more <a href="/hotels">rooms</a></h3> -->
 <%# else %>
 <div id="stripeDiv">
 <%= form_tag charges_path do %>
@@ -93,8 +104,10 @@
 <% end %>
 </div>
 </div>
+<% end %>
 <%# end %>
 <div class="col-md-2">
 </div>
 </div>
+<% end %>
 <% end %>

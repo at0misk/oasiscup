@@ -64,19 +64,21 @@
 <table class="table-striped">
 	<thead>
 		<tr>
-			<th>Room Number</th>
 			<th>Room Price</th>
+			<th>Room Number</th>
 			<th>Smoking</th>
 			<th>Type</th>
+			<th>Occupancy</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @rooms.each do |val| %>
 		<tr>
-		<td><a href="/rooms/<%= val.id %>"><%= val.number %></a></td>
 		<td><%= val.price %></td>
+		<td><%= val.number %></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.room_type %></td>
+		<td><%= val.occupancy_a %></td>
 			<% @cartNumberArr.each do |c| %>
 				<% if val.number == c %>
 				<% @found = true %>
@@ -86,7 +88,19 @@
 			<% end %>
 		<% if @found %>
 		<% else %>
-		<td></td>
+		<td>
+			<form action="/cart/create/<%= val.id %>" method="POST">
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type="hidden" name="cart[price]" value="<%= val.price %>">
+				<input type="hidden" name="cart[number]" value="<%= val.number %>">
+				<input type="hidden" name="cart[smoking]" value="<%= val.smoking %>">
+				<input type="hidden" name="cart[room_type]" value="<%= val.room_type %>">
+				<input type="hidden" name="cart[hotel_id]" value="<%= val.hotel.id %>">
+				<input type="hidden" name="cart[user_id]" value="<%= session[:user_id] %>">
+				<input type="hidden" name="cart[occupancy_a]" value="<%= val.occupancy_a %>">
+				<button type="submit" class="btn btn-primary">Add To Cart</button>
+			</form>
+		</td>
 		<% end %>
 		<% @found = false %>
 		</tr>
@@ -101,6 +115,7 @@
 	Number: <input type="number" name="room[number]">
 	Smoking: <input type="text" name="room[smoking]">
 	Type: <input type="text" name="room[room_type]">
+	Occupancy_a: <input type="number" name="room[occupancy_a]">
 	<input type="hidden" name="room[hotel_id]" value="<%= @hotel.id %>">
 	<input type="submit" value="submit">
 </form>

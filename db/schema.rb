@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330160357) do
+ActiveRecord::Schema.define(version: 20170330172813) do
 
   create_table "books", force: :cascade do |t|
     t.float    "price"
@@ -19,8 +19,9 @@ ActiveRecord::Schema.define(version: 20170330160357) do
     t.string   "room_type"
     t.integer  "hotel_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "occupancy_a"
     t.index ["hotel_id"], name: "index_books_on_hotel_id"
     t.index ["user_id"], name: "index_books_on_user_id"
   end
@@ -32,8 +33,9 @@ ActiveRecord::Schema.define(version: 20170330160357) do
     t.string   "room_type"
     t.integer  "hotel_id"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "occupancy_a"
     t.index ["hotel_id"], name: "index_carts_on_hotel_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
   end
@@ -71,8 +73,9 @@ ActiveRecord::Schema.define(version: 20170330160357) do
     t.string   "smoking"
     t.string   "room_type"
     t.integer  "hotel_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "occupancy_a"
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
   end
 

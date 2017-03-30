@@ -1,3 +1,139 @@
-<% @rooms.each do |val| %>
-<p><a href="/rooms/<%= val.id %>"><%= val.hotel.name %>, Room#<%= val.number %></a></p>
-<% end %>
+<style type="text/css">
+	.countForm{
+		text-align: center;
+		margin-top: 2%;
+	}
+	.countForm input{
+		display: inline;
+    	width: 5%;
+	}
+	.countForm button{
+		display: inline-block;
+	    vertical-align: top;
+	    margin-left: 2%;
+	}
+	.countForm h4{
+		display: inline;
+		vertical-align: -webkit-baseline-middle;
+	}
+	.countForm h3{
+		display: inline;
+		vertical-align: -webkit-baseline-middle;
+	}
+	#roomSearchForm input{
+		display: inline;
+	}
+	.hotelImg img{
+		height: 400px;
+	}
+	#map{
+		height: 400px;
+	}
+	.form-check{
+		display: inline;
+	}
+	.searchbtn{
+		margin-left: 1%;
+	}
+	#roomSearchForm{
+	    text-align: center;
+	    margin-top: 2%;
+	}
+	.tableRow{
+		margin-top: 2%;
+	}
+	.form-check{
+		vertical-align: -webkit-baseline-middle;
+	}
+	.formBreak{
+		margin-top: 2%;
+	}
+	.roomBtn{
+		margin-top: 2%;
+	}
+</style>
+<form class="form-inline" action="/rooms/searchAll" method="post" id="roomSearchForm">
+<span class="countForm">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<h3>Searching for <input name="child" type="number" value="<%= session[:childCount] %>" min="0"> Children and <input name="adult" type="number" value="<%= session[:adultCount] %>" min="1"> Adults.</h3></span><br>
+<div class="formBreak">
+	<div class="form-check form-check-inline">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="1" /> Single
+	  </label>
+	</div>
+	<div class="form-check form-check-inline">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="2" /> Double
+	  </label>
+	</div>
+	<div class="form-check form-check-inline">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="3" /> Suite
+	  </label>
+	</div>
+	<div class="form-check form-check-inline">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="4" /> Cheapest
+	  </label>
+	</div>
+	<br>
+	<button type="submit" class="btn btn-primary btn-md roomBtn">Search Rooms!</button>
+</div>
+</form>
+<div class="row tableRow">
+<div class="col-md-2">
+</div>
+<div class="col-md-8">
+<table class="table-striped">
+	<thead>
+		<tr>
+			<th>Room Price</th>
+			<th>Hotel</th>
+			<th>Room Number</th>
+			<th>Smoking</th>
+			<th>Type</th>
+			<th>Occupancy</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @rooms.each do |val| %>
+		<tr>
+		<td><%= val.price %></td>
+		<td><a href="hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
+		<td><%= val.number %></td>
+		<td><%= val.smoking %></td>
+		<td><%= val.room_type %></td>
+		<td><%= val.occupancy_a %></td>
+			<% @cartNumberArr.each do |c| %>
+				<% if val.number == c %>
+				<% @found = true %>
+				<td>Room Is In Your Cart!</td>
+				<% else %>
+				<% end %>
+			<% end %>
+		<% if @found %>
+		<% else %>
+		<td>
+			<form action="/cart/create/<%= val.id %>" method="POST">
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input type="hidden" name="cart[price]" value="<%= val.price %>">
+				<input type="hidden" name="cart[number]" value="<%= val.number %>">
+				<input type="hidden" name="cart[smoking]" value="<%= val.smoking %>">
+				<input type="hidden" name="cart[room_type]" value="<%= val.room_type %>">
+				<input type="hidden" name="cart[hotel_id]" value="<%= val.hotel.id %>">
+				<input type="hidden" name="cart[user_id]" value="<%= session[:user_id] %>">
+				<input type="hidden" name="cart[occupancy_a]" value="<%= val.occupancy_a %>">
+				<button type="submit" class="btn btn-primary">Add To Cart</button>
+			</form>
+		</td>
+		<% end %>
+		<% @found = false %>
+		</tr>
+		<% end %>
+	</tbody>
+</table>
+</div>
+<div class="col-md-2">
+</div>
+</div>

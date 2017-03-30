@@ -3,10 +3,10 @@ class CartsController < ApplicationController
 	def create
 		@cart = Cart.new(cart_params)
 		if @cart.save
-			redirect_to "/hotels/#{@cart.hotel.id}"
+			redirect_to :back
 		else
 			flash[:errors] = @cart.errors.full_messages
-			redirect_to "/hotels/#{params['hotel_id']}"
+			redirect_to :back
 		end
 	end
 	def cancel
@@ -19,6 +19,7 @@ class CartsController < ApplicationController
 			@noGuests = true
 		else
 			@noGuests = false
+			@guestCount = @user.guests.length + 1
 		end
 	    gon.client_token = generate_client_token
 	    @token = gon.client_token
@@ -66,7 +67,7 @@ class CartsController < ApplicationController
 	end
 
   	def cart_params
-  		params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type) 
+  		params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a) 
   	end
 	private
 	def generate_client_token

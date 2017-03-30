@@ -8,6 +8,7 @@
 		<h3>Room Number: <%= @room.number %></h3>
 		<h3>Smoking: <%= @room.smoking %></h3>
 		<h3>Type: <%= @room.room_type %></h3>
+		<h3>Occupancy_a: <%= @room.occupancy_a %></h3>
 		<form action="/cart/create/<%= @room.id %>" method="POST">
 			<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 			<input type="hidden" name="cart[price]" value="<%= @room.price %>">
@@ -16,6 +17,7 @@
 			<input type="hidden" name="cart[room_type]" value="<%= @room.room_type %>">
 			<input type="hidden" name="cart[hotel_id]" value="<%= @room.hotel.id %>">
 			<input type="hidden" name="cart[user_id]" value="<%= session[:user_id] %>">
+			<input type="hidden" name="cart[occupancy_a]" value="<%= @room.occupancy_a %>">
 			<button type="submit" class="btn btn-primary">Add To Cart</button>
 		</form>
 	</div>
