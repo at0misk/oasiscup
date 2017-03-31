@@ -34,6 +34,9 @@ class ChargesController < ApplicationController
 		@transaction = Transaction.new(user_id: session[:user_id], total: (@amount/100).to_f)
 		@transaction.save
 		
+		# Manifest Email
+	  	# UserMailer.manifest_email(@user).deliver_now
+
 		redirect_to '/booked'
 	end
 end

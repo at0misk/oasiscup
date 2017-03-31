@@ -76,9 +76,7 @@
 	</tbody>
 </table>
 </div>
-<% if @noGuests %>
-<%else %>
-<% if @guestCount > @totalOccupancy %>
+<% if @guestCount && @guestCount > @totalOccupancy %>
 <h3>You are currently booking for <%= @guestCount %> people, and have rooms in your cart that only accomodate <%= @totalOccupancy %> people.</h3>
 <h3>Please book more <a href="/hotels">rooms</a>.</h3>
 <% else %>
@@ -113,5 +111,4 @@
 <div class="col-md-2">
 </div>
 </div>
-<% end %>
 <% end %>
