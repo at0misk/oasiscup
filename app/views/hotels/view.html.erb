@@ -39,6 +39,9 @@
     .infoDiv h4{
     	text-align: center;
     }
+    .infoRow{
+    	height: 200px;
+    }
 </style>
 <h3><%= @hotel.name %></h3>
 <div class="row">
@@ -48,7 +51,7 @@
 	<div class="col-md-6" id="map">
 	</div>
 </div>
-<div class="row">
+<div class="row infoRow">
 	<div class="col-md-4 infoDiv">
 		<h4><%= @hotel.address %></h4>
 		<h4><%= @hotel.city %>, <%= @hotel.city %> <%= @hotel.zip %></h4>
