@@ -105,10 +105,10 @@
           center: palmSprings
         });
         <% @hotels.each do |val| %>
-        var pos = {lat: 33.830296, lng: -116.545292};
+        var pos<% val.id %> = {lat: <%= val.lat %>, lng: <%= val.long %>};
 
-        var marker = new google.maps.Marker({
-          position: pos,
+        var marker<%= val.id %> = new google.maps.Marker({
+          position: pos<%= val.id %>,
           map: map,
           title: 'Palm Springs'
         });
@@ -129,11 +129,11 @@
         var infowindow<%= val.id %> = new google.maps.InfoWindow({
           content: contentString<%= val.id %>
         });
-        marker.addListener('click', function() {
+        marker<%= val.id %>.addListener('click', function() {
           if(prev_infowindow){
           	prev_infowindow.close();
           }
-          infowindow<%= val.id %>.open(map, marker);
+          infowindow<%= val.id %>.open(map, marker<%= val.id %>);
           prev_infowindow = infowindow<%= val.id %>
         });
 
@@ -146,7 +146,7 @@
           if(prev_infowindow){
           	prev_infowindow.close();
           }
-          infowindow<%= val.id %>.open(map, marker);
+          infowindow<%= val.id %>.open(map, marker<%= val.id %>);
           prev_infowindow = infowindow<%= val.id %>
         })
         <% end %>
