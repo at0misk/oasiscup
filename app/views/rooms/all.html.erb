@@ -1,7 +1,7 @@
 <style type="text/css">
 	.countForm{
 		text-align: center;
-		margin-top: 2%;
+		/*margin-top: 2%;*/
 	}
 	.countForm input{
 		display: inline;
@@ -37,7 +37,7 @@
 	}
 	#roomSearchForm{
 	    text-align: center;
-	    margin-top: 2%;
+	    /*margin-top: 2%;*/
 	}
 	.tableRow{
 		margin-top: 2%;
@@ -52,13 +52,23 @@
 		margin-top: 2%;
 	}
 	.tableCol{
-		padding-left: 8%;
+		/*padding-left: 8%;*/
+	}
+	.resetForm{
+		text-align: right;
+		margin-top: 2%;
+	}
+	.table>thead>tr>th {
+		 border-bottom: none; 
 	}
 </style>
 <div class="searchFormRow row">
 <div class="col-md-2">
 </div>
 <div class="col-md-8">
+<form action="count" method="post" class="resetForm" data-turbolinks="false">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<input name="child" type="hidden" value="<%= session[:childCount] %>"><input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><button class="btn btn-danger">Reset</button></form>
 <form class="form-inline" action="/rooms/searchAll" method="post" id="roomSearchForm">
 <span class="countForm">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -86,8 +96,8 @@
 	</div>
 	<br>
 	<button type="submit" class="btn btn-primary btn-md roomBtn">Search Rooms!</button>
-</div>
 </form>
+</div>
 </div>
 <div class="col-md-2">
 </div>
@@ -96,7 +106,8 @@
 <div class="col-md-2">
 </div>
 <div class="col-md-8 tableCol">
-<table class="table-striped">
+<div class="table-responsive">
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th>Room Price</th>
@@ -144,6 +155,7 @@
 		<% end %>
 	</tbody>
 </table>
+</div>
 </div>
 <div class="col-md-2">
 </div>

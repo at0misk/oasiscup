@@ -28,7 +28,7 @@ class RoomsController < ApplicationController
         if session[:from_cart]
           @rooms = @@roomSwitch
         else
-        if session[:price_range]
+        if session[:price_range] && !session[:searchingAll] 
           if session[:price_range] == 1
               @rooms = Room.where(price: 70..120).order(:price)
           elsif session[:price_range] == 2
@@ -36,7 +36,7 @@ class RoomsController < ApplicationController
           elsif session[:price_range] == 3
               @rooms = Room.where(price: 150..200).order(:price)
           end
-          session[:price_range] = nil
+          # session[:price_range] = nil
         else
           if session[:searchingAll] == true
             @rooms = @@roomSwitch
@@ -75,6 +75,7 @@ class RoomsController < ApplicationController
       redirect_to '/rooms'
   	end
   	def count
+      session[:price_range] = nil
   		session[:fromCount] = true
   		session[:childCount] = params['child'].to_i
   		session[:adultCount] = params['adult'].to_i
@@ -85,7 +86,15 @@ class RoomsController < ApplicationController
       searchArr = []
       session[:childCount] = params['child'].to_i
       session[:adultCount] = params['adult'].to_i
-      @rooms = Room.all
+      if session[:price_range] == 1
+        @rooms = Room.where(price: 70..120).order(:price)
+      elsif session[:price_range] == 2
+        @rooms = Room.where(price: 120..150).order(:price)
+      elsif session[:price_range] == 3
+        @rooms = Room.where(price: 150..200).order(:price)
+      else
+        @rooms = Room.all
+      end
       tag_ids = params[:tag_ids]
       if tag_ids
         if tag_ids.include? '4'
@@ -128,5 +137,5 @@ class RoomsController < ApplicationController
         # session[:searchingAll] = false
       end
       redirect_to :back
-      end
+    end
 end

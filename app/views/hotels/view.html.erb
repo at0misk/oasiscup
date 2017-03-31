@@ -23,6 +23,9 @@
 	.searchbtn{
 		margin-left: 1%;
 	}
+	.table>thead>tr>th {
+		 border-bottom: none; 
+	}
 </style>
 <h3><%= @hotel.name %></h3>
 <div class="row">
@@ -32,8 +35,8 @@
 	<div class="col-md-6" id="map">
 	</div>
 </div>
+<div class="row">
 <h3><%= @hotel.address %></h3>
-<div>
 	<form class="form-inline" action="/rooms/search/<%= @hotel.id %>" method="post" id="roomSearchForm">
 		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 		<div class="form-check form-check-inline">
@@ -61,7 +64,7 @@
 </div>
 <h4>Rooms:</h4>
 <div class="table-responsive">
-<table class="table-striped">
+<table class="table table-striped">
 	<thead>
 		<tr>
 			<th>Room Price</th>
@@ -108,7 +111,7 @@
 	</tbody>
 </table>
 </div>
-<!-- <h3>Register room for this hotel:</h3>
+<h3>Register room for this hotel:</h3>
 <form action="/rooms/create" method="POST">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	Price: <input type="text" name="room[price]">
@@ -118,7 +121,7 @@
 	Occupancy_a: <input type="number" name="room[occupancy_a]">
 	<input type="hidden" name="room[hotel_id]" value="<%= @hotel.id %>">
 	<input type="submit" value="submit">
-</form> -->
+</form>
 <script type="text/javascript">
 		function initMap() {
         var palmSprings = {lat: 33.830296, lng: -116.545292};
