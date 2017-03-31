@@ -68,19 +68,16 @@
     	text-align: center;
     }
 </style>
-<div id="map"></div>
-<div id="legend"><h5>Hotels</h5></div>
 <% if @noGuests %>
 <h3>Your guest list is empty.</h3>
 <h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
-<form action="count" method="post" class="countForm" data-turbolinks="false">
-	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-<h4>Searching for <input name="child" type="hidden" value="<%= session[:childCount] %>"><%= session[:childCount] %> Children and <input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><%= session[:adultCount] %> Adults.</h4><button class="btn btn-primary">Find Rooms!</button></form>
 <% else %>
+<% end %>
+<div id="map"></div>
+<div id="legend"><h5>Hotels</h5></div>
 <form action="count" method="post" class="countForm" data-turbolinks="false">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <h4>Searching for <input name="child" type="hidden" value="<%= session[:childCount] %>"><%= session[:childCount] %> Children and <input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><%= session[:adultCount] %> Adults.</h4><button class="btn btn-primary">Find Rooms!</button></form>
-<% end %>
 <div class="row hotelBoxRow" data-turbolinks="false">
 <div class="col-md-3 hotelBox">
 <a href="/roomByPrice/1"><%= image_tag("70.png") %></a>

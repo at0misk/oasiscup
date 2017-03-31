@@ -26,6 +26,9 @@
 	.table>thead>tr>th {
 		 border-bottom: none; 
 	}
+	.infoRow{
+		padding-left: 15px;
+	}
 </style>
 <h3><%= @hotel.name %></h3>
 <div class="row">
@@ -36,6 +39,7 @@
 	</div>
 </div>
 <div class="row">
+<div class="col-md-12">
 <h3><%= @hotel.address %></h3>
 	<form class="form-inline" action="/rooms/search/<%= @hotel.id %>" method="post" id="roomSearchForm">
 		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -61,6 +65,7 @@
 		</div>
 		<button type="submit" class="btn btn-primary searchbtn">Search Rooms</button>
 	</form>
+</div>
 </div>
 <h4>Rooms:</h4>
 <div class="table-responsive">
