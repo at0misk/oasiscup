@@ -90,7 +90,7 @@
 </div>
 <% @hotels.each do |val| %>
 	<div class="col-md-3 hotelBox">
-		<a href="/hotels/<%= val.id %>"><%= image_tag("<%= val.image %>") %></a>
+		<a href="/hotels/<%= val.id %>"><%= image_tag("#{val.image}") %></a>
 		<h3><%= val.name %></h3>
 	</div>
 <% end %>
