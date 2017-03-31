@@ -36,6 +36,7 @@ gem 'braintree', '~> 2.72'
 gem 'figaro'
 gem 'gon', '~> 5.1.2'
 gem 'stripe'
+gem 'will_paginate'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

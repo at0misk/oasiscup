@@ -29,6 +29,9 @@
 	.infoRow{
 		padding-left: 15px;
 	}
+	.pagination{
+		margin-top: 0px;
+	}
 </style>
 <h3><%= @hotel.name %></h3>
 <div class="row">
@@ -67,6 +70,8 @@
 	</form>
 </div>
 </div>
+<div class="row">
+<div class="col-md-12">
 <h4>Rooms:</h4>
 <div class="table-responsive">
 <table class="table table-striped">
@@ -115,6 +120,13 @@
 		<% end %>
 	</tbody>
 </table>
+</div>
+</div>
+</div>
+<div class="row pagRow">
+<div class="col-md-12">
+	<%= will_paginate @rooms %>
+</div>
 </div>
 <!-- <h3>Register room for this hotel:</h3>
 <form action="/rooms/create" method="POST">

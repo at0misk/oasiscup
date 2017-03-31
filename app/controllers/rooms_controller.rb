@@ -30,11 +30,11 @@ class RoomsController < ApplicationController
         else
         if session[:price_range] && !session[:searchingAll] 
           if session[:price_range] == 1
-              @rooms = Room.where(price: 70..120).order(:price)
+              @rooms = Room.where(price: 70..120).order(:price).paginate(:page => params[:page], :per_page => 7)
           elsif session[:price_range] == 2
-              @rooms = Room.where(price: 120..150).order(:price)
+              @rooms = Room.where(price: 120..150).order(:price).paginate(:page => params[:page], :per_page => 7)
           elsif session[:price_range] == 3
-              @rooms = Room.where(price: 150..200).order(:price)
+              @rooms = Room.where(price: 150..200).order(:price).paginate(:page => params[:page], :per_page => 7)
           end
           # session[:price_range] = nil
         else
@@ -44,7 +44,7 @@ class RoomsController < ApplicationController
             # puts @rooms.first
             # fail
           else
-            @rooms = Room.all
+            @rooms = Room.paginate(:page => params[:page], :per_page => 7)
             # if @user.guests != nil
             #   @user.guests.each do |val|
             #     if val.guest_type == "Child"
@@ -87,11 +87,11 @@ class RoomsController < ApplicationController
       session[:childCount] = params['child'].to_i
       session[:adultCount] = params['adult'].to_i
       if session[:price_range] == 1
-        @rooms = Room.where(price: 70..120).order(:price)
+        @rooms = Room.where(price: 70..120).order(:price).paginate(:page => params[:page], :per_page => 7)
       elsif session[:price_range] == 2
-        @rooms = Room.where(price: 120..150).order(:price)
+        @rooms = Room.where(price: 120..150).order(:price).paginate(:page => params[:page], :per_page => 7)
       elsif session[:price_range] == 3
-        @rooms = Room.where(price: 150..200).order(:price)
+        @rooms = Room.where(price: 150..200).order(:price).paginate(:page => params[:page], :per_page => 7)
       else
         @rooms = Room.all
       end
@@ -99,9 +99,9 @@ class RoomsController < ApplicationController
       if tag_ids
         if tag_ids.include? '4'
           cheapestOnly = true
-          @@roomSwitch = @rooms.order(:price)
+          @@roomSwitch = @rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
         else
-          @@roomSwitch = @rooms
+          @@roomSwitch = @rooms.paginate(:page => params[:page], :per_page => 7)
         end
         if tag_ids.include? '1'
           cheapestOnly = false
@@ -128,12 +128,12 @@ class RoomsController < ApplicationController
         end
       end
         if cheapestOnly
-          @@roomSwitch = @rooms.order(:price)
+          @@roomSwitch = @rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
         else
-        @@roomSwitch = searchArr
+        @@roomSwitch = searchArr.paginate(:page => params[:page], :per_page => 7)
         end
       else
-        @@roomSwitch = @rooms
+        @@roomSwitch = @rooms.paginate(:page => params[:page], :per_page => 7)
         # session[:searchingAll] = false
       end
       redirect_to :back

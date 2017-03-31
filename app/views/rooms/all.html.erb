@@ -52,7 +52,7 @@
 		margin-top: 2%;
 	}
 	.tableCol{
-		/*padding-left: 8%;*/
+		height: 413px;
 	}
 	.resetForm{
 		text-align: right;
@@ -60,6 +60,10 @@
 	}
 	.table>thead>tr>th {
 		 border-bottom: none; 
+	}
+	.pagination{
+		margin-top: 0px;
+		/*text-align: center;*/
 	}
 </style>
 <div class="searchFormRow row">
@@ -156,6 +160,15 @@
 	</tbody>
 </table>
 </div>
+</div>
+<div class="col-md-2">
+</div>
+</div>
+<div class="row">
+<div class="col-md-2">
+</div>
+<div class="col-md-8">
+	<%= will_paginate @rooms %>
 </div>
 <div class="col-md-2">
 </div>

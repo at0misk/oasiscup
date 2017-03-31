@@ -20,12 +20,12 @@ class HotelsController < ApplicationController
       @cartNumberArr << val.number
     end
 		if session[:searching] == true
-			@rooms = @@roomSwitch
+			@rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
       # puts '============'
       # puts @rooms.first
       # fail
 		else
-  		@rooms = @hotel.rooms
+  		@rooms = @hotel.rooms.paginate(:page => params[:page], :per_page => 7)
   	end
   		session[:searching] = false
 	end
@@ -74,9 +74,9 @@ class HotelsController < ApplicationController
   		if tag_ids
   			if tag_ids.include? '4'
           cheapestOnly = true
-  				@@roomSwitch = @hotel.rooms.order(:price)
+  				@@roomSwitch = @hotel.rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
   			else
-  				@@roomSwitch = @hotel.rooms
+  				@@roomSwitch = @hotel.rooms.paginate(:page => params[:page], :per_page => 7)
   			end
   			if tag_ids.include? '1'
           cheapestOnly = false
@@ -105,10 +105,10 @@ class HotelsController < ApplicationController
         if cheapestOnly
           @@roomSwitch = @hotel.rooms.order(:price)
         else
-   			@@roomSwitch = searchArr
+   			@@roomSwitch = searchArr.paginate(:page => params[:page], :per_page => 7)
         end
   		else
-        @@roomSwitch = @hotel.rooms
+        @@roomSwitch = @hotel.rooms.paginate(:page => params[:page], :per_page => 7)
   			# session[:searching] = false
   		end
    		redirect_to "/hotels/#{@hotel.id}"
