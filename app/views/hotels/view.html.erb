@@ -36,7 +36,7 @@
 <h3><%= @hotel.name %></h3>
 <div class="row">
 	<div class="col-md-6 hotelImg">
-		<%= image_tag("hotel.jpg") %>
+		<%= image_tag("#{ @hotel.image }") %>
 	</div>
 	<div class="col-md-6" id="map">
 	</div>
@@ -141,7 +141,7 @@
 </form> -->
 <script type="text/javascript">
 		function initMap() {
-        var palmSprings = {lat: 33.830296, lng: -116.545292};
+        var palmSprings = {lat: <%= @hotel.lat %>, lng: <%= @hotel.long %>};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 17,
           center: palmSprings
@@ -149,7 +149,7 @@
         var marker = new google.maps.Marker({
           position: palmSprings,
           map: map,
-          title: 'Palm Springs'
+          title: '<%= @hotel.name %>'
         });
     }
 </script>
