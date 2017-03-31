@@ -43,7 +43,9 @@
 </div>
 <div class="row">
 <div class="col-md-12">
-<h3><%= @hotel.address %></h3>
+<h4><%= @hotel.address %></h4>
+<h4><%= @hotel.city %>, <%= @hotel.city %></h4>
+<h4><%= @hotel.zip %></h4>
 	<form class="form-inline" action="/rooms/search/<%= @hotel.id %>" method="post" id="roomSearchForm">
 		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 		<div class="form-check form-check-inline">
