@@ -105,7 +105,7 @@
           center: palmSprings
         });
         <% @hotels.each do |val| %>
-        var pos<% val.id %> = {lat: <%= val.lat %>, lng: <%= val.long %>};
+        var pos<%= val.id %> = {lat: <%= val.lat %>, lng: <%= val.long %>};
 
         var marker<%= val.id %> = new google.maps.Marker({
           position: pos<%= val.id %>,
