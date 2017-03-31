@@ -77,7 +77,7 @@
 </table>
 </div>
 <% if @guestCount && @guestCount > @totalOccupancy %>
-<h3>You are currently booking for <%= @guestCount %> people, and have rooms in your cart that only accomodate <%= @totalOccupancy %> people.</h3>
+<h3>You are currently booking for <%= @guestCount %> people, and have rooms in your cart that only accomodate <% if @totalOccupancy == 1 %><%= @totalOccupancy %> person.<% else %><%= @totalOccupancy %> people.<% end %></h3>
 <h3>Please book more <a href="/hotels">rooms</a>.</h3>
 <% else %>
 <!-- Must have 10 room conditional -->
