@@ -68,6 +68,9 @@
     .mapHeading{
     	text-align: center;
     }
+    .bodyContent{
+    	padding: 2%;
+    }
 </style>
 <% if @noGuests %>
 <h3>Your guest list is empty.</h3>
@@ -118,7 +121,7 @@
             '<div id="siteNotice">'+
             '</div>'+
             '<h3 id="firstHeading" class="mapHeading"><a href="hotels/<%= val.id %>"><%= val.name %></a></h3>'+
-            '<div id="bodyContent">'+
+            '<div id="bodyContent" class="bodyContent">'+
             '<p>' +
             '<%= val.description %>' +
             '</p>' +
