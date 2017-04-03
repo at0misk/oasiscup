@@ -140,7 +140,8 @@
           	prev_infowindow.close();
           }
           infowindow<%= val.id %>.open(map, marker<%= val.id %>);
-          prev_infowindow = infowindow<%= val.id %>
+          prev_infowindow = infowindow<%= val.id %>,
+          maxWidth: 400
         });
 
         var legend = document.getElementById('legend');
