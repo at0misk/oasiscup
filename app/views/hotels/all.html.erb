@@ -129,7 +129,8 @@
             '</div>';
 
         var infowindow<%= val.id %> = new google.maps.InfoWindow({
-          content: contentString<%= val.id %>
+          content: contentString<%= val.id %>,
+          maxWidth: 200
         });
         marker<%= val.id %>.addListener('click', function() {
           if(prev_infowindow){
