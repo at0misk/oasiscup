@@ -72,8 +72,8 @@
     	padding: 2%;
     }
     .infoWindowContent{
-    	width: 400px;
-    	height: 600px;
+/*    	width: 400px;
+    	height: 600px;*/
     }
 </style>
 <% if @noGuests %>
@@ -140,7 +140,7 @@
           	prev_infowindow.close();
           }
           infowindow<%= val.id %>.open(map, marker<%= val.id %>);
-          prev_infowindow = infowindow<%= val.id %>
+          prev_infowindow = infowindow<%= val.id %>,
         });
 
         var legend = document.getElementById('legend');
