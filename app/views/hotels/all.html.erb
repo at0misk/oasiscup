@@ -78,6 +78,9 @@
     .gm-style-iw {
 	    height: 250px;
 	}
+	.moneyRow{
+		text-align: center;
+	}
 </style>
 <% if @noGuests %>
 <h3>Your guest list is empty.</h3>
@@ -86,19 +89,21 @@
 <% end %>
 <div id="map"></div>
 <div id="legend"><h5>Hotels</h5></div>
+<div class="row moneyRow">
+	<div class="col-md-4 hotelBox">
+	<a href="/roomByPrice/1"><%= image_tag("70.png") %></a>
+	</div>
+	<div class="col-md-4 hotelBox">
+	<a href="/roomByPrice/2"><%= image_tag("120.png") %></a>
+	</div>
+	<div class="col-md-4 hotelBox">
+	<a href="/roomByPrice/3"><%= image_tag("150.png") %></a>
+	</div>
+</div>
 <form action="count" method="post" class="countForm" data-turbolinks="false">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <h4>Searching for <input name="child" type="hidden" value="<%= session[:childCount] %>"><% if session[:childCount] == 1 %><%= session[:childCount] %> Child <% else %><%= session[:childCount] %> Children <% end %>and <input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><% if session[:adultCount] == 1 %><%= session[:adultCount] %> Adult.<% else %><%= session[:adultCount] %> Adults.<% end %></h4><button class="btn btn-primary">Find Rooms!</button></form>
 <div class="row hotelBoxRow" data-turbolinks="false">
-<div class="col-md-3 hotelBox">
-<a href="/roomByPrice/1"><%= image_tag("70.png") %></a>
-</div>
-<div class="col-md-3 hotelBox">
-<a href="/roomByPrice/2"><%= image_tag("120.png") %></a>
-</div>
-<div class="col-md-3 hotelBox">
-<a href="/roomByPrice/3"><%= image_tag("150.png") %></a>
-</div>
 <% @hotels.each do |val| %>
 	<div class="col-md-3 hotelBox">
 		<a href="/hotels/<%= val.id %>"><%= image_tag("#{val.image}") %></a>
