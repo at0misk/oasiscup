@@ -30,7 +30,7 @@ class HotelsController < ApplicationController
   		session[:searching] = false
 	end
   	def hotel_params
-  	params.require(:hotel).permit(:name, :address, :lat, :long, :phone, :city, :state, :zip, :image, :description, :website) 
+  	params.require(:hotel).permit(:name, :address, :lat, :long, :phone, :city, :state, :zip, :image, :description, :website, :tax) 
   	end
   	def all
       if !session[:fromCount]
