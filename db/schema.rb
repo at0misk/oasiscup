@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331223804) do
+ActiveRecord::Schema.define(version: 20170403152617) do
 
   create_table "books", force: :cascade do |t|
     t.float    "price"
@@ -66,6 +66,7 @@ ActiveRecord::Schema.define(version: 20170331223804) do
     t.string   "image"
     t.string   "description"
     t.string   "website"
+    t.decimal  "tax"
   end
 
   create_table "reservations", force: :cascade do |t|
