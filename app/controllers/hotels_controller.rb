@@ -65,6 +65,7 @@ class HotelsController < ApplicationController
       end
         session[:fromCount] = false
     		@hotels = Hotel.all.paginate(:page => params[:page], :per_page => 8)
+        @hotelsAll = Hotel.all
   	end
   	def search
   		searchArr = []

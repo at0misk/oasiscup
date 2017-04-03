@@ -137,7 +137,7 @@
           zoom: 10,
           center: palmSprings
         });
-        <% @hotels.each do |val| %>
+        <% @hotelsAll.each do |val| %>
         var pos<%= val.id %> = {lat: <%= val.lat %>, lng: <%= val.long %>};
 
         var marker<%= val.id %> = new google.maps.Marker({
