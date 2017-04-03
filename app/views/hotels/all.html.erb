@@ -120,6 +120,11 @@
 	<% y += 1 %>
 <% end %>
 </div>
+<div class="row pagRow">
+	<div class="col-md-12">
+		<%= will_paginate @hotels %>
+	</div>
+</div>
 <script type="text/javascript">
 	// $(document).ready(function(){
 		var prev_infowindow = false;
