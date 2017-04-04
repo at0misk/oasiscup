@@ -113,9 +113,11 @@
 	</div>
 </div>
 <div class="row guestRow">
+<div class="col-md-12">
 <form action="count" method="post" class="countForm" data-turbolinks="false">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <h4>Searching for <input name="child" type="hidden" value="<%= session[:childCount] %>"><% if session[:childCount] == 1 %><%= session[:childCount] %> Child <% else %><%= session[:childCount] %> Children <% end %>and <input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><% if session[:adultCount] == 1 %><%= session[:adultCount] %> Adult.<% else %><%= session[:adultCount] %> Adults.<% end %></h4><button class="btn btn-primary">Find Rooms!</button></form>
+</div>
 </div>
 <div class="row hotelBoxRow" data-turbolinks="false">
 <% y = 0 %>
