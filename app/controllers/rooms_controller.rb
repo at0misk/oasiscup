@@ -30,11 +30,11 @@ class RoomsController < ApplicationController
         else
         if session[:price_range] && !session[:searchingAll] 
           if session[:price_range] == 1
-              @rooms = Room.where(price: 70..120).order(:price).paginate(:page => params[:page], :per_page => 7)
+              @rooms = Room.where(price: 0..175).order(:price).paginate(:page => params[:page], :per_page => 7)
           elsif session[:price_range] == 2
-              @rooms = Room.where(price: 120..150).order(:price).paginate(:page => params[:page], :per_page => 7)
+              @rooms = Room.where(price: 176..250).order(:price).paginate(:page => params[:page], :per_page => 7)
           elsif session[:price_range] == 3
-              @rooms = Room.where(price: 150..200).order(:price).paginate(:page => params[:page], :per_page => 7)
+              @rooms = Room.where(price: 251..2000).order(:price).paginate(:page => params[:page], :per_page => 7)
           end
           # session[:price_range] = nil
         else
