@@ -134,18 +134,59 @@
 	// $(document).ready(function(){
 		var prev_infowindow = false;
 		function initMap() {
-        var palmSprings = {lat: 33.830296, lng: -116.545292};
+        var palmSprings = {lat: 33.745525, lng: -116.363321};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 10,
+          zoom: 12,
           center: palmSprings
         });
+        var markerField = new google.maps.Marker({
+        	position: palmSprings,
+        	map: map,
+        	icon: "<%= escape_javascript asset_path('oasiscuplogoicon.png') %>",
+        	title: 'Hovley Soccer Park'
+        })
+        var contentString = '<div id="content" class="infoWindowContent">'+
+            '<div id="siteNotice">'+
+            '</div>'+
+            '<h3 id="firstHeading" class="mapHeading"><a href="https://visitgreaterpalmsprings.com/visit/listing/hovley-soccer-park/">Hovley Soccer Park</a></h3>'+
+            '<div id="bodyContent" class="bodyContent">'+
+            '<p>' +
+            'Hovley Soccer Park has full-sized fields for soccer tournaments, plus equipment and space for other activities. The 21-acre park includes five full-size soccer fields, a disc golf course, playground and concession stand.' +
+            '</p>' +
+            '</div>'+
+            '</div>';
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          maxWidth: 400,
+          minHeight: 250
+        });
+        markerField.addListener('click', function() {
+          if(prev_infowindow){
+          	prev_infowindow.close();
+          }
+          infowindow.open(map, markerField);
+          prev_infowindow = infowindow
+        });
+        var legend = document.getElementById('legend');
+	      var div = document.createElement('div');
+	      div.innerHTML = "<span class='fieldKey keys'><img src='<%= escape_javascript asset_path('oasiscuplogoiconkey.png') %>'>Hovley Soccer Park</span>";
+	      legend.appendChild(div);
+
+        $('.fieldKey').on('click', function(){
+          if(prev_infowindow){
+          	prev_infowindow.close();
+          }
+          infowindow.open(map, markerField);
+          prev_infowindow = infowindow
+        })
+
         <% @hotelsAll.each do |val| %>
         var pos<%= val.id %> = {lat: <%= val.lat %>, lng: <%= val.long %>};
 
         var marker<%= val.id %> = new google.maps.Marker({
           position: pos<%= val.id %>,
           map: map,
-          title: 'Palm Springs'
+          title: "<%= val.name %>"
         });
 
         var contentString<%= val.id %> = '<div id="content" class="infoWindowContent">'+
@@ -158,7 +199,6 @@
             '</p>' +
             '</div>'+
             '</div>';
-
         var infowindow<%= val.id %> = new google.maps.InfoWindow({
           content: contentString<%= val.id %>,
           maxWidth: 400,
