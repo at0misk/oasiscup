@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170404170228) do
+ActiveRecord::Schema.define(version: 20170404213232) do
 
   create_table "books", force: :cascade do |t|
     t.float    "price"
@@ -91,6 +91,13 @@ ActiveRecord::Schema.define(version: 20170404170228) do
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
   end
 
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.string   "conf_num"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "transactions", force: :cascade do |t|
     t.integer  "user_id"
     t.float    "total"
@@ -108,6 +115,8 @@ ActiveRecord::Schema.define(version: 20170404170228) do
     t.string   "password_digest"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "team_id"
+    t.index ["team_id"], name: "index_users_on_team_id"
   end
 
 end

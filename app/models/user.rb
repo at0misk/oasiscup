@@ -9,4 +9,5 @@ class User < ApplicationRecord
 	has_many :carts
 	has_many :guests
 	has_many :transactions
+	belongs_to :team
 end

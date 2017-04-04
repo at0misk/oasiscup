@@ -3,7 +3,10 @@ class UsersController < ApplicationController
 	def new
 	end
 	def create
+		@team = Team.new(team_params)
+		@team.save
 		@user = User.new(user_params)
+		@user.team_id = @team.id
 		if @user.save
 			# @user.update(:fee_status => false)
 			session[:user_id] = @user.id
@@ -27,7 +30,10 @@ class UsersController < ApplicationController
 		# end
 	end
   	def user_params
-  	params.require(:user).permit(:first, :last, :email, :team, :fee_status, :password, :password_confirmation) 
+  		params.require(:user).permit(:first, :last, :email, :team, :fee_status, :password, :password_confirmation, :team_id) 
+  	end
+  	def team_params
+  		params.require(:team).permit(:name, :conf_num)
   	end
   	def edit
   		@user = User.find(session[:user_id])
