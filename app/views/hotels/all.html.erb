@@ -142,8 +142,9 @@
 		var prev_infowindow = false;
 		function initMap() {
         var palmSprings = {lat: 33.745525, lng: -116.363321};
+        var zoomPos = {lat: 33.776284, lng: -116.455576}
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
+          zoom: 12,
           center: palmSprings
         });
         var markerField = new google.maps.Marker({
