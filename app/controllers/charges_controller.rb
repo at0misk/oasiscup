@@ -11,10 +11,13 @@ class ChargesController < ApplicationController
 	    :source  => params[:stripeToken]
 	  )
 
+		@transaction = Transaction.new(user_id: session[:user_id], total: (@amount/100).to_f)
+		@transaction.save
+
 	  charge = Stripe::Charge.create(
 	    :customer    => customer.id,
 	    :amount      => @amount,
-	    :description => 'Oasis Cup Booking, Customer ID #' + session[:user_id].to_s,
+	    :description => 'Oasis Cup Booking, Order ID #' + @transaction.id.to_s,
 	    :currency    => 'usd'
 	  )
 		@cart.each do |val|
@@ -30,9 +33,6 @@ class ChargesController < ApplicationController
 			Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 			Cart.where(user_id: session[:user_id]).destroy_all
 		end
-
-		@transaction = Transaction.new(user_id: session[:user_id], total: (@amount/100).to_f)
-		@transaction.save
 		
 		# Manifest Email
 	  	# UserMailer.manifest_email(@user).deliver_now
