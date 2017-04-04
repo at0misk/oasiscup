@@ -10,8 +10,6 @@
 	}
 </style>
 <div class="row">
-<div class="col-md-3">
-</div>
 <div class="col-md-6">
 <h3 class="editHeader">Edit User Info</h3>
 <form class="form-horizontal" method="post" action="/users" id="editForm">
@@ -66,10 +64,34 @@
 	        <button type="submit" class="btn btn-primary btn-sm">
 	            Update</button>
 	    </div>
+	    <div class="col-sm-3">
+	    </div>
 	</div>
 </form>
 </div>
-<div class="col-md-3">
+<div class="col-md-6">
+<h3 class="editHeader">Edit Team Info</h3>
+<form class="form-horizontal" method="post" action="/users/teams" id="editFormTeam">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input name="_method" value="patch" type="hidden">
+	<div class="form-group">
+	    <label for="user[first]" class="col-sm-3 control-label">
+	        Team Name</label>
+	    <div class="col-sm-6">
+	        <input name="name" type="text" class="form-control" id="user[first]" value="<%= @user.team.name %>" />
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-sm-3">
+	    </div>
+	    <div class="col-sm-6 modalButtons">
+	        <button type="submit" class="btn btn-primary btn-sm">
+	            Update</button>
+	    </div>
+	    <div class="col-sm-3">
+	    </div>
+	</div>
+    </form>
 </div>
 </div>
 <% if flash[:errors] %>
@@ -103,6 +125,19 @@ $(document).on('turbolinks:load', function() {
             	required: true
             }
 
+        },
+        highlight: function (element) {
+            $(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+        },
+        success: function (element) {
+            element.closest('.form-group').removeClass('has-error').addClass('has-success');
+        }
+    });
+    $('#editFormTeam').validate({
+        rules: {
+            "name": {
+                required: true,
+            }
         },
         highlight: function (element) {
             $(element).closest('.form-group').removeClass('has-success').addClass('has-error');

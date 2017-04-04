@@ -78,4 +78,15 @@ class UsersController < ApplicationController
 	    end
 	    redirect_to :back
   	end
+  	def teamupdate
+  		@user = User.find(session[:user_id])
+  		@team = @user.team
+  		@team.name = params['name']
+  		if @team.save
+	    	flash[:errors] = nil
+	    else
+	    	flash[:errors] = @user.errors.full_messages
+	    end
+	    redirect_to :back
+  	end
 end

@@ -35,5 +35,6 @@ Rails.application.routes.draw do
   patch 'guests/:id' => 'guests#update'
   post 'count' => 'rooms#count'
   post 'rooms/searchAll' => 'rooms#searchAll'
+  patch 'users/teams' => 'users#teamupdate'
   resources :charges
 end
