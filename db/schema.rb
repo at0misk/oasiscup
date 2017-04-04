@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170403152617) do
+ActiveRecord::Schema.define(version: 20170404170228) do
 
   create_table "books", force: :cascade do |t|
     t.float    "price"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(version: 20170403152617) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "occupancy_a"
+    t.integer  "occupancy_c"
+    t.string   "description"
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
   end
 
