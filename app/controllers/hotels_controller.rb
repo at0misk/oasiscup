@@ -25,7 +25,7 @@ class HotelsController < ApplicationController
       # puts @rooms.first
       # fail
 		else
-  		@rooms = @hotel.rooms.paginate(:page => params[:page], :per_page => 7)
+  		@rooms = @hotel.rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
   	end
   		session[:searching] = false
 	end
