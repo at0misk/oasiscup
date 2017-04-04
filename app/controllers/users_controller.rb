@@ -3,22 +3,53 @@ class UsersController < ApplicationController
 	def new
 	end
 	def create
-		@team = Team.new(team_params)
-		@team.save
-		@user = User.new(user_params)
-		@user.team_id = @team.id
-		if @user.save
-			# @user.update(:fee_status => false)
-			session[:user_id] = @user.id
-	  		# session[:payed] = false
-	  		# Default Mailer
-	  		# UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
-	  		flash[:errors] = nil
-			redirect_to '/guests/new'
+		puts params['team']['conf_num']
+		@t = Team.find_by(conf_num: params['team']['conf_num'])
+		if @t
+			@user = User.new(user_params)
+			@user.team_id = @t.id
+			if @user.save
+				@guest = Guest.new(first: @user.first, last: @user.last, guest_type: "Adult", user_id: @user.id, compoundname: "#{@user.first}" + "#{@user.last}", team_id: @user.team_id)
+				if @guest.save
+				else
+					fail
+				end
+				# @user.update(:fee_status => false)
+				session[:user_id] = @user.id
+		  		# session[:payed] = false
+		  		# Default Mailer
+		  		# UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
+		  		flash[:errors] = nil
+				redirect_to '/guests/show'
+			else
+				session[:modalFail] = true
+				flash[:errors] = @user.errors.full_messages
+				redirect_to :back
+			end					
 		else
-			session[:modalFail] = true
-			flash[:errors] = @user.errors.full_messages
-			redirect_to :back
+			@team = Team.new(team_params)
+			@team.save
+			@user = User.new(user_params)
+			@user.team_id = @team.id
+				if @user.save
+					@guest = Guest.new(first: @user.first, last: @user.last, guest_type: "Adult", user_id: @user.id, compoundname: "#{@user.first}" + "#{@user.last}", team_id: @user.team_id)
+					if @guest.save
+					else
+						fail
+					end
+					# @user.update(:fee_status => false)
+					session[:user_id] = @user.id
+			  		# session[:payed] = false
+			  		# Default Mailer
+			  		# UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
+			  		flash[:errors] = nil
+					redirect_to '/guests/show'
+				else
+					session[:modalFail] = true
+					flash[:errors] = @user.errors.full_messages
+					redirect_to :back
+				end
+			@guest = Guest.new(first: @user.first, last: @user.last, guest_type: "Adult", user_id: @user.id, compoundname: "#{@user.first}" + "#{@user.last}", team_id: @user.team_id)
 		end
 	end
 	def root

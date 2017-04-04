@@ -5,7 +5,7 @@ class ChargesController < ApplicationController
 	  # fail
 	  @amount = params['amount'].to_i
 	  @user = User.find(session[:user_id])
-	  @cart = Cart.where(user_id: session[:user_id])
+	  @cart = Cart.where(team_id: @user.team.id)
 	  customer = Stripe::Customer.create(
 	    :email => params[:stripeEmail],
 	    :source  => params[:stripeToken]
@@ -29,9 +29,10 @@ class ChargesController < ApplicationController
 			@booked.smoking = val.smoking
 			@booked.room_type = val.room_type
 			@booked.occupancy_a = val.occupancy_a
+			@booked.team_id = @user.team.id
 			@booked.save
 			Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
-			Cart.where(user_id: session[:user_id]).destroy_all
+			Cart.where(team_id: @user.team.id).destroy_all
 		end
 		
 		# Manifest Email

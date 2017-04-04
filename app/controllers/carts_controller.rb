@@ -2,7 +2,9 @@ class CartsController < ApplicationController
 	before_action :authenticate_user!
 	def create
 		session[:from_cart] = true
+		@user = User.find(session[:user_id])
 		@cart = Cart.new(cart_params)
+		@cart.team_id = @user.team.id
 		if @cart.save
 			redirect_to :back
 		else
@@ -16,15 +18,15 @@ class CartsController < ApplicationController
 	end
 	def view
 		@user = User.find(session[:user_id])
-		if @user.guests.empty?
+		if @user.team.guests.empty?
 			@noGuests = true
 		else
 			@noGuests = false
-			@guestCount = @user.guests.length + 1
+			@guestCount = @user.team.guests.length
 		end
 	    gon.client_token = generate_client_token
 	    @token = gon.client_token
-		@cart_rooms = Cart.where(user_id: session[:user_id])
+		@cart_rooms = Cart.where(team_id: @user.team.id)
 		@total = 0
 		@cart_rooms.each do |val|
 			@total += val.price
@@ -69,7 +71,7 @@ class CartsController < ApplicationController
 	end
 
   	def cart_params
-  		params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a) 
+  		params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a, :team_id) 
   	end
 	private
 	def generate_client_token

@@ -35,7 +35,7 @@ class HotelsController < ApplicationController
   	def all
       if !session[:fromCount]
   		session[:childCount] = 0
-  		session[:adultCount] = 1
+  		session[:adultCount] = 0
   		@user = User.find(session[:user_id])
     		if @user.guests.empty?
     			@noGuests = true

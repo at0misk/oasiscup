@@ -13,6 +13,7 @@ class GuestsController < ApplicationController
 		# @guest.guest_type = params['guest']['type']
 		# @guest.user_id = session[:user_id]
 		# @guest.save
+		@user = User.find(session[:user_id])
 		guestErr = false
 		params['guest'].each do |key, val|
 			if val == ''
@@ -29,6 +30,7 @@ class GuestsController < ApplicationController
 			if x % 2 == 0 && x != 0
 				@guest.guest_type = val
 				@guest.user_id = session[:user_id]
+				@guest.team_id = @user.team.id
 				@guest.save
 					x = 0
 					compound = ''
@@ -52,7 +54,9 @@ class GuestsController < ApplicationController
 		end
 	end
 	def show
-		@guests = Guest.where(user_id: session[:user_id])
+		@user = User.find(session[:user_id])
+		@team = @user.team
+		@guests = Guest.where(team_id: @user.team.id)
 	end
   	# def guest_params
 	  # 	# params.require(:guest).permit(:first, :last, :type) 
