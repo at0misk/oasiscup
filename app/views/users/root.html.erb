@@ -92,9 +92,13 @@
 #errorModalLabel{
 	display: inline;
 }
+.img-overlay:before{
+    height: 25%;
+}
 </style>
 <div class="row img-wrapper">
-<span class='landingimg'><%= image_tag("secondcrop.png") %>
+<div class="col-md-12">
+<span class='landingimg'><%= image_tag("soccerBall2.jpg") %>
 </span>
 <div class="img-overlay">
 <h1 class='header-img'>Oasis Cup Palm Desert</h1>
@@ -103,6 +107,7 @@
 <button class="btn btn-primary btn-responsive regButton" data-toggle="modal" data-target="#myModal">Register</button>
 <button class="btn btn-primary btn-responsive loginButton" data-toggle="modal" data-target="#myModal">Login</button>
 <% end %>
+</div>
 </div>
 </div>
 <div class="row">
