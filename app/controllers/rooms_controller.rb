@@ -1,4 +1,5 @@
 class RoomsController < ApplicationController
+  require 'will_paginate/array'
   @@roomSwitch
 	before_action :authenticate_user!
 	def new
