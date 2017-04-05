@@ -4,6 +4,7 @@ class UsersController < ApplicationController
 	end
 	def create
 		puts params['team']['conf_num']
+		puts params['team']['exempt']
 		@t = Team.find_by(conf_num: params['team']['conf_num'])
 		if @t
 			@user = User.new(user_params)
@@ -28,6 +29,11 @@ class UsersController < ApplicationController
 			end					
 		else
 			@team = Team.new(team_params)
+			if params['team']['exempt'] == "true"
+				@team.exempt = true
+			else
+				@team.exempt = false
+			end
 			@team.save
 			@user = User.new(user_params)
 			@user.team_id = @team.id
@@ -64,7 +70,7 @@ class UsersController < ApplicationController
   		params.require(:user).permit(:first, :last, :email, :team, :fee_status, :password, :password_confirmation, :team_id) 
   	end
   	def team_params
-  		params.require(:team).permit(:name, :conf_num)
+  		params.require(:team).permit(:name, :conf_num, :exempt)
   	end
   	def edit
   		@user = User.find(session[:user_id])

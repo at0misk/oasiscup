@@ -3,6 +3,23 @@ class RoomsController < ApplicationController
 	before_action :authenticate_user!
 	def new
 	end
+  def generate
+    x = 1
+    50.times do
+      @room = Room.new
+      @room.number = x
+      @room.hotel_id = params[:id]
+      @room.smoking = "No"
+      @room.room_type = "Double"
+      @room.price = "150.35"
+      @room.occupancy_a = 2
+      @room.occupancy_c = 2
+      @room.description = "Pull out sofa bed"
+      x += 1
+      @room.save
+    end
+    redirect_to '/'
+  end
 	def create
 		@room = Room.new(room_params)
 		if @room.save
@@ -103,14 +120,6 @@ class RoomsController < ApplicationController
         else
           @@roomSwitch = @rooms.paginate(:page => params[:page], :per_page => 7)
         end
-        if tag_ids.include? '1'
-          cheapestOnly = false
-          @@roomSwitch.each do |val|
-            if val.room_type == 'Single'
-              searchArr << val
-            end
-        end
-      end
       if tag_ids.include? '2'
           cheapestOnly = false
           @@roomSwitch.each do |val|
@@ -122,7 +131,7 @@ class RoomsController < ApplicationController
       if tag_ids.include? '3'
           cheapestOnly = false
           @@roomSwitch.each do |val|
-            if val.room_type == 'Suite'
+            if val.room_type == 'King'
               searchArr << val
             end
         end

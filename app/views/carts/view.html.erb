@@ -111,10 +111,17 @@
 	<h3>Please book more <a href="/hotels">rooms</a>.</h3>
 <% else %>
 <!-- Must have 10 room conditional -->
-<%# if @cart_rooms.length < 10 %>
-<!-- <h3>You must book at least 10 rooms to checkout.</h3> -->
-<!-- <h3>Please book more <a href="/hotels">rooms</a></h3> -->
+
+<%# if @team.exempt %>
+	<%# if @cart_rooms.length < 5 %>
+	<!-- <h3>You must book at least 5 rooms to checkout.</h3> -->
+	<!-- <h3>Please book more <a href="/hotels">rooms</a></h3> -->
 <%# else %>
+	<%# if @cart_rooms.length < 10 %>
+	<!-- <h3>You must book at least 10 rooms to checkout.</h3> -->
+	<!-- <h3>Please book more <a href="/hotels">rooms</a></h3> -->
+	<%# else %>
+
 <% @stripeTotal = (@total * 100).to_i %>
 <div class="row stripeRow">
 <div id="stripeDiv">
@@ -166,7 +173,9 @@
 </div>
 <% end %>
 </div>
+<!-- ROOM CONDITIONAL 10 / 5 END  -->
 <%# end %>
+<!-- ============================ -->
 <div class="col-md-2">
 </div>
 </div>

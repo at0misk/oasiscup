@@ -80,17 +80,12 @@
 <div class="formBreak">
 	<div class="form-check form-check-inline">
 	  <label class="form-check-label">
-	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="1" /> Single
-	  </label>
-	</div>
-	<div class="form-check form-check-inline">
-	  <label class="form-check-label">
 	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="2" /> Double
 	  </label>
 	</div>
 	<div class="form-check form-check-inline">
 	  <label class="form-check-label">
-	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="3" /> Suite
+	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="3" /> King
 	  </label>
 	</div>
 	<div class="form-check form-check-inline">
@@ -119,7 +114,8 @@
 			<th>Room Number</th>
 			<th>Smoking</th>
 			<th>Type</th>
-			<th>Occupancy</th>
+			<th>Adults</th>
+			<th>Children</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -131,6 +127,7 @@
 		<td><%= val.smoking %></td>
 		<td><%= val.room_type %></td>
 		<td><%= val.occupancy_a %></td>
+		<td><%= val.occupancy_c %></td>
 			<% @cartNumberArr.each do |c| %>
 				<% if val.number == c %>
 				<% @found = true %>

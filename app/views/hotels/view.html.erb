@@ -42,6 +42,15 @@
     .infoRow{
     	height: 200px;
     }
+    .roomBtn{
+    	/*display: block;*/
+    	/*text-align: center;*/
+    }
+    .searchRow{
+    	text-align: center;
+    	background-color: #e9f2f8;
+    	padding: 1%;
+    }
 </style>
 <h3><%= @hotel.name %></h3>
 <div class="row">
@@ -64,37 +73,33 @@
 		<p><%= @hotel.description %></p>
 	</div>
 </div>
-<!-- <div class="row">
+<div class="row searchRow">
 <div class="col-md-12">
 	<form class="form-inline" action="/rooms/search/<%= @hotel.id %>" method="post" id="roomSearchForm">
 		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-		<div class="form-check form-check-inline">
-		  <label class="form-check-label">
-		    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="1" /> Single
-		  </label>
-		</div>
-		<div class="form-check form-check-inline">
-		  <label class="form-check-label">
-		    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="2" /> Double
-		  </label>
-		</div>
-		<div class="form-check form-check-inline">
-		  <label class="form-check-label">
-		    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="3" /> Suite
-		  </label>
-		</div>
-		<div class="form-check form-check-inline">
-		  <label class="form-check-label">
-		    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="4" /> Cheapest
-		  </label>
-		</div>
-		<button type="submit" class="btn btn-primary searchbtn">Search Rooms</button>
+	<div class="form-check form-check-inline">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="2" /> Double
+	  </label>
+	</div>
+	<div class="form-check form-check-inline">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="3" /> King
+	  </label>
+	</div>
+	<div class="form-check form-check-inline">
+	  <label class="form-check-label">
+	    <input class="form-check-input" type="checkbox" name="tag_ids[]" value="4" /> Cheapest
+	  </label>
+	</div>
+	<br>
+	<button type="submit" class="btn btn-primary btn-md roomBtn">Search Rooms!</button>
 	</form>
 </div>
-</div> -->
+</div>
 <div class="row">
 <div class="col-md-12">
-<h4>Rooms:</h4>
+<!-- <h4>Rooms:</h4> -->
 <div class="table-responsive">
 <table class="table table-striped">
 	<thead>
@@ -153,7 +158,7 @@
 	<%= will_paginate @rooms %>
 </div>
 </div>
-<h3>Register room for this hotel:</h3>
+<!-- <h3>Register room for this hotel:</h3>
 <form action="/rooms/create" method="POST">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	Price: <input type="text" name="room[price]">
@@ -165,7 +170,7 @@
 	Description: <input type="text" name="room[description]">
 	<input type="hidden" name="room[hotel_id]" value="<%= @hotel.id %>">
 	<input type="submit" value="submit">
-</form>
+</form> -->
 <script type="text/javascript">
 		function initMap() {
         var palmSprings = {lat: <%= @hotel.lat %>, lng: <%= @hotel.long %>};
