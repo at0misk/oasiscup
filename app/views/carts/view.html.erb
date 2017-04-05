@@ -103,10 +103,10 @@
 <% if @guestCount && @guestCount > @totalOccupancy %>
 <h3>You are currently booking for <%= @guestCount %> people, and have rooms in your cart that only accomodate <% if @totalOccupancy == 1 %><%= @totalOccupancy %> person.<% else %><%= @totalOccupancy %> people.<% end %></h3>
 <h3>Please book more <a href="/hotels">rooms</a>.</h3>
-<% elsif @roomA < session[:adultCount] %>
+<% elsif @roomA && @roomA < session[:adultCount] && session[:adultCount]%>
 	<h3>You currently don't have enough room to accomodate the adults you are booking for.</h3>
 	<h3>Please book more <a href="/hotels">rooms</a>.</h3>
-<% elsif @roomA < session[:adultCount] && @roomC < session[:childCount] %>
+<% elsif @roomA && @roomA < session[:adultCount] && @roomC < session[:childCount] && session[:adultCount]%>
 	<h3>You currently don't have enough room to accomodate the people you are booking for.</h3>
 	<h3>Please book more <a href="/hotels">rooms</a>.</h3>
 <% else %>
