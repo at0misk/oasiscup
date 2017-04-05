@@ -56,7 +56,7 @@ class RoomsController < ApplicationController
           # session[:price_range] = nil
         else
           if session[:searchingAll] == true
-            @rooms = @@roomSwitch
+            @rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
             # puts '============'
             # puts @rooms.first
             # fail
@@ -104,11 +104,11 @@ class RoomsController < ApplicationController
       session[:childCount] = params['child'].to_i
       session[:adultCount] = params['adult'].to_i
       if session[:price_range] == 1
-        @rooms = Room.where(price: 0..175).order(:price).paginate(:page => params[:page], :per_page => 7)
+        @rooms = Room.where(price: 0..175).order(:price)
       elsif session[:price_range] == 2
-        @rooms = Room.where(price: 176..250).order(:price).paginate(:page => params[:page], :per_page => 7)
+        @rooms = Room.where(price: 176..250).order(:price)
       elsif session[:price_range] == 3
-        @rooms = Room.where(price: 251..2000).order(:price).paginate(:page => params[:page], :per_page => 7)
+        @rooms = Room.where(price: 251..2000).order(:price)
       else
         @rooms = Room.all
       end
@@ -116,9 +116,9 @@ class RoomsController < ApplicationController
       if tag_ids
         if tag_ids.include? '4'
           cheapestOnly = true
-          @@roomSwitch = @rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
+          @@roomSwitch = @rooms.order(:price)
         else
-          @@roomSwitch = @rooms.paginate(:page => params[:page], :per_page => 7)
+          @@roomSwitch = @rooms
         end
         if tag_ids.include? '1'
           cheapestOnly = false
@@ -145,12 +145,12 @@ class RoomsController < ApplicationController
         end
       end
         if cheapestOnly
-          @@roomSwitch = @rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
+          @@roomSwitch = @rooms.order(:price)
         else
-        @@roomSwitch = searchArr.paginate(:page => params[:page], :per_page => 7)
+        @@roomSwitch = searchArr
         end
       else
-        @@roomSwitch = @rooms.paginate(:page => params[:page], :per_page => 7)
+        @@roomSwitch = @rooms
         # session[:searchingAll] = false
       end
       redirect_to :back

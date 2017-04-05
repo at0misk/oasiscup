@@ -1,4 +1,5 @@
 class HotelsController < ApplicationController
+  require 'will_paginate/array'
 	before_action :authenticate_user!
   @@roomSwitch = {}
 	def new
@@ -82,9 +83,9 @@ class HotelsController < ApplicationController
   		if tag_ids
   			if tag_ids.include? '4'
           cheapestOnly = true
-  				@@roomSwitch = @hotel.rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
+  				@@roomSwitch = @hotel.rooms.order(:price)
   			else
-  				@@roomSwitch = @hotel.rooms.paginate(:page => params[:page], :per_page => 7)
+  				@@roomSwitch = @hotel.rooms
   			end
   			if tag_ids.include? '1'
           cheapestOnly = false
@@ -98,6 +99,7 @@ class HotelsController < ApplicationController
           cheapestOnly = false
   				@@roomSwitch.each do |val|
   					if val.room_type == 'Double'
+              puts val
   						searchArr << val
   					end
 				end
@@ -111,12 +113,16 @@ class HotelsController < ApplicationController
 				end
   		end
         if cheapestOnly
-          @@roomSwitch = @hotel.rooms.order(:price)
+        @@roomSwitch = @hotel.rooms.order(:price)
         else
-   			@@roomSwitch = searchArr.paginate(:page => params[:page], :per_page => 7)
+   			@@roomSwitch = searchArr
+        @@roomSwitch.each do |val|
+          puts val
+        end
+        # fail
         end
   		else
-        @@roomSwitch = @hotel.rooms.paginate(:page => params[:page], :per_page => 7)
+        @@roomSwitch = @hotel.rooms
   			# session[:searching] = false
   		end
    		redirect_to "/hotels/#{@hotel.id}"
