@@ -133,6 +133,7 @@
 				<input type="hidden" name="cart[hotel_id]" value="<%= val.hotel.id %>">
 				<input type="hidden" name="cart[user_id]" value="<%= session[:user_id] %>">
 				<input type="hidden" name="cart[occupancy_a]" value="<%= val.occupancy_a %>">
+				<input type="hidden" name="cart[occupancy_c]" value="<%= val.occupancy_c %>">
 				<button type="submit" class="btn btn-primary">Add To Cart</button>
 			</form>
 		</td>
@@ -158,6 +159,7 @@
 	Smoking: <input type="text" name="room[smoking]">
 	Type: <input type="text" name="room[room_type]">
 	Occupancy_a: <input type="number" name="room[occupancy_a]">
+	Occupancy_c: <input type="number" name="room[occupancy_c]">
 	<input type="hidden" name="room[hotel_id]" value="<%= @hotel.id %>">
 	<input type="submit" value="submit">
 </form>

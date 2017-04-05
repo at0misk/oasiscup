@@ -29,6 +29,7 @@ class ChargesController < ApplicationController
 			@booked.smoking = val.smoking
 			@booked.room_type = val.room_type
 			@booked.occupancy_a = val.occupancy_a
+			@booked.occupancy_c = val.occupancy_c
 			@booked.team_id = @user.team.id
 			@booked.save
 			Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all

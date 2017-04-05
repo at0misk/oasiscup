@@ -38,7 +38,8 @@
 			<th>Address</th>
 			<th>Room Number</th>
 			<th>Smoking</th>
-			<th>Occupancy</th>
+			<th>Adults</th>
+			<th>Children</th>
 			<th>Type</th>
 			<th>Room Price</th>
 			<th></th>
@@ -53,9 +54,11 @@
 		<td><%= val.number %></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.occupancy_a %></td>
+		<td><%= val.occupancy_c %></td>
 		<td><%= val.room_type %></td>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
 		<% @totalOccupancy += val.occupancy_a.to_i %>
+		<% @totalOccupancy += val.occupancy_c.to_i %>
 		<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<button type="submit" class="btn btn-danger">Remove</button>
@@ -69,6 +72,7 @@
 			<td></td>
 			<td></td>
 			<td></td>
+			<td></td>
 			<td>Total:</td>
 			<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
 			<td></td>
@@ -76,9 +80,27 @@
 	</tbody>
 </table>
 </div>
+<% if session[:c_found] %>
+	<% @roomA = 0 %>
+	<% @roomC = 0 %>
+	<!-- <h1> OCCUPANCY_C FOUND </h1> -->
+	<% @cart_rooms.each do |val| %>
+		<% @roomA += val.occupancy_a %>
+		<% if val.occupancy_c %>
+			<% @roomC += val.occupancy_c %>
+		<% end %>
+	<% end %>
+	<% session[:c_found] = false %>
+<% end %>
 <% if @guestCount && @guestCount > @totalOccupancy %>
 <h3>You are currently booking for <%= @guestCount %> people, and have rooms in your cart that only accomodate <% if @totalOccupancy == 1 %><%= @totalOccupancy %> person.<% else %><%= @totalOccupancy %> people.<% end %></h3>
 <h3>Please book more <a href="/hotels">rooms</a>.</h3>
+<% elsif @roomA < session[:adultCount] %>
+	<h3>You currently don't have enough room to accomodate the adults you are booking for.</h3>
+	<h3>Please book more <a href="/hotels">rooms</a>.</h3>
+<% elsif @roomA < session[:adultCount] && @roomC < session[:childCount] %>
+	<h3>You currently don't have enough room to accomodate the people you are booking for.</h3>
+	<h3>Please book more <a href="/hotels">rooms</a>.</h3>
 <% else %>
 <!-- Must have 10 room conditional -->
 <%# if @cart_rooms.length < 10 %>

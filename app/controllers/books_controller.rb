@@ -19,15 +19,16 @@ class BooksController < ApplicationController
 		@room.smoking = @book.smoking
 		@room.room_type = @book.room_type
 		@room.occupancy_a = @book.occupancy_a
+		@room.occupancy_c = @book.occupancy_c
 		@room.save
 		Book.destroy(params[:id])
 		redirect_to :back
 	end
   	def booked_room_params
-  		params.require(:book).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a) 
+  		params.require(:book).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a, :team_id, :occupancy_c) 
   	end
   	def room_params
-  		params.require(:room).permit(:hotel_id, :price, :number, :smoking, :room_type, :occupancy_a) 
+  		params.require(:room).permit(:hotel_id, :price, :number, :smoking, :room_type, :occupancy_a, :occupancy_c) 
   	end
   	def booked
   		@booked_rooms = Book.where(user_id: session[:user_id])

@@ -17,11 +17,24 @@ class CartsController < ApplicationController
 		redirect_to :back
 	end
 	def view
+		session[:childCount] = 0
+		session[:adultCount] = 0
 		@user = User.find(session[:user_id])
 		if @user.team.guests.empty?
 			@noGuests = true
 		else
 			@noGuests = false
+			@user.team.guests.each do |val|
+				if val.guest_type == "Child"
+					session[:childCount] += 1
+				elsif val.guest_type == "Adult"
+					session[:adultCount] += 1
+				end
+			end
+			if session[:childCount] > 0
+				@guestCountA = session[:adultCount]
+				@guestCountC = session[:childCount]
+			end
 			@guestCount = @user.team.guests.length
 		end
 	    gon.client_token = generate_client_token
@@ -30,6 +43,9 @@ class CartsController < ApplicationController
 		@total = 0
 		@cart_rooms.each do |val|
 			@total += val.price
+			if val.occupancy_c
+				session[:c_found] = true 
+			end
 		end
 	end
 	def checkout
@@ -71,7 +87,7 @@ class CartsController < ApplicationController
 	end
 
   	def cart_params
-  		params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a, :team_id) 
+  		params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a, :team_id, :occupancy_c) 
   	end
 	private
 	def generate_client_token

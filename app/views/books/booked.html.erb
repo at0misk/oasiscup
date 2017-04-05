@@ -20,7 +20,8 @@
 			<th>Address</th>
 			<th>Room Number</th>
 			<th>Smoking</th>
-			<th>Occupancy</th>
+			<th>Adults</th>
+			<th>Children</th>
 			<th>Type</th>
 			<th>Room Price</th>
 			<th></th>
@@ -34,6 +35,7 @@
 		<td><%= val.number %></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.occupancy_a %></td>
+		<td><%= val.occupancy_c %></td>
 		<td><%= val.room_type %></td>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
 		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
@@ -44,6 +46,7 @@
 		</tr>
 		<% end %>
 		<tr>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
