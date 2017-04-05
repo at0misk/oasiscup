@@ -16,7 +16,7 @@ class RoomsController < ApplicationController
 		@room = Room.find(params[:id])
 	end
   	def room_params
-  		params.require(:room).permit(:hotel_id, :price, :number, :smoking, :room_type, :occupancy_a, :occupancy_c) 
+  		params.require(:room).permit(:hotel_id, :price, :number, :smoking, :room_type, :occupancy_a, :occupancy_c, :description) 
   	end
   	def all
         @user = User.find(session[:user_id])
