@@ -5,6 +5,7 @@ class ChargesController < ApplicationController
 	  # fail
 	  @amount = params['amount'].to_i
 	  @user = User.find(session[:user_id])
+	  @team = @user.team
 	  @cart = Cart.where(team_id: @user.team.id)
 	  customer = Stripe::Customer.create(
 	    :email => params[:stripeEmail],
@@ -35,7 +36,21 @@ class ChargesController < ApplicationController
 			Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 			Cart.where(team_id: @user.team.id).destroy_all
 		end
-		
+		if params['balancePaid']
+			@remainder = params['totalTotal'].to_f
+			@balance = params['balancePaid'].to_f
+			@balanceSwap = @remainder - @balance
+			puts @balance
+			@team.balance = @balanceSwap
+			@team.save
+			# Made Downpayment - Send Email reminding they still have a balance with their balance
+		elsif params['balanceClear']
+			@team.balance = nil
+			@team.save
+			# Paid Balance - Send Emails with guestlist and confirmation
+		elsif params['payingFull'] == 'yes'
+			# Paid in full from the get go - Send Emails with guestlist and confirmation
+		end
 		# Manifest Email
 	  	# UserMailer.manifest_email(@user).deliver_now
 

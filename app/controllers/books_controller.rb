@@ -31,7 +31,9 @@ class BooksController < ApplicationController
   		params.require(:room).permit(:hotel_id, :price, :number, :smoking, :room_type, :occupancy_a, :occupancy_c) 
   	end
   	def booked
-  		@booked_rooms = Book.where(user_id: session[:user_id])
+  		@user = User.find(session[:user_id])
+  		@team = @user.team
+  		@booked_rooms = Book.where(team_id: @team.id)
   		@total = 0
   			@booked_rooms.each do |val|
   				@total += val.price

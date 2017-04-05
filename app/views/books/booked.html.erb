@@ -2,6 +2,10 @@
 	.table>thead>tr>th {
 		border-bottom: none; 
 	}
+	#stripeDiv{
+		/*float: right;*/
+		text-align: center;
+	}
 </style>
 <div class="row">
 <div class="col-md-2">
@@ -64,6 +68,31 @@
 	</tbody>
 </table>
 </div>
+<% if @team.balance %>
+	<!-- <h3>Pay Balance:</h3> -->
+	<div id="stripeDiv">
+	<h3>You have a remaining balance of <span class="green">$<%= @team.balance %></span></h3>
+	<%= form_tag charges_path do %>
+	  <article>
+	    <% if flash[:error].present? %>
+	      <div id="error_explanation">
+	        <p><%= flash[:error] %></p>
+	      </div>
+	    <% end %>
+	    <label class="amount">
+	    </label>
+	  </article>
+	  <% @stripeTotal = (@team.balance * 100).to_i %>
+	<input type="hidden" name="amount" value="<%= @stripeTotal %>">
+	<input type="hidden" name="balanceClear" value="<%= @team.balance %>">
+	  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+	          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+	          data-description="Book Rooms"
+	          data-amount="<%= @stripeTotal %>"
+	          data-locale="auto"></script>
+	<% end %>
+	</div>
+<% end %>
 <% end %>
 </div>
 <div class="col-md-2">

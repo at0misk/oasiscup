@@ -11,10 +11,18 @@
     	width: 100%;
     }
     #stripeDiv{
-    	text-align: center;
+    	/*text-align: center;*/
+    	display: inline-block;
+    	margin: 1% 5%;
     }
 	.table>thead>tr>th {
 		 border-bottom: none; 
+	}
+	.payHeaders{
+		/*display: inline;*/
+	}
+	.stripeRow{
+		text-align: center;
 	}
 </style>
 <div class="row">
@@ -107,7 +115,11 @@
 <!-- <h3>You must book at least 10 rooms to checkout.</h3> -->
 <!-- <h3>Please book more <a href="/hotels">rooms</a></h3> -->
 <%# else %>
+<% @stripeTotal = (@total * 100).to_i %>
+<div class="row stripeRow">
 <div id="stripeDiv">
+<h3 class="payHeaders">Pay Deposit</h3>
+<h3 class="payHeaders green">$66.44</h3>
 <%= form_tag charges_path do %>
   <article>
     <% if flash[:error].present? %>
@@ -118,8 +130,32 @@
     <label class="amount">
     </label>
   </article>
-  <% @stripeTotal = (@total * 100).to_i %>
+ <% @balanceTotal = (66.44 * 100).to_i %>
+<input type="hidden" name="amount" value="<%= @balanceTotal %>">
+<input type="hidden" name="balancePaid" value="66.44">
+<input type="hidden" name="totalTotal" value="<%= @total.to_f %>">
+  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
+          data-description="Book Rooms"
+          data-amount="<%= @balanceTotal %>"
+          data-locale="auto"></script>
+<% end %>
+</div>
+<div id="stripeDiv">
+<h3 class="payHeaders">Pay Full Ammount</h3>
+<h3 class="payHeaders green"><%= number_to_currency(@total, :precision => 2) %></h3>
+<%= form_tag charges_path do %>
+  <article>
+    <% if flash[:error].present? %>
+      <div id="error_explanation">
+        <p><%= flash[:error] %></p>
+      </div>
+    <% end %>
+    <label class="amount">
+    </label>
+  </article>
 <input type="hidden" name="amount" value="<%= @stripeTotal %>">
+<input type="hidden" name="payingFull" value="yes">
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Book Rooms"
@@ -129,6 +165,7 @@
 </div>
 </div>
 <% end %>
+</div>
 <%# end %>
 <div class="col-md-2">
 </div>

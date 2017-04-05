@@ -103,17 +103,19 @@
 			<th>Room Number</th>
 			<th>Smoking</th>
 			<th>Type</th>
-			<th>Occupancy</th>
+			<th>Adults</th>
+			<th>Children</th>
 		</tr>
 	</thead>
 	<tbody>
 		<% @rooms.each do |val| %>
 		<tr>
-		<td><%= val.price %></td>
+		<td>$<%= val.price %></td>
 		<td><%= val.number %></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.room_type %></td>
 		<td><%= val.occupancy_a %></td>
+		<td><%= val.occupancy_c %></td>
 			<% @cartNumberArr.each do |c| %>
 				<% if val.number == c %>
 				<% @found = true %>
