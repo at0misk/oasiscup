@@ -1,0 +1,20 @@
+<h3>Edit Hotel</h3>
+<form action="/hotels/update/<%= @hotel.id %>" method="POST">
+	<input name="_method" value="patch" type="hidden">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	Name: <input type="text" name="hotel[name]" value="<%= @hotel.name %>">
+	Address: <input type="text" name="hotel[address]" value="<%= @hotel.address %>">
+	City: <input type="text" name="hotel[city]" value="<%= @hotel.city %>">
+	State: <input type="text" name="hotel[state]" value="<%= @hotel.state %>">
+	Zipcode: <input type="text" name="hotel[zip]" value="<%= @hotel.zip %>">
+	Latitude: <input type="number" name="hotel[lat]" step="any" value="<%= @hotel.lat %>">
+	Longitude: <input type="number" name="hotel[long]" step="any" value="<%= @hotel.long %>">
+	Phone: <input type="text" name="hotel[phone]" value="<%= @hotel.phone %>">
+	Image: <input type="text" name="hotel[image]" value="<%= @hotel.image %>">
+	Description: <input type="text" name="hotel[description]" value="<%= @hotel.description %>">
+	Website: <input type="text" name="hotel[website]" value="<%= @hotel.website %>">
+	Tax: <input type="number" name="hotel[tax]" step="any" value="<%= @hotel.tax %>">
+	Check In: <input type="text" name="hotel[checkin]" value="<%= @hotel.checkin %>">
+	Check Out: <input type="text" name="hotel[checkout]" value="<%= @hotel.checkout %>">
+	<input type="submit" value="submit">
+</form>

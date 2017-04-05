@@ -29,8 +29,15 @@ class HotelsController < ApplicationController
   	end
   		session[:searching] = false
 	end
+  def edit
+    @hotel = Hotel.find(params[:id])
+  end
+  def update
+    @hotel = Hotel.find(params[:id])
+    @hotel.update(hotel_params)
+  end
   	def hotel_params
-  	params.require(:hotel).permit(:name, :address, :lat, :long, :phone, :city, :state, :zip, :image, :description, :website, :tax) 
+  	params.require(:hotel).permit(:name, :address, :lat, :long, :phone, :city, :state, :zip, :image, :description, :website, :tax, :checkin, :checkout) 
   	end
   	def all
       if !session[:fromCount]

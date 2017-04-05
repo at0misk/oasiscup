@@ -38,4 +38,6 @@ Rails.application.routes.draw do
   patch 'users/teams' => 'users#teamupdate'
   resources :charges
   get 'rooms/generate/:id' => 'rooms#generate'
+  get 'hotels/edit/:id' => 'hotels#edit'
+  patch 'hotels/update/:id' => 'hotels#update'
 end
