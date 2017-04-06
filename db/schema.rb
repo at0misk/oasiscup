@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406185128) do
+ActiveRecord::Schema.define(version: 20170406190420) do
 
   create_table "books", force: :cascade do |t|
-    t.float    "price"
+    t.decimal  "price"
     t.string   "number"
     t.string   "smoking"
     t.string   "room_type"
@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20170406185128) do
   end
 
   create_table "carts", force: :cascade do |t|
-    t.float    "price"
+    t.decimal  "price"
     t.string   "number"
     t.string   "smoking"
     t.string   "room_type"
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20170406185128) do
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.float    "total"
+    t.decimal  "total"
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20170406185128) do
   end
 
   create_table "rooms", force: :cascade do |t|
-    t.float    "price"
+    t.decimal  "price"
     t.string   "number"
     t.string   "smoking"
     t.string   "room_type"
@@ -114,7 +114,7 @@ ActiveRecord::Schema.define(version: 20170406185128) do
 
   create_table "transactions", force: :cascade do |t|
     t.integer  "user_id"
-    t.float    "total"
+    t.decimal  "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_transactions_on_user_id"
