@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170405210606) do
+ActiveRecord::Schema.define(version: 20170406185128) do
 
   create_table "books", force: :cascade do |t|
     t.float    "price"
@@ -77,6 +77,7 @@ ActiveRecord::Schema.define(version: 20170405210606) do
     t.decimal  "tax"
     t.string   "checkin"
     t.string   "checkout"
+    t.decimal  "resortFee"
   end
 
   create_table "reservations", force: :cascade do |t|
