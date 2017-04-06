@@ -160,7 +160,7 @@
 </div>
 </div>
 <!-- <a href="/hotels/edit/<%= @hotel.id %>">Edit</a> -->
-<h3>Register room for this hotel:</h3>
+<!-- <h3>Register room for this hotel:</h3>
 <form action="/rooms/create" method="POST">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 	Price: <input type="text" name="room[price]">
@@ -172,7 +172,7 @@
 	Description: <input type="text" name="room[description]">
 	<input type="hidden" name="room[hotel_id]" value="<%= @hotel.id %>">
 	<input type="submit" value="submit">
-</form>
+</form> -->
 <script type="text/javascript">
 		function initMap() {
         var palmSprings = {lat: <%= @hotel.lat %>, lng: <%= @hotel.long %>};
