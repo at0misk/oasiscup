@@ -14,7 +14,9 @@
 	}
 </style>
 <div class="row">
-<div class="col-sm-6">
+<div class="col-sm-2">
+</div>
+<div class="col-sm-4">
 <h3 class="editHeader">Edit User Info</h3>
 <form class="form-horizontal" method="post" action="/users" id="editForm">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -73,7 +75,7 @@
 	</div>
 </form>
 </div>
-<div class="col-sm-6">
+<div class="col-sm-4">
 <h3 class="editHeader">Edit Team Info</h3>
 <form class="form-horizontal" method="post" action="/users/teams" id="editFormTeam">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -94,6 +96,8 @@
 	    </div>
 	</div>
     </form>
+</div>
+<div class="col-sm-2">
 </div>
 </div>
 <% if flash[:errors] %>
