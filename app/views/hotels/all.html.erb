@@ -154,6 +154,7 @@
         var zoomPos = {lat: 33.801738, lng: -116.467185}
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 12,
+          scrollwheel: false,
           center: zoomPos
         });
         var markerField = new google.maps.Marker({

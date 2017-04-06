@@ -178,6 +178,7 @@
         var palmSprings = {lat: <%= @hotel.lat %>, lng: <%= @hotel.long %>};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 17,
+          scrollwheel: false,
           center: palmSprings
         });
         var marker = new google.maps.Marker({
