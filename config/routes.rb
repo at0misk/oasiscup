@@ -40,4 +40,5 @@ Rails.application.routes.draw do
   get 'rooms/generate/:id' => 'rooms#generate'
   get 'hotels/edit/:id' => 'hotels#edit'
   patch 'hotels/update/:id' => 'hotels#update'
+  get 'contact' => 'sessions#contact'
 end

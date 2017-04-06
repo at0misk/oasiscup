@@ -36,6 +36,8 @@ class SessionsController < ApplicationController
 		# session[:payed] = true
 		redirect_to '/'
 	end
+	def contact
+	end
 	# def new
 	#   gon.client_token = generate_client_token
 	# end
