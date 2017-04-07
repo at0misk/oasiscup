@@ -46,12 +46,12 @@ class RoomsController < ApplicationController
         @cart.each do |val|
           @cartNumberArr << val.number
         end
-        if params[:paginate]
-          @rooms = @@roomSwitch
-          params[:paginate] = false
-        else
+        # if params[:paginate]
+        #   @rooms = @@roomSwitch
+        #   params[:paginate] = false
+        # else
         if session[:from_cart]
-          @rooms = @@roomSwitch
+          @rooms = @@roomSwitch.paginate(:page => params[:page])
         else
         if session[:price_range] && !session[:searchingAll] 
           if session[:price_range] == 1
@@ -82,7 +82,7 @@ class RoomsController < ApplicationController
           end
           session[:searchingAll] = false
         end
-      end
+      # end
     end
       @@roomSwitch = @rooms
       params[:paginate] = false
