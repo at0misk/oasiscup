@@ -20,14 +20,20 @@ class HotelsController < ApplicationController
     @cart.each do |val|
       @cartNumberArr << val.number
     end
-		if session[:searching] == true
-			@rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
-      # puts '============'
-      # puts @rooms.first
-      # fail
-		else
-  		@rooms = @hotel.rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
-  	end
+    if params[:paginate]
+      # @rooms = @@roomSwitch
+      @rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
+      params[:paginate] = false
+    else
+  		if session[:searching] == true
+  			@rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
+        # puts '============'
+        # puts @rooms.first
+        # fail
+  		else
+    		@rooms = @hotel.rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
+    	end
+    end
   		session[:searching] = false
 	end
   def edit
@@ -95,30 +101,31 @@ class HotelsController < ApplicationController
   					end
 				end
 			end
-			if tag_ids.include? '2'
+      if tag_ids.include? '2'
           cheapestOnly = false
-  				@@roomSwitch.each do |val|
-  					if val.room_type == 'Double Queens'
-              puts val
-  						searchArr << val
-  					end
-				end
-  		end
-			if tag_ids.include? '3'
+          @@roomSwitch.each do |val|
+            if val.room_type == 'Double Queens'
+              searchArr << val
+            end
+        end
+        @@roomSwitch = Room.where(room_type: "Double Queens").order(:price)
+      end
+      if tag_ids.include? '3'
           cheapestOnly = false
-  				@@roomSwitch.each do |val|
-  					if val.room_type == 'King'
-  						searchArr << val
-  					end
-				end
-  		end
+          @@roomSwitch.each do |val|
+            if val.room_type == 'King'
+              searchArr << val
+            end
+        end
+        @@roomSwitch = Room.where(room_type: "King").order(:price)
+      end
         if cheapestOnly
         @@roomSwitch = @hotel.rooms.order(:price)
         else
-   			@@roomSwitch = searchArr
-        @@roomSwitch.each do |val|
-          puts val
-        end
+   			# @@roomSwitch = searchArr
+      #   @@roomSwitch.each do |val|
+      #     puts val
+      #   end
         # fail
         end
   		else

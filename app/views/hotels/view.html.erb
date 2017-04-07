@@ -156,7 +156,7 @@
 </div>
 <div class="row pagRow">
 <div class="col-md-12">
-	<%= will_paginate @rooms %>
+	<%= will_paginate @rooms, :params => { :paginate => true } %>
 </div>
 </div>
 <!-- <a href="/hotels/edit/<%= @hotel.id %>">Edit</a> -->
