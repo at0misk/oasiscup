@@ -28,6 +28,7 @@ class HotelsController < ApplicationController
       params[:paginate] = false
       else
       @rooms = @hotel.rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
+      end
     else
   		if session[:searching] == true
   			@rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
