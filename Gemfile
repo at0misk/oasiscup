@@ -37,6 +37,7 @@ gem 'figaro'
 gem 'gon', '~> 5.1.2'
 gem 'stripe'
 gem 'will_paginate'
+# gem 'kaminari'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

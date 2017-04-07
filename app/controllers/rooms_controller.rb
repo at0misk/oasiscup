@@ -69,7 +69,7 @@ class RoomsController < ApplicationController
             # puts @rooms.first
             # fail
           else
-            @rooms = Room.paginate(:page => params[:page], :per_page => 7)
+            @rooms = Room.all.order(:price).paginate(:page => params[:page], :per_page => 7)
             # if @user.guests != nil
             #   @user.guests.each do |val|
             #     if val.guest_type == "Child"
