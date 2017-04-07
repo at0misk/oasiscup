@@ -44,7 +44,7 @@ class RoomsController < ApplicationController
           @cartNumberArr << val.number
         end
         if params[:paginate]
-          @rooms = session[:pageRooms].paginate(:page => params[:page], :per_page => 7)
+          @rooms = @@roomSwitch
         else
         if session[:from_cart]
           @rooms = @@roomSwitch
