@@ -47,7 +47,7 @@ class RoomsController < ApplicationController
           @cartNumberArr << val.number
         end
         if params[:paginate]
-          session[:searchingAll] = true
+          @rooms = @@roomSwitch
         else
         if session[:from_cart]
           @rooms = @@roomSwitch
