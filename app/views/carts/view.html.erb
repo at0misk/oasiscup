@@ -48,7 +48,8 @@
 			<th>Adults</th>
 			<th>Children</th>
 			<th>Type</th>
-			<th>Room Price</th>
+			<th>Price Per Night</th>
+			<th>Total</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -62,7 +63,8 @@
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
 		<td><%= val.room_type %></td>
-		<td><%= number_to_currency(val.price, :precision => 2) %> <br>Per Night</td>
+		<td><%= number_to_currency(val.price, :precision => 2) %></td>
+		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 		<% @totalOccupancy += val.occupancy_a.to_i %>
 		<% @totalOccupancy += val.occupancy_c.to_i %>
 		<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
@@ -80,8 +82,10 @@
 			<td></td>
 			<% @depositTax = @tax %>
 			<td>Tax:</td>
-			<td><%= number_to_currency(@tax, :precision => 2) %> <br>Per Night</td>
+			<td><%= number_to_currency(@tax, :precision => 2) %></td>
+			<% @nightlyTax = @tax %>
 			<% @tax = @tax * 3 %>
+			<td><%= number_to_currency(@tax, :precision => 2) %></td>
 			<td></td>
 		</tr>
 		<tr>
@@ -91,6 +95,7 @@
 			<td></td>
 			<td></td>
 			<td>Total:</td>
+			<td class="green"><%= number_to_currency(@total+@nightlyTax, :precision => 2) %></td>
 			<% @depositTotal = (@total + @depositTax).round(2) %>
 			<% @total = @total * 3 %>
 			<% @total += @tax %>

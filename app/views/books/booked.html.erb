@@ -22,12 +22,12 @@
 		<tr>
 			<th>Hotel</th>
 			<th>Address</th>
-			<th>Room Number</th>
 			<th>Smoking</th>
 			<th>Adults</th>
 			<th>Children</th>
 			<th>Type</th>
-			<th>Room Price</th>
+			<th>Price Per Night</th>
+			<th>Total</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -36,12 +36,12 @@
 		<tr>
 		<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
 		<td><%= val.hotel.address %></td>
-		<td><%= val.number %></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
 		<td><%= val.room_type %></td>
-		<td><%= number_to_currency(val.price, :precision => 2) %> <br>Per Night</td>
+		<td><%= number_to_currency(val.price, :precision => 2) %></td>
+		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<button type="submit" class="btn btn-danger">Cancel</button>
@@ -55,11 +55,12 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td></td>
 			<% @depositTax = @tax %>
 			<td>Tax:</td>
-			<td><%= number_to_currency(@tax, :precision => 2) %> <br>Per Night</td>
+			<td><%= number_to_currency(@tax, :precision => 2) %></td>
+			<% @nightlyTax = @tax %>
 			<% @tax = @tax * 3 %>
+			<td><%= number_to_currency(@tax, :precision => 2) %></td>
 			<td></td>
 		</tr>
 		<tr>
@@ -68,8 +69,8 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<td></td>
 			<td>Total:</td>
+			<td class="green"><%= number_to_currency(@total+@nightlyTax, :precision => 2) %></td>
 			<% @depositTotal = (@total + @depositTax).round(2) %>
 			<% @total = @total * 3 %>
 			<% @total += @tax %>
