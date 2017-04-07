@@ -169,7 +169,7 @@
 <div class="col-md-2">
 </div>
 <div class="col-md-8">
-	<%= will_paginate @rooms %>
+	<%= will_paginate @rooms, :params => { :paginate => true } %>
 </div>
 <div class="col-md-2">
 </div>
