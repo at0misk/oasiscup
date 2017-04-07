@@ -128,7 +128,7 @@ class RoomsController < ApplicationController
           cheapestOnly = true
           @@roomSwitch = @rooms.order(:price)
         else
-          @@roomSwitch = @rooms
+          @@roomSwitch = @rooms.order(:price)
         end
         if tag_ids.include? '1'
           cheapestOnly = false
@@ -157,10 +157,10 @@ class RoomsController < ApplicationController
         if cheapestOnly
           @@roomSwitch = @rooms.order(:price)
         else
-        @@roomSwitch = searchArr
+        @@roomSwitch = searchArr.order(:price)
         end
       else
-        @@roomSwitch = @rooms
+        @@roomSwitch = @rooms.order(:price)
         # session[:searchingAll] = false
       end
       redirect_to :back
