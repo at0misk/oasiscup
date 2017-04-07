@@ -138,6 +138,7 @@ class RoomsController < ApplicationController
               searchArr << val
             end
         end
+        @@roomSwitch = Room.where(room_type: "King")
       end
       if tag_ids.include? '2'
           cheapestOnly = false
@@ -158,7 +159,7 @@ class RoomsController < ApplicationController
         if cheapestOnly
           @@roomSwitch = @rooms.order(:price)
         else
-        @@roomSwitch = searchArr
+        # @@roomSwitch = searchArr
         end
       else
         @@roomSwitch = @rooms.order(:price)
