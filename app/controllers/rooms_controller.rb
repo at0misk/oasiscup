@@ -85,7 +85,7 @@ class RoomsController < ApplicationController
         end
       end
     end
-      @@roomSwitch = @rooms
+      @@roomSwitch = @rooms.paginate(:page => params[:page], :per_page => 7)
       params[:paginate] = false
       session[:from_cart] = false
   	end
