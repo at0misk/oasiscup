@@ -14,6 +14,7 @@ class HotelsController < ApplicationController
 		end
 	end
 	def view
+    session[:from]
 		@hotel = Hotel.find(params[:id])
     @cart = Cart.where(user_id: session[:user_id])
     @cartNumberArr = []
@@ -35,6 +36,7 @@ class HotelsController < ApplicationController
     	end
     end
   		session[:searching] = false
+      @roomSwitch = @rooms
 	end
   def edit
     @hotel = Hotel.find(params[:id])
