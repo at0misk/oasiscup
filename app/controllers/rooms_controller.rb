@@ -157,7 +157,7 @@ class RoomsController < ApplicationController
         if cheapestOnly
           @@roomSwitch = @rooms.order(:price)
         else
-        @@roomSwitch = searchArr.order(:price)
+        @@roomSwitch = searchArr
         end
       else
         @@roomSwitch = @rooms.order(:price)
