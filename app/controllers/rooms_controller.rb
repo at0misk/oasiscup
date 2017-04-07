@@ -73,7 +73,7 @@ class RoomsController < ApplicationController
             #   end
             # end
           end
-          session[:searchingAll] = false
+          # session[:searchingAll] = false
         end
       end
       @@roomSwitch = @rooms
