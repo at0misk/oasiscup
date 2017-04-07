@@ -35,7 +35,10 @@ class BooksController < ApplicationController
   		@team = @user.team
   		@booked_rooms = Book.where(team_id: @team.id)
   		@total = 0
+  		@tax = 0
   			@booked_rooms.each do |val|
+  			@roomTax = val.hotel.tax
+			@tax += @roomTax * val.price
   				@total += val.price
   			end
   	end

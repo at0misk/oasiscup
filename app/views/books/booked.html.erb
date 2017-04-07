@@ -56,19 +56,31 @@
 			<td></td>
 			<td></td>
 			<td></td>
+			<% @depositTax = @tax %>
+			<td>Tax:</td>
+			<td><%= number_to_currency(@tax, :precision => 2) %> <br>Per Night</td>
+			<% @tax = @tax * 3 %>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
 			<td>Total:</td>
+			<% @depositTotal = (@total + @depositTax).round(2) %>
+			<% @total = @total * 3 %>
+			<% @total += @tax %>
 			<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
 			<td></td>
-<!-- 			<td><form action="/cart/checkout" method="POST">
-					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-					<button type="submit" class="btn btn-success">Checkout</button>
-				</form>
-			</td> -->
 		</tr>
 	</tbody>
 </table>
 </div>
 <% if @team.balance %>
+	<% @team.balance = @team.balance.round(2) %>
 	<!-- <h3>Pay Balance:</h3> -->
 	<div id="stripeDiv">
 	<h3>You have a remaining balance of <span class="green">$<%= @team.balance %></span></h3>
