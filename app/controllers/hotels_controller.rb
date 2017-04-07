@@ -1,7 +1,7 @@
 class HotelsController < ApplicationController
   require 'will_paginate/array'
 	before_action :authenticate_user!
-  @@roomSwitch = {}
+  @@roomSwitch = {} if @@roomSwitch.nil?
 	def new
 	end
 	def create
