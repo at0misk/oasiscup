@@ -98,7 +98,7 @@ class HotelsController < ApplicationController
 			if tag_ids.include? '2'
           cheapestOnly = false
   				@@roomSwitch.each do |val|
-  					if val.room_type == 'Double'
+  					if val.room_type == 'Double Queens'
               puts val
   						searchArr << val
   					end

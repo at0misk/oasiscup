@@ -11,11 +11,11 @@ class RoomsController < ApplicationController
       @room.number = x
       @room.hotel_id = params[:id]
       @room.smoking = "No"
-      @room.room_type = "Double"
-      @room.price = "150.35"
-      @room.occupancy_a = 2
-      @room.occupancy_c = 2
-      @room.description = "Pull out sofa bed"
+      @room.room_type = "Double Queens"
+      @room.price = 249.95
+      @room.occupancy_a = 4
+      # @room.occupancy_c = 2
+      @room.description = ""
       x += 1
       @room.save
     end
@@ -132,7 +132,7 @@ class RoomsController < ApplicationController
       if tag_ids.include? '2'
           cheapestOnly = false
           @@roomSwitch.each do |val|
-            if val.room_type == 'Double'
+            if val.room_type == 'Double Queens'
               searchArr << val
             end
         end
