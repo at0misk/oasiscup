@@ -38,7 +38,7 @@ class HotelsController < ApplicationController
     @hotel.update(hotel_params)
   end
   	def hotel_params
-  	params.require(:hotel).permit(:name, :address, :lat, :long, :phone, :city, :state, :zip, :image, :description, :website, :tax, :checkin, :checkout) 
+  	params.require(:hotel).permit(:name, :address, :lat, :long, :phone, :city, :state, :zip, :image, :description, :website, :tax, :checkin, :checkout, :resortFee) 
   	end
   	def all
       if !session[:fromCount]
