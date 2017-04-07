@@ -44,7 +44,6 @@
 		<tr>
 			<th>Hotel</th>
 			<th>Address</th>
-			<th>Room Number</th>
 			<th>Smoking</th>
 			<th>Adults</th>
 			<th>Children</th>
@@ -59,12 +58,11 @@
 		<tr>
 		<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
 		<td><%= val.hotel.address %></td>
-		<td><%= val.number %></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
 		<td><%= val.room_type %></td>
-		<td><%= number_to_currency(val.price, :precision => 2) %></td>
+		<td><%= number_to_currency(val.price, :precision => 2) %> <br>Per Night</td>
 		<% @totalOccupancy += val.occupancy_a.to_i %>
 		<% @totalOccupancy += val.occupancy_c.to_i %>
 		<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
@@ -80,8 +78,22 @@
 			<td></td>
 			<td></td>
 			<td></td>
+			<% @depositTax = @tax %>
+			<td>Tax:</td>
+			<td><%= number_to_currency(@tax, :precision => 2) %> <br>Per Night</td>
+			<% @tax = @tax * 3 %>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
 			<td></td>
 			<td>Total:</td>
+			<% @depositTotal = (@total + @depositTax).round(2) %>
+			<% @total = @total * 3 %>
+			<% @total += @tax %>
 			<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
 			<td></td>
 		</tr>
@@ -123,10 +135,11 @@
 	<%# else %>
 
 <% @stripeTotal = (@total * 100).to_i %>
+<% @stripeTotalDeposit = (@depositTotal * 100).to_i %>
 <div class="row stripeRow">
 <div id="stripeDiv">
-<h3 class="payHeaders">Pay Deposit</h3>
-<h3 class="payHeaders green">$66.44</h3>
+<h3 class="payHeaders">Pay Deposit (One Night)</h3>
+<h3 class="payHeaders green">$<%= @depositTotal %></h3>
 <%= form_tag charges_path do %>
   <article>
     <% if flash[:error].present? %>
@@ -137,14 +150,13 @@
     <label class="amount">
     </label>
   </article>
- <% @balanceTotal = (66.44 * 100).to_i %>
-<input type="hidden" name="amount" value="<%= @balanceTotal %>">
-<input type="hidden" name="balancePaid" value="66.44">
-<input type="hidden" name="totalTotal" value="<%= @total.to_f %>">
+<input type="hidden" name="amount" value="<%= @stripeTotalDeposit %>">
+<input type="hidden" name="balancePaid" value="@depositTotal">
+<input type="hidden" name="totalTotal" value="<%= @total %>">
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Book Rooms"
-          data-amount="<%= @balanceTotal %>"
+          data-amount="<%= @stripeTotalDeposit %>"
           data-locale="auto"></script>
 <% end %>
 </div>

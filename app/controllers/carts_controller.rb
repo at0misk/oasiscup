@@ -42,7 +42,10 @@ class CartsController < ApplicationController
 	    @token = gon.client_token
 		@cart_rooms = Cart.where(team_id: @user.team.id)
 		@total = 0
+		@tax = 0
 		@cart_rooms.each do |val|
+			@roomTax = val.hotel.tax
+			@tax += @roomTax * val.price
 			@total += val.price
 			if val.occupancy_c
 				session[:c_found] = true 

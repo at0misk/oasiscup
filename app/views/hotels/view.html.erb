@@ -106,11 +106,11 @@
 	<thead>
 		<tr>
 			<th>Room Price</th>
-			<th>Room Number</th>
 			<th>Smoking</th>
 			<th>Type</th>
 			<th>Adults</th>
 			<th>Children</th>
+			<th>Description</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -118,10 +118,10 @@
 		<tr>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
 		<td><%= val.number %></td>
-		<td><%= val.smoking %></td>
 		<td><%= val.room_type %></td>
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
+		<td><%= val.description %></td>
 			<% @cartNumberArr.each do |c| %>
 				<% if val.number == c %>
 				<% @found = true %>
@@ -155,7 +155,7 @@
 </div>
 </div>
 <div class="row pagRow">
-<div class="col-md-12" data-turbolinks="true">
+<div class="col-md-12">
 	<%= will_paginate @rooms, :params => { :paginate => true } %>
 </div>
 </div>

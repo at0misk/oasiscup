@@ -117,11 +117,11 @@
 		<tr>
 			<th>Room Price</th>
 			<th>Hotel</th>
-			<th>Room Number</th>
 			<th>Smoking</th>
 			<th>Type</th>
 			<th>Adults</th>
 			<th>Children</th>
+			<th>Description</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -129,11 +129,11 @@
 		<tr>
 		<td><%= val.price %></td>
 		<td><a href="hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
-		<td><%= val.number %></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.room_type %></td>
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
+		<td><%= val.description %></td>
 			<% @cartNumberArr.each do |c| %>
 				<% if val.number == c %>
 				<% @found = true %>
