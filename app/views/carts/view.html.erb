@@ -140,7 +140,7 @@
 <div class="row stripeRow">
 <div id="stripeDiv">
 <h3 class="payHeaders">Pay Deposit (One Night)</h3>
-<h3 class="payHeaders green">$<%= @depositTotal %></h3>
+<h3 class="payHeaders green"><%= number_to_currency(@depositTotal, :precision => 2) %></h3>
 <%= form_tag charges_path do %>
   <article>
     <% if flash[:error].present? %>
