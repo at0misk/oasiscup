@@ -5,17 +5,17 @@ class RoomsController < ApplicationController
 	def new
 	end
   def generate
-    x = 1
-    46.times do
+    x = 46
+    18.times do
       @room = Room.new
       @room.number = x
       @room.hotel_id = params[:id]
       @room.smoking = "No"
-      @room.room_type = "Double Queens"
-      @room.price = 125
-      @room.occupancy_a = 4
+      @room.room_type = "King"
+      @room.price = 115
+      @room.occupancy_a = 3
       # @room.occupancy_c = 2
-      @room.description = ""
+      @room.description = "Sofa Bed"
       x += 1
       @room.save
     end
