@@ -37,18 +37,29 @@ class ChargesController < ApplicationController
 			Cart.where(team_id: @user.team.id).destroy_all
 		end
 		if params['balancePaid']
-			@remainder = params['totalTotal'].to_f
-			@balance = params['balancePaid'].to_f
-			@balanceSwap = @remainder - @balance
-			puts @balance
-			@team.balance = @balanceSwap
+			# @remainder = params['totalTotal'].to_f
+			# @balance = params['balancePaid'].to_f
+			# @balanceSwap = @remainder - @balance
+			# puts @balanceSwap
+			# fail
+			@balancePaid = (@amount/100)
+			@totalToPay = (@balancePaid*3)
+			@totalToPay = (@totalToPay-@balancePaid)
+			# @balancePaid = @balancePaid.round(2)
+			@team.balance = @totalToPay
 			@team.save
+			@transaction.transaction_type = "Down Payment"
+			@transaction.save
 			# Made Downpayment - Send Email reminding they still have a balance with their balance
 		elsif params['balanceClear']
 			@team.balance = nil
 			@team.save
+			@transaction.transaction_type = "Paid Balance"
+			@transaction.save
 			# Paid Balance - Send Emails with guestlist and confirmation
 		elsif params['payingFull'] == 'yes'
+			@transaction.transaction_type = "Paid In Full"
+			@transaction.save
 			# Paid in full from the get go - Send Emails with guestlist and confirmation
 		end
 		# Manifest Email

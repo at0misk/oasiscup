@@ -41,7 +41,7 @@
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
 		<td><%= val.room_type %></td>
-		<td><%= number_to_currency(val.price, :precision => 2) %></td>
+		<td><%= number_to_currency(val.price, :precision => 2) %> <br>Per Night</td>
 		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<button type="submit" class="btn btn-danger">Cancel</button>
@@ -83,7 +83,8 @@
 	<% @team.balance = @team.balance.round(2) %>
 	<!-- <h3>Pay Balance:</h3> -->
 	<div id="stripeDiv">
-	<h3>You have a remaining balance of <span class="green">$<%= @team.balance %></span></h3>
+	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@team.balance/2, :precision => 2) %></span></h3>
+	<h3>You have a remaining balance of <span class="green"><%= number_to_currency(@team.balance, :precision => 2) %></span></h3>
 	<%= form_tag charges_path do %>
 	  <article>
 	    <% if flash[:error].present? %>
