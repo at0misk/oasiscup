@@ -12,9 +12,9 @@ class RoomsController < ApplicationController
       @room.hotel_id = params[:id]
       @room.smoking = "No"
       @room.room_type = "Double Queens"
-      @room.price = 159
-      @room.occupancy_a = 2
-      @room.occupancy_c = 2
+      @room.price = 155
+      @room.occupancy_a = 4
+      # @room.occupancy_c = 
       @room.description = ""
       x += 1
       @room.save
