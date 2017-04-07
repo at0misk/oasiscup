@@ -46,7 +46,7 @@ class RoomsController < ApplicationController
         if params[:paginate]
           puts "hit"
           fail
-        end
+        else
         if session[:from_cart]
           @rooms = @@roomSwitch
         else
