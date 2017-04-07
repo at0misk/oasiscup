@@ -15,7 +15,7 @@ class RoomsController < ApplicationController
       @room.price = 135
       @room.occupancy_a = 3
       # @room.occupancy_c = 2
-      @room.description = "Sofa (Non Sleeper)"
+      @room.description = ""
       x += 1
       @room.save
     end
