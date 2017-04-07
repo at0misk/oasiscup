@@ -14,7 +14,7 @@ class HotelsController < ApplicationController
 		end
 	end
 	def view
-    session[:from]
+    # session[:from]
 		@hotel = Hotel.find(params[:id])
     @cart = Cart.where(user_id: session[:user_id])
     @cartNumberArr = []
@@ -22,9 +22,12 @@ class HotelsController < ApplicationController
       @cartNumberArr << val.number
     end
     if params[:paginate]
+      if @@roomSwitch != {}
       # @rooms = @@roomSwitch
       @rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
       params[:paginate] = false
+      else
+      @rooms = @hotel.rooms.order(:price).paginate(:page => params[:page], :per_page => 7)
     else
   		if session[:searching] == true
   			@rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
