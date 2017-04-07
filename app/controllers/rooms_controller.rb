@@ -48,6 +48,10 @@ class RoomsController < ApplicationController
         end
         if params[:paginate]
           @rooms = @@roomSwitch
+          @rooms.each do |val|
+            puts val
+          end
+          puts @rooms
           params[:paginate] = false
         else
         if session[:from_cart]
