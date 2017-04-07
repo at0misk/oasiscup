@@ -116,7 +116,7 @@
 	<tbody>
 		<% @rooms.each do |val| %>
 		<tr>
-		<td>$<%= number_to_currency(val.price, :precision => 2) %></td>
+		<td><%= number_to_currency(val.price, :precision => 2) %></td>
 		<td><%= val.number %></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.room_type %></td>
