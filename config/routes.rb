@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'hotels/:id' => 'hotels#view'
   get 'hotels' => 'hotels#all'
   post 'rooms/create' => 'rooms#create'
+  get 'rooms/paginate' => 'rooms#paginate'
   get 'rooms/:id' => 'rooms#view'
   get 'rooms' => 'rooms#all'
   post 'book_rooms/create/:id' => 'books#create'
