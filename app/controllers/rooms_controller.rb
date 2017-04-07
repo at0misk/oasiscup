@@ -81,6 +81,7 @@ class RoomsController < ApplicationController
       end
     end
       @@roomSwitch = @rooms
+      params[:paginate] = false
       session[:from_cart] = false
   	end
   	def search
