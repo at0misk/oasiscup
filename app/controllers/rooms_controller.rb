@@ -1,6 +1,7 @@
 class RoomsController < ApplicationController
   require 'will_paginate/array'
-  if !@@roomSwitch
+  if defined?(@@roomSwitch)
+  else
     @@roomSwitch = {}
   end
 	before_action :authenticate_user!
