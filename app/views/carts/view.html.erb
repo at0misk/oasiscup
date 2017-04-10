@@ -24,18 +24,21 @@
 	.stripeRow{
 		text-align: center;
 	}
+	.notFound{
+		text-align: center;
+	}
 </style>
 <div class="row">
 <div class="col-md-2">
 </div>
 <div class="col-md-8">
 <% if @cart_rooms.empty? %>
-<h3>Your cart is empty</h3>
-<h4 data-turbolinks="false">If you've already booked rooms, you can view them <a href="booked">here</a>, or book more <a href='hotels'>rooms.</a></h4>
+<h3 class="notFound">Your cart is empty</h3>
+<h4 data-turbolinks="false" class="notFound">If you've already booked rooms, you can view them <a href="booked">here</a>, or book more <a href='hotels'>rooms.</a></h4>
 <% else %>
 <% if @noGuests %>
-<h3>Your guest list is empty.</h3>
-<h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
+<h3 class="notFound">Your guest list is empty.</h3>
+<h4 class="notFound">If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
 <% end %>
 <h3>My Cart</h3>
 <div class="table-responsive">
