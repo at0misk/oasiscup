@@ -43,4 +43,5 @@ Rails.application.routes.draw do
   patch 'hotels/update/:id' => 'hotels#update'
   get 'contact' => 'sessions#contact'
   get 'booked/teams' => 'books#teams'
+  get 'guests/user' => 'guests#user'
 end

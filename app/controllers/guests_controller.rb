@@ -73,4 +73,8 @@ class GuestsController < ApplicationController
   		@guest.save
   		redirect_to :back
   	end
+  	def user
+		@user = User.find(session[:user_id])
+		@guests = Guest.where(user_id: @user.id)
+  	end
 end
