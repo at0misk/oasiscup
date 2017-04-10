@@ -31,8 +31,8 @@
 			<th>Type</th>
 			<th>Status</th>
 			<th>Price Per Night</th>
-			<th>Total</th>
 			<th>Amount Due</th>
+			<th>Total</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -53,12 +53,12 @@
 			<% @total_balance_due += val.price*2 %>
 		<% end %>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
-		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 		<% if val.paid_status %>
 		<td class="green">$0.00</td>
 		<% else %>
 		<td><%= number_to_currency(val.price*2, :precision => 2) %></td>
 		<% end %>
+		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<button type="submit" class="btn btn-danger">Cancel</button>
@@ -78,12 +78,12 @@
 			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
 			<% @nightlyTax = @tax_user %>
 			<% @tax_user = @tax_user * 3 %>
-			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
 			<% if @user.user_balance %>
 			<td><%= number_to_currency((@user.user_balance-@total_balance_due), :precision => 2) %></td>
 			<% else %>
 			<td>$0.00</td>
 			<% end %>
+			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
 			<td></td>
 		</tr>
 		<tr>
@@ -98,12 +98,12 @@
 			<% @depositTotal = (@total_user + @depositTax).round(2) %>
 			<% @total_user = @total_user * 3 %>
 			<% @total_user += @tax_user %>
-			<td class="green"><%= number_to_currency(@total_user, :precision => 2) %></td>
 			<% if @user.user_balance %>
 			<td class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></td>
 			<% else %>
 			<td class="green">$0.00</td>
 			<% end %>
+			<td class="green"><%= number_to_currency(@total_user, :precision => 2) %></td>
 			<td></td>
 		</tr>
 	</tbody>
