@@ -7,8 +7,8 @@
     <h1>Hello <%= @user.first %> <%= @user.last %></h1>
     <h2>Thank you for booking with Archer Travel</h2>
     <% if @transaction_type == 'down payment' %>
-  <h3>You paid a downpayment of <span class="green"><%= number_to_currency(@user.team.balance/2, :precision => 2) %></span></h3>
-  <h3>You have a remaining balance of <span class="green"><%= number_to_currency(@user.team.balance, :precision => 2) %></span></h3>
+  <h3>You paid a downpayment of <span class="green"><%= number_to_currency(@user.user_balance/2, :precision => 2) %></span></h3>
+  <h3>You have a remaining balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
   <h3>You must pay the remainder of your payment by XX/XX/XX</h3>
     <% elsif @transaction_type == 'paid balance' %>
     <h3>Thank you for paying your balance</h3>
