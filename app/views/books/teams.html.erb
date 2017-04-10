@@ -9,14 +9,17 @@
 	.red{
 		color: red;
 	}
+	.notFound{
+		text-align: center;
+	}
 </style>
 <div class="row">
 <div class="col-md-1">
 </div>
 <div class="col-md-10">
 <% if @booked_rooms.empty? %>
-<h3>Your team hasn't booked any rooms.</h3>
-<h4 data-turbolinks="false">If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
+<h3 class="notFound">Your team hasn't booked any rooms.</h3>
+<h4 data-turbolinks="false" class="notFound">If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
 <% else %>
 <h3>My Teams Booked Rooms</h3>
 <div class="table-responsive">
