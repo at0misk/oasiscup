@@ -71,13 +71,14 @@
 	.formBreak {
     	background-color: #e9f2f8;
 	    margin: 2%;
-	    padding: 3%;
+	    padding: 2%;
+	    width: 100%;
 	}
 </style>
 <div class="searchFormRow row">
 <div class="col-md-2">
 </div>
-<div class="col-md-8">
+<div class="col-md-12">
 <form action="count" method="post" class="resetForm" data-turbolinks="false">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <input name="child" type="hidden" value="<%= session[:childCount] %>"><input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><button class="btn btn-danger">Reset</button></form>
