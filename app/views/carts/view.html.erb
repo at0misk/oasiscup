@@ -105,11 +105,21 @@
 	</tbody>
 </table>
 </div>
+<% @booked_rooms.each do |val| %>
+	<% @totalOccupancy += val.occupancy_a.to_i %>
+	<% @totalOccupancy += val.occupancy_c.to_i %>
+<% end %>
 <% if session[:c_found] %>
 	<% @roomA = 0 %>
 	<% @roomC = 0 %>
 	<!-- <h1> OCCUPANCY_C FOUND </h1> -->
 	<% @cart_rooms.each do |val| %>
+		<% @roomA += val.occupancy_a %>
+		<% if val.occupancy_c %>
+			<% @roomC += val.occupancy_c %>
+		<% end %>
+	<% end %>
+	<% @booked_rooms.each do |val| %>
 		<% @roomA += val.occupancy_a %>
 		<% if val.occupancy_c %>
 			<% @roomC += val.occupancy_c %>
@@ -157,7 +167,7 @@
     </label>
   </article>
 <input type="hidden" name="amount" value="<%= @stripeTotalDeposit %>">
-<input type="hidden" name="balancePaid" value="@depositTotal">
+<input type="hidden" name="balancePaid" value="<%= @depositTotal %>">
 <input type="hidden" name="totalTotal" value="<%= @total %>">
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"

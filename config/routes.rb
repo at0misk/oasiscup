@@ -42,4 +42,5 @@ Rails.application.routes.draw do
   get 'hotels/edit/:id' => 'hotels#edit'
   patch 'hotels/update/:id' => 'hotels#update'
   get 'contact' => 'sessions#contact'
+  get 'booked/teams' => 'books#teams'
 end

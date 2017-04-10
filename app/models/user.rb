@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-	validates :first, :last, :email, :team, :password, presence: true
+	validates :first, :last, :email, :password, presence: true
 	has_secure_password
 	email_regex = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
 	validates :email, :uniqueness => true, :format => { :with => email_regex }

@@ -20,6 +20,7 @@ class CartsController < ApplicationController
 		session[:childCount] = 0
 		session[:adultCount] = 0
 		@user = User.find(session[:user_id])
+		@booked_rooms = @user.books
 		@team = @user.team
 		if @user.team.guests.empty?
 			@noGuests = true

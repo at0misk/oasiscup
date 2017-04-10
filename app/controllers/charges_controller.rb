@@ -6,7 +6,7 @@ class ChargesController < ApplicationController
 	  @amount = params['amount'].to_i
 	  @user = User.find(session[:user_id])
 	  @team = @user.team
-	  @cart = Cart.where(team_id: @user.team.id)
+	  @cart = Cart.where(user_id: @user.id)
 	  customer = Stripe::Customer.create(
 	    :email => params[:stripeEmail],
 	    :source  => params[:stripeToken]
@@ -32,10 +32,15 @@ class ChargesController < ApplicationController
 			@booked.occupancy_a = val.occupancy_a
 			@booked.occupancy_c = val.occupancy_c
 			@booked.team_id = @user.team.id
+			if params['balancePaid']
+				@booked.paid_status = false
+			elsif params['payingFull']
+				@booked.paid_status = true
+			end
 			@booked.save
 			Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
-			Cart.where(team_id: @user.team.id).destroy_all
 		end
+		Cart.where(user_id: @user.id).destroy_all
 		if params['balancePaid']
 			# @remainder = params['totalTotal'].to_f
 			# @balance = params['balancePaid'].to_f
@@ -43,23 +48,41 @@ class ChargesController < ApplicationController
 			# puts @balanceSwap
 			# fail
 			@balancePaid = (@amount/100)
+			puts @balancePaid
 			@totalToPay = (@balancePaid*3)
+			puts @totalToPay
 			@totalToPay = (@totalToPay-@balancePaid)
+			puts @totalToPay
 			# @balancePaid = @balancePaid.round(2)
-			@team.balance = @totalToPay
-			@team.save
+			if @user.user_balance && @user.user_balance > 0
+				@newBalance = @user.user_balance + @totalToPay
+				@user.update_attribute(:user_balance, @newBalance)
+			else
+				@user.update_attribute(:user_balance, @totalToPay)
+			end
+			puts @user.user_balance
+			# fail
 			@transaction.transaction_type = "Down Payment"
 			@transaction.save
+			@transaction_type = 'down payment'
+			UserMailer.confirmation_email(@user, @transaction_type).deliver_later(wait_until: 2.days.from_now)
 			# Made Downpayment - Send Email reminding they still have a balance with their balance
 		elsif params['balanceClear']
-			@team.balance = nil
-			@team.save
+			@user.update_attribute(:user_balance, nil)
+			@rooms = @user.books
+			@rooms.each do |val|
+				val.update_attribute(:paid_status, true)
+			end
 			@transaction.transaction_type = "Paid Balance"
 			@transaction.save
+			@transaction_type = 'paid balance'
+			UserMailer.confirmation_email(@user, @transaction_type).deliver_now
 			# Paid Balance - Send Emails with guestlist and confirmation
 		elsif params['payingFull'] == 'yes'
 			@transaction.transaction_type = "Paid In Full"
 			@transaction.save
+			@transaction_type = 'paid in full'
+			UserMailer.confirmation_email(@user, @transaction_type).deliver_now
 			# Paid in full from the get go - Send Emails with guestlist and confirmation
 		end
 		# Manifest Email

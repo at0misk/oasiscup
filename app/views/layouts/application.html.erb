@@ -293,8 +293,17 @@
           <li class="nav-item">
             <a href="/cart" class="nav-link" data-turbolinks="false">Cart</a>
           </li>
-          <li class="nav-item">
-            <a href="/booked" class="nav-link">My Booked Rooms</a>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Booked Rooms<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="/booked">My Booked Rooms</a></li>
+              <li><a href="/booked/teams">My Teams Booked Rooms</a></li>
+<!--               <li><a href="#">Something else here</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">Separated link</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#">One more separated link</a></li> -->
+            </ul>
           </li>
           <li class="nav-item">
             <a href="/users/update/<%= session[:user_id] %>" class="nav-link">Edit User</a>

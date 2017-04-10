@@ -1,0 +1,90 @@
+<style type="text/css">
+	.table>thead>tr>th {
+		border-bottom: none; 
+	}
+	#stripeDiv{
+		/*float: right;*/
+		text-align: center;
+	}
+	.red{
+		color: red;
+	}
+</style>
+<div class="row">
+<div class="col-md-1">
+</div>
+<div class="col-md-10">
+<% if @booked_rooms.empty? %>
+<h3>Your team hasn't booked any rooms.</h3>
+<h4 data-turbolinks="false">If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
+<% else %>
+<h3>My Teams Booked Rooms</h3>
+<div class="table-responsive">
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Hotel</th>
+			<th>Address</th>
+			<th>Smoking</th>
+			<th>Adults</th>
+			<th>Children</th>
+			<th>Type</th>
+			<th>Price Per Night</th>
+			<th>Total</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @booked_rooms.each do |val| %>
+		<tr>
+		<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
+		<td><%= val.hotel.address %></td>
+		<td><%= val.smoking %></td>
+		<td><%= val.occupancy_a %></td>
+		<td><%= val.occupancy_c %></td>
+		<td><%= val.room_type %></td>
+		<td><%= number_to_currency(val.price, :precision => 2) %></td>
+		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<button type="submit" class="btn btn-danger">Cancel</button>
+			</form>
+		</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<% @depositTax = @tax %>
+			<td>Tax:</td>
+			<td><%= number_to_currency(@tax, :precision => 2) %></td>
+			<% @nightlyTax = @tax %>
+			<% @tax = @tax * 3 %>
+			<td><%= number_to_currency(@tax, :precision => 2) %></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Total:</td>
+			<td class="green"><%= number_to_currency(@total+@nightlyTax, :precision => 2) %></td>
+			<% @depositTotal = (@total + @depositTax).round(2) %>
+			<% @total = @total * 3 %>
+			<% @total += @tax %>
+			<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+</div>
+<div class="col-md-1">
+</div>
+</div>
+<% end %>

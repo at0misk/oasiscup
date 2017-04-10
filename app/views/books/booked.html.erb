@@ -6,11 +6,14 @@
 		/*float: right;*/
 		text-align: center;
 	}
+	.red{
+		color: red;
+	}
 </style>
 <div class="row">
-<div class="col-md-2">
+<div class="col-md-1">
 </div>
-<div class="col-md-8">
+<div class="col-md-10">
 <% if @booked_rooms.empty? %>
 <h3>You haven't booked any rooms.</h3>
 <h4 data-turbolinks="false">If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
@@ -26,13 +29,16 @@
 			<th>Adults</th>
 			<th>Children</th>
 			<th>Type</th>
+			<th>Status</th>
 			<th>Price Per Night</th>
 			<th>Total</th>
+			<th>Amount Due</th>
 			<th></th>
 		</tr>
 	</thead>
 	<tbody>
-		<% @booked_rooms.each do |val| %>
+		<% @total_balance_due = 0 %>
+		<% @user_rooms.each do |val| %>
 		<tr>
 		<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
 		<td><%= val.hotel.address %></td>
@@ -40,8 +46,19 @@
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
 		<td><%= val.room_type %></td>
+		<% if val.paid_status %>
+		<td class="green">Paid</td>
+		<% else %>
+		<td class="red">Balance Due</td>
+			<% @total_balance_due += val.price*2 %>
+		<% end %>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
 		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+		<% if val.paid_status %>
+		<td class="green">$0.00</td>
+		<% else %>
+		<td><%= number_to_currency(val.price*2, :precision => 2) %></td>
+		<% end %>
 		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<button type="submit" class="btn btn-danger">Cancel</button>
@@ -55,12 +72,18 @@
 			<td></td>
 			<td></td>
 			<td></td>
-			<% @depositTax = @tax %>
+			<td></td>
+			<% @depositTax = @tax_user %>
 			<td>Tax:</td>
-			<td><%= number_to_currency(@tax, :precision => 2) %></td>
-			<% @nightlyTax = @tax %>
-			<% @tax = @tax * 3 %>
-			<td><%= number_to_currency(@tax, :precision => 2) %></td>
+			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+			<% @nightlyTax = @tax_user %>
+			<% @tax_user = @tax_user * 3 %>
+			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+			<% if @user.user_balance %>
+			<td><%= number_to_currency((@user.user_balance-@total_balance_due), :precision => 2) %></td>
+			<% else %>
+			<td>$0.00</td>
+			<% end %>
 			<td></td>
 		</tr>
 		<tr>
@@ -69,23 +92,33 @@
 			<td></td>
 			<td></td>
 			<td></td>
+			<td></td>
 			<td>Total:</td>
-			<td class="green"><%= number_to_currency(@total+@nightlyTax, :precision => 2) %></td>
-			<% @depositTotal = (@total + @depositTax).round(2) %>
-			<% @total = @total * 3 %>
-			<% @total += @tax %>
-			<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
+			<td class="green"><%= number_to_currency(@total_user+@nightlyTax, :precision => 2) %></td>
+			<% @depositTotal = (@total_user + @depositTax).round(2) %>
+			<% @total_user = @total_user * 3 %>
+			<% @total_user += @tax_user %>
+			<td class="green"><%= number_to_currency(@total_user, :precision => 2) %></td>
+			<% if @user.user_balance %>
+			<td class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></td>
+			<% else %>
+			<td class="green">$0.00</td>
+			<% end %>
 			<td></td>
 		</tr>
 	</tbody>
 </table>
 </div>
-<% if @team.balance %>
-	<% @team.balance = @team.balance.round(2) %>
+</div>
+<div class="col-md-1">
+</div>
+</div>
+<% if @user.user_balance %>
+	<% @user.user_balance = @user.user_balance.round(2) %>
 	<!-- <h3>Pay Balance:</h3> -->
 	<div id="stripeDiv">
-	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@team.balance/2, :precision => 2) %></span></h3>
-	<h3>You have a remaining balance of <span class="green"><%= number_to_currency(@team.balance, :precision => 2) %></span></h3>
+	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@user.user_balance/2, :precision => 2) %></span></h3>
+	<h3>You have a remaining balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
 	<%= form_tag charges_path do %>
 	  <article>
 	    <% if flash[:error].present? %>
@@ -96,9 +129,9 @@
 	    <label class="amount">
 	    </label>
 	  </article>
-	  <% @stripeTotal = (@team.balance * 100).to_i %>
+	  <% @stripeTotal = (@user.user_balance * 100).to_i %>
 	<input type="hidden" name="amount" value="<%= @stripeTotal %>">
-	<input type="hidden" name="balanceClear" value="<%= @team.balance %>">
+	<input type="hidden" name="balanceClear" value="<%= @user.user_balance %>">
 	  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
 	          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
 	          data-description="Book Rooms"
