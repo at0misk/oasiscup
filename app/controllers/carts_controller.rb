@@ -22,11 +22,11 @@ class CartsController < ApplicationController
 		@user = User.find(session[:user_id])
 		@booked_rooms = @user.books
 		@team = @user.team
-		if @user.team.guests.empty?
+		if @user.guests.empty?
 			@noGuests = true
 		else
 			@noGuests = false
-			@user.team.guests.each do |val|
+			@user.guests.each do |val|
 				if val.guest_type == "Child"
 					session[:childCount] += 1
 				elsif val.guest_type == "Adult"
@@ -37,7 +37,7 @@ class CartsController < ApplicationController
 				@guestCountA = session[:adultCount]
 				@guestCountC = session[:childCount]
 			end
-			@guestCount = @user.team.guests.length
+			@guestCount = @user.guests.length
 		end
 	    gon.client_token = generate_client_token
 	    @token = gon.client_token
