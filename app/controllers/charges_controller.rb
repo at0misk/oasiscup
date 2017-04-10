@@ -65,7 +65,7 @@ class ChargesController < ApplicationController
 			@transaction.transaction_type = "Down Payment"
 			@transaction.save
 			@transaction_type = 'down payment'
-			UserMailer.confirmation_email(@user, @transaction_type).deliver_later(wait_until: 2.days.from_now)
+			UserMailer.confirmation_email(@user, @transaction_type).deliver_now
 			# Made Downpayment - Send Email reminding they still have a balance with their balance
 		elsif params['balanceClear']
 			@user.update_attribute(:user_balance, nil)
