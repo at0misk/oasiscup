@@ -70,10 +70,30 @@
       <td></td>
       <td></td>
       <td></td>
+      <% @depositTax = @tax_user %>
+      <td>Tax:</td>
+      <td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+      <% @nightlyTax = @tax_user %>
+      <% @tax_user = @tax_user * 3 %>
+      <% if @user.user_balance %>
+      <td><%= number_to_currency((@user.user_balance-@total_balance_due), :precision => 2) %></td>
+      <% else %>
+      <td>$0.00</td>
+      <% end %>
+      <td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
       <td></td>
       <td></td>
       <td>Total:</td>
-      <td class="green"><%= number_to_currency(@userTotal, :precision => 2) %></td>
+      <td class="green"><%= number_to_currency((@userTotal+@tax_user), :precision => 2) %></td>
     </tr>
   </tbody>
 </table>

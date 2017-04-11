@@ -18,12 +18,29 @@ class UserMailer < ApplicationMailer
 
   def confirmation_email(user, transaction_type)
     @user = user
+    @team = @user.team
     @total = 0
     @user.books.each do |val|
       @total += val.price
     end
     @transaction_type = transaction_type
     @url  = 'http://example.com/login'
+        @booked_rooms = Book.where(team_id: @team.id)
+    @user_rooms = Book.where(user_id: @user.id)
+    @total = 0
+    @tax = 0
+      @booked_rooms.each do |val|
+      @roomTax = val.hotel.tax
+    @tax += @roomTax * val.price
+        @total += val.price
+      end
+    @total_user = 0
+    @tax_user = 0
+      @user_rooms.each do |val|
+        @userRoomTax = val.hotel.tax
+        @tax_user += @userRoomTax * val.price
+        @total_user += val.price
+      end
     mail(to: 'ktp925@gmail.com', subject: 'Booking Confirmation for ' +  @user.first + " " + @user.last)
   end
 
