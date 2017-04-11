@@ -2,10 +2,16 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <style>
+      td{
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <h1>Hello <%= @user.first %> <%= @user.last %></h1>
     <h2>Thank you for booking with Archer Travel</h2>
+    <h2>Your confirmation number is #123456789 </h2>
     <% if @transaction_type == 'down payment' %>
   <h3>You paid a downpayment of <span class="green"><%= number_to_currency(@user.user_balance/2, :precision => 2) %></span></h3>
   <h3>You have a remaining balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
@@ -21,23 +27,40 @@
     <tr>
       <th>Hotel</th>
       <th>Address</th>
-      <th>Room Number</th>
       <th>Smoking</th>
-      <th>Occupancy</th>
+      <th>Adults</th>
+      <th>Children</th>
       <th>Type</th>
-      <th>Room Price</th>
+      <th>Status</th>
+      <th>Price Per Night</th>
+      <th>Amount Due</th>
+      <th>Total</th>
     </tr>
   </thead>
   <tbody>
+    <% @userTotal = 0 %>
     <% @user.books.each do |val| %>
     <tr>
     <td><%= val.hotel.name %></td>
     <td><%= val.hotel.address %></td>
-    <td><%= val.number %></td>
     <td><%= val.smoking %></td>
     <td><%= val.occupancy_a %></td>
+    <td><%= val.occupancy_c %></td>
     <td><%= val.room_type %></td>
+    <% if val.paid_status %>
+    <td class="green">Paid</td>
+    <% else %>
+    <td class="red">Balance Due</td>
+      <% @total_balance_due += val.price*2 %>
+    <% end %>
     <td><%= number_to_currency(val.price, :precision => 2) %></td>
+    <% if val.paid_status %>
+    <td class="green">$0.00</td>
+    <% else %>
+    <td><%= number_to_currency(val.price*2, :precision => 2) %></td>
+    <% end %>
+    <td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+    <% @userTotal += (val.price*3) %>
     </tr>
     <% end %>
     <tr>
@@ -46,8 +69,11 @@
       <td></td>
       <td></td>
       <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
       <td>Total:</td>
-      <td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
+      <td class="green"><%= number_to_currency(@userTotal, :precision => 2) %></td>
     </tr>
   </tbody>
 </table>

@@ -78,12 +78,60 @@ class ChargesController < ApplicationController
 			@transaction_type = 'paid balance'
 			UserMailer.confirmation_email(@user, @transaction_type).deliver_now
 			# Paid Balance - Send Emails with guestlist and confirmation
+			if @team.exempt
+				if @team.books.length < 5
+					session[:exemptRoomsNeeded] = true
+				elsif @team.books.length >= 5
+					session[:exemptRoomsNeeded] = false
+					@team.users.each do |val|
+						puts 'mailing'
+						puts "#{val.first}"
+					end
+					@team.mail_confirmation = true
+				end
+			else
+				if @team.books.length < 10
+					session[:roomsNeeded] = true
+				elsif @team.books.length >= 10
+					session[:roomsNeeded] = false
+					@team.users.each do |val|
+						puts 'mailing'
+						puts "#{val.first}"
+					end
+					@team.mail_confirmation = true
+				end
+			end
 		elsif params['payingFull'] == 'yes'
 			@transaction.transaction_type = "Paid In Full"
 			@transaction.save
 			@transaction_type = 'paid in full'
 			UserMailer.confirmation_email(@user, @transaction_type).deliver_now
 			# Paid in full from the get go - Send Emails with guestlist and confirmation
+			if @team.exempt
+				if @team.books.length < 5
+					session[:exemptRoomsNeeded] = true
+				elsif @team.books.length >= 5
+					session[:exemptRoomsNeeded] = false
+					@team.users.each do |val|
+						puts 'mailing'
+						puts "#{val.first}"
+					end
+					@team.mail_confirmation = true
+					@team.save
+				end
+			else
+				if @team.books.length < 10
+					session[:roomsNeeded] = true
+				elsif @team.books.length >= 10
+					session[:roomsNeeded] = false
+					@team.users.each do |val|
+						puts 'mailing'
+						puts "#{val.first}"
+					end
+					@team.mail_confirmation = true
+					@team.save
+				end
+			end
 		end
 		# Manifest Email
 	  	# UserMailer.manifest_email(@user).deliver_now

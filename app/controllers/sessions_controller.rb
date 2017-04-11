@@ -38,6 +38,21 @@ class SessionsController < ApplicationController
 	end
 	def contact
 	end
+	def info
+		@user = User.find(session[:user_id])
+		@team = @user.team
+	end
+	def confirmation
+		@user = User.find(session[:user_id])
+		@team = @user.team
+		@type = Transaction.where(user_id: @user.id).last
+		if @team.mail_confirmation
+			flash[:mailSent] = "Confirmation Sent"
+			UserMailer.confirmation_email(@user, @type).deliver_now
+		else
+		end
+			redirect_to :back
+	end
 	# def new
 	#   gon.client_token = generate_client_token
 	# end

@@ -22,6 +22,11 @@
 <h4 data-turbolinks="false" class="notFound">If you need to checkout, go to your <a href="/cart">cart</a>, or book more <a href='/hotels'>rooms.</a></h4>
 <% else %>
 <h3>My Teams Booked Rooms</h3>
+<% if session[:roomsNeeded] %>
+<h3>Your team must book at least 10 rooms to participate in the tournament</h3>
+<% elsif session[:exemptRoomsNeeded] %>
+<h3>Your team must book at least 5 rooms to participate in the tournmaent</h3>
+<% end %>
 <div class="table-responsive">
 <table class="table table-striped">
 	<thead>
@@ -38,7 +43,6 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @booked_rooms.each do |val| %>
 		<tr>
 		<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
 		<td><%= val.hotel.address %></td>
@@ -46,7 +50,18 @@
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
 		<td><%= val.room_type %></td>
+		<% if val.paid_status %>
+		<td class="green">Paid</td>
+		<% else %>
+		<td class="red">Balance Due</td>
+			<% @total_balance_due += val.price*2 %>
+		<% end %>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
+		<% if val.paid_status %>
+		<td class="green">$0.00</td>
+		<% else %>
+		<td><%= number_to_currency(val.price*2, :precision => 2) %></td>
+		<% end %>
 		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">

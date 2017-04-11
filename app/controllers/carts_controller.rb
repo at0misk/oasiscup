@@ -22,6 +22,19 @@ class CartsController < ApplicationController
 		@user = User.find(session[:user_id])
 		@booked_rooms = @user.books
 		@team = @user.team
+		if @team.exempt
+			if @team.books.length < 5
+				session[:exemptRoomsNeeded] = true
+			elsif @team.books.length >= 5
+				session[:exemptRoomsNeeded] = false
+			end
+		else
+			if @team.books.length < 10
+				session[:roomsNeeded] = true
+			elsif @team.books.length >= 10
+				session[:roomsNeeded] = false
+			end
+		end
 		if @user.guests.empty?
 			@noGuests = true
 		else

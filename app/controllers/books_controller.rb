@@ -33,6 +33,19 @@ class BooksController < ApplicationController
   	def booked
   		@user = User.find(session[:user_id])
   		@team = @user.team
+		if @team.exempt
+			if @team.books.length < 5
+				session[:exemptRoomsNeeded] = true
+			elsif @team.books.length >= 5
+				session[:exemptRoomsNeeded] = false
+			end
+		else
+			if @team.books.length < 10
+				session[:roomsNeeded] = true
+			elsif @team.books.length >= 10
+				session[:roomsNeeded] = false
+			end
+		end
   		@booked_rooms = Book.where(team_id: @team.id)
   		@user_rooms = Book.where(user_id: @user.id)
   		@total = 0
@@ -53,6 +66,19 @@ class BooksController < ApplicationController
   	def teams
   		@user = User.find(session[:user_id])
   		@team = @user.team
+		if @team.exempt
+			if @team.books.length < 5
+				session[:exemptRoomsNeeded] = true
+			elsif @team.books.length >= 5
+				session[:exemptRoomsNeeded] = false
+			end
+		else
+			if @team.books.length < 10
+				session[:roomsNeeded] = true
+			elsif @team.books.length >= 10
+				session[:roomsNeeded] = false
+			end
+		end
   		@booked_rooms = Book.where(team_id: @team.id)
   		# @user_rooms = Book.where(user_id: @user.id)
   		@total = 0

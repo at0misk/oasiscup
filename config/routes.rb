@@ -44,4 +44,6 @@ Rails.application.routes.draw do
   get 'contact' => 'sessions#contact'
   get 'booked/teams' => 'books#teams'
   get 'guests/user' => 'guests#user'
+  get 'info' => 'sessions#info'
+  get 'conf' => 'sessions#confirmation'
 end

@@ -22,6 +22,11 @@
 <h4 data-turbolinks="false" class="notFound">If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
 <% else %>
 <h3>My Booked Rooms</h3>
+<% if session[:roomsNeeded] %>
+<h3>Your team must book at least 10 rooms to participate in the tournament</h3>
+<% elsif session[:exemptRoomsNeeded] %>
+<h3>Your team must book at least 5 rooms to participate in the tournmaent</h3>
+<% end %>
 <div class="table-responsive">
 <table class="table table-striped">
 	<thead>

@@ -34,6 +34,7 @@ class UsersController < ApplicationController
 			else
 				@team.exempt = false
 			end
+			@team.mail_confirmation = false
 			@team.save
 			@user = User.new(user_params)
 			@user.team_id = @team.id

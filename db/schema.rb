@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170410203702) do
+ActiveRecord::Schema.define(version: 20170411152609) do
 
   create_table "books", force: :cascade do |t|
     t.decimal  "price"
@@ -113,11 +113,12 @@ ActiveRecord::Schema.define(version: 20170410203702) do
   create_table "teams", force: :cascade do |t|
     t.string   "name"
     t.string   "conf_num"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.string   "fee_status"
     t.decimal  "balance"
     t.boolean  "exempt"
+    t.boolean  "mail_confirmation"
   end
 
   create_table "transactions", force: :cascade do |t|

@@ -41,6 +41,11 @@
 <h4 class="notFound">If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
 <% end %>
 <h3>My Cart</h3>
+<% if session[:roomsNeeded] && @cart_rooms.length < 10 %>
+<h3>Your team must book at least 10 rooms to participate in the tournament</h3>
+<% elsif session[:exemptRoomsNeeded] && @cart_rooms.length < 5  %>
+<h3>Your team must book at least 5 rooms to participate in the tournmaent</h3>
+<% end %>
 <div class="table-responsive">
 <table class="table table-striped">
 	<thead>
