@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-	before_action :authenticate_user!, :except => [:login, :logout, :new]
+	before_action :authenticate_user!, :except => [:login, :logout, :new, :forgot, :recover]
 	def login
 		if session[:user_id]
 			redirect_to '/hotels'
@@ -52,6 +52,21 @@ class SessionsController < ApplicationController
 		else
 		end
 			redirect_to :back
+	end
+	def forgot
+	end
+	def recover
+		@user = User.find_by(email: params['email'])
+		if !@user
+			flash[:no_user] = "Email not found"
+		else
+			random_password = Array.new(10).map { (65 + rand(58)).chr }.join
+			@user.password = random_password
+			@user.save!
+			UserMailer.create_and_deliver_password_change(@user, random_password).deliver_now
+			flash[:email_success] = "Email sent"
+		end
+		redirect_to :back
 	end
 	# def new
 	#   gon.client_token = generate_client_token

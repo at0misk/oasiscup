@@ -1,0 +1,47 @@
+<style type="text/css">
+	.contactHeaderRow{
+		text-align: center;
+	}
+	.textDiv{
+		text-align: center;
+	}
+	.noUser{
+		margin-top: 1%;
+	}
+</style>
+<div class="row contactHeaderRow">
+<h3>Password Recovery</h3>
+</div>
+<div class="row">
+<div class="col-md-3">
+</div>
+<div class="col-md-6 textDiv">
+<h4>Please enter your email address</h4>
+<form class="form-horizontal" method="post" action="/recover" id="editForm">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<div class="form-group">
+	    <label for="email" class="col-sm-3 control-label">
+	        Email</label>
+	    <div class="col-sm-6">
+	        <input name="email" type="text" class="form-control" id="email" />
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-sm-12 modalButtons">
+	        <button type="submit" class="btn btn-primary btn-sm">
+	            Recover</button>
+	    </div>
+	</div>
+</form>
+<div class="noUser">
+<% if flash[:no_user] %>
+<%= flash[:no_user] %>
+<% end %>
+<% if flash[:email_success] %>
+<%= flash[:email_success] %>
+<% end %>
+</div>
+</div>
+<div class="col-md-3">
+</div>
+</div>

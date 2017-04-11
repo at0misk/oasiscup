@@ -43,5 +43,9 @@ class UserMailer < ApplicationMailer
       end
     mail(to: 'ktp925@gmail.com', subject: 'Booking Confirmation for ' +  @user.first + " " + @user.last)
   end
-
+  def create_and_deliver_password_change(user, random_password)
+    @user = user
+    @random_password = random_password
+    mail(to: "#{@user.email}", subject: 'Password Recovery')
+  end
 end

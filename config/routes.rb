@@ -46,4 +46,6 @@ Rails.application.routes.draw do
   get 'guests/user' => 'guests#user'
   get 'info' => 'sessions#info'
   get 'conf' => 'sessions#confirmation'
+  get 'forgot_password' => 'sessions#forgot'
+  post 'recover' => 'sessions#recover'
 end
