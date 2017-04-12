@@ -12,9 +12,13 @@ class ChargesController < ApplicationController
 	    :source  => params[:stripeToken]
 	  )
 
-		@transaction = Transaction.new(user_id: session[:user_id], total: (@amount/100).to_f)
-		@transaction.save
-
+		@transaction = Transaction.new(user_id: session[:user_id], total: (@amount/100).to_f, transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}")
+		if @transaction.save
+			@t = Transaction.last
+		else
+			flash[:errors] = "Something went wrong"
+			redirect_to :back
+		end
 	  charge = Stripe::Charge.create(
 	    :customer    => customer.id,
 	    :amount      => @amount,
@@ -32,11 +36,14 @@ class ChargesController < ApplicationController
 			@booked.occupancy_a = val.occupancy_a
 			@booked.occupancy_c = val.occupancy_c
 			@booked.team_id = @user.team.id
+			@booked.transaction_id = @t.id
 			if params['balancePaid']
 				@booked.paid_status = false
 			elsif params['payingFull']
 				@booked.paid_status = true
 			end
+			@prefix = Hotel.find(val.hotel_id).conf_prefix
+			@booked.conf_code = "#{@prefix}#{Date.today.to_s}0#{@booked.number}"
 			@booked.save
 			# Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 		end

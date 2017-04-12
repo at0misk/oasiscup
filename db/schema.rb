@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170411152609) do
+ActiveRecord::Schema.define(version: 20170412220507) do
 
   create_table "books", force: :cascade do |t|
     t.decimal  "price"
@@ -19,14 +19,17 @@ ActiveRecord::Schema.define(version: 20170411152609) do
     t.string   "room_type"
     t.integer  "hotel_id"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
     t.integer  "occupancy_a"
     t.integer  "team_id"
     t.integer  "occupancy_c"
     t.boolean  "paid_status"
+    t.integer  "transaction_id"
+    t.string   "conf_code"
     t.index ["hotel_id"], name: "index_books_on_hotel_id"
     t.index ["team_id"], name: "index_books_on_team_id"
+    t.index ["transaction_id"], name: "index_books_on_transaction_id"
     t.index ["user_id"], name: "index_books_on_user_id"
   end
 
@@ -86,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170411152609) do
     t.string   "checkin"
     t.string   "checkout"
     t.decimal  "resortFee"
+    t.string   "conf_prefix"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -127,6 +131,7 @@ ActiveRecord::Schema.define(version: 20170411152609) do
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
     t.string   "transaction_type"
+    t.string   "transaction_code"
     t.index ["user_id"], name: "index_transactions_on_user_id"
   end
 
