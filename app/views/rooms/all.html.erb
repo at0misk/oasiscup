@@ -147,6 +147,11 @@
 </div>
 <% x = 0 %>
 <% @hotelIds.each do |val| %>
+	<% if (x/2) == 0 %>
+	<div class="row tableRow">
+	<% x = 0 %>
+	<% else %>
+	<% end %>
     <% @roomTypes = Hotel.find(val).rooms.select('distinct room_type').map(&:room_type) %>
 	<% @roomTypes.each do |v| %>
 		<% @room = Hotel.find(val).rooms.find_by(room_type: v) %>
@@ -176,4 +181,9 @@
 			<div class="col-md-1">
 			</div>
 	<% end %>
+	<% if (x/2) == 0 %>
+	</div>
+	<% else %>
+	<% end %>
+	<% x += 1 %>
 <% end %>
