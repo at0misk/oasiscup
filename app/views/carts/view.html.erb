@@ -58,7 +58,6 @@
 			<th>Type</th>
 			<th>Price Per Night</th>
 			<th>Total</th>
-			<th>number</th>
 			<th></th>
 		</tr>
 	</thead>
@@ -76,7 +75,6 @@
 		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 		<% @totalOccupancy += val.occupancy_a.to_i %>
 		<% @totalOccupancy += val.occupancy_c.to_i %>
-		<td><%= val.number %></td>
 		<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<button type="submit" class="btn btn-danger">Remove</button>
