@@ -21,6 +21,7 @@ class HotelsController < ApplicationController
     @cart.each do |val|
       @cartNumberArr << val.number
     end
+    @roomTypes = Hotel.find(params[:id]).rooms.select('distinct room_type').map(&:room_type)
     if params[:paginate]
       if @@roomSwitch != {}
       # @rooms = @@roomSwitch

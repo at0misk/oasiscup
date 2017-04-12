@@ -11,8 +11,8 @@ class RoomsController < ApplicationController
       @room.number = x
       @room.hotel_id = params[:id]
       @room.smoking = "No"
-      @room.room_type = "Double Queens"
-      @room.price = 155
+      @room.room_type = "King"
+      @room.price = 135
       @room.occupancy_a = 4
       # @room.occupancy_c = 
       @room.description = ""
@@ -48,19 +48,27 @@ class RoomsController < ApplicationController
           @rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
           params[:paginate] = false
         else
-        if session[:from_cart]
-          if @@roomSwitch != {}
-          @rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
-          else
-          @rooms = Room.all.paginate(:page => params[:page], :per_page => 7)
-          end
-        else
+        # if session[:from_cart]
+        #   if @@roomSwitch != {}
+        #   @rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
+        #   else
+        #   @rooms = Room.all.paginate(:page => params[:page], :per_page => 7)
+        #   end
+        # else
         if session[:price_range] && !session[:searchingAll] 
+          # @roomArr = []
           if session[:price_range] == 1
+              @hotelIds = Room.where(price: 0..175).select('distinct hotel_id').map(&:hotel_id)
+              # @hotelIds.each do |val|
+                  # @roomTypes = Hotel.find(val).rooms.select('distinct room_type').map(&:room_type)
+                  # @roomArr << @roomTypes
+              # end
               @rooms = Room.where(price: 0..175).order(:price).paginate(:page => params[:page], :per_page => 7)
           elsif session[:price_range] == 2
+              @hotelIds = Room.where(price: 176..250).select('distinct hotel_id').map(&:hotel_id)
               @rooms = Room.where(price: 176..250).order(:price).paginate(:page => params[:page], :per_page => 7)
           elsif session[:price_range] == 3
+              @hotelIds = Room.where(price: 251..2000).select('distinct hotel_id').map(&:hotel_id)
               @rooms = Room.where(price: 251..2000).order(:price).paginate(:page => params[:page], :per_page => 7)
           end
           # session[:price_range] = nil
@@ -71,6 +79,7 @@ class RoomsController < ApplicationController
             # puts @rooms.first
             # fail
           else
+            @hotelIds = Room.all.select('distinct hotel_id').map(&:hotel_id)
             @rooms = Room.all.order(:price).paginate(:page => params[:page], :per_page => 7)
             # if @user.guests != nil
             #   @user.guests.each do |val|
@@ -84,13 +93,15 @@ class RoomsController < ApplicationController
           end
           session[:searchingAll] = false
         end
-      end
+      # end
     end
       @@roomSwitch = @rooms
       params[:paginate] = false
       session[:from_cart] = false
   	end
   	def search
+      # @hotelIds = Room.where(price: 176..250).select('distinct hotel_id').map(&:hotel_id)
+      # Gets unique hotel ids for price bracket
   		if params[:id] == '1'
   			# @rooms = Room.where(price: 70..120).order(:price)
         session[:price_range] = 1

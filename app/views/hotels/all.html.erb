@@ -82,7 +82,7 @@
     	height: 400px !important;*/
     }
     .gm-style-iw {
-	    height: 250px;
+	    height: auto;
 	}
 	.moneyRow{
 		text-align: center;
@@ -103,12 +103,37 @@
   .imageHeaderH4{
     display: none;
   }
+  .instructionRow{
+    text-align: center;
+  }
+  .descriptionP a{
+    color: black;
+    text-decoration: none;
+  }
+  .descriptionP a:hover{
+    color: black;
+    text-decoration: none;
+  }
+  .bookHeading{
+    margin-top: 0px;
+  }
+  .allRoomsBtn{
+    margin-left: 0px !important;
+  }
 </style>
 <% if @noGuests %>
+<div class="row instructionRow">
 <h3>Your guest list is empty.</h3>
 <h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
+</div>
 <% else %>
 <% end %>
+<div class="row instructionRow">
+<h3>Click a map marker for more information about a hotel</h3>
+<form action="count" method="post" class="countForm" data-turbolinks="false">
+  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+<h3>Or search all rooms: </h3><input name="child" type="hidden" value="<%= session[:childCount] %>"><input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><button class="btn btn-primary allRoomsBtn">Find Rooms!</button></form>
+</div>
 <div id="map"></div>
 <div id="legend"><h5>Hotels</h5></div>
 <div class="row moneyRow">
@@ -216,10 +241,11 @@
             '</div>'+
             '<h3 id="firstHeading" class="mapHeading"><a href="hotels/<%= val.id %>"><%= val.name %></a></h3>'+
             '<div id="bodyContent" class="bodyContent">'+
-            '<p>' +
+            '<p class="descriptionP"><a href="hotels/<%= val.id %>">' +
             '<%= val.description %>' +
-            '</p>' +
+            '</a></p>' +
             '</div>'+
+            '<h3 class="mapHeading bookHeading"><a href="hotels/<%= val.id %>">Book Rooms</a></h3>'+
             '</div>';
         var infowindow<%= val.id %> = new google.maps.InfoWindow({
           content: contentString<%= val.id %>,

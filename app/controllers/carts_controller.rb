@@ -3,17 +3,43 @@ class CartsController < ApplicationController
 	def create
 		session[:from_cart] = true
 		@user = User.find(session[:user_id])
-		@cart = Cart.new(cart_params)
-		@cart.team_id = @user.team.id
-		if @cart.save
-			redirect_to :back
-		else
-			flash[:errors] = @cart.errors.full_messages
-			redirect_to :back
+		# @cart = Cart.new(cart_params)
+		# @cart.team_id = @user.team.id
+		params['amount'].to_i.times do
+			@x = Hotel.find(params['hotel_id']).rooms.where(room_type: params['room_type']).first.number.to_i
+			@cart = Cart.new
+			@cart.hotel_id = params['hotel_id']
+			@cart.user_id = session[:user_id]
+			@cart.price = params['price']
+			@cart.number = @x
+			@cart.smoking = params['smoking']
+			@cart.room_type = params['room_type']
+			@cart.occupancy_a = params['occupancy_a']
+			@cart.occupancy_c = params['occupancy_c']
+			@cart.team_id = @user.team.id
+			if @cart.save
+				flash[:cart_created] = "Added to cart!"
+			else
+				flash[:errors] = @cart.errors.full_messages
+			end
+			Room.where(hotel_id: params['hotel_id'], number: @x).destroy_all
 		end
+		redirect_to :back
 	end
 	def cancel
-		Cart.destroy(params[:id])
+	  	@cart = Cart.find(params[:id])
+		@room = Room.new
+		@room.hotel_id = @cart.hotel_id
+		@room.price = @cart.price
+		@room.number = @cart.number
+		@room.smoking = @cart.smoking
+		@room.room_type = @cart.room_type
+		@room.occupancy_a = @cart.occupancy_a
+		@room.occupancy_c = @cart.occupancy_c
+		@room.save
+		if Cart.destroy(params[:id])
+		else
+		end
 		redirect_to :back
 	end
 	def view
@@ -52,9 +78,9 @@ class CartsController < ApplicationController
 			end
 			@guestCount = @user.guests.length
 		end
-	    gon.client_token = generate_client_token
+	    # gon.client_token = generate_client_token
 	    @token = gon.client_token
-		@cart_rooms = Cart.where(team_id: @user.team.id)
+		@cart_rooms = Cart.where(user_id: @user.id)
 		@total = 0
 		@tax = 0
 		@cart_rooms.each do |val|
@@ -66,49 +92,49 @@ class CartsController < ApplicationController
 			end
 		end
 	end
-	def checkout
-		@user = User.find(session[:user_id])
-		@result = Braintree::Transaction.sale(
-			:amount => params['total'],
-			:payment_method_nonce => 'fake-valid-nonce',
-            customer: {
-              first_name: @user.first,
-              last_name: @user.last,
-              email: @user.email
-            },
-            options: {
-              store_in_vault: true,
-			  :submit_for_settlement => true
-            }
-		)
-		if @result.success?
-			@cart = Cart.where(user_id: session[:user_id])
-			@cart.each do |val|
-				@booked = Book.new
-				@booked.hotel_id = val.hotel_id
-				@booked.user_id = val.user_id
-				@booked.price = val.price
-				@booked.number = val.number
-				@booked.smoking = val.smoking
-				@booked.room_type = val.room_type
-				@booked.occupancy_a = val.occupancy_a
-				@booked.save
-				Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
-				Cart.where(user_id: session[:user_id]).destroy_all
-			end
-			redirect_to '/booked'
-		else
-			flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
-			gon.client_token = generate_client_token
-			redirect_to :back
-		end
-	end
+	# def checkout
+	# 	@user = User.find(session[:user_id])
+	# 	# @result = Braintree::Transaction.sale(
+	# 	# 	:amount => params['total'],
+	# 	# 	:payment_method_nonce => 'fake-valid-nonce',
+ #  #           customer: {
+ #  #             first_name: @user.first,
+ #  #             last_name: @user.last,
+ #  #             email: @user.email
+ #  #           },
+ #  #           options: {
+ #  #             store_in_vault: true,
+	# 	# 	  :submit_for_settlement => true
+ #  #           }
+	# 	# )
+	# 	if @result.success?
+	# 		@cart = Cart.where(user_id: session[:user_id])
+	# 		@cart.each do |val|
+	# 			@booked = Book.new
+	# 			@booked.hotel_id = val.hotel_id
+	# 			@booked.user_id = val.user_id
+	# 			@booked.price = val.price
+	# 			@booked.number = val.number
+	# 			@booked.smoking = val.smoking
+	# 			@booked.room_type = val.room_type
+	# 			@booked.occupancy_a = val.occupancy_a
+	# 			@booked.save
+	# 			Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
+	# 			Cart.where(user_id: session[:user_id]).destroy_all
+	# 		end
+	# 		redirect_to '/booked'
+	# 	else
+	# 		flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
+	# 		gon.client_token = generate_client_token
+	# 		redirect_to :back
+	# 	end
+	# end
 
   	def cart_params
-  		params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a, :team_id, :occupancy_c) 
+  		# params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a, :team_id, :occupancy_c) 
   	end
-	private
-	def generate_client_token
-		Braintree::ClientToken.generate
-	end
+	# private
+	# def generate_client_token
+	# 	Braintree::ClientToken.generate
+	# end
 end

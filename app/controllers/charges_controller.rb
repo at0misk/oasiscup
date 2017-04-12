@@ -38,7 +38,7 @@ class ChargesController < ApplicationController
 				@booked.paid_status = true
 			end
 			@booked.save
-			Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
+			# Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 		end
 		Cart.where(user_id: @user.id).destroy_all
 		if params['balancePaid']
