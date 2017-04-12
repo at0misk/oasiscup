@@ -138,6 +138,8 @@
     <% @roomTypes.each do |val| %>
     	<% @room = Hotel.find(params[:id]).rooms.find_by(room_type: val) %>
     		<% if @roomTypes.length == 1 %>
+    		<div class='col-md-4'>
+    		</div>
     		<% else %>
     		<div class="col-md-1">
     		</div>
@@ -165,6 +167,8 @@
 			</form>
 			</div>
 			<% if @roomTypes.length == 1 %>
+			<div class="col-md-4">
+			</div>
     		<% elsif x == 1 %>
     			<div class="col-md-2">
     			</div>
