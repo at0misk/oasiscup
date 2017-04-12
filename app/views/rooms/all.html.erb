@@ -114,7 +114,7 @@
 <div class="col-md-12">
 <form action="count" method="post" class="resetForm" data-turbolinks="false">
 	<% if flash[:cart_created] %>
-	<h3 class="flash3"><a href="/cart"><%= flash[:cart_created] %></a></h3>
+	<h3 class="flash3">Added to <a href="/cart">cart!</a></h3>
 	<% end %>
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <input name="child" type="hidden" value="<%= session[:childCount] %>"><input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><button class="btn btn-danger">Reset Search</button></form>

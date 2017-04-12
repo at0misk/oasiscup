@@ -87,7 +87,7 @@
 <span class="hotelViewHeader">
 	<h3 class="hotelNameHeader"><%= @hotel.name %></h3>
 	<% if flash[:cart_created] %>
-	<h3 class="flash3"><a href="/cart"><%= flash[:cart_created] %></a></h3>
+	<h3 class="flash3">Added to <a href="/cart">cart!</a></h3>
 	<% end %>
 <div class="row">
 	<div class="col-md-6 hotelImg">
