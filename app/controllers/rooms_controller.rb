@@ -65,10 +65,10 @@ class RoomsController < ApplicationController
               # end
               @rooms = Room.where(price: 0..175).order(:price).paginate(:page => params[:page], :per_page => 7)
           elsif session[:price_range] == 2
-              @hotelIds = Room.where(price: 176..250)order(:price).select('distinct hotel_id').map(&:hotel_id)
+              @hotelIds = Room.where(price: 176..250).order(:price).select('distinct hotel_id').map(&:hotel_id)
               @rooms = Room.where(price: 176..250).order(:price).paginate(:page => params[:page], :per_page => 7)
           elsif session[:price_range] == 3
-              @hotelIds = Room.where(price: 251..2000)order(:price).select('distinct hotel_id').map(&:hotel_id)
+              @hotelIds = Room.where(price: 251..2000).order(:price).select('distinct hotel_id').map(&:hotel_id)
               @rooms = Room.where(price: 251..2000).order(:price).paginate(:page => params[:page], :per_page => 7)
           end
           # session[:price_range] = nil
