@@ -147,7 +147,7 @@
 </div>
 <% x = 0 %>
 <% @hotelIds.each do |val| %>
-	<% if (x/2) == 0 %>
+	<% if (x/2) == 0  && x != 0%>
 	<div class="row tableRow">
 	<% x = 0 %>
 	<% else %>
@@ -181,7 +181,7 @@
 			<div class="col-md-1">
 			</div>
 	<% end %>
-	<% if (x/2) == 0 %>
+	<% if (x/2) == 0  && x != 0%>
 	</div>
 	<% else %>
 	<% end %>
