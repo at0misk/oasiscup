@@ -83,6 +83,9 @@
     	display: inline-block;
     	float: right;
     }
+    .bottomRow{
+    	margin-bottom: 10%;
+    }
 </style>
 <span class="hotelViewHeader">
 	<h3 class="hotelNameHeader"><%= @hotel.name %></h3>
@@ -133,7 +136,7 @@
 	</form>
 </div>
 </div> -->
-    <div class="row">
+    <div class="row bottomRow">
     <% x = 0 %>
     <% @roomTypes.each do |val| %>
     	<% @room = Hotel.find(params[:id]).rooms.find_by(room_type: val) %>
