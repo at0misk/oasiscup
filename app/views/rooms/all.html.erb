@@ -147,10 +147,16 @@
 </div>
 <% x = 0 %>
 <% @hotelIds.each do |val| %>
-	<div class="row tableRow">
     <% @roomTypes = Hotel.find(val).rooms.select('distinct room_type').map(&:room_type) %>
 	<% @roomTypes.each do |v| %>
 		<% @room = Hotel.find(val).rooms.find_by(room_type: v) %>
+			<%= x %>
+			<% if x == 0 %>
+			<div class="row">
+			<% elsif (x / 2) == 0 %>
+			<div class="row">
+			<% else %>
+			<% end %>
     		<div class="col-md-3 roomCol">
     		<h4 class="hotelLinkh4"><a href="hotels/<%= @room.hotel.id %>"><%= @room.hotel.name %></a></h4>
 			<h4>Bed: <%= @room.room_type %></h4>
@@ -176,6 +182,14 @@
 			</div>
 			<div class="col-md-1">
 			</div>
+			<% if x == 0 %>
+			<% x += 1 %>
+			</div>
+			<% elsif (x / 2) == 0 %>
+			<% x = 0 %>
+			</div>
+			<% else %>
+			<% x += 1 %>
+			<% end %>
 	<% end %>
-	</div>
 <% end %>
