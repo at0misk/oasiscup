@@ -150,7 +150,6 @@
     <% @roomTypes = Hotel.find(val).rooms.select('distinct room_type').map(&:room_type) %>
 	<% @roomTypes.each do |v| %>
 		<% @room = Hotel.find(val).rooms.find_by(room_type: v) %>
-			<%= x %>
 			<% if x == 0 %>
 			<div class="row">
 			<% elsif (x % 2) == 0 && x != 0 %>
