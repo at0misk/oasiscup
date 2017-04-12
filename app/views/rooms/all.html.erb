@@ -78,7 +78,7 @@
 	}
     .roomCol{
     	text-align: center;
-    	height: auto;
+    	height: 334px;
     	margin-bottom: 2%;
     	background-color: #e9f2f8;
     	padding: 2%
@@ -151,7 +151,7 @@
 	<% @roomTypes.each do |v| %>
 		<% @room = Hotel.find(val).rooms.find_by(room_type: v) %>
 			<% if x == 0 %>
-			<div class="row">
+			<div class="row tableRow">
 			<% elsif (x % 2) == 0 && x != 0 %>
 			<div class="row">
 			<% else %>
