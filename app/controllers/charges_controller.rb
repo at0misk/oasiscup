@@ -6,15 +6,14 @@ class ChargesController < ApplicationController
 	  @amount = params['amount'].to_i
 	  @user = User.find(session[:user_id])
 	  @team = @user.team
-	  puts @amount/100
-	  fail
+	  @transamount = params['amount'].to_f/100).round(2)
 	  @cart = Cart.where(user_id: @user.id)
 	  customer = Stripe::Customer.create(
 	    :email => params[:stripeEmail],
 	    :source  => params[:stripeToken]
 	  )
 
-		@transaction = Transaction.new(user_id: session[:user_id], total: (@amount/100), transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}-")
+		@transaction = Transaction.new(user_id: session[:user_id], total: @transamount, transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}-")
 		if @transaction.save
 			@newcode = @transaction.transaction_code + @transaction.id.to_s
 			@transaction.update_attribute(:transaction_code, @newcode)
