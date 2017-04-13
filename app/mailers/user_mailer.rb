@@ -23,7 +23,7 @@ class UserMailer < ApplicationMailer
     @transaction = transaction
     @admin = admin
     if @admin
-      @email = 'ktp925@gmail.com'
+      @email = 'oasiscuppalmdesert@gmail.com'
     else
       @email = @user.email
     end

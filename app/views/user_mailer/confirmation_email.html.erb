@@ -15,7 +15,7 @@
   <body>
   <% if @admin %>
     <h1>Confirmation for <%= @user.first %> <%= @user.last %>, User ID: <%= @user.id %> </h1>
-    <h1>User Team: <%= @user.team.name %></h1>
+    <h1>Team: <%= @user.team.name %></h1>
     <h2>Confirmation number: <%= @transaction.transaction_code %>
   <% else %>
     <h1>Hello <%= @user.first %> <%= @user.last %></h1>
