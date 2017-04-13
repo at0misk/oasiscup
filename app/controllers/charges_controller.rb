@@ -24,7 +24,7 @@ class ChargesController < ApplicationController
 	  charge = Stripe::Charge.create(
 	    :customer    => customer.id,
 	    :amount      => @amount,
-	    :description => 'Oasis Cup Booking, Order ID #' + @transaction.id.to_s,
+	    :description => 'Oasis Cup Booking, Order ID #' + @transaction.transaction_code,
 	    :currency    => 'usd'
 	  )
 		@cart.each do |val|
