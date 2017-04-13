@@ -96,4 +96,8 @@ class UsersController < ApplicationController
 	    end
 	    redirect_to :back
   	end
+  	def transactions
+  		@transactions = Transaction.where(user_id: session[:user_id])
+  		@user = User.find(session[:user_id])
+  	end
 end

@@ -53,4 +53,5 @@ Rails.application.routes.draw do
   get '/admins/searchUsers' => 'admins#searchUsers'
   post '/admins/searchTransactions' => 'admins#searchTransactionsSearch'
   get '/admins/searchTransactions' => 'admins#searchTransactions'
+  get '/transactions' => 'users#transactions'
 end

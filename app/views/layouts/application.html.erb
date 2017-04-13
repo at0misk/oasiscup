@@ -155,7 +155,7 @@
   }
 }
 
-@media (max-width: 1164px) {
+@media (max-width: 1363px) {
     .navbar-collapse.collapse {
         display: none !important;
     }
@@ -349,10 +349,13 @@
             <a href="/users/update/<%= session[:user_id] %>" class="nav-link">Edit User</a>
           </li>
           <li class="nav-item">
-            <a href="/logout" class="nav-link" data-turbolinks="false">Logout</a>
+            <a href="/transactions" class="nav-link">Order History</a>
           </li>
           <li class="nav-item">
             <a href="/contact" class="nav-link" data-turbolinks="false">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a href="/logout" class="nav-link" data-turbolinks="false">Logout</a>
           </li>
         </ul>
       </div>
