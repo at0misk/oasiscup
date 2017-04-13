@@ -12,4 +12,12 @@ class AdminsController < ApplicationController
 		@@params = params['user']
 		redirect_to '/admins/searchUsers'
 	end
+	def searchTransactions
+		@transaction = Transaction.find_by(transaction_code: "#{@@code}")
+		@user = User.find(@transaction.user_id)
+	end
+	def searchTransactionsSearch
+		@@code = params['code']
+		redirect_to '/admins/searchTransactions'
+	end
 end

@@ -165,7 +165,7 @@
 				<input type="hidden" name="user_id" value="<%= session[:user_id] %>">
 				<input type="hidden" name="occupancy_a" value="<%= @room.occupancy_a %>">
 				<input type="hidden" name="occupancy_c" value="<%= @room.occupancy_c %>">
-				<input type="number" name="amount" value="1" class="amountToAdd" min="1">
+				<input type="number" name="amount" value="1" class="amountToAdd" min="1" max="<%= Hotel.find(params[:id]).rooms.where(room_type: val).count %>">
 				<button type="submit" class="btn btn-primary">Add To Cart</button>
 			</form>
 			</div>

@@ -78,7 +78,7 @@
 					<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 					<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
 							<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-							<button type="submit" class="btn btn-danger">Cancel</button>
+							<button type="submit" class="btn btn-danger" data-confirm="Are you sure?">Cancel</button>
 						</form>
 					</td>
 					</tr>
@@ -176,7 +176,7 @@
 						<% @totalOccupancy += val.occupancy_c.to_i %>
 						<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
 								<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-								<button type="submit" class="btn btn-danger">Remove</button>
+								<button type="submit" class="btn btn-danger" data-confirm="Are you sure?">Remove</button>
 							</form>
 						</td>
 						</tr>
@@ -217,6 +217,7 @@
 			<% if val.guests.length == 0 %>
 			<h3>No guests on guest list</h3>
 			<% else %>
+			<div class="row">
 			<div class="table-responsive col-md-6">
 				<table class="table table-striped">
 					<thead>
@@ -233,11 +234,14 @@
 						<td><%= val.first %></td>
 						<td><%= val.last %></td>
 						<td><%= val.guest_type %></td>
-						<td><form action="/guests/delete/<%= val.id %>" method="POST" class="cancelForm"><input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"><button type="submit" class="btn btn-danger btn-sm">Remove</button></form></td>
+						<td><form action="/guests/delete/<%= val.id %>" method="POST" class="cancelForm"><input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"><button type="submit" class="btn btn-danger btn-sm" data-confirm="Are you sure?">Remove</button></form></td>
 						</tr>
 						<% end %>
 					</tbody>
 				</table>
+				</div>
+				<div class="col-md-6">
+				</div>
 				</div>
 			<% end %>
 <% end %>
