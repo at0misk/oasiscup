@@ -75,7 +75,10 @@ class ChargesController < ApplicationController
 			@transaction.transaction_type = "Down Payment"
 			@transaction.save
 			@transaction_type = 'down payment'
-			UserMailer.confirmation_email(@user, @transaction_type, @t).deliver_now
+			@admin = false
+			UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
+			@admin = true
+			UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
 			# Made Downpayment - Send Email reminding they still have a balance with their balance
 		elsif params['balanceClear']
 			@user.update_attribute(:user_balance, nil)
@@ -86,7 +89,10 @@ class ChargesController < ApplicationController
 			@transaction.transaction_type = "Paid Balance"
 			@transaction.save
 			@transaction_type = 'paid balance'
-			UserMailer.confirmation_email(@user, @transaction_type, @t).deliver_now
+			@admin = false
+			UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
+			@admin = true
+			UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
 			# Paid Balance - Send Emails with guestlist and confirmation
 			if @team.exempt
 				if @team.books.length < 5
