@@ -4,7 +4,11 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <style>
       td{
+        padding: 1%;
         text-align: center;
+      }
+      th{
+        padding: 1%;
       }
     </style>
   </head>
@@ -25,6 +29,7 @@
 <table class="table table-striped">
   <thead>
     <tr>
+      <th>Confirmation #</th>
       <th>Hotel</th>
       <th>Address</th>
       <th>Smoking</th>
@@ -41,6 +46,7 @@
     <% @userTotal = 0 %>
     <% @user.books.each do |val| %>
     <tr>
+    <td><%= val.conf_code %></td>
     <td><%= val.hotel.name %></td>
     <td><%= val.hotel.address %></td>
     <td><%= val.smoking %></td>
