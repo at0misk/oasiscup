@@ -14,6 +14,8 @@ class ChargesController < ApplicationController
 
 		@transaction = Transaction.new(user_id: session[:user_id], total: (@amount/100).to_f, transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}")
 		if @transaction.save
+			@newcode = @transaction.transaction_code + @transaction.id.to_s
+			@transaction.update_attribute(:transaction_code, @newcode)
 			@t = Transaction.last
 		else
 			flash[:errors] = "Something went wrong"
