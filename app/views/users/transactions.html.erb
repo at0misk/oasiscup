@@ -15,7 +15,14 @@
 		<h3>Confirmation Number: <%= transaction.transaction_code %></h3>
 		<h3>Date: <%= transaction.created_at.strftime("%Y-%m-%d") %></h3>
 		<h3>Type: <%= transaction.transaction_type %></h3>
+		<% @amountVal = 0 %>
+		<% transaction.books.each do |val| %>
+			<% @amountVal += (val.price*3) %>
+		<% end %>
 		<h3>Amount: <%= number_to_currency(transaction.total, :precision => 2) %></h3>
+		<% if transaction.transaction_type == 'Down Payment' %>
+		<h3>Amount Due: <%= number_to_currency(@amountVal-transaction.total, :precision => 2) %></h3>
+		<% end %>
 		</div>
 		<div class="col-md-6">
 		</div>
