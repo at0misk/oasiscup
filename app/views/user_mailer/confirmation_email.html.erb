@@ -110,22 +110,22 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th style="padding: 1%, 0%">First Name</th>
-      <th style="padding: 1%, 0%">Last Name</th>
-      <th style="padding: 1%, 0%"></th>
+      <th style="padding: 5%">First Name</th>
+      <th style="padding: 5%">Last Name</th>
+      <th style="padding: 5%"></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td style="padding: 1%, 0%"><%= @user.first %></td>
-      <td style="padding: 1%, 0%"><%= @user.last %></td>
-      <td style="padding: 1%, 0%">Adult</td>
+      <td style="padding: 5%"><%= @user.first %></td>
+      <td style="padding: 5%"><%= @user.last %></td>
+      <td style="padding: 5%">Adult</td>
     </tr>
     <% @user.guests.each do |val| %>
     <tr>
-    <td style="padding: 1%, 0%"><%= val.first %></td>
-    <td style="padding: 1%, 0%"><%= val.last %></td>
-    <td style="padding: 1%, 0%"><%= val.guest_type %></td>
+    <td style="padding: 5%"><%= val.first %></td>
+    <td style="padding: 5%"><%= val.last %></td>
+    <td style="padding: 5%"><%= val.guest_type %></td>
     </tr>
     <% end %>
   </tbody>
