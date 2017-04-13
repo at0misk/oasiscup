@@ -105,36 +105,27 @@
   </tbody>
 </table>
 </div>
-    <style>
-      td{
-        padding: 1% 0%;
-        text-align: center;
-      }
-      th{
-        padding: 1% 0%;
-      }
-    </style>
   <h2>Your Guests</h2>
   <div class="table-responsive">
 <table class="table table-striped">
   <thead>
     <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th></th>
+      <th style="padding: 1%, 0%">First Name</th>
+      <th style="padding: 1%, 0%">Last Name</th>
+      <th style="padding: 1%, 0%"></th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td><%= @user.first %></td>
-      <td><%= @user.last %></td>
-      <td>Adult</td>
+      <td style="padding: 1%, 0%"><%= @user.first %></td>
+      <td style="padding: 1%, 0%"><%= @user.last %></td>
+      <td style="padding: 1%, 0%">Adult</td>
     </tr>
     <% @user.guests.each do |val| %>
     <tr>
-    <td><%= val.first %></td>
-    <td><%= val.last %></td>
-    <td><%= val.guest_type %></td>
+    <td style="padding: 1%, 0%"><%= val.first %></td>
+    <td style="padding: 1%, 0%"><%= val.last %></td>
+    <td style="padding: 1%, 0%"><%= val.guest_type %></td>
     </tr>
     <% end %>
   </tbody>
