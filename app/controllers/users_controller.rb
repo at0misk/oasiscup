@@ -48,7 +48,7 @@ class UsersController < ApplicationController
 					session[:user_id] = @user.id
 			  		# session[:payed] = false
 			  		# Default Mailer
-			  		# UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
+			  		UserMailer.welcome_email(@user).deliver_now
 			  		flash[:errors] = nil
 					redirect_to '/guests/show'
 				else

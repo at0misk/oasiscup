@@ -3,8 +3,9 @@ class UserMailer < ApplicationMailer
  
   def welcome_email(user)
     @user = user
-    @url  = 'http://example.com/login'
-    mail(to: @user.email, subject: 'Welcome to My Awesome Site')
+    @url  = 'http://www.oasiscup.com'
+    mail(to: @user.email, subject: 'Welcome to oasiscup.com!')
+    mail(to: 'oasiscuppalmdesert@gmail.com', subject: 'Welcome to oasiscup.com!')
   end
   def manifest_email(user)
     @user = user
