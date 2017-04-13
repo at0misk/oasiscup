@@ -1,0 +1,244 @@
+<style type="text/css">
+	.con{
+		/*text-align: center;*/
+	}
+</style>
+<div class="con">
+<% @users.each do |val| %>
+	<% @user = val %>
+	<h2>User#<%= val.id %></h2>
+	<h3>Name: <%= val.first %> <%= val.last %></h3>
+	<h3>Email: <%= val.email %></h3>
+	<h3>Joined: <%= val.created_at %></h3>
+	<h2>Team: <%= val.team.name %></h2>
+		<h3>Exempt: <%= val.team.exempt %></h3>
+		<h3>Mailed Tournament Confirmation: <%= val.team.mail_confirmation %></h3>
+		<h3>Team has booked <%= val.team.books.length %> rooms</h3>
+	<h2>Booked Rooms:</h2>
+		<% if val.books.length == 0 %>
+			<h3>No booked rooms </h3>
+		<% else %>
+			<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Confirmation</th>
+						<th>Hotel</th>
+						<th>Address</th>
+						<th>Smoking</th>
+						<th>Adults</th>
+						<th>Children</th>
+						<th>Type</th>
+						<th>Status</th>
+						<th>Price Per Night</th>
+						<th>Amount Due</th>
+						<th>Total</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+			  		<% @booked_rooms = Book.where(team_id: val.team.id) %>
+			  		<% @user_rooms = Book.where(user_id: val.id) %>
+			  		<% @total = 0 %>
+			  		<% @tax = 0 %>
+			  		<% 	@booked_rooms.each do |val| %>
+			  		<% 	@roomTax = val.hotel.tax %>
+					<% 	@tax += @roomTax * val.price %>
+			  		<% 		@total += val.price %>
+			  		<% 	end %>
+			  		<% @total_user = 0 %>
+			  		<% @tax_user = 0 %>
+			  		<% 	@user_rooms.each do |val| %>
+			  		<% 		@userRoomTax = val.hotel.tax %>
+			  		<% 		@tax_user += @userRoomTax * val.price %>
+			  		<% 		@total_user += val.price %>
+			  		<% 	end %>
+					<% @total_balance_due = 0 %>
+					<% val.books.each do |val| %>
+					<tr>
+					<td><%= val.conf_code %></td>
+					<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
+					<td><%= val.hotel.address %></td>
+					<td><%= val.smoking %></td>
+					<td><%= val.occupancy_a %></td>
+					<td><%= val.occupancy_c %></td>
+					<td><%= val.room_type %></td>
+					<% if val.paid_status %>
+					<td class="green">Paid</td>
+					<% else %>
+					<td class="red">Balance Due</td>
+						<% @total_balance_due += val.price*2 %>
+					<% end %>
+					<td><%= number_to_currency(val.price, :precision => 2) %></td>
+					<% if val.paid_status %>
+					<td class="green">$0.00</td>
+					<% else %>
+					<td><%= number_to_currency(val.price*2, :precision => 2) %></td>
+					<% end %>
+					<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+					<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
+							<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+							<button type="submit" class="btn btn-danger">Cancel</button>
+						</form>
+					</td>
+					</tr>
+					<% end %>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<% @depositTax = @tax_user %>
+						<td></td>
+						<td>Tax:</td>
+						<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+						<% @nightlyTax = @tax_user %>
+						<% @tax_user = @tax_user * 3 %>
+						<% if @user.user_balance %>
+						<td><%= number_to_currency((@user.user_balance-@total_balance_due), :precision => 2) %></td>
+						<% else %>
+						<td>$0.00</td>
+						<% end %>
+						<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td></td>
+						<td>Total:</td>
+						<% @paid = @total_user+@nightlyTax %>
+						<td class="green"><%= number_to_currency(@total_user+@nightlyTax, :precision => 2) %></td>
+						<% @depositTotal = (@total_user + @depositTax).round(2) %>
+						<% @total_user = @total_user * 3 %>
+						<% @total_user += @tax_user %>
+						<% if @user.user_balance %>
+						<td class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></td>
+						<% else %>
+						<td class="green">$0.00</td>
+						<% end %>
+						<td class="green"><%= number_to_currency(@total_user, :precision => 2) %></td>
+						<td></td>
+					</tr>
+				</tbody>
+			</table>
+			</div>
+		<% end %>
+		<h2>Cart:</h2>
+		<% @cart = val.carts %>
+		<% if @cart.length == 0 %>
+			<h3>Cart Empty</h3>
+		<% else %>
+				<% @total = 0 %>
+				<% @tax = 0 %>
+				<% @cart.each do |val| %>
+				<% 	@roomTax = val.hotel.tax %>
+				<% 	@tax += @roomTax * val.price %>
+				<% 	@total += val.price %>
+				<% 	if val.occupancy_c %>
+				<% 		session[:c_found] = true  %>
+				<% 	end %>
+				<% end %>
+				<div class="table-responsive">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Hotel</th>
+							<th>Address</th>
+							<th>Smoking</th>
+							<th>Adults</th>
+							<th>Children</th>
+							<th>Type</th>
+							<th>Price Per Night</th>
+							<th>Total</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+					<% @totalOccupancy = 0 %>
+						<% @cart.each do |val| %>
+						<tr>
+						<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
+						<td><%= val.hotel.address %></td>
+						<td><%= val.smoking %></td>
+						<td><%= val.occupancy_a %></td>
+						<td><%= val.occupancy_c %></td>
+						<td><%= val.room_type %></td>
+						<td><%= number_to_currency(val.price, :precision => 2) %></td>
+						<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+						<% @totalOccupancy += val.occupancy_a.to_i %>
+						<% @totalOccupancy += val.occupancy_c.to_i %>
+						<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
+								<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+								<button type="submit" class="btn btn-danger">Remove</button>
+							</form>
+						</td>
+						</tr>
+						<% end %>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<% @depositTax = @tax %>
+							<td>Tax:</td>
+							<td><%= number_to_currency(@tax, :precision => 2) %></td>
+							<% @nightlyTax = @tax %>
+							<% @tax = @tax * 3 %>
+							<td><%= number_to_currency(@tax, :precision => 2) %></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>Total:</td>
+							<td class="green"><%= number_to_currency(@total+@nightlyTax, :precision => 2) %></td>
+							<% @depositTotal = (@total + @depositTax).round(2) %>
+							<% @total = @total * 3 %>
+							<% @total += @tax %>
+							<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
+							<td></td>
+						</tr>
+					</tbody>
+				</table>
+				</div>
+		<% end %>
+		<h2>Guests:</h2>
+			<% if val.guests.length == 0 %>
+			<h3>No guests on guest list</h3>
+			<% else %>
+			<div class="table-responsive col-md-6">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>First</th>
+							<th>Last</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% val.guests.each do |val| %>
+						<tr>
+						<td><%= val.first %></td>
+						<td><%= val.last %></td>
+						<td><%= val.guest_type %></td>
+						<td><form action="/guests/delete/<%= val.id %>" method="POST" class="cancelForm"><input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"><button type="submit" class="btn btn-danger btn-sm">Remove</button></form></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				</div>
+			<% end %>
+<% end %>
+</div>

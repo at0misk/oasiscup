@@ -13,11 +13,15 @@ class SessionsController < ApplicationController
   	@user = User.find_by(email: params['email'])
 	  	if @user && @user.authenticate(params[:password])
 	  		session[:user_id] = @user.id
+	  		# if @user.permod
+	  		# 	redirect_to '/admins/dash'
+	  		# else
 	  		# if @user.fee_status == true
 	  		# 	session[:payed] = true
 			redirect_to '/hotels'
 	  		# else
   			# redirect_to '/payment'
+  			# end
   			# end
 	  	else
 	  		flash[:errors] = ['Email / Password not valid']

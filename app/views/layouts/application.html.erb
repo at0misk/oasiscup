@@ -302,6 +302,12 @@
       </div>
       <div id="navbar3" class="navbar-collapse collapse">
         <ul class="nav navbar-nav loginReg">
+          <% @user = User.find(session[:user_id]) %>
+          <% if @user.permod %>
+          <li class="nav-item">
+            <a href="/admins/dash" class="nav-link" data-turbolinks="false">Admins</a>
+          </li>
+          <% end %>
           <li class="nav-item">
             <a href="/hotels" class="nav-link" data-turbolinks="false">Book Rooms</a>
           </li>

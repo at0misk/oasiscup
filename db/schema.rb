@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170412220507) do
+ActiveRecord::Schema.define(version: 20170413175504) do
 
   create_table "books", force: :cascade do |t|
     t.decimal  "price"
@@ -146,6 +146,7 @@ ActiveRecord::Schema.define(version: 20170412220507) do
     t.datetime "updated_at",      null: false
     t.integer  "team_id"
     t.decimal  "user_balance"
+    t.boolean  "permod"
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 

@@ -6,4 +6,15 @@ class ApplicationController < ActionController::Base
   		redirect_to '/'
   	end
   end
+  def authenticate_admin!
+  	if session[:user_id]
+  		@user = User.find(session[:user_id])
+  		if @user.permod
+  		else
+  			redirect_to '/'
+  		end
+  	else
+  		redirect_to '/'
+  	end
+  end
 end

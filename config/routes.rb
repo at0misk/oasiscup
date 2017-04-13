@@ -48,4 +48,7 @@ Rails.application.routes.draw do
   get 'conf' => 'sessions#confirmation'
   get 'forgot_password' => 'sessions#forgot'
   post 'recover' => 'sessions#recover'
+  get '/admins/dash' => 'admins#dash'
+  post '/admins/searchUsers' => 'admins#searchUsersSearch'
+  get '/admins/searchUsers' => 'admins#searchUsers'
 end

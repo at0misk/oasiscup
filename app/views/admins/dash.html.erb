@@ -1,0 +1,83 @@
+<style type="text/css">
+	.adminRow{
+		text-align: center;
+	}
+</style>
+<div class="row adminRow">
+<div class="col-md-3">
+</div>
+<div class="col-md-6">
+<h2>Admin Dashboard</h2>
+<h3>User Lookup:</h3>
+<form class="form-horizontal" method="post" action="/admins/searchUsers" id="editFormTeam">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<div class="form-group">
+	    <label for="user[first]" class="col-sm-2 control-label">
+	        User:</label>
+	    <div class="col-sm-8">
+	        <input name="user" type="text" class="form-control" id="user[first]" placeholder="Email or First Name / Last Name" />
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-sm-12 modalButtons">
+	        <button type="submit" class="btn btn-primary">
+	            Search</button>
+	    </div>
+	</div>
+</form>
+</div>
+<div class="col-md-3">
+</div>
+</div>
+<div class="row adminRow">
+<div class="col-md-3">
+</div>
+<div class="col-md-6">
+<h3>Transaction Lookup:</h3>
+<form class="form-horizontal" method="post" action="/users/teams" id="editFormTeam">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input name="_method" value="patch" type="hidden">
+	<div class="form-group">
+	    <label for="user[first]" class="col-sm-2 control-label">
+	        User:</label>
+	    <div class="col-sm-8">
+	        <input name="name" type="text" class="form-control" id="user[first]" placeholder="Confirmation #" />
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-sm-12 modalButtons">
+	        <button type="submit" class="btn btn-primary">
+	            Update</button>
+	    </div>
+	</div>
+</form>
+</div>
+<div class="col-md-3">
+</div>
+</div>
+<div class="row adminRow">
+<div class="col-md-3">
+</div>
+<div class="col-md-6">
+<h3>Booked Room Lookup:</h3>
+<form class="form-horizontal" method="post" action="/users/teams" id="editFormTeam">
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input name="_method" value="patch" type="hidden">
+	<div class="form-group">
+	    <label for="user[first]" class="col-sm-2 control-label">
+	        User:</label>
+	    <div class="col-sm-8">
+	        <input name="name" type="text" class="form-control" id="user[first]" placeholder="Confirmation #" />
+	    </div>
+	</div>
+	<div class="row">
+	    <div class="col-sm-12 modalButtons">
+	        <button type="submit" class="btn btn-primary">
+	            Update</button>
+	    </div>
+	</div>
+</form>
+</div>
+<div class="col-md-3">
+</div>
+</div>

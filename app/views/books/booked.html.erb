@@ -35,6 +35,7 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
+			<th>Confirmation</th>
 			<th>Hotel</th>
 			<th>Address</th>
 			<th>Smoking</th>
@@ -52,6 +53,7 @@
 		<% @total_balance_due = 0 %>
 		<% @user_rooms.each do |val| %>
 		<tr>
+		<td><%= val.conf_code %></td>
 		<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
 		<td><%= val.hotel.address %></td>
 		<td><%= val.smoking %></td>
@@ -86,6 +88,7 @@
 			<td></td>
 			<td></td>
 			<% @depositTax = @tax_user %>
+			<td></td>
 			<td>Tax:</td>
 			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
 			<% @nightlyTax = @tax_user %>
@@ -99,6 +102,7 @@
 			<td></td>
 		</tr>
 		<tr>
+			<td></td>
 			<td></td>
 			<td></td>
 			<td></td>
