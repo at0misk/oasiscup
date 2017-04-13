@@ -16,10 +16,11 @@ class UserMailer < ApplicationMailer
     mail(to: 'ktp925@gmail.com', subject: 'Manifest Email for ' +  @user.first + " " + @user.last)
   end
 
-  def confirmation_email(user, transaction_type)
+  def confirmation_email(user, transaction_type, transaction)
     @user = user
     @team = @user.team
     @total = 0
+    @transaction = transaction
     @user.books.each do |val|
       @total += val.price
     end
