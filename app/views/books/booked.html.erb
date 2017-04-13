@@ -23,7 +23,8 @@
 <% else %>
 <h3>My Booked Rooms</h3>
 <% if flash[:charged] %>
-<h3>Thank you, a confirmation email has been sent.</h3>
+<h4>Thank you, a confirmation email has been sent.</h4>
+<% flash[:charged] = nil %>
 <% end %>
 <% if session[:roomsNeeded] %>
 <h3>Your team must book at least 10 rooms to participate in the tournament</h3>
