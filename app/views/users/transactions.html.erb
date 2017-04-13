@@ -124,7 +124,7 @@
 		<% end %>
 		<h3>Amount Paid: <%= number_to_currency(transaction.total, :precision => 2) %></h3>
 		<% if transaction.transaction_type == 'Down Payment' %>
-		<h3>Amount Due: <%= number_to_currency(@amountVal-(@userTotal+@tax_user), :precision => 2) %></h3>
+		<h3>Amount Due: <%= number_to_currency((@userTotal+@tax_user)-transaction.total, :precision => 2) %></h3>
 		<% end %>
 		</div>
 	<% end %>
