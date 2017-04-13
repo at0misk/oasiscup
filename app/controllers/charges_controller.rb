@@ -6,7 +6,7 @@ class ChargesController < ApplicationController
 	  @amount = params['amount'].to_i
 	  @user = User.find(session[:user_id])
 	  @team = @user.team
-	  @transamount = params['amount'].to_f/100).round(2)
+	  @transamount = (params['amount'].to_f/100).round(2)
 	  @cart = Cart.where(user_id: @user.id)
 	  customer = Stripe::Customer.create(
 	    :email => params[:stripeEmail],
