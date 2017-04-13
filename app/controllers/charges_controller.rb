@@ -17,6 +17,7 @@ class ChargesController < ApplicationController
 			@newcode = @transaction.transaction_code + @transaction.id.to_s
 			@transaction.update_attribute(:transaction_code, @newcode)
 			@t = Transaction.last
+	  		flash[:charged] = "Thank you, a confirmation email has been sent"
 		else
 			flash[:errors] = "Something went wrong"
 			redirect_to :back
@@ -144,7 +145,6 @@ class ChargesController < ApplicationController
 		end
 		# Manifest Email
 	  	# UserMailer.manifest_email(@user).deliver_now
-
 		redirect_to '/booked'
 	end
 end

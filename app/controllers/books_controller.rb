@@ -31,6 +31,9 @@ class BooksController < ApplicationController
   		params.require(:room).permit(:hotel_id, :price, :number, :smoking, :room_type, :occupancy_a, :occupancy_c) 
   	end
   	def booked
+  		if flash[:charged]
+  			flash[:charged] = "Thank you, a confirmation email has been sent"
+  		end
   		@user = User.find(session[:user_id])
   		@team = @user.team
 		if @team.exempt
