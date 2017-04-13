@@ -125,7 +125,7 @@
 	<!-- <% @user.user_balance = @user.user_balance.round(2) %> -->
 	<!-- <h3>Pay Balance:</h3> -->
 	<div id="stripeDiv">
-	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
+	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@user.user_balance/2, :precision => 2) %></span></h3>
 	<h3>You have a remaining balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
 	<%= form_tag charges_path do %>
 	  <article>
