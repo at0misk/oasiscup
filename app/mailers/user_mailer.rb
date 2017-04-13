@@ -16,11 +16,17 @@ class UserMailer < ApplicationMailer
     mail(to: 'ktp925@gmail.com', subject: 'Manifest Email for ' +  @user.first + " " + @user.last)
   end
 
-  def confirmation_email(user, transaction_type, transaction)
+  def confirmation_email(user, transaction_type, transaction, admin)
     @user = user
     @team = @user.team
     @total = 0
     @transaction = transaction
+    @admin = admin
+    if @admin
+      @email = 'ktp925@gmail.com'
+    else
+      @email = @user.email
+    end
     @user.books.each do |val|
       @total += val.price
     end
@@ -42,7 +48,7 @@ class UserMailer < ApplicationMailer
         @tax_user += @userRoomTax * val.price
         @total_user += val.price
       end
-    mail(to: 'ktp925@gmail.com', subject: 'Booking Confirmation for ' +  @user.first + " " + @user.last)
+    mail(to: "#{@email}", subject: 'Booking Confirmation for ' +  @user.first + " " + @user.last)
   end
   def create_and_deliver_password_change(user, random_password)
     @user = user
