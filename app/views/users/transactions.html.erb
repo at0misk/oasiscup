@@ -38,6 +38,24 @@
 				    </tr>
 				  </thead>
 				  <tbody>
+		            <% @booked_rooms = Book.where(team_id: @user.team.id) %>
+				    <% @user_rooms = Book.where(user_id: @user.id) %>
+				    <% @total = 0 %>
+				    <% @tax = 0 %>
+				    <%   @booked_rooms.each do |val| %>
+				    <%   @roomTax = val.hotel.tax %>
+				    <% @tax += @roomTax * val.price %>
+				    <%     @total += val.price %>
+				    <%   end %>
+				    <% @total_user = 0 %>
+				    <% @tax_user = 0 %>
+				    <%   @user_rooms.each do |val| %>
+				    <%     @userRoomTax = val.hotel.tax %>
+				    <%     @tax_user += @userRoomTax * val.price %>
+				    <%     @total_user += val.price %>
+				    <%   end %>
+				    <% @total_balance_due = 0 %>
+				    <% @userTotal = 0 %>
 				    <% transaction.books.each do |val| %>
 				    <tr>
 				    <td><%= val.conf_code %></td>
@@ -100,8 +118,7 @@
 				  </tbody>
 				</table>
 			</div>
-		</div>
-		<% @amountVal = 0 %>
+					<% @amountVal = 0 %>
 		<% transaction.books.each do |val| %>
 			<% @amountVal += (val.price*3) %>
 		<% end %>
@@ -109,5 +126,6 @@
 		<% if transaction.transaction_type == 'Down Payment' %>
 		<h3>Amount Due: <%= number_to_currency(@amountVal-(@userTotal+@tax_user), :precision => 2) %></h3>
 		<% end %>
+		</div>
 	<% end %>
 	<% end %>
