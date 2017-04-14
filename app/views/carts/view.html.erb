@@ -27,6 +27,9 @@
 	.notFound{
 		text-align: center;
 	}
+	.cartHeader{
+		text-align: center;
+	}
 </style>
 <div class="row">
 <div class="col-md-2">
@@ -34,13 +37,24 @@
 <div class="col-md-8">
 <% if @cart_rooms.empty? %>
 <h3 class="notFound">Your cart is empty</h3>
-<h4 data-turbolinks="false" class="notFound">If you've already booked rooms, you can view them <a href="booked">here</a>, or book more <a href='hotels'>rooms.</a></h4>
+<% if @user.books.length > 0 %>
+	<% if @user.user_balance && @user.user_balance > 0 %>
+		<h4 data-turbolinks="false" class="notFound">You have an outstanding balance.  View your booked rooms <a href="booked">here</a>
+	<% else %>
+		<h4 data-turbolinks="false" class="notFound">If you've already booked rooms, you can view them <a href="booked">here</a>, or book more <a href='hotels'>rooms.</a></h4>
+	<% end %>
+<% end %>
 <% else %>
 <% if @noGuests %>
 <h3 class="notFound">Your guest list is empty.</h3>
 <h4 class="notFound">If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
 <% end %>
-<h3>My Cart</h3>
+<h3 class="cartHeader">My Cart</h3>
+	<% if @user.user_balance && @user.user_balance > 0 %>
+		<h4 data-turbolinks="false" class="notFound">You have an outstanding balance.  View your booked rooms <a href="booked">here</a>
+	<% elsif @user.books && @user.books.length > 0 %>
+		<h4 data-turbolinks="false" class="notFound">You can view your booked rooms <a href="booked">here</a>, or book more <a href='hotels'>rooms.</a></h4>
+	<% end %>
 <% if session[:roomsNeeded] && @cart_rooms.length < 10 %>
 <h3>Your team must book at least 10 rooms to participate in the tournament</h3>
 <% elsif session[:exemptRoomsNeeded] && @cart_rooms.length < 5  %>

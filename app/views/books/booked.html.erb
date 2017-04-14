@@ -51,6 +51,8 @@
 	</thead>
 	<tbody>
 		<% @total_balance_due = 0 %>
+		<% @x = 0 %>
+		<% @y = 0 %>
 		<% @user_rooms.each do |val| %>
 		<tr>
 		<td><%= val.conf_code %></td>
@@ -62,8 +64,10 @@
 		<td><%= val.room_type %></td>
 		<% if val.paid_status %>
 		<td class="green">Paid</td>
+		<% @x += 1 %>
 		<% else %>
 		<td class="red">Balance Due</td>
+		<% @y += 1 %>
 			<% @total_balance_due += val.price*2 %>
 		<% end %>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
@@ -134,7 +138,10 @@
 	<!-- <% @user.user_balance = @user.user_balance.round(2) %> -->
 	<!-- <h3>Pay Balance:</h3> -->
 	<div id="stripeDiv">
+	<% if @x > 0 && @y > 0 %>
+	<% else %>
 	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@paid, :precision => 2) %></span></h3>
+	<% end %>
 	<h3>You have a remaining balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
 	<%= form_tag charges_path do %>
 	  <article>
