@@ -36,7 +36,7 @@
 </div>
 <div class="col-md-8">
 <% if @cart_rooms.empty? %>
-<h3 class="notFound">Your cart is empty book more <a href='hotels'>rooms.</a></h3>
+<h3 class="notFound">Your cart is empty, click <a href='hotels'>here</a> to book more rooms.</h3>
 <% if @user.books.length > 0 %>
 	<% if @user.user_balance && @user.user_balance > 0 %>
 		<h4 data-turbolinks="false" class="notFound">You have an outstanding balance.  View your booked rooms <a href="booked">here</a>
