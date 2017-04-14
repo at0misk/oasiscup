@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  price: 9.99
+  number: MyString
+  smoking: MyString
+  room_type: MyString
+  hotel: one
+  user: one
+  team: one
+  occupancy_a: 1
+  occupancy_c: 1
+  paid_status: false
+  conf_code: MyString
+  transaction: one
+
+two:
+  price: 9.99
+  number: MyString
+  smoking: MyString
+  room_type: MyString
+  hotel: two
+  user: two
+  team: two
+  occupancy_a: 1
+  occupancy_c: 1
+  paid_status: false
+  conf_code: MyString
+  transaction: two

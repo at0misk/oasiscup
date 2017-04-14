@@ -1,3 +1,8 @@
+	<style type="text/css">
+		.paidCol{
+			text-align: center;
+		}
+	</style>
 	<% if @transactions.length == 0 %>
 	<div class="row">
 	<div class="col-md-3">
@@ -32,14 +37,16 @@
 				      <th>Children</th>
 				      <th>Type</th>
 				      <th>Status</th>
-				      <th>Price Per Night</th>
-				      <th>Amount Due</th>
+				      <% if transaction.transaction_type == "Down Payment" %>
+				      <th>Total Paid</th>
+				      <% else %>
 				      <th>Total</th>
+				      <% end %>
 				    </tr>
 				  </thead>
 				  <tbody>
-		            <% @booked_rooms = Book.where(team_id: @user.team.id) %>
-				    <% @user_rooms = Book.where(user_id: @user.id) %>
+		            <% @booked_rooms = Tbook.where(team_id: @user.team.id) %>
+				    <% @user_rooms = Tbook.where(user_id: @user.id) %>
 				    <% @total = 0 %>
 				    <% @tax = 0 %>
 				    <%   @booked_rooms.each do |val| %>
@@ -56,7 +63,8 @@
 				    <%   end %>
 				    <% @total_balance_due = 0 %>
 				    <% @userTotal = 0 %>
-				    <% transaction.books.each do |val| %>
+				    <% @transactionTotal = 0 %>
+				    <% transaction.tbooks.each do |val| %>
 				    <tr>
 				    <td><%= val.conf_code %></td>
 				    <td><%= val.hotel.name %></td>
@@ -67,18 +75,16 @@
 				    <td><%= val.room_type %></td>
 				    <% if val.paid_status %>
 				    <td class="green">Paid</td>
+				    <% @transactionTotal += val.price*3 %>
+				    <td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+				    <% @userTotal += (val.price*3) %>
 				    <% else %>
 				    <td class="red">Balance Due</td>
 				      <% @total_balance_due += val.price*2 %>
-				    <% end %>
+				    <% @transactionTotal += val.price*3 %>
 				    <td><%= number_to_currency(val.price, :precision => 2) %></td>
-				    <% if val.paid_status %>
-				    <td class="green">$0.00</td>
-				    <% else %>
-				    <td><%= number_to_currency(val.price*2, :precision => 2) %></td>
-				    <% end %>
-				    <td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 				    <% @userTotal += (val.price*3) %>
+				    <% end %>
 				    </tr>
 				    <% end %>
 				    <tr>
@@ -89,22 +95,10 @@
 				      <td></td>
 				      <td></td>
 				      <td></td>
-				      <% @depositTax = @tax_user %>
 				      <td>Tax:</td>
-				      <td><%= number_to_currency(@tax_user, :precision => 2) %></td>
-				      <% @nightlyTax = @tax_user %>
-				      <% @tax_user = @tax_user * 3 %>
-				      <% if @user.user_balance %>
-				      <td><%= number_to_currency((@user.user_balance-@total_balance_due), :precision => 2) %></td>
-				      <% else %>
-				      <td>$0.00</td>
-				      <% end %>
-				      <td><%= number_to_currency(@tax_user, :precision => 2) %></td>
-				      <td></td>
+				      <td><%= number_to_currency(transaction.tax, :precision => 2) %></td>
 				    </tr>
 				    <tr>
-				      <td></td>
-				      <td></td>
 				      <td></td>
 				      <td></td>
 				      <td></td>
@@ -113,19 +107,24 @@
 				      <td></td>
 				      <td></td>
 				      <td>Total:</td>
-				      <td class="green"><%= number_to_currency((@userTotal+@tax_user), :precision => 2) %></td>
+				      <td class="green"><%= number_to_currency(transaction.total, :precision => 2) %></td>
 				    </tr>
 				  </tbody>
 				</table>
 			</div>
-					<% @amountVal = 0 %>
+		</div>
+		<div class="row">
+		<div class="col-md-12 paidCol">
+		<% @amountVal = 0 %>
 		<% transaction.books.each do |val| %>
 			<% @amountVal += (val.price*3) %>
 		<% end %>
-		<h3>Amount Paid: <%= number_to_currency(transaction.total, :precision => 2) %></h3>
+		<h3 class="paidAmount">Amount Paid: <%= number_to_currency(transaction.total, :precision => 2) %></h3>
 		<% if transaction.transaction_type == 'Down Payment' %>
-		<h3>Amount Due: <%= number_to_currency((@userTotal+@tax_user)-transaction.total, :precision => 2) %></h3>
+		<h3 class="paidAmount">Amount Due: <%= number_to_currency(transaction.total*2, :precision => 2) %></h3>
 		<% end %>
 		</div>
+		</div>
+		<hr>
 	<% end %>
 	<% end %>

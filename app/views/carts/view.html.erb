@@ -187,9 +187,11 @@
     <label class="amount">
     </label>
   </article>
-<input type="hidden" name="amount" value="<%= @stripeTotalDeposit %>">
+  <% @dpTax = @tax/3 %>
+ <input type="hidden" name="amount" value="<%= @stripeTotalDeposit %>">
 <input type="hidden" name="balancePaid" value="<%= @depositTotal %>">
 <input type="hidden" name="totalTotal" value="<%= @total %>">
+<input type="hidden" name="tax" value="<%= @dpTax %>">
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Book Rooms"
@@ -212,6 +214,7 @@
   </article>
 <input type="hidden" name="amount" value="<%= @stripeTotal %>">
 <input type="hidden" name="payingFull" value="yes">
+<input type="hidden" name="tax" value="<%= @tax %>">
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
           data-description="Book Rooms"

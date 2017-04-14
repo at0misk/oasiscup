@@ -13,7 +13,7 @@ class ChargesController < ApplicationController
 	    :source  => params[:stripeToken]
 	  )
 
-		@transaction = Transaction.new(user_id: session[:user_id], total: @transamount, transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}-")
+		@transaction = Transaction.new(user_id: session[:user_id], total: @transamount, transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}-", tax: params['tax'].to_f)
 		if @transaction.save
 			@newcode = @transaction.transaction_code + @transaction.id.to_s
 			@transaction.update_attribute(:transaction_code, @newcode)
@@ -49,6 +49,28 @@ class ChargesController < ApplicationController
 			@prefix = Hotel.find(val.hotel_id).conf_prefix
 			@booked.conf_code = "#{@prefix}#{Date.today.to_s}0#{@booked.number}"
 			@booked.save
+			# Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
+		end
+		@cart.each do |val|
+			@tbooked = Tbook.new
+			@tbooked.hotel_id = val.hotel_id
+			@tbooked.user_id = val.user_id
+			@tbooked.price = val.price
+			@tbooked.number = val.number
+			@tbooked.smoking = val.smoking
+			@tbooked.room_type = val.room_type
+			@tbooked.occupancy_a = val.occupancy_a
+			@tbooked.occupancy_c = val.occupancy_c
+			@tbooked.team_id = @user.team.id
+			@tbooked.transaction_id = @t.id
+			if params['balancePaid']
+				@tbooked.paid_status = false
+			elsif params['payingFull']
+				@tbooked.paid_status = true
+			end
+			@prefix = Hotel.find(val.hotel_id).conf_prefix
+			@tbooked.conf_code = "#{@prefix}#{Date.today.to_s}0#{@booked.number}"
+			@tbooked.save
 			# Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 		end
 		Cart.where(user_id: @user.id).destroy_all
