@@ -6,13 +6,13 @@ class RoomsController < ApplicationController
 	end
   def generate
     x = 1
-    50.times do
+    2.times do
       @room = Room.new
       @room.number = x
       @room.hotel_id = params[:id]
       @room.smoking = "No"
       @room.room_type = "King"
-      @room.price = 135
+      @room.price = 1
       @room.occupancy_a = 4
       # @room.occupancy_c = 
       @room.description = ""
