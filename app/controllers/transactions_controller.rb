@@ -7,8 +7,10 @@ class TransactionsController < ApplicationController
 
 	def create
 		@user = User.find(session[:user_id])
+		@amount = params['amount'].to_i
+		@amount = @amount/100
 		@result = Braintree::Transaction.sale(
-			:amount => '10.00',
+			:amount => @amount,
 			:payment_method_nonce => 'fake-valid-nonce',
             customer: {
               first_name: @user.first,
@@ -22,8 +24,11 @@ class TransactionsController < ApplicationController
 		)
 		if @result.success?
 			@user.update_attribute(:fee_status, true)
+			# 
+			# Charge controller actions go here
+			# 
 			# session[:payed] = true
-			redirect_to '/guests/new'
+			redirect_to '/booked'
 		else
 			flash[:alert] = "Something went wrong while processing your transaction. Please try again!"
 			gon.client_token = generate_client_token

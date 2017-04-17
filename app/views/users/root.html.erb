@@ -1,6 +1,6 @@
 <style type="text/css">
 	.landingimg img{
-		/*width: 100%;*/
+		width: 110%;
 		display: block;
 		margin-top: 0!important;
 	}
@@ -37,11 +37,21 @@
 
 .header-img {
   /* matches 'btn-md' */
+  padding: 3px 16px;
+  /*font-size: 18px;*/
+  line-height: 1.3333333;
+  border-radius: 6px;
+  color: white;
+}
+
+.header-img-h2 {
+  /* matches 'btn-md' */
   padding: 10px 16px;
   /*font-size: 18px;*/
   line-height: 1.3333333;
   border-radius: 6px;
   color: white;
+  margin-top: 5px;
 }
 
 .tab-content{
@@ -93,7 +103,7 @@
 	display: inline;
 }
 .img-overlay:before{
-    height: 25%;
+    height: 10%;
 }
 .form-group{
     margin-bottom: 0px !important;
@@ -115,7 +125,9 @@
 <span class='landingimg'><%= image_tag("soccerBall2.jpg") %>
 </span>
 <div class="img-overlay">
-<h1 class='header-img'>Oasis Cup Palm Desert</h1>
+<h1 class='header-img'>Oasis Cup Housing Authority</h1>
+<h2 class='header-img-h2'>January 16-18</h2>
+<h2 class='header-img-h2'>Palm Desert, CA</h2>
 <% if session[:user_id] %>
 <% else %>
 <button class="btn btn-primary btn-responsive regButton" data-toggle="modal" data-target="#myModal">Register</button>

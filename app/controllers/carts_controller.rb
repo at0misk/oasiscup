@@ -78,7 +78,7 @@ class CartsController < ApplicationController
 			end
 			@guestCount = @user.guests.length
 		end
-	    # gon.client_token = generate_client_token
+	    gon.client_token = generate_client_token
 	    @token = gon.client_token
 		@cart_rooms = Cart.where(user_id: @user.id)
 		@total = 0
@@ -133,8 +133,8 @@ class CartsController < ApplicationController
   	def cart_params
   		# params.require(:cart).permit(:hotel_id, :user_id, :price, :number, :smoking, :room_type, :occupancy_a, :team_id, :occupancy_c) 
   	end
-	# private
-	# def generate_client_token
-	# 	Braintree::ClientToken.generate
-	# end
+	private
+	def generate_client_token
+		Braintree::ClientToken.generate
+	end
 end
