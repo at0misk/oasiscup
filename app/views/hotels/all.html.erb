@@ -130,6 +130,7 @@
 <% end %>
 <div class="row instructionRow">
 <h3>Click a map marker for more information about a hotel</h3>
+<h3>Browse all <a class="hotel_scroll">hotels</a></h3>
 <form action="count" method="post" class="countForm" data-turbolinks="false">
   <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <h3>Or search all rooms: </h3><input name="child" type="hidden" value="<%= session[:childCount] %>"><input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><button class="btn btn-primary allRoomsBtn">Find Rooms!</button></form>
@@ -176,7 +177,12 @@
 	</div>
 </div>
 <script type="text/javascript">
-	// $(document).ready(function(){
+	$(document).ready(function(){
+    $('.hotel_scroll').on('click', function(){
+        // alert('hello');
+  $("html, body").animate({ scrollTop: $(document).height() }, 1000);
+    })
+  })
 		var prev_infowindow = false;
 		function initMap() {
         var palmSprings = {lat: 33.745525, lng: -116.363321};
