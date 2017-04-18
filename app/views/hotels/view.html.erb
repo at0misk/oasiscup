@@ -149,7 +149,7 @@
     		<% end %>
     		<div class="col-md-4 roomCol">
 			<h4>Bed: <%= @room.room_type %></h4>
-			<h4>Price: <span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span></h4>
+			<h4>Price: <span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</h4>
 			<h4>Smoking: <%= @room.smoking %></h4>
 			<h4>Adults: <%= @room.occupancy_a %></h4>
 			<% if @room.occupancy_c %><h4>Children: <%= @room.occupancy_c %></h4><% end %>
