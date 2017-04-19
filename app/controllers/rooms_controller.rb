@@ -43,6 +43,17 @@ class RoomsController < ApplicationController
         @cart.each do |val|
           @cartNumberArr << val.number
         end
+        if @user.guests != nil
+          session[:childCount] = 0
+          session[:adultCount] = 0
+          @user.guests.each do |val|
+            if val.guest_type == "Child"
+              session[:childCount] += 1
+            elsif val.guest_type == "Adult"
+              session[:adultCount] += 1
+            end
+          end
+        end
         if params[:paginate]
           # @rooms = @@roomSwitch
           @rooms = @@roomSwitch.paginate(:page => params[:page], :per_page => 7)
@@ -81,15 +92,6 @@ class RoomsController < ApplicationController
           else
             @hotelIds = Room.all.order(:price).select('distinct hotel_id').map(&:hotel_id)
             @rooms = Room.all.order(:price).paginate(:page => params[:page], :per_page => 7)
-            # if @user.guests != nil
-            #   @user.guests.each do |val|
-            #     if val.guest_type == "Child"
-            #       session[:childCount] += 1
-            #     elsif val.guest_type == "Adult"
-            #       session[:adultCount] += 1
-            #     end
-            #   end
-            # end
           end
           session[:searchingAll] = false
         end
