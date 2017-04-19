@@ -97,7 +97,7 @@ class UsersController < ApplicationController
 	    redirect_to :back
   	end
   	def transactions
-  		@transactions = Transaction.where(user_id: session[:user_id])
+  		@transactions = Transaction.where(user_id: session[:user_id]).order("created_at DESC")
   		@user = User.find(session[:user_id])
   	end
 end
