@@ -1,8 +1,12 @@
 class AdminsController < ApplicationController
 	def dash
-		@user = User.find(session[:user_id])
-		if !@user.permod
-			redirect_to '/'
+		if !session[:user_id]
+			redirect_to :back
+		else
+			@user = User.find(session[:user_id])
+			if !@user.permod
+				redirect_to '/'
+			end
 		end
 	end
 	def searchUsers
