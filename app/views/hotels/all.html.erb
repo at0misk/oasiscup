@@ -169,7 +169,7 @@
 <div class="row hotelBoxRow" data-turbolinks="false">
 <% y = 0 %>
 <% @hotels.each do |val| %>
-	<div class="col-md-3 hotelBox hotelBoxHotel">
+	<div class="col-md-3 hotelBox">
 		<a href="/hotels/<%= val.id %>"><%= image_tag("#{val.image}") %></a>
 		<h3 class="imageHeaderH3"><%= val.name %></h3>
     <h4 class="imageHeaderH4"><%= val.name %></h4>
