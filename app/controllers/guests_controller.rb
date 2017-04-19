@@ -50,7 +50,7 @@ class GuestsController < ApplicationController
 				x = x+1
 			end
 		end
-		redirect_to '/guests/show'
+		redirect_to '/guests/user'
 		end
 	end
 	def show
