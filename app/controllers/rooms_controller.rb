@@ -45,7 +45,7 @@ class RoomsController < ApplicationController
         end
         if @user.guests != nil
           session[:childCount] = 0
-          session[:adultCount] = 0
+          session[:adultCount] = 1
           @user.guests.each do |val|
             if val.guest_type == "Child"
               session[:childCount] += 1

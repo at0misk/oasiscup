@@ -72,6 +72,17 @@ class HotelsController < ApplicationController
       	end
       else
       @user = User.find(session[:user_id])
+        if @user.guests != nil
+          session[:childCount] = 0
+          session[:adultCount] = 1
+          @user.guests.each do |val|
+            if val.guest_type == "Child"
+              session[:childCount] += 1
+            elsif val.guest_type == "Adult"
+              session[:adultCount] += 1
+            end
+          end
+        end
       # if @user.guests.empty?
       #   @noGuests = true
       # else
