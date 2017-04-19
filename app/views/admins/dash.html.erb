@@ -49,6 +49,13 @@
 	            Search</button>
 	    </div>
 	</div>
+	<% if flash[:errors] %>
+	<div class="row">
+		<div class="col-sm-12">
+			<p><%= flash[:errors] %></p>
+		</div>
+	</div>
+	<% end %>
 </form>
 </div>
 <div class="col-md-3">

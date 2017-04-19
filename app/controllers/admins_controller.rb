@@ -13,11 +13,21 @@ class AdminsController < ApplicationController
 		redirect_to '/admins/searchUsers'
 	end
 	def searchTransactions
-		@transaction = Transaction.find_by(transaction_code: "#{@@code}")
-		@user = User.find(@transaction.user_id)
+		if @@code != ''
+			@transaction = Transaction.find_by(transaction_code: "#{@@code}")
+			@user = User.find(@transaction.user_id)
+		else
+			flash[:errors] = "Must be a valid confirmation number"
+			redirect_to :back
+		end
 	end
 	def searchTransactionsSearch
-		@@code = params['code']
-		redirect_to '/admins/searchTransactions'
+		if params['code']
+			@@code = params['code']
+			redirect_to '/admins/searchTransactions'
+		else
+			flash[:errors] = "Must be a valid confirmation number"
+			redirect_to :back
+		end
 	end
 end

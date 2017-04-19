@@ -129,18 +129,40 @@
       padding: 15px 30px;
     }
     body { 
-      padding-top: 50px; 
+      padding-top: 50px;
+      /*padding-bottom: 40px; */
     }
     .footerDiv{
       background-color: #0275d8;
       color: white;
-      padding-top: 5px;
+      padding-top: 8px;
     }
     footer{
+      background-color: #0275d8;
       position: absolute;
       bottom: 0;
+      /*left: 0;*/
+      width: 100%;
+    }
+    .footerPhoneNumber{
+      float: right;
+    }
+    html {
+      position: relative;
+    min-height: 100%;
+  }
+  body{
+    height: 100%;
+    padding-bottom: 38px;
+  }
+    footer{
+      background-color: #0275d8;
+      position: absolute;
+      bottom: 0;
+      right: 0;
       left: 0;
       width: 100%;
+      margin-top: 2%;
     }
   .navbar-toggle{
     background-color: white;
@@ -436,13 +458,13 @@
   </nav>
 </div>
   <% end %>
-  <div class="container">
+  <div class="container yieldCont">
     <%= yield %>
   </div>
-<!--   <footer class="footer">
-    <div class="col-md-12 footerDiv">
-      <p>Footer Content</p>
+  <footer class="footer">
+    <div class="container footerDiv">
+      <p>Archer Travel Service, Inc. <span class="footerPhoneNumber">1-800-272-4377</span></p>
     </div>
-  </footer> -->
+  </footer>
   </body>
 </html>

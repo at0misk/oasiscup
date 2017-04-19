@@ -59,6 +59,17 @@
 		margin-bottom: 0px !important;
 		height: 80px;
 	}
+    footer{
+      background-color: #0275d8;
+      position: absolute;
+      bottom: 0;
+      /*left: 0;*/
+      width: 100%;
+      margin-top: 2%;
+    }
+    .footerPosition{
+    	position: relative;
+    }
 </style>
 <!-- <div class="container"> -->
 <div class="addGuests">
@@ -148,6 +159,9 @@
 		x++;
 		$('.add').click(function(){
 			$('.app').append("<div class='cont col-md-3 staticDiv'><button type='button' class='close' aria-label='Close'><span aria-hidden='true'>&times;</span></button><div class='form-group'><label for='email' class=' control-label'>First Name</label><div class=''><input name='guest[first" + x + "]' type='text' class='form-control' id='first" + x + "' placeholder='First Name'  required='true'/></div></div><div class='form-group'><label for='email' class=' control-label'>Last Name</label><div class=''><input name='guest[last" + x + "]' type='text' class='form-control' id='last" + x + "' placeholder='Last Name' required='true'/></div></div><div class='radio'><div class='form-check form-check-inline'><label class='form-check-label'><input type='radio' class='form-check-input' name='guest[type" + x + "]' value='Child' required>Child</label></div><div class='form-check form-check-inline'><label class='form-check-label'><input type='radio' class='form-check-input'  name='guest[type" + x + "]' value='Adult'>Adult</label></div><label for='guest[type" + x + "]' class='error' style='color:black; display:none; font-weight:bold'>* Please pick an option above</label></div></div>");
+			if( x == 8){
+				$('footer').addClass('footerPosition');
+			}
 			x++;
 			$(".close").click(function(){
 		    	$(this).parent().remove();
