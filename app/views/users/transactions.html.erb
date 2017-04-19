@@ -41,6 +41,7 @@
 		<div class="col-md-6">
 		</div>
 	</div>
+	<% if transaction.transaction_type != 'Paid Balance' %>
 		<div class='row'>
 			<div class="table-responsive col-md-12">
 				<table class="table table-striped">
@@ -130,6 +131,8 @@
 				</table>
 			</div>
 		</div>
+		<% else %>
+		<% end %>
 		<div class="row">
 		<div class="col-md-12 paidCol">
 		<% @amountVal = 0 %>
