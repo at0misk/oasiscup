@@ -1,4 +1,6 @@
 class AdminsController < ApplicationController
+	@@params = ''
+	@@code = ''
 	def dash
 		verifyAdmin
 	end
