@@ -54,4 +54,5 @@ Rails.application.routes.draw do
   post '/admins/searchTransactions' => 'admins#searchTransactionsSearch'
   get '/admins/searchTransactions' => 'admins#searchTransactions'
   get '/transactions' => 'users#transactions'
+  get '/authorize' => 'charges#authorize'
 end
