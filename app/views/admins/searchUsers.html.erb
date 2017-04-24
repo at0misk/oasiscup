@@ -19,14 +19,20 @@
 <div class="con">
 <% @users.each do |val| %>
 	<% @user = val %>
-	<h2>User#<%= val.id %></h2>
-	<h3>Name: <%= val.first %> <%= val.last %></h3>
-	<h3>Email: <%= val.email %></h3>
-	<h3>Joined: <%= val.created_at %></h3>
-	<h2>Team: <%= val.team.name %></h2>
-		<h3>Exempt: <%= val.team.exempt %></h3>
-		<h3>Mailed Tournament Confirmation: <%= val.team.mail_confirmation %></h3>
-		<h3>Team has booked <%= val.team.books.length %> rooms</h3>
+	<div class="row">
+		<div class="col-md-6">
+			<h2>User#<%= val.id %></h2>
+			<h3>Name: <%= val.first %> <%= val.last %></h3>
+			<h3>Email: <%= val.email %></h3>
+			<h3>Joined: <%= val.created_at %></h3>
+		</div>
+		<div class="col-md-6">
+			<h2>Team: <%= val.team.name %></h2>
+			<h3>Exempt: <% if val.team.exempt %><%= val.team.exempt %><% else %>No<% end %></h3>
+			<h3>Mailed Tournament Confirmation: <% if val.team.mail_confirmation %> Yes<% else %> No<% end %></h3>
+			<h3>Team has booked <%= val.team.books.length %> rooms</h3>
+		</div>
+	</div>
 	<h2>Booked Rooms:</h2>
 		<% if val.books.length == 0 %>
 			<h3>No booked rooms </h3>
@@ -146,7 +152,7 @@
 		<h2>Cart:</h2>
 		<% @cart = val.carts %>
 		<% if @cart.length == 0 %>
-			<h3>Cart Empty</h3>
+			<h3>Cart Is Empty</h3>
 		<% else %>
 				<% @total = 0 %>
 				<% @tax = 0 %>
