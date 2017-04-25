@@ -14,17 +14,15 @@ class PaymentsController < ApplicationController
   # POST
   # Returns relay response when Authorize.Net POSTs to us.
   def relay_response
-    if params['email']
-      @email = params['email']
-    else
-      print("Processing..")
+      puts("Processing..")
       sim_response = AuthorizeNet::SIM::Response.new(params)
       if sim_response.success?('9CPC3p3r8J', 'PBDGMKX')
+        puts "wat"
+        fail
         render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
       else
         render
       end
-    end
   end
   
   # GET
