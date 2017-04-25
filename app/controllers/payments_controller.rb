@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
   # Displays a payment form.
   def payment
     @amount = 10.00
-    @sim_transaction = AuthorizeNet::SIM::Transaction.new('9CPC3p3r8J', '85GL7ApYu8v533sU', @amount, :relay_url => "http://developer.authorize.net/bin/developer/paramdump")
+    @sim_transaction = AuthorizeNet::SIM::Transaction.new('9CPC3p3r8J', '85GL7ApYu8v533sU', @amount, :relay_url => payments_relay_response_url(:only_path => false))
   end
 
   # POST
@@ -19,6 +19,7 @@ class PaymentsController < ApplicationController
       if sim_response.success?('9CPC3p3r8J', 'PBDGMKX')
         render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
       else
+        @sim_response = sim_response
         render
       end
   end
