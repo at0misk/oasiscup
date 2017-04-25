@@ -23,11 +23,6 @@ require 'digest/md5'
     if sim_response.success?('9CPC3p3r8J','PBDGMKX')
       render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
     else
-      if @hash == sim_response.x_MD5_Hash
-        @matched = true
-      else
-        @matched = false
-      end
       # @success = sim_response.success?('9CPC3p3r8J', 'pbdg0245')
       render
     end
