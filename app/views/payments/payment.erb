@@ -1,4 +1,4 @@
-<%= form_for :sim_transaction, :url => AuthorizeNet::SIM::Transaction::Gateway::TEST do |f| %>
+<%= form_for :sim_transaction, :url => AuthorizeNet::SIM::Transaction::Gateway::LIVE do |f| %>
   <%= sim_fields(@sim_transaction) %>
   <%= label_tag 'x_amount', "Total: #{number_to_currency(@amount)}" %>
   <%= label_tag 'x_card_num', 'Credit Card Number'%>
