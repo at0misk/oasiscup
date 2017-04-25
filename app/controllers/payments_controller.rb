@@ -17,6 +17,7 @@ require 'digest/md5'
   # POST
   # Returns relay response when Authorize.Net POSTs to us.
   def relay_response
+    layout false
     @hash = Digest::MD5.hexdigest('pbdg0245' + '9CPC3p3r8J' + '2RV3fr4sBsf7995S' + '10.00').upcase
     sim_response = AuthorizeNet::SIM::Response.new(params)
     if sim_response.success?('9CPC3p3r8J', 'pbdg0245')
