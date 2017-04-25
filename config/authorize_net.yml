@@ -4,5 +4,17 @@ default:
   merchant_hash_value: PBDGMKX
 
 development: 
+  api_login_id: 9CPC3p3r8J
+  api_transaction_key: 2RV3fr4sBsf7995S
+  merchant_hash_value: PBDGMKX
+
 test: 
-production: 
+  api_login_id: 9CPC3p3r8J
+  api_transaction_key: 2RV3fr4sBsf7995S
+  merchant_hash_value: PBDGMKX
+
+production:
+  api_login_id: 9CPC3p3r8J
+  api_transaction_key: 2RV3fr4sBsf7995S
+  merchant_hash_value: PBDGMKX 
+
