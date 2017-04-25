@@ -16,7 +16,7 @@ class PaymentsController < ApplicationController
   def relay_response
     sim_response = AuthorizeNet::SIM::Response.new(params)
     # @sim_response = sim_response
-    if sim_response.x_response_code == 1
+    if sim_response.x_response_code == '1'
       render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
     else
       render
