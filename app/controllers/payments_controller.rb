@@ -27,6 +27,7 @@ require 'digest/md5'
         @matched = true
       else
         @matched = false
+      end
       # @success = sim_response.success?('9CPC3p3r8J', 'pbdg0245')
       render
     end
