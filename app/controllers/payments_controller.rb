@@ -8,7 +8,7 @@ require 'digest/md5'
   # Displays a payment form.
   def payment
     @amount = 10.00
-    @sim_transaction = AuthorizeNet::SIM::Transaction.new('9CPC3p3r8J', '2RV3fr4sBsf7995S', @amount, :relay_url => "http://developer.authorize.net/bin/developer/paramdump")
+    @sim_transaction = AuthorizeNet::SIM::Transaction.new('9CPC3p3r8J', '2RV3fr4sBsf7995S', @amount, :relay_url => payments_relay_response_url(:only_path => false))
     # puts "======"
     # puts @sim_transaction.fingerprint
     # fail
@@ -23,8 +23,11 @@ require 'digest/md5'
     if sim_response.success?('9CPC3p3r8J','PBDGMKX')
       render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
     else
+      if @hash == sim_response.x_MD5_Hash
+        @matched = true
+      else
+        @matched = false
       # @success = sim_response.success?('9CPC3p3r8J', 'pbdg0245')
-      @sim_response = sim_response
       render
     end
   end
