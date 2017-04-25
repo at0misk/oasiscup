@@ -8,7 +8,7 @@ class PaymentsController < ApplicationController
   # Displays a payment form.
   def payment
     @amount = 10.00
-    @sim_transaction = AuthorizeNet::SIM::Transaction.new('9CPC3p3r8J', '6Ysv3q8Ham2448KG', @amount, :relay_url => "http://google.com")
+    @sim_transaction = AuthorizeNet::SIM::Transaction.new('9CPC3p3r8J', '6Ysv3q8Ham2448KG', @amount, :relay_url => payments_relay_response_url(:only_path => false))
     # puts "======"
     # puts @sim_transaction.fingerprint
     # fail
