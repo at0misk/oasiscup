@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
 
-  layout 'authorize_net'
+  # layout 'authorize_net'
   helper :authorize_net
   protect_from_forgery :except => :relay_response
 
@@ -15,6 +15,7 @@ class PaymentsController < ApplicationController
   # Returns relay response when Authorize.Net POSTs to us.
   def relay_response
     sim_response = AuthorizeNet::SIM::Response.new(params)
+    @sim_response = sim_response
     if sim_response.success?(AUTHORIZE_NET_CONFIG['api_login_id'], AUTHORIZE_NET_CONFIG['merchant_hash_value'])
       render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
     else
