@@ -21,6 +21,7 @@ class PaymentsController < ApplicationController
     if sim_response.success?('9CPC3p3r8J', 'pbdg0245')
       render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
     else
+      @success = sim_response.success?('9CPC3p3r8J', 'pbdg0245')
       render
     end
   end
