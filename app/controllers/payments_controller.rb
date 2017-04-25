@@ -18,9 +18,9 @@ require 'digest/md5'
   # Returns relay response when Authorize.Net POSTs to us.
   def relay_response
     # layout false
-    @hash = Digest::MD5.hexdigest('pbdg0245' + '9CPC3p3r8J' + '2RV3fr4sBsf7995S' + '10.00').upcase
+    @hash = Digest::MD5.hexdigest('PBDGMKX' + '9CPC3p3r8J' + '2RV3fr4sBsf7995S' + '10.00').upcase
     sim_response = AuthorizeNet::SIM::Response.new(params)
-    if sim_response.success?('9CPC3p3r8J', 'pbdg0245')
+    if sim_response.success?('9CPC3p3r8J', 'PBDGMKX')
       render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
     else
       # @success = sim_response.success?('9CPC3p3r8J', 'pbdg0245')
