@@ -184,26 +184,15 @@ class ChargesController < ApplicationController
 	  # Amount in cents
 	  # puts params['amount']
 	  # fail
-	  @amount = params['amount'].to_i
+	  @amount = session[:relay_ammount].to_i
 	  @user = User.find(session[:user_id])
 	  @team = @user.team
-	  @transamount = params['amount'].to_f/100
+	  @transamount = session[:relay_ammount].to_f/100
 	  @cart = Cart.where(user_id: @user.id)
 	  # customer = Stripe::Customer.create(
 	  #   :email => params[:stripeEmail],
 	  #   :source  => params[:stripeToken]
 	  # )
-
-		@transaction = Transaction.new(user_id: session[:user_id], total: @transamount, transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}-", tax: params['tax'].to_f)
-		if @transaction.save
-			@newcode = @transaction.transaction_code + @transaction.id.to_s
-			@transaction.update_attribute(:transaction_code, @newcode)
-			@t = Transaction.last
-	  		flash[:charged] = "Thank you, a confirmation email has been sent"
-		else
-			flash[:errors] = "Something went wrong"
-			redirect_to :back
-		end
 		@total = 0
 		@tax = 0
 		@cart.each do |val|
@@ -215,12 +204,23 @@ class ChargesController < ApplicationController
 		@current_cart_total = @cart.sum(:price)
 		if (@total * 3).to_f == session[:relay_ammount].to_f
 			session[:relay_transaction_type] = 'full'
+			@tax = @tax*3
 		elsif @total.to_f == session[:relay_ammount].to_f
 			session[:relay_transaction_type] = 'down payment'
 		elsif @user.user_balance.to_f == session[:relay_ammount].to_f
 			session[:relay_transaction_type] = 'paid balance'
 		end
 		session[:relay_ammount] = ''
+		@transaction = Transaction.new(user_id: session[:user_id], total: @transamount, transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}-", tax: @tax.to_f)
+		if @transaction.save
+			@newcode = @transaction.transaction_code + @transaction.id.to_s
+			@transaction.update_attribute(:transaction_code, @newcode)
+			@t = Transaction.last
+	  		flash[:charged] = "Thank you, a confirmation email has been sent"
+		else
+			flash[:errors] = "Something went wrong"
+			redirect_to :back
+		end
 	  # charge = Stripe::Charge.create(
 	  #   :customer    => customer.id,
 	  #   :amount      => @amount,
