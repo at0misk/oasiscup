@@ -92,6 +92,8 @@ class CartsController < ApplicationController
 				session[:c_found] = true 
 			end
 		end
+    	@sim_transaction_deposit = AuthorizeNet::SIM::Transaction.new('9CPC3p3r8J', '85GL7ApYu8v533sU', @amount, :relay_url => "http://www.oasiscup.com/payments/relay_response")
+    	@sim_transaction = AuthorizeNet::SIM::Transaction.new('9CPC3p3r8J', '85GL7ApYu8v533sU', (@total*3), :relay_url => "http://www.oasiscup.com/payments/relay_response")
 	end
 	# def checkout
 	# 	@user = User.find(session[:user_id])
