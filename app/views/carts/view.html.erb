@@ -193,7 +193,7 @@
 <div class="row stripeRow">
 <div id="stripeDiv">
 <h3 class="payHeaders">Pay Deposit (One Night)</h3>
-<h3 class="payHeaders green"><%= number_to_currency(@depositTotal, :precision => 2) %></h3>
+<h3 class="payHeaders green"><%= number_to_currency(@total, :precision => 2) %></h3>
 <%= form_for :sim_transaction, :url => AuthorizeNet::SIM::Transaction::Gateway::TEST do |f| %>
   <%= sim_fields(@sim_transaction_deposit) %>
   <%= label_tag 'x_amount', "Total: #{number_to_currency(@amount)}" %>
