@@ -211,7 +211,7 @@ class ChargesController < ApplicationController
 			session[:relay_transaction_type] = 'paid balance'
 		end
 		session[:relay_ammount] = ''
-		@transaction = Transaction.new(user_id: session[:user_id], total: @transamount, transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}-", tax: @tax.to_f)
+		@transaction = Transaction.new(user_id: session[:user_id], total: @amount, transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}-", tax: @tax.to_f)
 		if @transaction.save
 			@newcode = @transaction.transaction_code + @transaction.id.to_s
 			@transaction.update_attribute(:transaction_code, @newcode)
