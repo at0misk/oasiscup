@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-
+require 'digest/md5'
   # layout 'authorize_net'
   helper :authorize_net
   # protect_from_forgery :except => :relay_response
@@ -15,8 +15,8 @@ class PaymentsController < ApplicationController
   # Returns relay response when Authorize.Net POSTs to us.
   def relay_response
       sim_response = AuthorizeNet::SIM::Response.new(params)
-      @sim = sim_response
-      if sim_response.success?('9CPC3p3r8J', 'PBDGMKX')
+      @hash = Digest::MD5.hexdigest('PBDGMKX9CPC3p3r8J' + sim_response.transaction_id + x_amount).upcase
+      if sim_response.x_MD5_Hash == @hash
         render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
       else
         render
