@@ -16,7 +16,7 @@ require 'digest/md5'
   def relay_response
       sim_response = AuthorizeNet::SIM::Response.new(params)
       # @hash = Digest::MD5.hexdigest('PBDGMKX9CPC3p3r8J' + sim_response.x_trans_id + sim_response.x_amount).upcase
-      if sim_response.x_trans_id
+      if sim_response.success?('9CPC3p3r8J', 'ABRACADABRA')
         render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
       else
         render
