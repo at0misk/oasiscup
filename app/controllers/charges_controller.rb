@@ -212,6 +212,7 @@ class ChargesController < ApplicationController
 		elsif @user.user_balance == session[:relay_ammount]
 			session[:relay_transaction_type] = 'paid balance'
 		end
+		session[:relay_ammount] = ''
 	  # charge = Stripe::Charge.create(
 	  #   :customer    => customer.id,
 	  #   :amount      => @amount,
