@@ -87,7 +87,7 @@ class CartsController < ApplicationController
 			@roomTax = val.hotel.tax
 			@tax += @roomTax * val.price
 			@total += val.price
-			@total += @tax
+			@total += @roomTax * val.price
 			if val.occupancy_c
 				session[:c_found] = true 
 			end
