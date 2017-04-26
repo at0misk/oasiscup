@@ -66,7 +66,7 @@
 <h3 class="notFound">Your guest list is empty.</h3>
 <h4 class="notFound">If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
 <% end %>
-<h3 class="cartHeader">My Cart</h3>
+<h3 class="cartHeader">My Cart <%= session[:relay_ammount] %></h3>
 	<% if @user.user_balance && @user.user_balance > 0 %>
 		<h4 data-turbolinks="false" class="notFound">You have an outstanding balance.  View your booked rooms <a href="booked">here</a>
 	<% elsif @user.books && @user.books.length > 0 %>
@@ -260,4 +260,3 @@
 
 
 </script>
-<h2><%= session[:relay_ammount] %></h2>
