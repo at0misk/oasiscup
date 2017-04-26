@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
 require 'digest/md5'
-@@relayA = 0
+@@relayA = ''
   # layout 'authorize_net'
   helper :authorize_net
   protect_from_forgery :except => :relay_response
