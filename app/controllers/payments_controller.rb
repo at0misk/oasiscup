@@ -22,6 +22,7 @@ require 'digest/md5'
       else
         @trans_id = params[:x_trans_id]
         @amount = params[:x_amount]
+        @hash = params[:x_MD5_Hash]
         render
       end
   end
