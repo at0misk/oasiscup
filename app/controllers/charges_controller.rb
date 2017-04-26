@@ -239,9 +239,9 @@ class ChargesController < ApplicationController
 			@booked.occupancy_c = val.occupancy_c
 			@booked.team_id = @user.team.id
 			@booked.transaction_id = @t.id
-			if params['balancePaid']
+			if session[:relay_transaction_type] == 'down payment'
 				@booked.paid_status = false
-			elsif params['payingFull']
+			elsif session[:relay_transaction_type] == 'full'
 				@booked.paid_status = true
 			end
 			@prefix = Hotel.find(val.hotel_id).conf_prefix
