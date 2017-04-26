@@ -29,7 +29,7 @@ require 'digest/md5'
         else
           @response_code = "string"
         end
-        render
+        render :layout => false
       end
   end
   
