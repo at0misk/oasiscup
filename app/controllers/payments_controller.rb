@@ -1,5 +1,6 @@
 class PaymentsController < ApplicationController
 require 'digest/md5'
+@@relayA == 0
   # layout 'authorize_net'
   helper :authorize_net
   protect_from_forgery :except => :relay_response
@@ -18,6 +19,7 @@ require 'digest/md5'
       if params[:x_MD5_Hash] == Digest::MD5.hexdigest('ABRACADABRA9CPC3p3r8J' + params[:x_trans_id] + params[:x_amount]).upcase && params[:x_response_code] == '1'
       # if sim_response.success?('9CPC3p3r8J', 'ABRACADABRA')
       # if params[:x_response_code] == '1'
+        @@relayA = params[:x_amount]
         render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
       else
         @trans_id = params[:x_trans_id]
@@ -38,7 +40,7 @@ require 'digest/md5'
   # Displays a receipt.
   def receipt
     @auth_code = params[:x_auth_code]
-    session[:relay_ammount] = "ASDFASDFASDF"
+    session[:relay_ammount] = @@relayA
   end
 
 end
