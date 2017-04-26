@@ -1,5 +1,7 @@
 Sorry, something went wrong, please try your transaction again.
 
+<% if @sim %>
 <% @sim.each do |key, val| %>
 	<p><%= key%>: <%= val %></p>
+<% end %>
 <% end %>
