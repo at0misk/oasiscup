@@ -65,6 +65,7 @@ class BooksController < ApplicationController
   				@tax_user += @userRoomTax * val.price
   				@total_user += val.price
   			end
+    	@sim_transaction = AuthorizeNet::SIM::Transaction.new('9CPC3p3r8J', '85GL7ApYu8v533sU', @user.user_balance, :relay_url => "http://www.oasiscup.com/payments/relay_response")
   	end
   	def teams
   		@user = User.find(session[:user_id])

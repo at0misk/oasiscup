@@ -161,25 +161,16 @@
 	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@paid, :precision => 2) %></span></h3>
 	<% end %>
 	<h3>You have a remaining balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
-	<%= form_tag charges_path do %>
-	  <article>
-	    <% if flash[:error].present? %>
-	      <div id="error_explanation">
-	        <p><%= flash[:error] %></p>
-	      </div>
-	    <% end %>
-	    <label class="amount">
-	    </label>
-	  </article>
-	  <% @stripeTotal = (@user.user_balance * 100).to_i %>
-	<input type="hidden" name="amount" value="<%= @stripeTotal %>">
-	<input type="hidden" name="balanceClear" value="<%= @user.user_balance %>">
-	  <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-	          data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-	          data-description="Book Rooms"
-	          data-amount="<%= @stripeTotal %>"
-	          data-locale="auto"></script>
-	<% end %>
+		<%= form_for :sim_transaction, :url => AuthorizeNet::SIM::Transaction::Gateway::TEST do |f| %>
+		  <%= sim_fields(@sim_transaction) %>
+		  <%= label_tag 'x_amount', "Total: #{number_to_currency(@amount)}" %>
+		  <%= label_tag 'x_card_num', 'Credit Card Number'%>
+		  <%= text_field_tag 'x_card_num' %>
+		  <%= label_tag 'x_exp_date', 'Expiration Date (MMYY)'%>
+		  <%= text_field_tag 'x_exp_date' %>
+		  <br />
+		  <%= f.submit 'Purchase'%>
+		<% end %>
 	</div>
 <% end %>
 <% end %>
