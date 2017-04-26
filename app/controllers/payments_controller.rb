@@ -20,7 +20,7 @@ require 'digest/md5'
       # if params[:x_response_code] == 1
         render :text => sim_response.direct_post_reply(payments_receipt_url(:only_path => false), :include => true)
       else
-        render
+        # render
       end
   end
   
