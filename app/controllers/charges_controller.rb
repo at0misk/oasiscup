@@ -179,6 +179,7 @@ class ChargesController < ApplicationController
 	  	# UserMailer.manifest_email(@user).deliver_now
 		redirect_to '/booked'
 	end
+
 	def relay
 	  # Amount in cents
 	  # puts params['amount']
@@ -292,7 +293,7 @@ class ChargesController < ApplicationController
 			@admin = true
 			UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
 			# Made Downpayment - Send Email reminding they still have a balance with their balance
-		if session[:relay_transaction_type] == 'paid balance'
+		elsif session[:relay_transaction_type] == 'paid balance'
 			@user.update_attribute(:user_balance, nil)
 			@rooms = @user.books
 			@rooms.each do |val|
@@ -329,7 +330,7 @@ class ChargesController < ApplicationController
 					@team.mail_confirmation = true
 				end
 			end
-			if session[:relay_transaction_type] == 'full'
+		elsif session[:relay_transaction_type] == 'full'
 			@transaction.transaction_type = "Paid In Full"
 			@transaction.save
 			@transaction_type = 'paid in full'
