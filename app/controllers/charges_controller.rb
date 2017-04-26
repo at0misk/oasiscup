@@ -1,4 +1,5 @@
 class ChargesController < ApplicationController
+  helper :authorize_net
 	def create
 	  # Amount in cents
 	  # puts params['amount']
