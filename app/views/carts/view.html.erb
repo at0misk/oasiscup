@@ -134,11 +134,11 @@
 			<td></td>
 			<td></td>
 			<td>Total:</td>
-			<td class="green"><%= number_to_currency(@total+@nightlyTax, :precision => 2) %></td>
+			<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
 			<% @depositTotal = (@total + @depositTax).round(2) %>
 			<% @total = @total * 3 %>
 			<% @total += @tax %>
-			<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
+			<td class="green"><%= number_to_currency((@total * 3), :precision => 2) %></td>
 			<td></td>
 		</tr>
 	</tbody>
