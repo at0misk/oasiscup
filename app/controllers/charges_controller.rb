@@ -214,6 +214,9 @@ class ChargesController < ApplicationController
 		end
 		@current_cart_total = @cart.sum(:price)
 		if (@total * 3) == session[:relay_ammount]
+			puts session[:relay_ammount]
+			puts (@total)
+			fail
 			session[:relay_transaction_type] = 'full'
 		elsif @total == session[:relay_ammount]
 			session[:relay_transaction_type] = 'down payment'
@@ -261,9 +264,9 @@ class ChargesController < ApplicationController
 			@tbooked.occupancy_c = val.occupancy_c
 			@tbooked.team_id = @user.team.id
 			@tbooked.transaction_id = @t.id
-			if params['balancePaid']
+			if session[:relay_transaction_type] == 'down payment'
 				@tbooked.paid_status = false
-			elsif params['payingFull']
+			elsif session[:relay_transaction_type] == 'full'
 				@tbooked.paid_status = true
 			end
 			@prefix = Hotel.find(val.hotel_id).conf_prefix
