@@ -179,6 +179,10 @@ class ChargesController < ApplicationController
 	  	# UserMailer.manifest_email(@user).deliver_now
 		redirect_to '/booked'
 	end
+	def relay
+		puts "WA"
+		fail
+	end
 	def authorize
 		# require 'rubygems'
 		#   require 'authorizenet'

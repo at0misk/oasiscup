@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   # match '/payments/relay_response', :to => 'payments#relay_response', :as => 'payments_relay_response', :via => [:post]
   post '/payments/relay_response' => 'payments#relay_response'
   match '/payments/receipt', :to => 'payments#receipt', :as => 'payments_receipt', :via => [:get]
+  get '/charge_relay' => 'charges#relay'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'users#root' 
   get 'users/new' => 'users#new'

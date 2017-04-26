@@ -41,6 +41,7 @@ require 'digest/md5'
   def receipt
     @auth_code = params[:x_auth_code]
     session[:relay_ammount] = @@relayA
+    redirect_to '/charge_relay'
   end
 
 end
