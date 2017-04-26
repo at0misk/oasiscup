@@ -1,6 +1,8 @@
 Thanks for your purchase! Your authorization code is <%=h @auth_code %>.
 
-<form class="form-horizontal" method="post" action="/payments/relay_response" id="loginForm">
+<%= @sim.x_response_code %>
+
+<!-- <form class="form-horizontal" method="post" action="/payments/relay_response" id="loginForm">
 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <div class="form-group">
     <label for="email" class="col-sm-3 control-label">
@@ -15,7 +17,7 @@ Thanks for your purchase! Your authorization code is <%=h @auth_code %>.
     <div class="col-sm-6 modalButtons">
         <button type="submit" class="btn btn-primary btn-sm">
             Login</button>
-        <!-- <a href="javascript:;">Forgot your password?</a> -->
-    </div>
+        <a href="javascript:;">Forgot your password?</a> -->
+<!--     </div>
 </div>
-</form>
+</form> -->
