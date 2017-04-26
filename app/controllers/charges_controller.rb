@@ -206,7 +206,7 @@ class ChargesController < ApplicationController
 		end
 		@total = 0
 		@tax = 0
-		@cart_rooms.each do |val|
+		@cart.each do |val|
 			@roomTax = val.hotel.tax
 			@tax += @roomTax * val.price
 			@total += val.price
