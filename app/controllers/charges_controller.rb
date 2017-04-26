@@ -214,9 +214,6 @@ class ChargesController < ApplicationController
 		end
 		@current_cart_total = @cart.sum(:price)
 		if (@total * 3).to_f == session[:relay_ammount].to_f
-			puts session[:relay_ammount]
-			puts (@total)
-			fail
 			session[:relay_transaction_type] = 'full'
 		elsif @total.to_f == session[:relay_ammount].to_f
 			session[:relay_transaction_type] = 'down payment'
