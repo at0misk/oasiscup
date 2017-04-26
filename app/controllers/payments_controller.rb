@@ -24,6 +24,7 @@ require 'digest/md5'
         @amount = params[:x_amount]
         @hash = params[:x_MD5_Hash]
         @response_code = params[:x_response_code]
+        @reason = params[:x_response_reason_code]
         if @response_code == 1
           @response_code = "num"
         else
