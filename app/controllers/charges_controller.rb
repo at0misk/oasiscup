@@ -213,14 +213,14 @@ class ChargesController < ApplicationController
 			@total += @roomTax * val.price
 		end
 		@current_cart_total = @cart.sum(:price)
-		if (@total * 3) == session[:relay_ammount].to_f
+		if (@total * 3).to_f == session[:relay_ammount].to_f
 			puts session[:relay_ammount]
 			puts (@total)
 			fail
 			session[:relay_transaction_type] = 'full'
-		elsif @total == session[:relay_ammount].to_f
+		elsif @total.to_f == session[:relay_ammount].to_f
 			session[:relay_transaction_type] = 'down payment'
-		elsif @user.user_balance == session[:relay_ammount].to_f
+		elsif @user.user_balance.to_f == session[:relay_ammount].to_f
 			session[:relay_transaction_type] = 'paid balance'
 		end
 		session[:relay_ammount] = ''
