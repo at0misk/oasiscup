@@ -204,10 +204,18 @@ class ChargesController < ApplicationController
 			flash[:errors] = "Something went wrong"
 			redirect_to :back
 		end
+		@total = 0
+		@tax = 0
+		@cart_rooms.each do |val|
+			@roomTax = val.hotel.tax
+			@tax += @roomTax * val.price
+			@total += val.price
+			@total += @roomTax * val.price
+		end
 		@current_cart_total = @cart.sum(:price)
-		if (@current_cart_total * 3) == session[:relay_ammount]
+		if (@total * 3) == session[:relay_ammount]
 			session[:relay_transaction_type] = 'full'
-		elsif @current_cart_total == session[:relay_ammount]
+		elsif @total == session[:relay_ammount]
 			session[:relay_transaction_type] = 'down payment'
 		elsif @user.user_balance == session[:relay_ammount]
 			session[:relay_transaction_type] = 'paid balance'
