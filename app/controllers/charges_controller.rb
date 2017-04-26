@@ -283,7 +283,7 @@ class ChargesController < ApplicationController
 			# puts @balancePaid
 			# @totalToPay = (@transamount*3)
 			# puts @totalToPay
-			@totalToPay = (@transamount*2)
+			@totalToPay = (@amount*2)
 			puts @totalToPay
 			# @balancePaid = @balancePaid.round(2)
 			if @user.user_balance && @user.user_balance > 0
