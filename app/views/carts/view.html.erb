@@ -83,7 +83,7 @@
 		<h4 data-turbolinks="false" class="notFound">You can view your booked rooms <a href="booked">here</a>, or book more <a href='hotels'>rooms.</a></h4>
 	<% end %>
 <% if session[:roomsNeeded] && @cart_rooms.length < 8 %>
-<h3>Your team must book at least 10 rooms to participate in the tournament</h3>
+<h3>Your team must book at least 8 rooms to participate in the tournament</h3>
 <% elsif session[:exemptRoomsNeeded] && @cart_rooms.length < 5  %>
 <h3>Your team must book at least 5 rooms to participate in the tournmaent</h3>
 <% end %>
