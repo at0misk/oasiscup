@@ -328,6 +328,7 @@ class ChargesController < ApplicationController
 					@team.users.each do |val|
 						puts 'mailing'
 						puts "#{val.first}"
+						# Mail out actual confirmation here
 					end
 					@team.mail_confirmation = true
 				end
@@ -339,6 +340,7 @@ class ChargesController < ApplicationController
 					@team.users.each do |val|
 						puts 'mailing'
 						puts "#{val.first}"
+						# Mail out actual confirmation here
 					end
 					@team.mail_confirmation = true
 				end
