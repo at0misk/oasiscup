@@ -36,6 +36,10 @@
 	.stripeRow{
 		margin-bottom: 5%;
 	}
+	.confRow{
+		text-align: center;
+		margin-bottom: 5%;
+	}
 </style>
 <div class="row">
 <div class="col-md-1">
@@ -186,7 +190,9 @@
 	</div>
 </div>
 <% end %>
+<div class="row confRow">
 <% if @user.team.mail_confirmation %>
 <a href="/conf"><button class="btn btn-primary">Send Another Confirmation Email</button></a>
+</div>
 <% end %>
 <% end %>
