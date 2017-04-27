@@ -16,7 +16,11 @@
 		margin-top: 3%;
 		margin-bottom: 3%;
 	}
+	.ty{
+		margin-top: 3%;
+	}
 	.bottom{
+		/*margin-top: 3%;*/
 		margin-bottom: 5%;
 	}
 </style>
@@ -55,14 +59,14 @@ when your reservations are complete. Please provide the following information:</
 	<li>Number of rooms you have booked</li>
 </ul>
 <h3 class="smallH">Contact Information</h3>
-<ul class="bottom">
+<ul>
 <li><strong>PLEASE DO NOT CALL THE HOTELS DIRECTLY</strong></li>
 <li>All hotel related questions please email JoseL@archertravel.com</li>
 <li>Tournament related questions please contact SDArcher@earthlink.net</li>
 <li>Hours of operation are Monday-Friday 9am-5pm PST</li>
-<li>Thank you,</li>
-<li>Archer Travel and the Oasis Cup</li>
 </ul>
+<p class="ty">Thank you,</p>
+<p class="bottom">Archer Travel and the Oasis Cup</p>
 <% if @team.mail_confirmation %>
 <!-- <a href="/conf"><button class="btn btn-primary">Send Another Confirmation Email</button></a> -->
 <% end %>
