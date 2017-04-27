@@ -164,7 +164,7 @@
 	<!-- <h3>Pay Balance:</h3> -->
 	<div class="col-md-3">
 	</div>
-	<div id="stripeDiv col-md-3">
+	<div id="stripeDiv" class="col-md-3">
 	<% if @x > 0 && @y > 0 %>
 	<% else %>
 	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@paid, :precision => 2) %></span></h3>
