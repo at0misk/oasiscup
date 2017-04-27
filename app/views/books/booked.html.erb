@@ -30,6 +30,12 @@
       width: 100%;
       margin-top: 2%;
     }
+	#stripeDiv input{
+		margin: 0px auto;
+	}
+	.stripeRow{
+		margin-bottom: 5%;
+	}
 </style>
 <div class="row">
 <div class="col-md-1">
@@ -153,9 +159,12 @@
 </div>
 </div>
 <% if @user.user_balance %>
+<div class="row stripeRow">
 	<!-- <% @user.user_balance = @user.user_balance.round(2) %> -->
 	<!-- <h3>Pay Balance:</h3> -->
-	<div id="stripeDiv">
+	<div class="col-md-3">
+	</div>
+	<div id="stripeDiv col-md-3">
 	<% if @x > 0 && @y > 0 %>
 	<% else %>
 	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@paid, :precision => 2) %></span></h3>
@@ -173,9 +182,8 @@
 		  <button class="btn btn-primary">Checkout</button>
 		<% end %>
 	</div>
+	<div class="col-md-3">
+	</div>
+</div>
 <% end %>
 <% end %>
-</div>
-<div class="col-md-2">
-</div>
-</div>
