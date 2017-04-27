@@ -23,6 +23,7 @@
 	}
 	.stripeRow{
 		text-align: center;
+		margin-bottom: 5%;
 	}
 	.notFound{
 		text-align: center;
@@ -47,6 +48,9 @@
       width: 100%;
       margin-top: 2%;
     }
+	#stripeDiv input{
+		margin: 0px auto;
+	}
 </style>
 <div class="row">
 <div class="col-md-2">
@@ -196,13 +200,14 @@
 <h3 class="payHeaders green"><%= number_to_currency(@total, :precision => 2) %></h3>
 <%= form_for :sim_transaction_deposit, :url => AuthorizeNet::SIM::Transaction::Gateway::TEST do |f| %>
   <%= sim_fields(@sim_transaction_deposit) %>
-  <%= label_tag 'x_amount', "Total: #{number_to_currency(@amount)}" %>
   <%= label_tag 'x_card_num', 'Credit Card Number'%>
   <%= text_field_tag 'x_card_num' %>
   <%= label_tag 'x_exp_date', 'Expiration Date (MMYY)'%>
   <%= text_field_tag 'x_exp_date' %>
+  <%= label_tag 'x_card_num', 'CVV'%>
+  <%= text_field_tag 'x_card_code' %>
   <br />
-  <%= f.submit 'Purchase'%>
+  <button class="btn btn-primary">Checkout</button>
 <% end %>
 </div>
 <div id="stripeDiv">
@@ -210,13 +215,14 @@
 <h3 class="payHeaders green"><%= number_to_currency((@total*3), :precision => 2) %></h3>
 <%= form_for :sim_transaction, :url => AuthorizeNet::SIM::Transaction::Gateway::TEST do |f| %>
   <%= sim_fields(@sim_transaction) %>
-  <%= label_tag 'x_amount', "Total: #{number_to_currency(@amount)}" %>
   <%= label_tag 'x_card_num', 'Credit Card Number'%>
   <%= text_field_tag 'x_card_num' %>
   <%= label_tag 'x_exp_date', 'Expiration Date (MMYY)'%>
   <%= text_field_tag 'x_exp_date' %>
+  <%= label_tag 'x_card_num', 'CVV'%>
+  <%= text_field_tag 'x_card_code' %>
   <br />
-  <%= f.submit 'Purchase'%>
+  <button class="btn btn-primary">Checkout</button>
 <% end %>
 </div>
 </div>
