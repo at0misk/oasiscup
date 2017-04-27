@@ -60,4 +60,7 @@ Rails.application.routes.draw do
   get '/admins/searchTransactions' => 'admins#searchTransactions'
   get '/transactions' => 'users#transactions'
   get '/authorize' => 'charges#authorize'
+  post '/cart/paid_full' => 'carts#paid_full'
+  post '/cart/first_night' => 'carts#first_night'
+  post 'cart/paid_balance' => 'carts#paid_balance'
 end

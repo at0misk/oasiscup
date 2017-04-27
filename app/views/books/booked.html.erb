@@ -40,6 +40,9 @@
 		text-align: center;
 		margin-bottom: 3%;
 	}
+	.green{
+		color: green;
+	}
 </style>
 <div class="row">
 <div class="col-md-1">
@@ -50,10 +53,13 @@
 <h4 data-turbolinks="false" class="notFound">If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
 <% else %>
 <% if flash[:charged] %>
-<h3>Thank you, a confirmation email has been sent.</h3>
+<h3>Thank you, a confirmation email has been sent.  An Archer Travel Agent will contact you within 24 hours.</h3>
 <% flash[:charged] = nil %>
 <% end %>
 <h3>My Booked Rooms</h3>
+<% if @user.user_balance %>
+<h4>You have a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
+<% end %>
 <% if session[:roomsNeeded] %>
 <h3>Your team must book at least 8 rooms to participate in the tournament</h3>
 <% elsif session[:exemptRoomsNeeded] %>
@@ -72,7 +78,6 @@
 			<th>Type</th>
 			<th>Status</th>
 			<th>Price Per Night</th>
-			<th>Amount Due</th>
 			<th>Total</th>
 			<th></th>
 		</tr>
@@ -94,16 +99,11 @@
 		<td class="green">Paid</td>
 		<% @x += 1 %>
 		<% else %>
-		<td class="red">Balance Due</td>
+		<td class="red">Payment Pending</td>
 		<% @y += 1 %>
 			<% @total_balance_due += val.price*2 %>
 		<% end %>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
-		<% if val.paid_status %>
-		<td class="green">$0.00</td>
-		<% else %>
-		<td><%= number_to_currency(val.price*2, :precision => 2) %></td>
-		<% end %>
 		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -125,11 +125,6 @@
 			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
 			<% @nightlyTax = @tax_user %>
 			<% @tax_user = @tax_user * 3 %>
-			<% if @user.user_balance %>
-			<td><%= number_to_currency((@user.user_balance-@total_balance_due), :precision => 2) %></td>
-			<% else %>
-			<td>$0.00</td>
-			<% end %>
 			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
 			<td></td>
 		</tr>
@@ -147,11 +142,6 @@
 			<% @depositTotal = (@total_user + @depositTax).round(2) %>
 			<% @total_user = @total_user * 3 %>
 			<% @total_user += @tax_user %>
-			<% if @user.user_balance %>
-			<td class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></td>
-			<% else %>
-			<td class="green">$0.00</td>
-			<% end %>
 			<td class="green"><%= number_to_currency(@total_user, :precision => 2) %></td>
 			<td></td>
 		</tr>
@@ -163,38 +153,6 @@
 </div>
 </div>
 <% if @user.user_balance %>
-<div class="row stripeRow">
-	<!-- <% @user.user_balance = @user.user_balance.round(2) %> -->
-	<!-- <h3>Pay Balance:</h3> -->
-	<div class="col-md-3">
-	</div>
-	<div id="stripeDiv" class="col-md-">
-	<% if @x > 0 && @y > 0 %>
-	<% else %>
-	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@paid, :precision => 2) %></span></h3>
-	<% end %>
-	<h3>You have a remaining balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
-		<%= form_for :sim_transaction, html: { class: "paymentFormDeposit" }, :url => AuthorizeNet::SIM::Transaction::Gateway::TEST do |f| %>
-		  <%= sim_fields(@sim_transaction) %>
-		  <div class="form-group">
-		  <%= label_tag 'x_card_num', 'Credit Card Number', class: 'control-label' %>
-		  <%= text_field_tag 'x_card_num', '', class: 'x_card_num form-control'%>
-		  </div>
-		  <div class="form-group">
-		  <%= label_tag 'x_exp_date', 'Expiration Date (MM/YY)', class: 'control-label'%>
-		  <%= text_field_tag 'x_exp_date', '', class: 'x_exp_date form-control'%>
-		  </div>
-		  <div class="form-group">
-		  <%= label_tag 'x_card_code', 'CVV', class: 'control-label'%>
-		  <%= text_field_tag 'x_card_code', '', class: 'x_card_code form-control'%>
-		  </div>
-		  <br />
-		  <button class="btn btn-primary">Checkout</button>
-		<% end %>
-	</div>
-	<div class="col-md-3">
-	</div>
-</div>
 <% end %>
 <!-- <div class="row confRow"> -->
 <%# if @user.team.mail_confirmation %>

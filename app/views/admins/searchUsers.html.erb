@@ -15,6 +15,22 @@
 		height: 100%;
 		padding-bottom: 38px;
 	}
+	.green{
+		color: green;
+	}
+	.red{
+		color: red;
+	}
+	.payDiv{
+		float: right;
+		text-align: right;
+	}
+	.payDiv form{
+		margin-top: 5%;
+	}
+	.paidNotice{
+		float: right;
+	}
 </style>
 <div class="con">
 <% @users.each do |val| %>
@@ -53,7 +69,6 @@
 						<th>Type</th>
 						<th>Status</th>
 						<th>Price Per Night</th>
-						<th>Amount Due</th>
 						<th>Total</th>
 						<th></th>
 					</tr>
@@ -85,18 +100,13 @@
 					<td><%= val.occupancy_a %></td>
 					<td><%= val.occupancy_c %></td>
 					<td><%= val.room_type %></td>
-					<% if val.paid_status %>
-					<td class="green">Paid</td>
-					<% else %>
+					<% if @user.user_balance %>
 					<td class="red">Balance Due</td>
 						<% @total_balance_due += val.price*2 %>
+					<% else %>
+					<td class="green">Paid</td>
 					<% end %>
 					<td><%= number_to_currency(val.price, :precision => 2) %></td>
-					<% if val.paid_status %>
-					<td class="green">$0.00</td>
-					<% else %>
-					<td><%= number_to_currency(val.price*2, :precision => 2) %></td>
-					<% end %>
 					<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 					<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
 							<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
@@ -117,13 +127,7 @@
 						<td>Tax:</td>
 						<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
 						<% @nightlyTax = @tax_user %>
-						<% @tax_user = @tax_user * 3 %>
-						<% if @user.user_balance %>
-						<td><%= number_to_currency((@user.user_balance-@total_balance_due), :precision => 2) %></td>
-						<% else %>
-						<td>$0.00</td>
-						<% end %>
-						<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+						<td><%= number_to_currency((@tax_user * 3), :precision => 2) %></td>
 						<td></td>
 					</tr>
 					<tr>
@@ -139,19 +143,45 @@
 						<td class="green"><%= number_to_currency(@total_user+@nightlyTax, :precision => 2) %></td>
 						<% @depositTotal = (@total_user + @depositTax).round(2) %>
 						<% @total_user = @total_user * 3 %>
-						<% @total_user += @tax_user %>
-						<% if @user.user_balance %>
-						<td class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></td>
-						<% else %>
-						<td class="green">$0.00</td>
-						<% end %>
+						<% @total_user += @tax_user * 3 %>
 						<td class="green"><%= number_to_currency(@total_user, :precision => 2) %></td>
 						<td></td>
 					</tr>
 				</tbody>
 			</table>
+			<% if @user.user_balance %>
+				<% if @user.user_balance != @total_user %>
+				<div class="payDiv">
+					<form id="checkout" method="post" action="/cart/paid_balance">
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<input name="amount" value="<%= (@user.user_balance) %>" type="hidden">
+					<div id="payment-form"></div>
+					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay Balance" data-confirm="Are you sure?"></div>
+					</form>
+				</div>
+				<% else %>
+				<div class="payDiv">
+					<form id="checkout" method="post" action="/cart/first_night">
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<input name="amount" value="<%= (@user.user_balance/3) %>" type="hidden">
+					<div id="payment-form"></div>
+					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="First Night Down Payment" data-confirm="Are you sure?"></div>
+					</form>
+					<form id="checkout" method="post" action="/cart/paid_full">
+					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+					<input name="amount" value="<%= @user.user_balance %>" type="hidden">
+					<input name="tax" value="<%= (@tax_user * 3) %>" type="hidden">
+					<div id="payment-form"></div>
+					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay in Full" data-confirm="Are you sure?"></div>
+					</form>
+				</div>
+				<% end %>
+			<% else %>
+			<h3 class="paidNotice">User has paid in full</h3>
 			</div>
-		<% end %>
+				<% end %>
+			<% end %>
+			</end>
 		<h2>Cart:</h2>
 		<% @cart = val.carts %>
 		<% if @cart.length == 0 %>
