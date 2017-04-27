@@ -26,7 +26,7 @@
 			<h3>Email: <%= val.email %></h3>
 			<h3>Joined: <%= val.created_at %></h3>
 			<% if val.user_balance %>
-			<h3>Balance Due: <%= val.user_balance %></h3>
+			<h3>Balance Due: <span class="green"><%= number_to_currency(val.user_balance, :precision => 2) %></span></h3>
 			<% end %>
 		</div>
 		<div class="col-md-6">
