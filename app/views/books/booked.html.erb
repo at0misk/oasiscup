@@ -164,7 +164,7 @@
 	<!-- <h3>Pay Balance:</h3> -->
 	<div class="col-md-3">
 	</div>
-	<div id="stripeDiv" class="col-md-6">
+	<div id="stripeDiv" class="col-md-">
 	<% if @x > 0 && @y > 0 %>
 	<% else %>
 	<h3>You paid a downpayment of <span class="green"><%= number_to_currency(@paid, :precision => 2) %></span></h3>
@@ -185,5 +185,8 @@
 	<div class="col-md-3">
 	</div>
 </div>
+<% end %>
+<% if @user.team.mail_confirmation %>
+<a href="/conf"><button class="btn btn-primary">Send Another Confirmation Email</button></a>
 <% end %>
 <% end %>
