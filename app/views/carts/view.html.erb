@@ -81,7 +81,7 @@
 <% end %>
 <h3 class="cartHeader">My Cart <%= session[:relay_ammount] %></h3>
 	<% if @user.user_balance && @user.user_balance > 0 %>
-		<h4 data-turbolinks="false" class="notFound">You have an outstanding balance.  View your booked rooms <a href="booked">here</a>
+		<h4 data-turbolinks="false" class="notFound">You have an outstanding balance.  View your booked rooms <a href="booked">here</a></h4>
 	<% elsif @user.books && @user.books.length > 0 %>
 		<h4 data-turbolinks="false" class="notFound">You can view your booked rooms <a href="booked">here</a>, or book more <a href='hotels'>rooms.</a></h4>
 	<% end %>
