@@ -25,6 +25,9 @@
 			<h3>Name: <%= val.first %> <%= val.last %></h3>
 			<h3>Email: <%= val.email %></h3>
 			<h3>Joined: <%= val.created_at %></h3>
+			<% if val.user_balance %>
+			<h3>Balance Due: <%= val.user_balance %></h3>
+			<% end %>
 		</div>
 		<div class="col-md-6">
 			<h2>Team: <%= val.team.name %></h2>
