@@ -339,6 +339,7 @@ class ChargesController < ApplicationController
 					@team.mail_confirmation = true
 				end
 			end
+			# @user.update_attribute(:fee_status, true)
 		elsif session[:relay_transaction_type] == 'full'
 			@transaction.transaction_type = "Paid In Full"
 			@transaction.save
@@ -373,6 +374,7 @@ class ChargesController < ApplicationController
 					@team.save
 				end
 			end
+			# @user.update_attribute(:fee_status, true)
 		end
 		# Manifest Email
 	  	# UserMailer.manifest_email(@user).deliver_now

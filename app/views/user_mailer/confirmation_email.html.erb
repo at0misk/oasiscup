@@ -25,10 +25,26 @@
     <% if @transaction_type == 'down payment' %>
   <h3>You paid a downpayment of <span class="green"><%= number_to_currency(@transaction.total, :precision => 2) %></span></h3>
   <h3>You have a remaining balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
-  <h3>You must pay the remainder of your payment by XX/XX/XX</h3>
+  <h3>You must pay the remainder of your payment by December 1, 2017</h3>
     <% elsif @transaction_type == 'paid balance' %>
     <h3>Thank you for paying your balance</h3>
+    <h4>Send an email to our Tournament Director at <a href="mailto:oasiscup@yahoo.com?Subject=Oasis%20Cup" target="_top">oasiscup@yahoo.com</a> when your reservations are complete. Please provide the following information:</h4>
+    <ul>
+    <li>Team Name</li>
+    <li>Age Group</li>
+    <li>Administrative contact person and e-mail address</li>
+    <li>Name of hotel where you will be staying</li>
+    <li>Number of rooms you have booked</li>
+    </ul>
     <% elsif @transaction_type == 'paid in full' %>
+    <h4>Send an email to our Tournament Director at <a href="mailto:oasiscup@yahoo.com?Subject=Oasis%20Cup" target="_top">oasiscup@yahoo.com</a> when your reservations are complete. Please provide the following information:</h4>
+    <ul>
+    <li>Team Name</li>
+    <li>Age Group</li>
+    <li>Administrative contact person and e-mail address</li>
+    <li>Name of hotel where you will be staying</li>
+    <li>Number of rooms you have booked</li>
+    </ul>
     <% end %>
     <h2>Rooms</h2>
 <div class="table-responsive">
