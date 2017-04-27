@@ -44,7 +44,7 @@ class BooksController < ApplicationController
 				session[:exemptRoomsNeeded] = false
 			end
 		else
-			if @team.books.length < 10
+			if @team.books.length < 8
 				session[:roomsNeeded] = true
 			elsif @team.books.length >= 10
 				session[:roomsNeeded] = false
@@ -78,7 +78,7 @@ class BooksController < ApplicationController
 				session[:exemptRoomsNeeded] = false
 			end
 		else
-			if @team.books.length < 10
+			if @team.books.length < 8
 				session[:roomsNeeded] = true
 			elsif @team.books.length >= 10
 				session[:roomsNeeded] = false
