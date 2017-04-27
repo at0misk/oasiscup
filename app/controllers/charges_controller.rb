@@ -227,7 +227,7 @@ class ChargesController < ApplicationController
 	  #   :description => 'Oasis Cup Booking, Order ID ' + @transaction.transaction_code,
 	  #   :currency    => 'usd'
 	  # )
-	  	# @i = 0
+	  	@i = 0
 		@cart.each do |val|
 			@booked = Book.new
 			@booked.hotel_id = val.hotel_id
@@ -246,9 +246,9 @@ class ChargesController < ApplicationController
 				@booked.paid_status = true
 			end
 			@prefix = Hotel.find(val.hotel_id).conf_prefix
-			@booked.conf_code = "#{@prefix}#{Date.today.to_s}0#{@booked.number}"
+			@booked.conf_code = "#{@prefix}#{Date.today.to_s}0#{@i}"
 			@booked.save
-			# @i += 1
+			@i += 1
 			# Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 		end
 		# @i = 0
