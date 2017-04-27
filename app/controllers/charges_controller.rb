@@ -251,7 +251,7 @@ class ChargesController < ApplicationController
 			@i += 1
 			# Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 		end
-		# @i = 0
+		@i = 0
 		@cart.each do |val|
 			@tbooked = Tbook.new
 			@tbooked.hotel_id = val.hotel_id
@@ -270,9 +270,9 @@ class ChargesController < ApplicationController
 				@tbooked.paid_status = true
 			end
 			@prefix = Hotel.find(val.hotel_id).conf_prefix
-			@tbooked.conf_code = "#{@prefix}#{Date.today.to_s}0#{@booked.number}"
+			@tbooked.conf_code = "#{@prefix}#{Date.today.to_s}0#{@i}"
 			@tbooked.save
-			# @i += 1
+			@i += 1
 			# Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 		end
 		Cart.where(user_id: @user.id).destroy_all
