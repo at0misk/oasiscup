@@ -6,8 +6,14 @@
 	}
 	.text{
 		/*background-color: black;*/
-		padding: 5%;
+		padding: 3%;
 	}
+    .text ul{
+        padding-left: 0px;
+    }
+    .bottom{
+        padding-top: 0px;
+    }
 .img-wrapper {
   position: relative;
  }
@@ -119,6 +125,9 @@
 .forgot{
     float: right;
 }
+.tinyHeader{
+    text-align: center;
+}
 </style>
 <div class="row img-wrapper">
 <div class="col-md-12">
@@ -138,17 +147,58 @@
 </div>
 </div>
 <div class="row">
-<div class="col-md-4 text">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris fermentum posuere est, pulvinar finibus orci tempor non. Mauris facilisis lorem at fringilla accumsan. Phasellus ullamcorper maximus elit vel varius.
+<div class="col-md-6 text">
+<p class="tinyHeader"><strong>Welcome!</strong></p>
+<p>Welcome to the 2017 Oasis Cup Tournament!  This wonderful tournament will be played in Palm Desert California where the weather is great and the fields are even better!  This event is a <strong>"Stay & Play"</strong> Tournament.  All teams are required to book through Archer Travel Service, Inc. Your full cooperation is expected.</p>   
+<p><strong>Final</strong> acceptance into the event will be granted after your hotel reservations are confirmed.  This is in agreement & partnership with Crescenta Valley SC and the Director of the Oasis Cup respectively.</p>
 </div>
-<div class="col-md-4 text">
-Curabitur scelerisque nulla velit, vel tincidunt libero consectetur at. Maecenas condimentum lectus sit amet nisi pharetra fermentum. Sed et congue dolor. Nulla quis interdum dolor.
+<div class="col-md-6 text">
+<p class="tinyHeader"><strong>Team Guidelines</strong></p>
+<ul>
+    <% if session[:user_id] %>
+    <li><% if @user.team.exempt %>5<% else %>8<% end %> rooms per team with a 3 night minimum stay required</li>
+    <% else %>
+    <li>8 rooms per team with a 3 night minimum stay required</li>
+    <% end %>
+    <li>1st night room & tax will be charged at time of reservation</li>
+    <li>Final Payments on the rooms will be due by December 1, 2017</li>
+    <li>All guests that are being booked for must be on your <% if session[:user_id] %><a href="/guests/user">guest list</a><% else %>guest list<% end %>.</li>
+    <li>Reservations may be made here or by calling 800 272-4377 (800 ARCHERS)</li>
+</ul>
 </div>
-<div class="col-md-4 text">
-Nunc at justo id nulla auctor viverra id ac lectus. Aenean eu odio diam. Cras id fermentum elit, a fermentum mauris. Vivamus posuere tincidunt felis, at tempor turpis malesuada quis. 
+<!-- <div class="col-md-4 text">
+<p class="tinyHeader">Finalizing The Reservations</p>
+<ul>
+    <li>We recommend that the <strong>Team Manager</strong> finalize your reservation first with this access code, especially if you are paying for multiple rooms</li>
+    <li>It is important that your families receive the assigned <strong>access code</strong>, immediately to finalize their individual reservations</li>
+    <li><strong>Team Managers</strong> are required to work directly with their families to ensure a complete and accurate rooming list</li>
+    <li>Any rooms allocated and <strong>NOT CONFIRMED</strong> will be given to other teams on the wait list</li>
+    <li>Your families will have <strong>10 days</strong> to finalize their individual reservations</li>
+</ul>
+</div> -->
+</div>
+<div class="row">
+<div class="col-md-6 text bottom">
+<strong><p class="tinyHeader">Finalizing The Reservations</p></strong>
+<ul>
+    <li>We recommend that the <strong>Team Manager</strong> finalize your reservation first with this access code, especially if you are paying for multiple rooms</li>
+    <li>It is important that your families receive the assigned <strong>access code</strong>, immediately to finalize their individual reservations</li>
+    <li><strong>Team Managers</strong> are required to work directly with their families to ensure a complete and accurate rooming list</li>
+    <li>Any rooms allocated and <strong>NOT CONFIRMED</strong> will be given to other teams on the wait list</li>
+    <li>Your families will have <strong>10 days</strong> to finalize their individual reservations</li>
+</ul>
+</div>
+<div class="col-md-6 text bottom">
+<strong><p class="tinyHeader">Finalizing The Reservations</p></strong>
+<ul>
+    <li>We recommend that the <strong>Team Manager</strong> finalize your reservation first with this access code, especially if you are paying for multiple rooms</li>
+    <li>It is important that your families receive the assigned <strong>access code</strong>, immediately to finalize their individual reservations</li>
+    <li><strong>Team Managers</strong> are required to work directly with their families to ensure a complete and accurate rooming list</li>
+    <li>Any rooms allocated and <strong>NOT CONFIRMED</strong> will be given to other teams on the wait list</li>
+    <li>Your families will have <strong>10 days</strong> to finalize their individual reservations</li>
+</ul>
 </div>
 </div>
-
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
     aria-hidden="true" data-turbolinks="false">

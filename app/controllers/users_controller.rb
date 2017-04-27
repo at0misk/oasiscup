@@ -60,6 +60,9 @@ class UsersController < ApplicationController
 		end
 	end
 	def root
+		if session[:user_id]
+			@user = User.find(session[:user_id])
+		end
 		# if session[:user_id] == nil
 		# 	redirect_to '/users/new'
 		# else
