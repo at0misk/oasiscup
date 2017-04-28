@@ -183,6 +183,8 @@ class CartsController < ApplicationController
 			@i += 1
 			# Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 		end
+		@book.update_all(:paid_status => true)
+		# @book.save
 		@transaction.transaction_type = "Paid In Full"
 		@transaction.save
 		@transaction_type = 'paid in full'
@@ -327,6 +329,7 @@ class CartsController < ApplicationController
 			@i += 1
 			# Room.where(hotel_id: val.hotel_id, number: val.number).destroy_all
 		end
+		@book.update_all(:paid_status => true)
 		@transaction.transaction_type = "Paid Balance"
 		@transaction.save
 		@transaction_type = 'paid balance'

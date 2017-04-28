@@ -2,24 +2,53 @@
 	.contentDiv{
 		text-align: center;
 	}
+	.red{
+		color: red;
+	}
+	.green{
+		color: green;
+	}
 </style>
 <div class="row">
 	<div class="col-md-2">
 	</div>
 	<div class="col-md-8 contentDiv">
-		<% if @teams.length == 0 %>
-			<h3>Sorry, No teams were found</h3>
-		<% else %>
-			<% @teams.each do |val| %>
-				<h3>Team Name: <%= val.name %></h3>
-				<h3>Confirmation Number: <%= val.conf_num %></h3>
-				<h3>Registered On: <%= val.created_at %></h3>
-				<h3>Exempt: <% if val.exempt %> Yes <% else %> No<% end %></h3>
-				<h3>Confirmed For Tournament: <% if val.mail_confirmation %> Yes <% else %> No <% end %></h3>
+		<h3>End of Day Report</h3>
+		<h4>Records Created Today</h4>
+				<div class='row'>
+				<div class="table-responsive">
+				<h3>Hotels that Ran Out Of Rooms:</h3>
+				<% if @emptiedHotels.length == 0 %>
+					<h4>No Hotels Ran Out Of Rooms</h4>
+				<% else %>
+					<table class="table table-striped">
+					  <thead>
+					    <tr>
+					      <th>ID</th>
+					      <th>Name</th>
+					      <th>Address</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+						<% @emptiedHotels.each do |val| %>
+								<tr>
+									<td><%= val.id %></td>
+									<td><a href="/hotels/<%= val.id %>"><%= val.name %></a></td>
+									<td><%= val.address %></td>
+								</tr>
+						<% end %>
+					</tbody>
+					</table>
+					</div>
+					</div>
+				<% end %>
 				<hr>
 				<div class='row'>
 				<div class="table-responsive">
 				<h3>Users</h3>
+				<% if @users.length == 0 %>
+					<h4>No Users Registered Today</h4>
+				<% else %>
 					<table class="table table-striped">
 					  <thead>
 					    <tr>
@@ -29,7 +58,6 @@
 					    </tr>
 					  </thead>
 					  <tbody>
-						<% @users = User.where(team_id: val.id) %>
 						<% @users.each do |val| %>
 							<tr>
 								<td><%= val.first %></td>
@@ -39,22 +67,25 @@
 						<% end %>
 					</tbody>
 					</table>
+				<% end %>
 					</div>
 					</div>
 				<hr>
 				<div class='row'>
 				<div class="table-responsive">
 				<h3>Guests</h3>
+				<% if @guests.length == 0 %>
+					<h4>No Guests Registered Today</h4>
+				<% else %>
 					<table class="table table-striped">
 					  <thead>
 					    <tr>
 					      <th>First Name</th>
 					      <th>Last Name</th>
-					      <th>Email</th>
+					      <th></th>
 					    </tr>
 					  </thead>
 					  <tbody>
-						<% @guests = Guest.where(team_id: val.id) %>
 						<% @guests.each do |val| %>
 							<tr>
 								<td><%= val.first %></td>
@@ -64,19 +95,22 @@
 						<% end %>
 					</tbody>
 					</table>
+				<% end %>
 					</div>
 					</div>
-					<hr>
-				<% @booked_rooms = Book.where(team_id: val.id ) %>
-				<% if @booked_rooms.length > 0 %>
+				<hr>
 					<div class="row">
 					<div class="table-responsive">
 					<h3>Booked Rooms</h3>
+				<% if @booked_rooms.length == 0 %>
+					<h4>No Rooms Booked Today</h4>
+				<% else %>
 					<table class="table table-striped">
 						<thead>
 							<tr>
 								<th>Hotel</th>
 								<th>Address</th>
+								<th>User</th>
 								<th>Smoking</th>
 								<th>Adults</th>
 								<th>Children</th>
@@ -98,6 +132,7 @@
 							<tr>
 							<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
 							<td><%= val.hotel.address %></td>
+							<td><%= val.user.first %> <%= val.user.last %></td>
 							<td><%= val.smoking %></td>
 							<td><%= val.occupancy_a %></td>
 							<td><%= val.occupancy_c %></td>
@@ -119,6 +154,7 @@
 								<td></td>
 								<% @depositTax = @tax %>
 								<td></td>
+								<td></td>
 								<td>Tax:</td>
 								<td><%= number_to_currency(@tax, :precision => 2) %></td>
 								<% @nightlyTax = @tax %>
@@ -126,6 +162,7 @@
 								<td><%= number_to_currency(@tax, :precision => 2) %></td>
 							</tr>
 							<tr>
+								<td></td>
 								<td></td>
 								<td></td>
 								<td></td>
@@ -141,13 +178,39 @@
 							</tr>
 						</tbody>
 					</table>
-					</div>
-					<% else %>
-					<h3>No Booked Rooms</h3>
 					<% end %>
+					</div>
 					<hr>
-				<% end %>
-		<% end %>
+					<div class='row'>
+					<div class="table-responsive">
+					<h3>Transactions</h3>
+						<% if @transactions.length == 0 %>
+							<h4>No Transactions Made Today</h4>
+						<% else %>
+						<table class="table table-striped">
+						  <thead>
+						    <tr>
+						      <th>Confirmation</th>
+						      <th>Total</th>
+						      <th>Name</th>
+						      <th>Type</th>
+						      <th></th>
+						    </tr>
+						  </thead>
+						  <tbody>
+							<% @transactions.each do |val| %>
+								<tr>
+									<td><%= val.transaction_code %></td>
+									<td class="green"><%= number_to_currency(val.total, :precision => 2) %></td>
+									<td><%= val.user.first %> <%= val.user.last %></td>
+									<td><%= val.transaction_type %></td>
+								</tr>
+							<% end %>
+						</tbody>
+						</table>
+						<% end %>
+						</div>
+						</div>
 	</div>
 	<div class="col-md-2">
 	</div>

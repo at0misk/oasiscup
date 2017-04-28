@@ -1,4 +1,7 @@
-<style type="text/css">
+	<style type="text/css">
+		.paidCol{
+			text-align: right;
+		}
 	    html {
     	position: relative;
 	  min-height: 100%;
@@ -16,23 +19,37 @@
       width: 100%;
       margin-top: 2%;
     }
-</style>
-<div class="row">
+	</style>
+	<div class="row">
+	<div class="col-md-3">
+	</div>
 	<div class="col-md-6">
-	<% if @transaction %>
-		<h2>Transaction <%= @transaction.transaction_code %></h2>
-		<h3>User: <%= @user.first %> <%= @user.last %></h3>
-		<h3>Email: <%= @user.email %></h3>
-		<h3>Date: <%= @transaction.created_at %></h3>
-		<h3>Type: <%= @transaction.transaction_type %></h3>
-		<h3>Amount Paid: <%= number_to_currency(@transaction.total, :precision => 2) %></h3>
+	<h2>You haven't placed any orders</h2>
+	<h4 data-turbolinks="false" class="notFound">If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
+	</div>
+	<div class="cold-md-3">
+	</div>
+	<% else %>
+	<div class="row">
+		<div class="col-md-6">
+			<h2>Order History</h2>
 		</div>
 		<div class="col-md-6">
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-6">
+		<h3>Confirmation Number: <%= @transaction.transaction_code %></h3>
+		<h4>Date: <%= @transaction.created_at.strftime("%Y-%m-%d") %></h4>
+		<h4>Type: <%= @transaction.transaction_type %></h4>
+		<h4>Amount Paid: <%= @transaction.total %></h4>
+		</div>
+		<div class="col-md-6">
+		</div>
+	</div>
+	<% if @transaction.transaction_type != 'Paid Balance' %>
 		<div class='row'>
-			<div class="table-responsive">
-			<h2>Booked Rooms</h2>
+			<div class="table-responsive col-md-12">
 				<table class="table table-striped">
 				  <thead>
 				    <tr>
@@ -44,9 +61,11 @@
 				      <th>Children</th>
 				      <th>Type</th>
 				      <th>Status</th>
-				      <th>Price Per Night</th>
-				      <th>Amount Due</th>
+				      <% if @transaction.transaction_type == "Down Payment" %>
+				      <th>Total Paid</th>
+				      <% else %>
 				      <th>Total</th>
+				      <% end %>
 				    </tr>
 				  </thead>
 				  <tbody>
@@ -68,6 +87,7 @@
 				    <%   end %>
 				    <% @total_balance_due = 0 %>
 				    <% @userTotal = 0 %>
+				    <% @transactionTotal = 0 %>
 				    <% @transaction.tbooks.each do |val| %>
 				    <tr>
 				    <td><%= val.conf_code %></td>
@@ -79,18 +99,16 @@
 				    <td><%= val.room_type %></td>
 				    <% if val.paid_status %>
 				    <td class="green">Paid</td>
+				    <% @transactionTotal += val.price*3 %>
+				    <td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+				    <% @userTotal += (val.price*3) %>
 				    <% else %>
 				    <td class="red">Balance Due</td>
 				      <% @total_balance_due += val.price*2 %>
-				    <% end %>
+				    <% @transactionTotal += val.price*3 %>
 				    <td><%= number_to_currency(val.price, :precision => 2) %></td>
-				    <% if val.paid_status %>
-				    <td class="green">$0.00</td>
-				    <% else %>
-				    <td><%= number_to_currency(val.price*2, :precision => 2) %></td>
-				    <% end %>
-				    <td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 				    <% @userTotal += (val.price*3) %>
+				    <% end %>
 				    </tr>
 				    <% end %>
 				    <tr>
@@ -101,22 +119,10 @@
 				      <td></td>
 				      <td></td>
 				      <td></td>
-				      <% @depositTax = @tax_user %>
 				      <td>Tax:</td>
-				      <td><%= number_to_currency(@tax_user, :precision => 2) %></td>
-				      <% @nightlyTax = @tax_user %>
-				      <% @tax_user = @tax_user * 3 %>
-				      <% if @user.user_balance %>
-				      <td><%= number_to_currency((@user.user_balance-@total_balance_due), :precision => 2) %></td>
-				      <% else %>
-				      <td>$0.00</td>
-				      <% end %>
-				      <td><%= number_to_currency(@tax_user, :precision => 2) %></td>
-				      <td></td>
+				      <td><%= number_to_currency(@transaction.tax, :precision => 2) %></td>
 				    </tr>
 				    <tr>
-				      <td></td>
-				      <td></td>
 				      <td></td>
 				      <td></td>
 				      <td></td>
@@ -125,13 +131,12 @@
 				      <td></td>
 				      <td></td>
 				      <td>Total:</td>
-				      <td class="green"><%= number_to_currency((@userTotal+@tax_user), :precision => 2) %></td>
+				      <td class="green"><%= number_to_currency(@transaction.total, :precision => 2) %></td>
 				    </tr>
 				  </tbody>
 				</table>
 			</div>
 		</div>
-	<% else %>
-		<h2>No transaction found with that confirmation number</h2>
-		<h3>Please <a href="/admins/dash">try again</a></h3>
-	<% end %>
+		<% else %>
+		<% end %>
+		<hr>

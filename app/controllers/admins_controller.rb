@@ -61,4 +61,18 @@ class AdminsController < ApplicationController
 			end
 		end
 	end
+	def endOfDay
+		@users = User.where("created_at >= ?", Time.zone.now.beginning_of_day)
+		@teams = Team.where("created_at >= ?", Time.zone.now.beginning_of_day)
+		@booked_rooms = Book.where("created_at >= ?", Time.zone.now.beginning_of_day)
+		@transactions = Transaction.where("created_at >= ?", Time.zone.now.beginning_of_day)
+		@guests = Guest.where("created_at >= ?", Time.zone.now.beginning_of_day)
+		@hotels = Hotel.all
+		@emptiedHotels = []
+			@hotels.each do |val|
+				if val.rooms.length == 0
+					@emptiedHotels << val
+				end
+			end
+	end
 end
