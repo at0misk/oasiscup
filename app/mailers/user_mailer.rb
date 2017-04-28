@@ -59,13 +59,6 @@ class UserMailer < ApplicationMailer
   def payment_pending(user)
     @user = user
       @team = @user.team
-    if @team.books.length > 0
-      @team.books.each do |val|
-        if val.user_id != session[:user_id]
-          flash[:team_has_rooms] = true
-        end
-      end
-    end
     if @team.exempt
       if @team.books.length < 5
         session[:exemptRoomsNeeded] = true
