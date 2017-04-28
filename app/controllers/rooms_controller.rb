@@ -4,43 +4,31 @@ class RoomsController < ApplicationController
 	before_action :authenticate_user!
 	def new
 	end
-  def verifyAdmin
+  def generate
     if !session[:user_id]
-      redirect_to '/'
     else
       @user = User.find(session[:user_id])
       if !@user.permod
-        redirect_to '/'
+      else
+        x = 1
+        40.times do
+          @room = Room.new
+          @room.number = x
+          @room.hotel_id = params[:id]
+          @room.smoking = "No"
+          @room.room_type = "King"
+          @room.price = 215
+          @room.occupancy_a = 4
+          # @room.occupancy_c = 
+          @room.description = "Sofa Bed"
+          x += 1
+          @room.save
+        end
       end
-    end
-  end
-  def generate
-    verifyAdmin
-    x = 1
-    40.times do
-      @room = Room.new
-      @room.number = x
-      @room.hotel_id = params[:id]
-      @room.smoking = "No"
-      @room.room_type = "King"
-      @room.price = 215
-      @room.occupancy_a = 4
-      # @room.occupancy_c = 
-      @room.description = "Sofa Bed"
-      x += 1
-      @room.save
     end
     redirect_to '/'
   end
 	def create
-    if !session[:user_id]
-      redirect_to '/'
-    else
-      @user = User.find(session[:user_id])
-      if !@user.permod
-        redirect_to '/'
-      end
-    end
 		@room = Room.new(room_params)
 		if @room.save
 			redirect_to :back
