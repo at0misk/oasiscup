@@ -112,4 +112,5 @@ class UserMailer < ApplicationMailer
         end
       mail(to: "oasiscuppalmdesert@gmail.com", subject: "End of Day Report" )
     end
+  end
 end
