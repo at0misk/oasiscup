@@ -170,11 +170,15 @@
 <% y = 0 %>
 <% @hotels.each do |val| %>
 <% if val.shelved %>
-
+  <div class="col-md-3 hotelBox">
+    <a href="/hotels/#"><%= image_tag("soldout") %></a>
+    <h3 class="imageHeaderH3"><%= val.name %></h3>
+    <h4 class="imageHeaderH4"><%= val.name %></h4>
+  </div>
 <% next %>
 <% else %>
 	<div class="col-md-3 hotelBox">
-		<a href="/hotels/<%= val.id %>"><%= image_tag("soldout.png") %></a>
+		<a href="/hotels/<%= val.id %>"><%= image_tag("#{val.image}") %></a>
 		<h3 class="imageHeaderH3"><%= val.name %></h3>
     <h4 class="imageHeaderH4"><%= val.name %></h4>
 	</div>
