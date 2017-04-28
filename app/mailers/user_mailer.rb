@@ -76,6 +76,7 @@ class UserMailer < ApplicationMailer
           @total_user += val.price
         end
     mail(to: "#{@user.email}", subject: 'Oasis Cup Palm Desert Tournament Booking')
+    end
     def admin_payment_pending(user)
     @user = user
       @team = @user.team
@@ -113,5 +114,4 @@ class UserMailer < ApplicationMailer
         end
       mail(to: "oasiscuppalmdesert@gmail.com", subject: "End of Day Report" )
     end
-  end
 end
