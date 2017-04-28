@@ -45,6 +45,9 @@
 		<h3>Confirmation Number: <%= @transaction.transaction_code %></h3>
 		<h4>Date: <%= @transaction.created_at.strftime("%B #{@transaction.created_at.day.ordinalize}, %Y") %></h4>
 		<h4>Type: <%= @transaction.transaction_type %></h4>
+		<% if @transaction.transaction_type == 'Paid Balance' %>
+			<h4>Tax: <%= number_to_currency(@transaction.tax, :precision => 2) %></h4>
+		<% end %>
 		<h4>Amount Paid: <span class="green"><%= number_to_currency(@transaction.total, :precision => 2) %></span></h4>
 		</div>
 		<div class="col-md-6">
