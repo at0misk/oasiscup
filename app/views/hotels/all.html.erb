@@ -253,6 +253,8 @@
         })
 
         <% @hotelsAll.each do |val| %>
+        <% if val.shelved %>
+        <% else %>
         var pos<%= val.id %> = {lat: <%= val.lat %>, lng: <%= val.long %>};
 
         var marker<%= val.id %> = new google.maps.Marker({
@@ -301,7 +303,7 @@
         map.controls[google.maps.ControlPosition.LEFT_TOP].push(legend);
 
       }
-
+      <% end %>
     // });
 	$(document).on('turbolinks:load', function() {
 		// initMap();
