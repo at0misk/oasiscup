@@ -63,4 +63,8 @@ Rails.application.routes.draw do
   post '/cart/paid_full' => 'carts#paid_full'
   post '/cart/first_night' => 'carts#first_night'
   post 'cart/paid_balance' => 'carts#paid_balance'
+  post '/admins/searchTeamName' => 'admins#searchTeamName'
+  post '/admins/searchTeamConf' => 'admins#searchTeamConf'
+  get '/admins/searchTeamsNameView' => 'admins#searchTeamsNameView'
+  get '/admins/searchTeamsConfView' => 'admins#searchTeamsConfView'
 end

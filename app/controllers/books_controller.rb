@@ -37,6 +37,13 @@ class BooksController < ApplicationController
   		end
   		@user = User.find(session[:user_id])
   		@team = @user.team
+ 		if @team.books.length > 0
+			@team.books.each do |val|
+				if val.user_id != session[:user_id]
+					flash[:team_has_rooms] = true
+				end
+			end
+		end
 		if @team.exempt
 			if @team.books.length < 5
 				session[:exemptRoomsNeeded] = true

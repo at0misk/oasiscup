@@ -33,6 +33,24 @@ class AdminsController < ApplicationController
 			redirect_to :back
 		end
 	end
+	def searchTeamName
+		verifyAdmin
+		@@params = params['name']
+		redirect_to '/admins/searchTeamsNameView'
+	end
+	def searchTeamsNameView
+		verifyAdmin
+		@teams = Team.where('name LIKE :search', search: "%#{@@params}%")
+	end
+	def searchTeamConf
+		verifyAdmin
+		@@params = params['conf']
+		redirect_to '/admins/searchTeamsConfView'
+	end
+	def searchTeamsConfView
+		verifyAdmin
+		@teams = Team.where('conf_num LIKE :search', search: "%#{@@params}%")
+	end
 	def verifyAdmin
 		if !session[:user_id]
 			redirect_to '/'

@@ -37,6 +37,7 @@
 			<th>Adults</th>
 			<th>Children</th>
 			<th>Type</th>
+			<th>Status</th>
 			<th>Price Per Night</th>
 			<th>Total</th>
 			<th></th>
@@ -51,6 +52,12 @@
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
 		<td><%= val.room_type %></td>
+		<% if val.paid_status %>
+		<td class="green">Paid</td>
+		<% @x += 1 %>
+		<% else %>
+		<td class="red">Payment Pending</td>
+		<% end %>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
 		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">

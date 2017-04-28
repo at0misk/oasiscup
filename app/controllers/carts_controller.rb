@@ -49,6 +49,15 @@ class CartsController < ApplicationController
 		@user = User.find(session[:user_id])
 		@booked_rooms = @user.books
 		@team = @user.team
+		if @team.books.length > 0
+			@team.books.each do |val|
+				if val.user_id != session[:user_id]
+					flash[:team_has_rooms] = true
+				else
+					flash[:team_has_rooms] = false
+				end
+			end
+		end
 		if @team.exempt
 			if @team.books.length < 5
 				session[:exemptRoomsNeeded] = true

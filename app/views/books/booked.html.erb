@@ -57,6 +57,9 @@
 <% flash[:charged] = nil %>
 <% end %>
 <h3>My Booked Rooms</h3>
+<% if flash[:team_has_rooms] %>
+	<h4 class="cartHeader">Your team has booked rooms!  View your teams booked <a href="/booked/teams">rooms</a></h4>
+<% end %>
 <% if @user.user_balance %>
 <h4>You have a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
 <% end %>
