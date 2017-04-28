@@ -151,7 +151,6 @@ when your reservations are complete. Please provide the following information:</
 			<th>Status</th>
 			<th>Price Per Night</th>
 			<th>Total</th>
-			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -177,12 +176,6 @@ when your reservations are complete. Please provide the following information:</
 		<% end %>
 		<td><%= number_to_currency(val.price, :precision => 2) %></td>
 		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
-		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
-				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-				<input name="deduct" value="<%= (val.price*3) + ((val.price*3) * val.hotel.tax) %>" type="hidden">
-				<button type="submit" class="btn btn-danger">Cancel</button>
-			</form>
-		</td>
 		</tr>
 		<% end %>
 		<tr>
