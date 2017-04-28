@@ -170,6 +170,7 @@
 <% y = 0 %>
 <% @hotels.each do |val| %>
 <% if val.shelved %>
+<% y += 1 %>
 <% next %>
 <% else %>
 	<div class="col-md-3 hotelBox">
