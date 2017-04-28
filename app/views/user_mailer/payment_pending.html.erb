@@ -1,0 +1,277 @@
+<style type="text/css">
+	.contactHeaderRow{
+		text-align: center;
+	}
+	.textDiv{
+		/*padding: 2%;*/
+	}
+	.textDiv{
+		/*text-align: center;*/
+	}
+	.confP{
+		margin-top: 1%;
+	}
+	.smallH{
+		text-align: center;
+		margin-top: 3%;
+		margin-bottom: 3%;
+	}
+	.ty{
+		margin-top: 3%;
+	}
+	.bottom{
+		/*margin-top: 3%;*/
+		margin-bottom: 5%;
+	}
+	.table>thead>tr>th {
+		border-bottom: none; 
+	}
+	#stripeDiv{
+    	/*height: 165px;*/
+		/*float: right;*/
+		text-align: center;
+	}
+	.red{
+		color: red;
+	}
+	.notFound{
+		text-align: center;
+	}
+	    html {
+    	position: relative;
+	  min-height: 100%;
+	}
+	body{
+		height: 100%;
+		padding-bottom: 38px;
+	}
+    footer{
+      background-color: #0275d8;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      width: 100%;
+      margin-top: 2%;
+    }
+	#stripeDiv input{
+		margin: 0px auto;
+	}
+	.stripeRow{
+		margin-bottom: 5%;
+	}
+	.confRow{
+		text-align: center;
+		margin-bottom: 3%;
+	}
+	.green{
+		color: green;
+	}
+</style>
+<div class="row contactHeaderRow">
+<h3>Tournament Info</h3>
+</div>
+<div class="row">
+<div class="col-md-2">
+</div>
+<div class="col-md-8 textDiv">
+<p>Welcome to the 2017 Oasis Cup Tournament!  This wonderful tournament will be played in Palm Desert California where the weather is great and the fields are even better!  This event is a <strong>"Stay & Play"</strong> Tournament.  All teams are required to book through Archer Travel Service, Inc. Your full cooperation is expected.</p>   
+<p><strong>Final</strong> acceptance into the event will be granted after your hotel reservations are confirmed.  This is in agreement & partnership with Crescenta Valley SC and the Director of the Oasis Cup respectively.</p>
+<h3 class="smallH">Team Guidelines</h3>
+<ul>
+	<li><% if @team.exempt %>5<% else %>8<% end %> rooms per team with a 3 night minimum stay required</li>
+	<li>1st night room & tax will be charged at time of reservation</li>
+    <li>First Night Down Payments on the rooms will be due by July 1, 2017</li>
+	<li>Final Payments on the rooms will be due by December 1, 2017</li>
+	<li>All guests that are being booked for must be on your <a href="/guests/user">guest list</a>.</li>
+	<li>Reservations may be made here or by calling 800 272-4377 (800 ARCHERS)</li>
+</ul>
+<h3 class="smallH">Finalizing The Reservations</h3>
+<ul>
+	<li>We recommend that the <strong>Team Manager</strong> finalize your reservation first with this access code, especially if you are paying for multiple rooms</li>
+	<li>It is important that your families receive the assigned <strong>access code</strong>, immediately to finalize their individual reservations</li>
+	<li><strong>Team Managers</strong> are required to work directly with their families to ensure a complete and accurate rooming list</li>
+	<li>Any rooms allocated and <strong>NOT CONFIRMED</strong> will be given to other teams on the wait list</li>
+	<li>Your families will have <strong>10 days</strong> to finalize their individual reservations</li>
+</ul>
+<p>Send an email to our Tournament Director at <a href="mailto:oasiscup@yahoo.com?Subject=Oasis%20Cup" target="_top">oasiscup@yahoo.com</a> 
+when your reservations are complete. Please provide the following information:</p>
+<ul>
+	<li>Team Name</li>
+	<li>Age Group</li>
+	<li>Administrative contact person and e-mail address</li>
+	<li>Name of hotel where you will be staying</li>
+	<li>Number of rooms you have booked</li>
+</ul>
+<h3 class="smallH">Contact Information</h3>
+<ul>
+<li><strong>PLEASE DO NOT CALL THE HOTELS DIRECTLY</strong></li>
+<li>All hotel related questions please email <a href="mailto:JoseL@archertravel.com?Subject=Oasis%20Cup" target="_top">JoseL@archertravel.com</a></li>
+<li>Tournament related questions please contact <a href="mailto:SDArcher@earthlink.net?Subject=Oasis%20Cup" target="_top">SDArcher@earthlink.net</a></li>
+<li>Hours of operation are Monday-Friday 9am-5pm PST</li>
+</ul>
+<p class="ty">Thank you,</p>
+<p class="bottom">Archer Travel and the Oasis Cup</p>
+<% if @team.mail_confirmation %>
+<!-- <a href="/conf"><button class="btn btn-primary">Send Another Confirmation Email</button></a> -->
+<% end %>
+<% if flash[:mailSent] %>
+<p class="confP">Mail Sent</p>
+<% end %>
+</div>
+<div class="col-md-2">
+</div>
+</div>
+<div class="row">
+<div class="col-md-1">
+</div>
+<div class="col-md-10">
+<% if @user_rooms.empty? %>
+<h3 class="notFound">You haven't booked any rooms.</h3>
+<h4 data-turbolinks="false" class="notFound">If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
+<% else %>
+<% if flash[:charged] %>
+<h3>Thank you, a confirmation email has been sent.  An Archer Travel Agent will contact you by the next business day.</h3>
+<% flash[:charged] = nil %>
+<% end %>
+<h3>My Booked Rooms</h3>
+<% if flash[:team_has_rooms] %>
+	<h4 class="cartHeader">Your team has booked rooms!  View your teams booked <a href="/booked/teams">rooms</a></h4>
+<% end %>
+<% @checkTax = 0.05 %>
+<% @totalForCheck = (@total_user*3) %>
+<% @taxForTotalCheck = (@tax_user*3) %>
+<% @discount = (@totalForCheck + @taxForTotalCheck) * @checkTax %>
+<% if @user.user_balance %>
+<h4>You have a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
+<% if @user.user_balance == (@totalForCheck + @taxForTotalCheck) %>
+<h4>If you pay by check, you can save <span class="green"><%= number_to_currency(@discount, :precision => 2) %>!</span></h4>
+<% end %>
+<% end %>
+<% if session[:roomsNeeded] %>
+<h3>Your team must book at least 8 rooms to participate in the tournament</h3>
+<% elsif session[:exemptRoomsNeeded] %>
+<h3>Your team must book at least 5 rooms to participate in the tournmaent</h3>
+<% end %>
+<div class="table-responsive">
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>Confirmation</th>
+			<th>Hotel</th>
+			<th>Address</th>
+			<th>Smoking</th>
+			<th>Adults</th>
+			<th>Children</th>
+			<th>Type</th>
+			<th>Status</th>
+			<th>Price Per Night</th>
+			<th>Total</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @total_balance_due = 0 %>
+		<% @x = 0 %>
+		<% @y = 0 %>
+		<% @user_rooms.each do |val| %>
+		<tr>
+		<td><%= val.conf_code %></td>
+		<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
+		<td><%= val.hotel.address %></td>
+		<td><%= val.smoking %></td>
+		<td><%= val.occupancy_a %></td>
+		<td><%= val.occupancy_c %></td>
+		<td><%= val.room_type %></td>
+		<% if val.paid_status %>
+		<td class="green">Paid</td>
+		<% @x += 1 %>
+		<% else %>
+		<td class="red">Payment Pending</td>
+		<% @y += 1 %>
+			<% @total_balance_due += val.price*2 %>
+		<% end %>
+		<td><%= number_to_currency(val.price, :precision => 2) %></td>
+		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+		<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
+				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				<input name="deduct" value="<%= (val.price*3) + ((val.price*3) * val.hotel.tax) %>" type="hidden">
+				<button type="submit" class="btn btn-danger">Cancel</button>
+			</form>
+		</td>
+		</tr>
+		<% end %>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<% @depositTax = @tax_user %>
+			<td></td>
+			<td>Tax:</td>
+			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+			<% @nightlyTax = @tax_user %>
+			<% @tax_user = @tax_user * 3 %>
+			<td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>Total:</td>
+			<% @paid = @total_user+@nightlyTax %>
+			<td class="green"><%= number_to_currency(@total_user+@nightlyTax, :precision => 2) %></td>
+			<% @depositTotal = (@total_user + @depositTax).round(2) %>
+			<% @total_user = @total_user * 3 %>
+			<% @total_user += @tax_user %>
+			<td class="green"><%= number_to_currency(@total_user, :precision => 2) %></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+</div>
+</div>
+<div class="col-md-1">
+</div>
+</div>
+<% if @user.user_balance %>
+<% end %>
+<!-- <div class="row confRow"> -->
+<%# if @user.team.mail_confirmation %>
+<!-- <a href="/conf"><button class="btn btn-primary">Send Another Confirmation Email</button></a> -->
+<!-- </div> -->
+<%# end %>
+<% end %>
+  <h2>Your Guests</h2>
+  <div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="padding: 3%">First Name</th>
+      <th style="padding: 3%">Last Name</th>
+      <th style="padding: 3%"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="padding: 3%"><%= @user.first %></td>
+      <td style="padding: 3%"><%= @user.last %></td>
+      <td style="padding: 3%">Adult</td>
+    </tr>
+    <% @user.guests.each do |val| %>
+    <tr>
+    <td style="padding: 3%"><%= val.first %></td>
+    <td style="padding: 3%"><%= val.last %></td>
+    <td style="padding: 3%"><%= val.guest_type %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

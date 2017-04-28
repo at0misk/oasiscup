@@ -56,4 +56,45 @@ class UserMailer < ApplicationMailer
     @random_password = random_password
     mail(to: "#{@user.email}", subject: 'Password Recovery')
   end
+  def payment_pending(user)
+    @user = user
+      @team = @user.team
+    if @team.books.length > 0
+      @team.books.each do |val|
+        if val.user_id != session[:user_id]
+          flash[:team_has_rooms] = true
+        end
+      end
+    end
+    if @team.exempt
+      if @team.books.length < 5
+        session[:exemptRoomsNeeded] = true
+      elsif @team.books.length >= 5
+        session[:exemptRoomsNeeded] = false
+      end
+    else
+      if @team.books.length < 8
+        session[:roomsNeeded] = true
+      elsif @team.books.length >= 10
+        session[:roomsNeeded] = false
+      end
+    end
+      @booked_rooms = Book.where(team_id: @team.id)
+      @user_rooms = Book.where(user_id: @user.id)
+      @total = 0
+      @tax = 0
+        @booked_rooms.each do |val|
+        @roomTax = val.hotel.tax
+      @tax += @roomTax * val.price
+          @total += val.price
+        end
+      @total_user = 0
+      @tax_user = 0
+        @user_rooms.each do |val|
+          @userRoomTax = val.hotel.tax
+          @tax_user += @userRoomTax * val.price
+          @total_user += val.price
+        end
+    mail(to: "#{@user.email}", subject: 'Oasis Cup Palm Desert Tournament Booking')
+  end
 end
