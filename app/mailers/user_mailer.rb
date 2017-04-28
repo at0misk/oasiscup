@@ -97,7 +97,7 @@ class UserMailer < ApplicationMailer
         end
     mail(to: "oasiscuppalmdesert@gmail.com", subject: "Booking Form - #{@user.first} #{@user.last}" )
     end
-    def end_of_day_email
+    def end_of_day_email()
       @users = User.where("created_at >= ?", Time.zone.now.beginning_of_day)
       @teams = Team.where("created_at >= ?", Time.zone.now.beginning_of_day)
       @booked_rooms = Book.where("created_at >= ?", Time.zone.now.beginning_of_day)

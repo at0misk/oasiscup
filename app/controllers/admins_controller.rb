@@ -63,7 +63,7 @@ class AdminsController < ApplicationController
 	end
 	def mailEndOfDay
 		verifyAdmin
-		UserMailer.end_of_day_email.deliver_now
+		UserMailer.end_of_day_email().deliver_now
 		redirect_to :back
 	end
 	def endOfDay
