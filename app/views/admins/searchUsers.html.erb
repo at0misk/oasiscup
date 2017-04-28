@@ -40,7 +40,7 @@
 			<h2>User#<%= val.id %></h2>
 			<h3>Name: <%= val.first %> <%= val.last %></h3>
 			<h3>Email: <%= val.email %></h3>
-			<h3>Joined: <%= val.created_at %></h3>
+			<h3>Joined: <%= val.created_at.strftime("%B #{val.created_at.day.ordinalize}, %Y") %></h3>
 			<% if val.user_balance %>
 			<h3>Balance Due: <span class="green"><%= number_to_currency(val.user_balance, :precision => 2) %></span></h3>
 			<% end %>
