@@ -95,7 +95,21 @@ class UserMailer < ApplicationMailer
           @tax_user += @userRoomTax * val.price
           @total_user += val.price
         end
-    mail(to: "ktp925@gmail.com", subject: "Booking Form - #{@user.first} #{@user.last}" )
+    mail(to: "oasiscuppalmdesert@gmail.com", subject: "Booking Form - #{@user.first} #{@user.last}" )
     end
-  end
+    def end_of_day_email
+      @users = User.where("created_at >= ?", Time.zone.now.beginning_of_day)
+      @teams = Team.where("created_at >= ?", Time.zone.now.beginning_of_day)
+      @booked_rooms = Book.where("created_at >= ?", Time.zone.now.beginning_of_day)
+      @transactions = Transaction.where("created_at >= ?", Time.zone.now.beginning_of_day)
+      @guests = Guest.where("created_at >= ?", Time.zone.now.beginning_of_day)
+      @hotels = Hotel.all
+      @emptiedHotels = []
+        @hotels.each do |val|
+          if val.rooms.length == 0 && !val.shelved
+            @emptiedHotels << val
+          end
+        end
+      mail(to: "oasiscuppalmdesert@gmail.com", subject: "End of Day Report" )
+    end
 end

@@ -61,7 +61,12 @@ class AdminsController < ApplicationController
 			end
 		end
 	end
-	def endOfDay
+	def mailEndOfDay
+		verifyAdmin
+		UserMailer.end_of_day_email.deliver_now
+		redirect_to :back
+	end
+	def mailEndOfDay
 		verifyAdmin
 		@users = User.where("created_at >= ?", Time.zone.now.beginning_of_day)
 		@teams = Team.where("created_at >= ?", Time.zone.now.beginning_of_day)

@@ -68,4 +68,5 @@ Rails.application.routes.draw do
   get '/admins/searchTeamsNameView' => 'admins#searchTeamsNameView'
   get '/admins/searchTeamsConfView' => 'admins#searchTeamsConfView'
   get '/admins/endOfDay' => 'admins#endOfDay'
+  get '/admins/mailEndOfDay' => 'admins#mailEndOfDay'
 end
