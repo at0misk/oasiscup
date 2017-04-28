@@ -16,7 +16,7 @@ class RoomsController < ApplicationController
           @room.number = x
           @room.hotel_id = params[:id]
           @room.smoking = "No"
-          @room.room_type = "King"
+          @room.room_type = "Double Queens"
           @room.price = 249.95
           @room.occupancy_a = 4
           # @room.occupancy_c = 
