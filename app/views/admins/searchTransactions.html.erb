@@ -19,6 +19,9 @@
       width: 100%;
       margin-top: 2%;
     }
+    .green{
+    	color: green;
+    }
 	</style>
 	<div class="row">
 	<div class="col-md-3">
@@ -42,7 +45,7 @@
 		<h3>Confirmation Number: <%= @transaction.transaction_code %></h3>
 		<h4>Date: <%= @transaction.created_at.strftime("%Y-%m-%d") %></h4>
 		<h4>Type: <%= @transaction.transaction_type %></h4>
-		<h4>Amount Paid: <%= @transaction.total %></h4>
+		<h4>Amount Paid: <span class="green"><%= number_to_currency(@transaction.total, :precision => 2) %></span></h4>
 		</div>
 		<div class="col-md-6">
 		</div>

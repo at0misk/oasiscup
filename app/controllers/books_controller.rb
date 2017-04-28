@@ -23,6 +23,15 @@ class BooksController < ApplicationController
 		@room.occupancy_c = @book.occupancy_c
 		@room.save
 		Book.destroy(params[:id])
+		@user = User.find(session[:user_id])
+		if @user.user_balance
+			if @user.user_balance == params['deduct'].to_f
+				@user.update_attribute(:user_balance, nil)
+			else
+			@currentBalance = @user.user_balance
+			@user.update_attribute(:user_balance, (@currentBalance - params['deduct'].to_f))
+			end
+		end
 		redirect_to :back
 	end
   	def booked_room_params
