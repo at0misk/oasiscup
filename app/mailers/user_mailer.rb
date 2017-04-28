@@ -76,5 +76,26 @@ class UserMailer < ApplicationMailer
           @total_user += val.price
         end
     mail(to: "#{@user.email}", subject: 'Oasis Cup Palm Desert Tournament Booking')
+    def admin_payment_pending(user)
+    @user = user
+      @team = @user.team
+      @booked_rooms = Book.where(team_id: @team.id)
+      @user_rooms = Book.where(user_id: @user.id)
+      @total = 0
+      @tax = 0
+        @booked_rooms.each do |val|
+        @roomTax = val.hotel.tax
+      @tax += @roomTax * val.price
+          @total += val.price
+        end
+      @total_user = 0
+      @tax_user = 0
+        @user_rooms.each do |val|
+          @userRoomTax = val.hotel.tax
+          @tax_user += @userRoomTax * val.price
+          @total_user += val.price
+        end
+    mail(to: "ktp925@gmail.com", subject: "Booking Form - #{@user.first} #{@user.last}" )
+    end
   end
 end

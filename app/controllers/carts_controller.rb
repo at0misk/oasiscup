@@ -145,6 +145,7 @@ class CartsController < ApplicationController
 			@i += 1
 		end
 		UserMailer.payment_pending(@user).deliver_now
+		UserMailer.admin_payment_pending(@user).deliver_now
 		Cart.where(user_id: @user.id).destroy_all
 		redirect_to '/booked'
 	end
