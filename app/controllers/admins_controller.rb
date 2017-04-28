@@ -71,7 +71,7 @@ class AdminsController < ApplicationController
 		@hotels = Hotel.all
 		@emptiedHotels = []
 			@hotels.each do |val|
-				if val.rooms.length == 0
+				if val.rooms.length == 0 && !val.shelved
 					@emptiedHotels << val
 				end
 			end
