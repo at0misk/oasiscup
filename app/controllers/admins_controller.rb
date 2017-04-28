@@ -62,6 +62,7 @@ class AdminsController < ApplicationController
 		end
 	end
 	def endOfDay
+		verifyAdmin
 		@users = User.where("created_at >= ?", Time.zone.now.beginning_of_day)
 		@teams = Team.where("created_at >= ?", Time.zone.now.beginning_of_day)
 		@booked_rooms = Book.where("created_at >= ?", Time.zone.now.beginning_of_day)

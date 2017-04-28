@@ -4,7 +4,7 @@ class RoomsController < ApplicationController
 	before_action :authenticate_user!
 	def new
 	end
-  def generate
+  def verifyAdmin
     if !session[:user_id]
       redirect_to '/'
     else
@@ -13,6 +13,9 @@ class RoomsController < ApplicationController
         redirect_to '/'
       end
     end
+  end
+  def generate
+    verifyAdmin
     x = 1
     40.times do
       @room = Room.new
