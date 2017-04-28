@@ -115,9 +115,6 @@ when your reservations are complete. Please provide the following information:</
 <% if @team.mail_confirmation %>
 <!-- <a href="/conf"><button class="btn btn-primary">Send Another Confirmation Email</button></a> -->
 <% end %>
-<% if flash[:mailSent] %>
-<p class="confP">Mail Sent</p>
-<% end %>
 </div>
 <div class="col-md-2">
 </div>
@@ -130,14 +127,6 @@ when your reservations are complete. Please provide the following information:</
 <h3 class="notFound">You haven't booked any rooms.</h3>
 <h4 data-turbolinks="false" class="notFound">If you need to checkout, go to your <a href="cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
 <% else %>
-<% if flash[:charged] %>
-<h3>Thank you, a confirmation email has been sent.  An Archer Travel Agent will contact you by the next business day.</h3>
-<% flash[:charged] = nil %>
-<% end %>
-<h3>My Booked Rooms</h3>
-<% if flash[:team_has_rooms] %>
-	<h4 class="cartHeader">Your team has booked rooms!  View your teams booked <a href="/booked/teams">rooms</a></h4>
-<% end %>
 <% @checkTax = 0.05 %>
 <% @totalForCheck = (@total_user*3) %>
 <% @taxForTotalCheck = (@tax_user*3) %>
@@ -147,11 +136,6 @@ when your reservations are complete. Please provide the following information:</
 <% if @user.user_balance == (@totalForCheck + @taxForTotalCheck) %>
 <h4>If you pay by check, you can save <span class="green"><%= number_to_currency(@discount, :precision => 2) %>!</span></h4>
 <% end %>
-<% end %>
-<% if session[:roomsNeeded] %>
-<h3>Your team must book at least 8 rooms to participate in the tournament</h3>
-<% elsif session[:exemptRoomsNeeded] %>
-<h3>Your team must book at least 5 rooms to participate in the tournmaent</h3>
 <% end %>
 <div class="table-responsive">
 <table class="table table-striped">
