@@ -5,6 +5,14 @@ class HotelsController < ApplicationController
 	def new
 	end
 	def create
+    if !session[:user_id]
+      redirect_to '/'
+    else
+      @user = User.find(session[:user_id])
+      if !@user.permod
+        redirect_to '/'
+      end
+    end
 		@hotel = Hotel.new(hotel_params)
 		if @hotel.save
 			redirect_to "/hotels/#{@hotel.id}"
@@ -44,14 +52,30 @@ class HotelsController < ApplicationController
       @roomSwitch = @rooms
 	end
   def edit
+    if !session[:user_id]
+      redirect_to '/'
+    else
+      @user = User.find(session[:user_id])
+      if !@user.permod
+        redirect_to '/'
+      end
+    end
     @hotel = Hotel.find(params[:id])
   end
   def update
+    if !session[:user_id]
+      redirect_to '/'
+    else
+      @user = User.find(session[:user_id])
+      if !@user.permod
+        redirect_to '/'
+      end
+    end
     @hotel = Hotel.find(params[:id])
     @hotel.update(hotel_params)
   end
   	def hotel_params
-  	params.require(:hotel).permit(:name, :address, :lat, :long, :phone, :city, :state, :zip, :image, :description, :website, :tax, :checkin, :checkout, :resortFee, :conf_prefix) 
+  	params.require(:hotel).permit(:name, :address, :lat, :long, :phone, :city, :state, :zip, :image, :description, :website, :tax, :checkin, :checkout, :resortFee, :conf_prefix, :shelved) 
   	end
   	def all
       if !session[:fromCount]

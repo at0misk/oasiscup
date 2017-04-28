@@ -5,6 +5,14 @@ class RoomsController < ApplicationController
 	def new
 	end
   def generate
+    if !session[:user_id]
+      redirect_to '/'
+    else
+      @user = User.find(session[:user_id])
+      if !@user.permod
+        redirect_to '/'
+      end
+    end
     x = 1
     40.times do
       @room = Room.new
@@ -22,6 +30,14 @@ class RoomsController < ApplicationController
     redirect_to '/'
   end
 	def create
+    if !session[:user_id]
+      redirect_to '/'
+    else
+      @user = User.find(session[:user_id])
+      if !@user.permod
+        redirect_to '/'
+      end
+    end
 		@room = Room.new(room_params)
 		if @room.save
 			redirect_to :back
