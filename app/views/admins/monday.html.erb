@@ -1,94 +1,226 @@
+<style>
+	.contentDiv{
+		text-align: center;
+	}
+	.red{
+		color: red;
+	}
+	.green{
+		color: green;
+	}
+</style>
 <div class="row">
-<div class="table-responsive">
-<h3>Booked Rooms</h3>
-<% if @booked_rooms.length == 0 %>
-<h4>No Rooms Booked Over The Weekend</h4>
-<% else %>
-<table class="table table-striped">
-	<thead>
-		<tr>
-			<th>User</th>
-			<th>Hotel</th>
-			<th>Address</th>
-			<th>Smoking</th>
-			<th>Adults</th>
-			<th>Children</th>
-			<th>Type</th>
-			<th>Status</th>
-			<th>Price Per Night</th>
-			<th>Total</th>
-			<th></th>
-		</tr>
-	</thead>
-		<tbody>
-  		<% @total = 0 %>
-  		<% @tax = 0 %>
-  			<% @booked_rooms.each do |val| %>
-  			<% @roomTax = val.hotel.tax %>
-			<% @tax += @roomTax * val.price %>
-  				<% @total += val.price %>
-  			<% end %>
-		<% @booked_rooms.each do |val| %>
-		<tr>
-		<td><%= val.user.first %> <%= val.user.last %></td>
-		<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
-		<td><%= val.hotel.address %></td>
-		<td><%= val.smoking %></td>
-		<td><%= val.occupancy_a %></td>
-		<td><%= val.occupancy_c %></td>
-		<td><%= val.room_type %></td>
-		<% if val.paid_status %>
-		<td class="green">Paid</td>
-		<% else %>
-		<td class="red">Payment Pending</td>
-		<% end %>
-		<td><%= number_to_currency(val.price, :precision => 2) %></td>
-		<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
-		<% if val.paid_status %>
-			<td></td>
-		<% else %>
-			<td>
-				<form class="form-horizontal" method="post" action="/admins/searchUsers" id="editFormTeam">
-					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-				        <input name="user" type="hidden" class="form-control" id="user[first]" value="<%= val.user.email %>"/>
-				        <button type="submit" class="btn btn-primary">Process</button>
-				</form>
-			</td>
-		<% end %>
-		</tr>
-		<% end %>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<% @depositTax = @tax %>
-			<td></td>
-			<td></td>
-			<td>Tax:</td>
-			<td><%= number_to_currency(@tax, :precision => 2) %></td>
-			<% @nightlyTax = @tax %>
-			<% @tax = @tax * 3 %>
-			<td><%= number_to_currency(@tax, :precision => 2) %></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td>Total:</td>
-			<td class="green"><%= number_to_currency(@total+@nightlyTax, :precision => 2) %></td>
-			<% @depositTotal = (@total + @depositTax).round(2) %>
-			<% @total = @total * 3 %>
-			<% @total += @tax %>
-			<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
-		</tr>
-	</tbody>
-</table>
-<% end %>
-</div>
+	<div class="col-md-12 contentDiv">
+		<h3>Weekend Report</h3>
+		<h4>Records Created Today</h4>
+				<div class='row'>
+				<div class="table-responsive">
+				<h3>Hotels that Ran Out Of Rooms:</h3>
+				<% if @emptiedHotels.length == 0 %>
+					<h4>No Hotels Ran Out Of Rooms</h4>
+				<% else %>
+					<table class="table table-striped">
+					  <thead>
+					    <tr>
+					      <th>ID</th>
+					      <th>Name</th>
+					      <th>Address</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+						<% @emptiedHotels.each do |val| %>
+								<tr>
+									<td><%= val.id %></td>
+									<td><a href="/hotels/<%= val.id %>"><%= val.name %></a></td>
+									<td><%= val.address %></td>
+								</tr>
+						<% end %>
+					</tbody>
+					</table>
+					</div>
+					</div>
+				<% end %>
+				<hr>
+				<div class='row'>
+				<div class="table-responsive">
+				<h3>Users</h3>
+				<% if @users.length == 0 %>
+					<h4>No Users Registered Today</h4>
+				<% else %>
+					<table class="table table-striped">
+					  <thead>
+					    <tr>
+					      <th>First Name</th>
+					      <th>Last Name</th>
+					      <th>Email</th>
+					    </tr>
+					  </thead>
+					  <tbody>
+						<% @users.each do |val| %>
+							<tr>
+								<td><%= val.first %></td>
+								<td><%= val.last %></td>
+								<td><%= val.email %></td>
+							</tr>
+						<% end %>
+					</tbody>
+					</table>
+				<% end %>
+					</div>
+					</div>
+				<hr>
+				<div class='row'>
+				<div class="table-responsive">
+				<h3>Guests</h3>
+				<% if @guests.length == 0 %>
+					<h4>No Guests Registered Today</h4>
+				<% else %>
+					<table class="table table-striped">
+					  <thead>
+					    <tr>
+					      <th>First Name</th>
+					      <th>Last Name</th>
+					      <th></th>
+					    </tr>
+					  </thead>
+					  <tbody>
+						<% @guests.each do |val| %>
+							<tr>
+								<td><%= val.first %></td>
+								<td><%= val.last %></td>
+								<td><%= val.guest_type %></td>
+							</tr>
+						<% end %>
+					</tbody>
+					</table>
+				<% end %>
+					</div>
+					</div>
+				<hr>
+					<div class="row">
+					<div class="table-responsive">
+					<h3>Booked Rooms</h3>
+				<% if @booked_rooms.length == 0 %>
+					<h4>No Rooms Booked Today</h4>
+				<% else %>
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>User</th>
+								<th>Hotel</th>
+								<th>Address</th>
+								<th>Smoking</th>
+								<th>Adults</th>
+								<th>Children</th>
+								<th>Type</th>
+								<th>Status</th>
+								<th>Price Per Night</th>
+								<th>Total</th>
+								<th></th>
+							</tr>
+						</thead>
+							<tbody>
+					  		<% @total = 0 %>
+					  		<% @tax = 0 %>
+					  			<% @booked_rooms.each do |val| %>
+					  			<% @roomTax = val.hotel.tax %>
+								<% @tax += @roomTax * val.price %>
+					  				<% @total += val.price %>
+					  			<% end %>
+							<% @booked_rooms.each do |val| %>
+							<tr>
+							<td><%= val.user.first %> <%= val.user.last %></td>
+							<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
+							<td><%= val.hotel.address %></td>
+							<td><%= val.smoking %></td>
+							<td><%= val.occupancy_a %></td>
+							<td><%= val.occupancy_c %></td>
+							<td><%= val.room_type %></td>
+							<% if val.paid_status %>
+							<td class="green">Paid</td>
+							<% else %>
+							<td class="red">Payment Pending</td>
+							<% end %>
+							<td><%= number_to_currency(val.price, :precision => 2) %></td>
+							<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+							<% if val.paid_status %>
+								<td></td>
+							<% else %>
+								<td>
+									<form class="form-horizontal" method="post" action="/admins/searchUsers" id="editFormTeam">
+										<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+									        <input name="user" type="hidden" class="form-control" id="user[first]" value="<%= val.user.email %>"/>
+									        <button type="submit" class="btn btn-primary">Process</button>
+									</form>
+								</td>
+							<% end %>
+							</tr>
+							<% end %>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<% @depositTax = @tax %>
+								<td></td>
+								<td></td>
+								<td>Tax:</td>
+								<td><%= number_to_currency(@tax, :precision => 2) %></td>
+								<% @nightlyTax = @tax %>
+								<% @tax = @tax * 3 %>
+								<td><%= number_to_currency(@tax, :precision => 2) %></td>
+							</tr>
+							<tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td>Total:</td>
+								<td class="green"><%= number_to_currency(@total+@nightlyTax, :precision => 2) %></td>
+								<% @depositTotal = (@total + @depositTax).round(2) %>
+								<% @total = @total * 3 %>
+								<% @total += @tax %>
+								<td class="green"><%= number_to_currency(@total, :precision => 2) %></td>
+							</tr>
+						</tbody>
+					</table>
+					<% end %>
+					</div>
+					</div>
+					<hr>
+					<div class='row'>
+					<div class="table-responsive">
+					<h3>Transactions</h3>
+						<% if @transactions.length == 0 %>
+							<h4>No Transactions Made Today</h4>
+						<% else %>
+						<table class="table table-striped">
+						  <thead>
+						    <tr>
+						      <th>Confirmation</th>
+						      <th>Total</th>
+						      <th>Name</th>
+						      <th>Type</th>
+						      <th></th>
+						    </tr>
+						  </thead>
+						  <tbody>
+							<% @transactions.each do |val| %>
+								<tr>
+									<td><%= val.transaction_code %></td>
+									<td class="green"><%= number_to_currency(val.total, :precision => 2) %></td>
+									<td><%= val.user.first %> <%= val.user.last %></td>
+									<td><%= val.transaction_type %></td>
+								</tr>
+							<% end %>
+						</tbody>
+						</table>
+						<% end %>
+						</div>
+						</div>
+	</div>
 </div>

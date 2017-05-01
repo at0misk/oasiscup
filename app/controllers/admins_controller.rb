@@ -84,10 +84,32 @@ class AdminsController < ApplicationController
 	end
 	def yesterday
 		verifyAdmin
+		@users = User.where("DATE(created_at) = ?", Date.today-1)
+		@teams = Team.where("DATE(created_at) = ?", Date.today-1)
 		@booked_rooms = Book.where("DATE(created_at) = ?", Date.today-1)
+		@transactions = Transaction.where("DATE(created_at) = ?", Date.today-1)
+		@guests = Guest.where("DATE(created_at) = ?", Date.today-1)
+		@hotels = Hotel.all
+		@emptiedHotels = []
+			@hotels.each do |val|
+				if val.rooms.length == 0 && !val.shelved
+					@emptiedHotels << val
+				end
+			end
 	end
 	def monday
 		verifyAdmin
+		@users = User.where('created_at BETWEEN ? AND ?', Date.today-3, Date.today)
+		@teams = Team.where('created_at BETWEEN ? AND ?', Date.today-3, Date.today)
 		@booked_rooms = Book.where('created_at BETWEEN ? AND ?', Date.today-3, Date.today)
+		@transactions = Transaction.where('created_at BETWEEN ? AND ?', Date.today-3, Date.today)
+		@guests = Guest.where('created_at BETWEEN ? AND ?', Date.today-3, Date.today)
+		@hotels = Hotel.all
+		@emptiedHotels = []
+			@hotels.each do |val|
+				if val.rooms.length == 0 && !val.shelved
+					@emptiedHotels << val
+				end
+			end
 	end
 end
