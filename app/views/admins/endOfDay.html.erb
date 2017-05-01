@@ -10,9 +10,7 @@
 	}
 </style>
 <div class="row">
-	<div class="col-md-2">
-	</div>
-	<div class="col-md-8 contentDiv">
+	<div class="col-md-12 contentDiv">
 		<% @date = Time.now %>
 		<h3>End of Day Report - <%= @date.strftime("%B #{@date.day.ordinalize}, %Y") %></h3>
 		<h4>Records Created Today</h4>
@@ -225,7 +223,5 @@
 						<% end %>
 						</div>
 						</div>
-	</div>
-	<div class="col-md-2">
 	</div>
 </div>
