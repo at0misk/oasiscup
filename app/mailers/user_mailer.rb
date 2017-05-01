@@ -117,8 +117,7 @@ class UserMailer < ApplicationMailer
     def tournament_confirmation(user, transaction)
       @user = user
       @transaction = transaction
-      mail(to: "#{@user.email}", subject: "Oasis Cup Tournament Confirmation" )
-      @booked_rooms = Book.where(team_id: @team.id)
+    @booked_rooms = Book.where(team_id: @team.id)
     @user_rooms = Book.where(user_id: @user.id)
     @total = 0
     @tax = 0
@@ -134,6 +133,7 @@ class UserMailer < ApplicationMailer
         @tax_user += @userRoomTax * val.price
         @total_user += val.price
       end
+      mail(to: "#{@user.email}", subject: "Oasis Cup Tournament Confirmation" )
     end
     def one_week_warning(user)
       @user = user
