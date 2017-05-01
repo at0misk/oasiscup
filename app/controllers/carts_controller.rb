@@ -107,6 +107,8 @@ class CartsController < ApplicationController
 	end
 	def checkout
 	  @user = User.find(session[:user_id])
+		@user.update_attribute(:down_payment_status, false)
+		@user.save
 	  @team = @user.team
 	  @cart = Cart.where(user_id: @user.id)
 	  @user.update_attribute(:user_balance, params['balance'])
