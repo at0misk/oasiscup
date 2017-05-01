@@ -113,16 +113,21 @@ class AdminsController < ApplicationController
 			end
 	end
 	def one_week_warning
-		# @userArr = []
-		@users = User.where(user_balance: !nil, down_payment_status: nil)
-		# @users.each do |val|
-		# 	val.books.each do |book|
-		# 		if book.created_at == Date.today - 7
-		# 			@userArr << val
-		# 		end
-		# 	end
-		# end
-		# @books = Book.where('created_at = ?', Date.today-7)
-		# @narrow = @books.where(paid_status: false)
+		verifyAdmin
+		@userArr = []
+		@users = User.where(down_payment_status: false).where("user_balance > ?", 0)
+		@users.each do |val|
+			val.books.each do |book|
+				if book.created_at == Date.today - 7
+					@userArr << val
+				end
+			end
+		end
+		@userArr.each do |val|
+			@email = val.email
+			UserMailer.one_week_warning(val).deliver_now
+		end
+		UserMailer.one_week_admin(@userArr).deliver_now
+		redirect_to :back
 	end
 end

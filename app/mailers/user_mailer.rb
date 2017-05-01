@@ -117,6 +117,14 @@ class UserMailer < ApplicationMailer
     def tournament_confirmation(user, transaction)
       @user = user
       @transaction = transaction
-        mail(to: "#{@user.email}", subject: "Oasis Cup Tournament Confirmation" )
+      mail(to: "#{@user.email}", subject: "Oasis Cup Tournament Confirmation" )
+    end
+    def one_week_warning(user)
+      @user = user
+      mail(to: "#{@user.email}", subject: "Oasis Cup Tournament Reservations" )
+    end
+    def one_week_admin(users)
+      @users = users
+      mail(to: "oasiscuppalmdesert@gmail.com", subject: "Oasis Cup Tournament 1 Week Warning" )
     end
 end
