@@ -203,6 +203,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
+					UserMailer.confirmation_email(val).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -215,6 +216,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
+					UserMailer.confirmation_email(val).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -276,6 +278,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
+					# UserMailer.confirmation_email(val).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -288,6 +291,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
+					# UserMailer.confirmation_email(val).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -348,6 +352,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
+					UserMailer.confirmation_email(val).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -360,6 +365,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
+					UserMailer.confirmation_email(val).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
