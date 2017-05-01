@@ -212,7 +212,6 @@ class CartsController < ApplicationController
 			if @team.books.length < 8
 				session[:roomsNeeded] = true
 			elsif @team.books.length >= 8
-				fail
 				session[:roomsNeeded] = false
 				@team.users.each do |val|
 					puts 'mailing'
