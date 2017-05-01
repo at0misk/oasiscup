@@ -17,10 +17,15 @@
     <h1>Confirmation for <%= @user.first %> <%= @user.last %>, User ID: <%= @user.id %> </h1>
     <h1>Team: <%= @user.team.name %></h1>
     <h2>Confirmation number: <%= @transaction.transaction_code %></h2>
+    <% if @user.user_balance %>
+      <h2>User's remaining balance: <%= number_to_currency(@user.user_balance, :precision => 2) %></h2>
+    <% else %>
+      <h2>User's remaining balance: $0.00</h2>
+      <% end %> 
   <% else %>
     <h1>Hello <%= @user.first %> <%= @user.last %></h1>
     <h2>Thank you for booking with Archer Travel</h2>
-    <h2>Your confirmation number is <%= @transaction.transaction_code %> </h2>
+    <h2>Your payment confirmation number is <%= @transaction.transaction_code %> </h2>
   <% end %>
     <% if @transaction_type == 'down payment' %>
   <h3>You paid a downpayment of <span class="green"><%= number_to_currency(@transaction.total, :precision => 2) %></span></h3>
