@@ -70,4 +70,5 @@ Rails.application.routes.draw do
   get '/admins/endOfDay' => 'admins#endOfDay'
   get '/admins/mailEndOfDay' => 'admins#mailEndOfDay'
   get '/admins/yesterday' => 'admins#yesterday'
+  get '/admins/monday' => 'admins#monday'
 end
