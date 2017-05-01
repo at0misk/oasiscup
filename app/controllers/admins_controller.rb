@@ -112,4 +112,8 @@ class AdminsController < ApplicationController
 				end
 			end
 	end
+	def one_week_warning
+		@books = Book.where('created_at = ?', Date.today-7)
+		@narrow = @books.where(paid_status: false)
+	end
 end
