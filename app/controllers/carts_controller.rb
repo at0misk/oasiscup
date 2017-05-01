@@ -231,6 +231,7 @@ class CartsController < ApplicationController
 		@amountForBalance = params['amount'].to_f
 		@amountForBalance = @amountForBalance*2
 		@user.update_attribute(:user_balance, @amountForBalance)
+		@user.update_attribute(:down_payment_status, true)
 		@user.save
 		@book = Book.where(user_id: @user.id)
 		@transaction = Transaction.new(user_id: session[:user_id], total: params['amount'], transaction_code: "#AT-#{session[:user_id]}0#{Date.today.to_s}-", tax: params['tax'].to_f)

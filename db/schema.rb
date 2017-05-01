@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170428204649) do
+ActiveRecord::Schema.define(version: 20170501172004) do
 
   create_table "books", force: :cascade do |t|
     t.decimal  "price"
@@ -165,11 +165,12 @@ ActiveRecord::Schema.define(version: 20170428204649) do
     t.string   "team"
     t.boolean  "fee_status"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.integer  "team_id"
     t.decimal  "user_balance"
     t.boolean  "permod"
+    t.boolean  "down_payment_status"
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 
