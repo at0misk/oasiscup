@@ -37,7 +37,7 @@
 					<td>
 						<form class="form-horizontal" method="post" action="/admins/searchUsers" id="editFormTeam">
 							<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-						        <input name="user" type="hidden" class="form-control" id="user[first]" value="<%= val.user.email %>"/>
+						        <input name="user" type="hidden" class="form-control" id="user[first]" value="<%= val.email %>"/>
 						        <button type="submit" class="btn btn-primary">Process</button>
 						</form>
 					</td>
