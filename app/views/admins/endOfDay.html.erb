@@ -119,6 +119,7 @@
 								<th>Status</th>
 								<th>Price Per Night</th>
 								<th>Total</th>
+								<th></th>
 							</tr>
 						</thead>
 							<tbody>
@@ -145,6 +146,17 @@
 							<% end %>
 							<td><%= number_to_currency(val.price, :precision => 2) %></td>
 							<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+							<% if val.paid_status %>
+								<td></td>
+							<% else %>
+								<td>
+									<form class="form-horizontal" method="post" action="/admins/searchUsers" id="editFormTeam">
+										<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+									        <input name="user" type="hidden" class="form-control" id="user[first]"/>
+									        <button type="submit" class="btn btn-primary">Process</button>
+									</form>
+								</td>
+							<% end %>
 							</tr>
 							<% end %>
 							<tr>
