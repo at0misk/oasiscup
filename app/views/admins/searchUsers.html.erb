@@ -156,7 +156,7 @@
 			<% if @user.user_balance %>
 				<% if @user.user_balance != @total_user %>
 				<div class="payDiv">
-				<h4 class="checkHeader">If paying by check, the 5% discounted total will be <span class="green"><%= number_to_currency((@total_user*0.05), :precision => 2) %></span>
+				<h4 class="checkHeader">If paying by check, the 5% discounted total will be <span class="green"><%= number_to_currency(@total_user - (@total_user*0.05), :precision => 2) %></span>
 					<form id="checkout" method="post" action="/cart/paid_balance">
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 					<input name="amount" value="<%= (@user.user_balance) %>" type="hidden">
@@ -167,7 +167,7 @@
 				</div>
 				<% else %>
 				<div class="payDiv">
-				<h4 class="checkHeader">If paying by check, the 5% discounted total will be <span class="green"><%= number_to_currency((@total_user*0.05), :precision => 2) %></span>
+				<h4 class="checkHeader">If paying by check, the 5% discounted total will be <span class="green"><%= number_to_currency(@total_user - (@total_user*0.05), :precision => 2) %></span>
 					<form id="checkout" method="post" action="/cart/first_night">
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 					<input name="amount" value="<%= (@user.user_balance/3) %>" type="hidden">
