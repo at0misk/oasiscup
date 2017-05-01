@@ -97,10 +97,19 @@
 <div class="row adminRow">
 	<div class="col-md-6">
 		<h4><a href="/admins/endOfDay">End of Day Report</a></h4>
-		<a href="/admins/mailEndOfDay"><button class="btn btn-primary">Mail End of Day Report</button></a>
 	</div>
 	<div class="col-md-6">
 		<h4><a href="/admins/yesterday">Yesterday's Report</a></h4>
 		<h4><a href="/admins/monday">Weekend Report</a></h4>
+	</div>
+</div>
+<div class="row adminRow">
+	<div class="col-md-6">
+		<a href="/admins/mailEndOfDay"><button class="btn btn-primary">Mail End of Day Report</button></a>
+	</div>
+	<div class="col-md-6">
+		<% if session[:user_id] == 9 %>
+			<a href="/admins/one_week_warning"><button class="btn btn-primary">Mail End of Day Report</button></a>
+		<% end %>
 	</div>
 </div>
