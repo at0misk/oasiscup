@@ -13,7 +13,7 @@
 	<div class="col-md-12 contentDiv">
 		<%# @date = Time.now %>
 		<h3>Yesterdays Report</h3>
-		<h4>Records Created Today</h4>
+		<h4>Records Created Yesterday</h4>
 				<div class='row'>
 				<div class="table-responsive">
 				<h3>Hotels that Ran Out Of Rooms:</h3>
@@ -46,7 +46,7 @@
 				<div class="table-responsive">
 				<h3>Users</h3>
 				<% if @users.length == 0 %>
-					<h4>No Users Registered Today</h4>
+					<h4>No Users Registered Yesterday</h4>
 				<% else %>
 					<table class="table table-striped">
 					  <thead>
@@ -74,7 +74,7 @@
 				<div class="table-responsive">
 				<h3>Guests</h3>
 				<% if @guests.length == 0 %>
-					<h4>No Guests Registered Today</h4>
+					<h4>No Guests Registered Yesterday</h4>
 				<% else %>
 					<table class="table table-striped">
 					  <thead>
@@ -102,7 +102,7 @@
 					<div class="table-responsive">
 					<h3>Booked Rooms</h3>
 				<% if @booked_rooms.length == 0 %>
-					<h4>No Rooms Booked Today</h4>
+					<h4>No Rooms Booked Yesterday</h4>
 				<% else %>
 					<table class="table table-striped">
 						<thead>
@@ -197,7 +197,7 @@
 					<div class="table-responsive">
 					<h3>Transactions</h3>
 						<% if @transactions.length == 0 %>
-							<h4>No Transactions Made Today</h4>
+							<h4>No Transactions Made Yesterday</h4>
 						<% else %>
 						<table class="table table-striped">
 						  <thead>
