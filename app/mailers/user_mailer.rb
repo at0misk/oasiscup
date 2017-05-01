@@ -117,6 +117,7 @@ class UserMailer < ApplicationMailer
     def tournament_confirmation(user, transaction)
       @user = user
       @transaction = transaction
+      @team = @user.team
     @booked_rooms = Book.where(team_id: @team.id)
     @user_rooms = Book.where(user_id: @user.id)
     @total = 0
