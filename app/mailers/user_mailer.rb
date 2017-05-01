@@ -118,6 +118,22 @@ class UserMailer < ApplicationMailer
       @user = user
       @transaction = transaction
       mail(to: "#{@user.email}", subject: "Oasis Cup Tournament Confirmation" )
+      @booked_rooms = Book.where(team_id: @team.id)
+    @user_rooms = Book.where(user_id: @user.id)
+    @total = 0
+    @tax = 0
+      @booked_rooms.each do |val|
+      @roomTax = val.hotel.tax
+    @tax += @roomTax * val.price
+        @total += val.price
+      end
+    @total_user = 0
+    @tax_user = 0
+      @user_rooms.each do |val|
+        @userRoomTax = val.hotel.tax
+        @tax_user += @userRoomTax * val.price
+        @total_user += val.price
+      end
     end
     def one_week_warning(user)
       @user = user

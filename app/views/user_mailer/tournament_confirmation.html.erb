@@ -2,7 +2,7 @@
     <h2>Thank you for booking with Archer Travel</h2>
     <h2>Your team has booked the required number of rooms to participate in the tournmanet</h2>
     <h2>Your payment confirmation number is <%= @transaction.transaction_code %> </h2>
-    <h4>Send an email to our Tournament Director at <a href="mailto:oasiscup@yahoo.com?Subject=Oasis%20Cup" target="_top">oasiscup@yahoo.com</a>. Please provide the following information:</h4>
+    <h4>Please send an email to our Tournament Director at <a href="mailto:oasiscup@yahoo.com?Subject=Oasis%20Cup" target="_top">oasiscup@yahoo.com</a> with the following information:</h4>
     <ul>
     <li>Team Name</li>
     <li>Age Group</li>
@@ -10,3 +10,85 @@
     <li>Name of hotel where you will be staying</li>
     <li>Number of rooms you have booked</li>
     </ul>
+<div class="table-responsive">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Confirmation #</th>
+      <th>Hotel</th>
+      <th>Address</th>
+      <th>Smoking</th>
+      <th>Adults</th>
+      <th>Children</th>
+      <th>Type</th>
+      <th>Status</th>
+      <th>Price Per Night</th>
+      <th>Amount Due</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @total_balance_due = 0 %>
+    <% @userTotal = 0 %>
+    <% @user.books.each do |val| %>
+    <tr>
+    <td><%= val.conf_code %></td>
+    <td><%= val.hotel.name %></td>
+    <td><%= val.hotel.address %></td>
+    <td><%= val.smoking %></td>
+    <td><%= val.occupancy_a %></td>
+    <td><%= val.occupancy_c %></td>
+    <td><%= val.room_type %></td>
+    <% if val.paid_status %>
+    <td class="green">Paid</td>
+    <% else %>
+    <td class="red">Balance Due</td>
+      <% @total_balance_due += val.price*2 %>
+    <% end %>
+    <td><%= number_to_currency(val.price, :precision => 2) %></td>
+    <% if val.paid_status %>
+    <td class="green">$0.00</td>
+    <% else %>
+    <td><%= number_to_currency(val.price*2, :precision => 2) %></td>
+    <% end %>
+    <td><%= number_to_currency(val.price*3, :precision => 2) %></td>
+    <% @userTotal += (val.price*3) %>
+    </tr>
+    <% end %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <% @depositTax = @tax_user %>
+      <td>Tax:</td>
+      <td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+      <% @nightlyTax = @tax_user %>
+      <% @tax_user = @tax_user * 3 %>
+      <% if @user.user_balance %>
+      <td><%= number_to_currency((@user.user_balance-@total_balance_due), :precision => 2) %></td>
+      <% else %>
+      <td>$0.00</td>
+      <% end %>
+      <td><%= number_to_currency(@tax_user, :precision => 2) %></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>Total:</td>
+      <td class="green"><%= number_to_currency((@userTotal+@tax_user), :precision => 2) %></td>
+    </tr>
+  </tbody>
+</table>
+</div>
