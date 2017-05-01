@@ -12,7 +12,7 @@
 <div class="row">
 	<div class="col-md-12 contentDiv">
 		<h3>Weekend Report</h3>
-		<h4>Records Created this Weekend</h4>
+		<h4>Records Created this past Weekend</h4>
 				<div class='row'>
 				<div class="table-responsive">
 				<h3>Hotels that Ran Out Of Rooms:</h3>
@@ -45,7 +45,7 @@
 				<div class="table-responsive">
 				<h3>Users</h3>
 				<% if @users.length == 0 %>
-					<h4>No Users Registered this Weekend</h4>
+					<h4>No Users Registered this past Weekend</h4>
 				<% else %>
 					<table class="table table-striped">
 					  <thead>
@@ -101,7 +101,7 @@
 					<div class="table-responsive">
 					<h3>Booked Rooms</h3>
 				<% if @booked_rooms.length == 0 %>
-					<h4>No Rooms Booked this Weekend</h4>
+					<h4>No Rooms Booked this past Weekend</h4>
 				<% else %>
 					<table class="table table-striped">
 						<thead>
@@ -196,7 +196,7 @@
 					<div class="table-responsive">
 					<h3>Transactions</h3>
 						<% if @transactions.length == 0 %>
-							<h4>No Transactions Made this Weekend</h4>
+							<h4>No Transactions Made this past Weekend</h4>
 						<% else %>
 						<table class="table table-striped">
 						  <thead>
