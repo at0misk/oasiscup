@@ -54,11 +54,6 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td><%= @user.first %></td>
-      <td><%= @user.last %></td>
-      <td>Adult</td>
-    </tr>
     <% @user.guests.each do |val| %>
     <tr>
     <td><%= val.first %></td>

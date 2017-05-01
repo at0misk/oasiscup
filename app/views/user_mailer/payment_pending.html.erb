@@ -235,11 +235,6 @@ when your reservations are complete. Please provide the following information:</
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td style="padding: 3%"><%= @user.first %></td>
-      <td style="padding: 3%"><%= @user.last %></td>
-      <td style="padding: 3%">Adult</td>
-    </tr>
     <% @user.guests.each do |val| %>
     <tr>
     <td style="padding: 3%"><%= val.first %></td>
