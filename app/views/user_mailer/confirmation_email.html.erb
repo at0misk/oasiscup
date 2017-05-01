@@ -21,6 +21,7 @@
       <h2>User's remaining balance: <%= number_to_currency(@user.user_balance, :precision => 2) %></h2>
     <% else %>
       <h2>User's remaining balance: $0.00</h2>
+      <h3>Booking Complete</h3>
       <% end %> 
   <% else %>
     <h1>Hello <%= @user.first %> <%= @user.last %></h1>
