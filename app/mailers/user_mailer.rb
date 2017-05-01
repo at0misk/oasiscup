@@ -114,8 +114,9 @@ class UserMailer < ApplicationMailer
         end
       mail(to: "oasiscuppalmdesert@gmail.com", subject: "End of Day Report" )
     end
-    def tournament_confirmation(user)
+    def tournament_confirmation(user, transaction)
       @user = user
+      @transaction = transaction
         mail(to: "#{@user.email}", subject: "Oasis Cup Tournament Confirmation" )
     end
 end
