@@ -88,6 +88,6 @@ class AdminsController < ApplicationController
 	end
 	def monday
 		verifyAdmin
-		@booked_rooms = Book.where("DATE(created_at) > ?", Date.today-3)
+		@booked_rooms = Book.where('created_at BETWEEN ? AND ?', Date.today-3, Date.today)
 	end
 end
