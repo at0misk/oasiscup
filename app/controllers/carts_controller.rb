@@ -190,10 +190,11 @@ class CartsController < ApplicationController
 		@transaction.transaction_type = "Paid In Full"
 		@transaction.save
 		@transaction_type = 'paid in full'
-		@admin = false
-		UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
+		# @admin = false
+		# UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
 		@admin = true
 		UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
+		@admin = false
 		# Paid in full from the get go - Send Emails with guestlist and confirmation
 		if @team.exempt
 			if @team.books.length < 5
@@ -265,10 +266,9 @@ class CartsController < ApplicationController
 		@transaction.transaction_type = "Down Payment"
 		@transaction.save
 		@transaction_type = 'down payment'
-		@admin = false
-		UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
 		@admin = true
 		UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
+		@admin = false
 		# Paid in full from the get go - Send Emails with guestlist and confirmation
 		if @team.exempt
 			if @team.books.length < 5
@@ -339,10 +339,9 @@ class CartsController < ApplicationController
 		@transaction.transaction_type = "Paid Balance"
 		@transaction.save
 		@transaction_type = 'paid balance'
-		@admin = false
-		UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
 		@admin = true
 		UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
+		@admin = false
 		# Paid in full from the get go - Send Emails with guestlist and confirmation
 		if @team.exempt
 			if @team.books.length < 5
