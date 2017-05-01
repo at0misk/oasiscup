@@ -82,4 +82,8 @@ class AdminsController < ApplicationController
 				end
 			end
 	end
+	def yesterday
+		verifyAdmin
+		@booked_rooms = Book.where("DATE(created_at) = ?", Date.today-1)
+	end
 end
