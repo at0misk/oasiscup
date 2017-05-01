@@ -72,4 +72,5 @@ Rails.application.routes.draw do
   get '/admins/yesterday' => 'admins#yesterday'
   get '/admins/monday' => 'admins#monday'
   get '/admins/one_week_warning' => 'admins#one_week_warning'
+  get '/admins/allUsers' => 'admins#allUsers'
 end

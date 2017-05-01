@@ -130,4 +130,8 @@ class AdminsController < ApplicationController
 		UserMailer.one_week_admin(@userArr).deliver_now
 		redirect_to :back
 	end
+	def allUsers
+		verifyAdmin
+		@users = User.all
+	end
 end
