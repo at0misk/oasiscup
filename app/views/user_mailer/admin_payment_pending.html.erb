@@ -83,14 +83,16 @@
 <h3 class="notFound">You haven't booked any rooms.</h3>
 <h4 data-turbolinks="false" class="notFound">If you need to checkout, go to your <a href="http://www.oasiscup.com/cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
 <% else %>
+<h3>Name: <%= @user.first %> <%= @user.last %></h3>
+<h3>Team: <%= @user.team.name %></h3>
 <% @checkTax = 0.05 %>
 <% @totalForCheck = (@total_user*3) %>
 <% @taxForTotalCheck = (@tax_user*3) %>
 <% @discount = (@totalForCheck + @taxForTotalCheck) * @checkTax %>
 <% if @user.user_balance %>
-<h4>You have a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
+<h4><%= @user.first %> <%= @user.last %> has a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
 <% if @user.user_balance == (@totalForCheck + @taxForTotalCheck) %>
-<h4>If you pay by check, you can save <span class="green"><%= number_to_currency(@discount, :precision => 2) %>!</span></h4>
+<h4>If they pay by check, they can save <span class="green"><%= number_to_currency(@discount, :precision => 2) %>!</span></h4>
 <% end %>
 <% end %>
 <div class="table-responsive">
