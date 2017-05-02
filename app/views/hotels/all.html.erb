@@ -144,7 +144,7 @@
 <!-- <h3>Browse all <a class="hotel_scroll">hotels</a></h3> -->
 <form action="count" method="post" class="countForm" data-turbolinks="false">
   <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-<h3>Or search all rooms: </h3><input name="child" type="hidden" value="<%= session[:childCount] %>"><input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><button class="btn btn-primary allRoomsBtn">Find Rooms!</button></form>
+<h3>Or search all rooms: </h3><input name="child" type="hidden" value="<%= session[:childCount] %>"><input name="adult" type="hidden" value="<%= session[:adultCount] %>"><button class="btn btn-primary allRoomsBtn">Find Rooms!</button></form>
 </div>
 <div id="map"></div>
 <div id="legend"><h5>Hotels</h5></div>
@@ -163,7 +163,7 @@
 <div class="col-md-12">
 <form action="count" method="post" class="countForm" data-turbolinks="false">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-<h4>Searching for <input name="child" type="hidden" value="<%= session[:childCount] %>"><% if session[:childCount] == 1 %><%= session[:childCount] %> Child <% else %><%= session[:childCount] %> Children <% end %>and <input name="adult" type="hidden" value="<%= session[:adultCount] %>" min="1"><% if session[:adultCount] == 1 %><%= session[:adultCount] %> Adult.<% else %><%= session[:adultCount] %> Adults.<% end %></h4><button class="btn btn-primary">Find Rooms!</button></form>
+<h4>Searching for <input name="child" type="hidden" value="<%= session[:childCount] %>"><% if session[:childCount] == 1 %><%= session[:childCount] %> Child <% else %><%= session[:childCount] %> Children <% end %>and <input name="adult" type="hidden" value="<%= session[:adultCount] %>"><% if session[:adultCount] == 1 %><%= session[:adultCount] %> Adult.<% else %><%= session[:adultCount] %> Adults.<% end %></h4><button class="btn btn-primary">Find Rooms!</button></form>
 </div>
 </div>
 <div class="row hotelBoxRow" data-turbolinks="false">
