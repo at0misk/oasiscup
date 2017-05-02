@@ -16,12 +16,12 @@ class UsersController < ApplicationController
 					fail
 				end
 				# @user.update(:fee_status => false)
-				session[:user_id] = @user.id
+				session[:agree] = @user.id
 		  		# session[:payed] = false
 		  		# Default Mailer
 		  		# UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
 		  		flash[:errors] = nil
-				redirect_to '/guests/show'
+				redirect_to '/sessions/terms_and_conditions'
 			else
 				session[:modalFail] = true
 				flash[:errors] = @user.errors.full_messages
@@ -45,12 +45,12 @@ class UsersController < ApplicationController
 						fail
 					end
 					# @user.update(:fee_status => false)
-					session[:user_id] = @user.id
+					session[:agree] = @user.id
 			  		# session[:payed] = false
 			  		# Default Mailer
-			  		UserMailer.welcome_email(@user).deliver_now
+			  		# UserMailer.welcome_email(@user).deliver_later(wait: 1.day)
 			  		flash[:errors] = nil
-					redirect_to '/guests/show'
+					redirect_to '/sessions/terms_and_conditions'
 				else
 					session[:modalFail] = true
 					flash[:errors] = @user.errors.full_messages

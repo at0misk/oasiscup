@@ -73,4 +73,6 @@ Rails.application.routes.draw do
   get '/admins/monday' => 'admins#monday'
   get '/admins/one_week_warning' => 'admins#one_week_warning'
   get '/admins/allUsers' => 'admins#allUsers'
+  get '/sessions/terms_and_conditions' => 'sessions#terms_and_conditions'
+  post '/tc' => 'sessions#agreement'
 end

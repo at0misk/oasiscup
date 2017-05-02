@@ -75,11 +75,15 @@
 	<% end %>
 <% end %>
 <% else %>
+<h3 class="cartHeader">My Cart <%= session[:relay_ammount] %></h3>
 <% if @noGuests %>
 <h3 class="notFound">Your guest list is empty.</h3>
 <h4 class="notFound">If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
 <% end %>
-<h3 class="cartHeader">My Cart <%= session[:relay_ammount] %></h3>
+<% if @user.guests.length == 1 %>
+<h3 class="notFound">Your guest list is empty.</h3>
+<h4 class="notFound">If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
+<% end %>
 	<% if flash[:team_has_rooms] %>
 		<h4 class="cartHeader">Your team has booked rooms!  View your teams booked <a href="/booked/teams">rooms</a></h4>
 	<% end %>

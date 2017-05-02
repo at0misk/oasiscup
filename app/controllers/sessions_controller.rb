@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-	before_action :authenticate_user!, :except => [:login, :logout, :new, :forgot, :recover]
+	before_action :authenticate_user!, :except => [:login, :logout, :new, :forgot, :recover, :terms_and_conditions, :agreement]
 	def login
 		if session[:user_id]
 			redirect_to '/hotels'
@@ -71,6 +71,21 @@ class SessionsController < ApplicationController
 			flash[:email_success] = "Email sent"
 		end
 		redirect_to :back
+	end
+	def terms_and_conditions
+		@user = User.find(session[:agree])
+		@team = @user.team
+	end
+	def agreement
+		if params['agree']
+			session[:user_id] = session[:agree]
+			@user = User.find(session[:user_id])
+			UserMailer.welcome_email(@user).deliver_now
+			redirect_to '/hotels'
+		else
+			session[:user_id] = nil
+			redirect_to '/'
+		end
 	end
 	# def new
 	#   gon.client_token = generate_client_token

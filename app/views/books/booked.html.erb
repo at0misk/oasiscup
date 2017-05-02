@@ -75,6 +75,10 @@
 <% elsif session[:exemptRoomsNeeded] %>
 <h3>Your team must book at least 5 rooms to participate in the tournmaent</h3>
 <% end %>
+<% if @user.guests.length == 1 %>
+<h3>Your guest list is empty.</h3>
+<h4>If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
+<% end %>
 <div class="table-responsive">
 <table class="table table-striped">
 	<thead>

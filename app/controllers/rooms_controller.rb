@@ -50,7 +50,10 @@ class RoomsController < ApplicationController
         @cart.each do |val|
           @cartNumberArr << val.number
         end
-        if @user.guests != nil
+        if @user.guests.length == 1
+          session[:childCount] = 0
+          session[:adultCount] = 1
+        elsif @user.guests != nil
           session[:childCount] = 0
           session[:adultCount] = 1
           @user.guests.each do |val|
