@@ -101,12 +101,10 @@
     	margin-top: 25%;
     }
 </style>
-<span class="hotelViewHeader">
 	<h3 class="hotelNameHeader"><%= @hotel.name %></h3>
 	<% if flash[:cart_created] %>
 	<h3 class="flash3">Added to <a href="/cart">cart!</a></h3>
 	<% end %>
-</span>
 <div class="row">
 	<div class="col-md-6 hotelImg">
 		<%= image_tag("#{ @hotel.image }") %>
