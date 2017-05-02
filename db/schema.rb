@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170501172004) do
+ActiveRecord::Schema.define(version: 20170502180810) do
 
   create_table "books", force: :cascade do |t|
     t.decimal  "price"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(version: 20170501172004) do
     t.decimal  "user_balance"
     t.boolean  "permod"
     t.boolean  "down_payment_status"
+    t.string   "phone_number"
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 

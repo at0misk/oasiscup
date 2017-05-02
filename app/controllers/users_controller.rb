@@ -71,7 +71,7 @@ class UsersController < ApplicationController
 		# end
 	end
   	def user_params
-  		params.require(:user).permit(:first, :last, :email, :team, :fee_status, :password, :password_confirmation, :team_id) 
+  		params.require(:user).permit(:first, :last, :email, :team, :fee_status, :password, :password_confirmation, :team_id, :phone_number) 
   	end
   	def team_params
   		params.require(:team).permit(:name, :conf_num, :exempt)
