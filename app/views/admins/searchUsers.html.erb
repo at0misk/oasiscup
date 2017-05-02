@@ -57,6 +57,7 @@
 			<h3>Team has booked <%= val.team.books.length %> rooms</h3>
 		</div>
 	</div>
+	<hr>
 	<h2>Booked Rooms:</h2>
 		<% if val.books.length == 0 %>
 			<h3>No booked rooms </h3>
@@ -192,6 +193,7 @@
 				</div>
 			<% end %>
 			</end>
+		<hr>
 		<h2>Cart:</h2>
 		<% @cart = val.carts %>
 		<% if @cart.length == 0 %>
@@ -275,6 +277,7 @@
 				</table>
 				</div>
 		<% end %>
+		<hr>
 		<h2>Guests:</h2>
 			<% if val.guests.length == 0 %>
 			<h3>No guests on guest list</h3>
