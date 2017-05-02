@@ -2,6 +2,10 @@
 	.adminRow{
 		text-align: center;
 	}
+	.flashErrors{
+		margin-top: 2%;
+		color: red;
+	}
 </style>
 <div class="row adminRow">
 <h2>Admin Dashboard</h2>
@@ -44,7 +48,7 @@
 	    </div>
 	</div>
 	<% if flash[:errors] %>
-	<div class="row">
+	<div class="row flashErrors">
 		<div class="col-sm-12">
 			<p><%= flash[:errors] %></p>
 		</div>
