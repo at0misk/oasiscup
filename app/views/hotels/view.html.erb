@@ -149,6 +149,15 @@
 </div> -->
     <div class="row bottomRow">
     <% x = 0 %>
+    <% if @roomTypes.length == 0 %>
+    		<div class='col-md-4'>
+    		</div>
+    		<div class="col-md-4 roomCol">
+			<h4>No Rooms Available</h4>
+			</div>
+			<div class="col-md-4">
+			</div>
+    <% end %>
     <% @roomTypes.each do |val| %>
     	<% @room = Hotel.find(params[:id]).rooms.find_by(room_type: val) %>
     		<% if @roomTypes.length == 1 %>
