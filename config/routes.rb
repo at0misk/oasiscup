@@ -75,4 +75,6 @@ Rails.application.routes.draw do
   get '/admins/allUsers' => 'admins#allUsers'
   get '/sessions/terms_and_conditions' => 'sessions#terms_and_conditions'
   post '/tc' => 'sessions#agreement'
+  get '/admins/Balance' => 'admins#balance'
+  get 'admins/noDown' => 'admins#no_down_payment'
 end
