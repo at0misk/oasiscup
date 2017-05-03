@@ -26,6 +26,7 @@ class SessionsController < ApplicationController
   			# end
   			else
   			redirect_to '/sessions/terms_and_conditions'
+  			end
 	  	else
 	  		flash[:errors] = ['Email / Password not valid']
 	  		session[:modalFail] = true
