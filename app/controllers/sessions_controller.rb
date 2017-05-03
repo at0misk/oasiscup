@@ -58,7 +58,7 @@ class SessionsController < ApplicationController
 			redirect_to :back
 	end
 	def forgot
-		if !session[:root]
+		if session[:root] == nil
 			redirect_to = '/'
 		end
 	end
