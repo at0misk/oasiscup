@@ -165,7 +165,7 @@
 					<input name="amount" value="<%= (@user.user_balance) %>" type="hidden">
 					<input name="tax" value="<%= (@tax_user * 2) %>" type="hidden">
 					<div id="payment-form"></div>
-					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay Balance: <%= (@user.user_balance) %>" data-confirm="Are you sure?"></div>
+					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay Balance: <%= number_to_currency(@user.user_balance, :precision => 2) %>" data-confirm="Are you sure?"></div>
 					</form>
 				</div>
 				<% else %>
@@ -176,14 +176,14 @@
 					<input name="amount" value="<%= (@user.user_balance/3) %>" type="hidden">
 					<input name="tax" value="<%= (@tax_user) %>" type="hidden">
 					<div id="payment-form"></div>
-					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="First Night Down Payment: <%= (@user.user_balance/3) %>" data-confirm="Are you sure?"></div>
+					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="First Night Down Payment: <%= number_to_currency(@user.user_balance/3, :precision => 2) %>" data-confirm="Are you sure?"></div>
 					</form>
 					<form id="checkout" method="post" action="/cart/paid_full">
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 					<input name="amount" value="<%= @user.user_balance %>" type="hidden">
 					<input name="tax" value="<%= (@tax_user * 3) %>" type="hidden">
 					<div id="payment-form"></div>
-					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay in Full: <%= @user.user_balance %>" data-confirm="Are you sure?"></div>
+					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay in Full: <%= number_to_currency(@user.user_balance, :precision => 2) %>" data-confirm="Are you sure?"></div>
 					</form>
 				</div>
 				<% end %>
