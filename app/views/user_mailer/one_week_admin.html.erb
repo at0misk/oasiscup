@@ -1,3 +1,5 @@
+<% if @users.length == 0 %>
+<h2>No Users who reserved rooms a week ago, and have not made a downpayment</h2>
 <h2>Users who reserved rooms a week ago, and have not made a downpayment:</h2>
 <% @users.each do |val| %>
 	<h3><%= val.first %> <%= val.last %>: <%= val.email %></h3>
