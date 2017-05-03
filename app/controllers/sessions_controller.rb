@@ -25,6 +25,7 @@ class SessionsController < ApplicationController
   			# end
   			# end
   			else
+  			session[:agree] = @user.id
   			redirect_to '/sessions/terms_and_conditions'
   			end
 	  	else
