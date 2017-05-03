@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
 	def new
   	@user = User.find_by(email: params['email'])
 	  	if @user && @user.authenticate(params[:password])
+	  		if @user.agree
 	  		session[:user_id] = @user.id
 	  		# if @user.permod
 	  		# 	redirect_to '/admins/dash'
@@ -23,6 +24,8 @@ class SessionsController < ApplicationController
   			# redirect_to '/payment'
   			# end
   			# end
+  			else
+  			redirect_to '/sessions/terms_and_conditions'
 	  	else
 	  		flash[:errors] = ['Email / Password not valid']
 	  		session[:modalFail] = true
@@ -80,6 +83,8 @@ class SessionsController < ApplicationController
 		if params['agree']
 			session[:user_id] = session[:agree]
 			@user = User.find(session[:user_id])
+			@user.update_attribute(:agree, true)
+			@user.save
 			UserMailer.welcome_email(@user).deliver_now
 			redirect_to '/hotels'
 		else

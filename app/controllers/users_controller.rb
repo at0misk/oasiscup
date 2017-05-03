@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 			@user.team_id = @t.id
 			if @user.save
 				@user.update_attribute(:down_payment_status, false)
+				@user.update_attribute(:agree, false)
 				@user.save
 				@guest = Guest.new(first: @user.first, last: @user.last, guest_type: "Adult", user_id: @user.id, compoundname: "#{@user.first}" + "#{@user.last}", team_id: @user.team_id)
 				if @guest.save
