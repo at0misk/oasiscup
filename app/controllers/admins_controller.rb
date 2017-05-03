@@ -136,12 +136,10 @@ class AdminsController < ApplicationController
 	end
 	def balance
 		verifyAdmin
-		@users = User.all
 		@users = User.where("user_balance > ?", 0)
 	end
 	def no_down_payment
 		verifyAdmin
-		@users = User.all
 		@users = User.where(down_payment_status: false)
 	end
 end
