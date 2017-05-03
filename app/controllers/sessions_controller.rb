@@ -59,7 +59,7 @@ class SessionsController < ApplicationController
 	end
 	def forgot
 		if session[:root] == nil
-			redirect_to = '/'
+			fail
 		end
 	end
 	def recover
