@@ -58,6 +58,9 @@ class SessionsController < ApplicationController
 			redirect_to :back
 	end
 	def forgot
+		if !session[:root]
+			redirect_to = '/'
+		end
 	end
 	def recover
 		@user = User.find_by(email: params['email'])
