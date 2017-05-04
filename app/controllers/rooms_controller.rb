@@ -11,16 +11,16 @@ class RoomsController < ApplicationController
       if !@user.permod
       else
         x = 1
-        1.times do
+        40.times do
           @room = Room.new
           @room.number = x
           @room.hotel_id = params[:id]
           @room.smoking = "No"
-          @room.room_type = "Double Queens"
-          @room.price = 249.95
+          @room.room_type = "King"
+          @room.price = 215.00
           @room.occupancy_a = 4
           # @room.occupancy_c = 
-          @room.description = ""
+          @room.description = "Sofa Bed"
           x += 1
           @room.save
         end
