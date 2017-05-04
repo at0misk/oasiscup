@@ -147,6 +147,7 @@ class AdminsController < ApplicationController
 		@user_mail = User.find(session[:user_id])
 		@user_report = User.find(params['id'])
 		UserMailer.user_report(@user_mail, @user_report).deliver_now
+		flash[:mailed] = true
 		redirect_to :back
 	end
 end

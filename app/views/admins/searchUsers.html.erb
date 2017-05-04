@@ -57,6 +57,9 @@
 			<h3>Mailed Tournament Confirmation: <% if val.team.mail_confirmation %> Yes<% else %> No<% end %></h3>
 			<h3>Team has booked <%= val.team.books.length %> rooms</h3>
 			<a href="/admins/mail_user_report/<%= val.id %>"><button class="btn btn-primary">Mail Me User Info</button></a>
+			<% if flash[:mailed] %>
+				<h4>Mail Sent</h4>
+			<% end %>
 		</div>
 	</div>
 	<hr>

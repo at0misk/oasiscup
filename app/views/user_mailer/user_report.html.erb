@@ -54,7 +54,6 @@
 			<h3>Exempt: <% if @user.team.exempt %><%= @user.team.exempt %><% else %>No<% end %></h3>
 			<h3>Mailed Tournament Confirmation: <% if @user.team.mail_confirmation %> Yes<% else %> No<% end %></h3>
 			<h3>Team has booked <%= @user.team.books.length %> rooms</h3>
-			<a href="/admins/mail_user_report/<%= @user.id %>"><button class="btn btn-primary">Mail Me User Info</button></a>
 		</div>
 	</div>
 	<hr>
@@ -150,6 +149,7 @@
 				</tbody>
 			</table>
 		<hr>
+		<% end %>
 		<h2>Cart:</h2>
 		<% @cart = @user.carts %>
 		<% if @cart.length == 0 %>
@@ -258,4 +258,3 @@
 				</div>
 			<% end %>
 </div>
-<% end %>
