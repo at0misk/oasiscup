@@ -144,4 +144,9 @@ class UserMailer < ApplicationMailer
       @users = users
       mail(to: "oasiscuppalmdesert@gmail.com", subject: "Oasis Cup Tournament 1 Week Warning" )
     end
+    def user_report(admin, user)
+      @admin = admin
+      @user = user
+      mail(to: "#{@admin.email}", subject: "User Report: #{@user.first} #{@user.last}" )
+    end
 end

@@ -37,31 +37,29 @@
 	}
 </style>
 <div class="con">
-<% @users.each do |val| %>
-	<% @user = val %>
 	<div class="row">
 		<div class="col-md-6">
-			<h2>User#<%= val.id %></h2>
-			<h3>Name: <%= val.first %> <%= val.last %></h3>
-			<h3>Email: <%= val.email %></h3>
-			<h3>Phone Number: <%= val.phone_number %></h3>
-			<h3>Joined: <%= val.created_at.strftime("%B #{val.created_at.day.ordinalize}, %Y") %></h3>
-			<% if val.user_balance %>
-			<h3>Balance Due: <span class="green"><%= number_to_currency(val.user_balance, :precision => 2) %></span></h3>
+			<h2>User#<%= @user.id %></h2>
+			<h3>Name: <%= @user.first %> <%= @user.last %></h3>
+			<h3>Email: <%= @user.email %></h3>
+			<h3>Phone Number: <%= @user.phone_number %></h3>
+			<h3>Joined: <%= @user.created_at.strftime("%B #{@user.created_at.day.ordinalize}, %Y") %></h3>
+			<% if @user.user_balance %>
+			<h3>Balance Due: <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h3>
 			<% end %>
-			<h3>Paid Down Payment: <% if val.down_payment_status %>Yes<% else %>No<% end %></h3>
+			<h3>Paid Down Payment: <% if @user.down_payment_status %>Yes<% else %>No<% end %></h3>
 		</div>
 		<div class="col-md-6">
-			<h2>Team: <%= val.team.name %></h2>
-			<h3>Exempt: <% if val.team.exempt %><%= val.team.exempt %><% else %>No<% end %></h3>
-			<h3>Mailed Tournament Confirmation: <% if val.team.mail_confirmation %> Yes<% else %> No<% end %></h3>
-			<h3>Team has booked <%= val.team.books.length %> rooms</h3>
-			<a href="/admins/mail_user_report/<%= val.id %>"><button class="btn btn-primary">Mail Me User Info</button></a>
+			<h2>Team: <%= @user.team.name %></h2>
+			<h3>Exempt: <% if @user.team.exempt %><%= @user.team.exempt %><% else %>No<% end %></h3>
+			<h3>Mailed Tournament Confirmation: <% if @user.team.mail_confirmation %> Yes<% else %> No<% end %></h3>
+			<h3>Team has booked <%= @user.team.books.length %> rooms</h3>
+			<a href="/admins/mail_user_report/<%= @user.id %>"><button class="btn btn-primary">Mail Me User Info</button></a>
 		</div>
 	</div>
 	<hr>
 	<h2>Booked Rooms:</h2>
-		<% if val.books.length == 0 %>
+		<% if @user.books.length == 0 %>
 			<h3>No booked rooms </h3>
 		<% else %>
 			<div class="table-responsive">
@@ -78,12 +76,11 @@
 						<th>Status</th>
 						<th>Price Per Night</th>
 						<th>Total</th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
-			  		<% @booked_rooms = Book.where(team_id: val.team.id) %>
-			  		<% @user_rooms = Book.where(user_id: val.id) %>
+			  		<% @booked_rooms = Book.where(team_id: @user.team.id) %>
+			  		<% @user_rooms = Book.where(user_id: @user.id) %>
 			  		<% @total = 0 %>
 			  		<% @tax = 0 %>
 			  		<% 	@booked_rooms.each do |val| %>
@@ -116,12 +113,6 @@
 					<% end %>
 					<td><%= number_to_currency(val.price, :precision => 2) %></td>
 					<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
-					<td><form action="/book_rooms/cancel/<%= val.id %>" method="POST" class="cancelForm">
-							<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-							<input name="deduct" value="<%= (val.price*3) + ((val.price*3) * val.hotel.tax) %>" type="hidden">
-							<button type="submit" class="btn btn-danger" data-confirm="Are you sure?">Cancel</button>
-						</form>
-					</td>
 					</tr>
 					<% end %>
 					<tr>
@@ -158,45 +149,9 @@
 					</tr>
 				</tbody>
 			</table>
-			<% if @user.user_balance %>
-				<% if @user.user_balance != @total_user %>
-				<div class="payDiv">
-					<form id="checkout" method="post" action="/cart/paid_balance">
-					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-					<input name="amount" value="<%= (@user.user_balance) %>" type="hidden">
-					<input name="tax" value="<%= (@tax_user * 2) %>" type="hidden">
-					<div id="payment-form"></div>
-					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay Balance: <%= number_to_currency(@user.user_balance, :precision => 2) %>" data-confirm="Are you sure?"></div>
-					</form>
-					<p class="checkHeader">If paying by check, the 5% discounted total will be <span class="green"><%= number_to_currency(@total_user - (@total_user*0.05), :precision => 2) %></span></p>
-				</div>
-				<% else %>
-				<div class="payDiv">
-					<form id="checkout" method="post" action="/cart/first_night">
-					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-					<input name="amount" value="<%= (@user.user_balance/3) %>" type="hidden">
-					<input name="tax" value="<%= (@tax_user) %>" type="hidden">
-					<div id="payment-form"></div>
-					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="First Night Down Payment: <%= number_to_currency(@user.user_balance/3, :precision => 2) %>" data-confirm="Are you sure?"></div>
-					</form>
-					<form id="checkout" method="post" action="/cart/paid_full">
-					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-					<input name="amount" value="<%= @user.user_balance %>" type="hidden">
-					<input name="tax" value="<%= (@tax_user * 3) %>" type="hidden">
-					<div id="payment-form"></div>
-					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay in Full: <%= number_to_currency(@user.user_balance, :precision => 2) %>" data-confirm="Are you sure?"></div>
-					</form>
-					<p class="checkHeader">If paying by check, the 5% discounted total will be <span class="green"><%= number_to_currency(@total_user - (@total_user*0.05), :precision => 2) %></span></p>
-				</div>
-				<% end %>
-			<% else %>
-			<h3 class="paidNotice">User has paid in full</h3>
-				<% end %>
-				</div>
-			<% end %>
 		<hr>
 		<h2>Cart:</h2>
-		<% @cart = val.carts %>
+		<% @cart = @user.carts %>
 		<% if @cart.length == 0 %>
 			<h3>Cart Is Empty</h3>
 		<% else %>
@@ -222,7 +177,6 @@
 							<th>Type</th>
 							<th>Price Per Night</th>
 							<th>Total</th>
-							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -239,11 +193,6 @@
 						<td><%= number_to_currency(val.price*3, :precision => 2) %></td>
 						<% @totalOccupancy += val.occupancy_a.to_i %>
 						<% @totalOccupancy += val.occupancy_c.to_i %>
-						<td><form action="/cart/cancel/<%= val.id %>" method="POST" class="cancelForm">
-								<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-								<button type="submit" class="btn btn-danger" data-confirm="Are you sure?">Remove</button>
-							</form>
-						</td>
 						</tr>
 						<% end %>
 						<tr>
@@ -280,7 +229,7 @@
 		<% end %>
 		<hr>
 		<h2>Guests:</h2>
-			<% if val.guests.length == 0 %>
+			<% if @user.guests.length == 0 %>
 			<h3>No guests on guest list</h3>
 			<% else %>
 			<div class="row">
@@ -291,16 +240,14 @@
 							<th>First</th>
 							<th>Last</th>
 							<th></th>
-							<th></th>
 						</tr>
 					</thead>
 					<tbody>
-						<% val.guests.each do |val| %>
+						<% @user.guests.each do |val| %>
 						<tr>
 						<td><%= val.first %></td>
 						<td><%= val.last %></td>
 						<td><%= val.guest_type %></td>
-						<td><form action="/guests/delete/<%= val.id %>" method="POST" class="cancelForm"><input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden"><button type="submit" class="btn btn-danger btn-sm" data-confirm="Are you sure?">Remove</button></form></td>
 						</tr>
 						<% end %>
 					</tbody>
@@ -310,5 +257,4 @@
 				</div>
 				</div>
 			<% end %>
-<% end %>
 </div>

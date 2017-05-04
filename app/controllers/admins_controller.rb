@@ -142,4 +142,11 @@ class AdminsController < ApplicationController
 		verifyAdmin
 		@users = User.where(down_payment_status: false)
 	end
+	def mail_user_report
+		verifyAdmin
+		@user_mail = User.find(session[:user_id])
+		@user_report = User.find(params['id'])
+		UserMailer.user_report(@user_mail, @user_report).deliver_now
+		redirect_to :back
+	end
 end

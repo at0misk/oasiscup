@@ -77,4 +77,5 @@ Rails.application.routes.draw do
   post '/tc' => 'sessions#agreement'
   get '/admins/Balance' => 'admins#balance'
   get 'admins/noDown' => 'admins#no_down_payment'
+  get '/admins/mail_user_report/:id' => 'admins#mail_user_report'
 end
