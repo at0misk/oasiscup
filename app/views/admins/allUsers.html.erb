@@ -14,8 +14,8 @@
 		      <th>Team</th>
 		      <th>Joined Site</th>
 		      <th>Paid Down Payment</th>
-		      <th>Balance</th>
 		      <th>Hotel Emailed</th>
+		      <th>Balance</th>
 		      <th></th>
 		    </tr>
 		  </thead>
@@ -33,15 +33,15 @@
 					<% else %>
 						<td>No</td>
 					<% end %>
-					<% if val.user_balance %>
-						<td><%= number_to_currency(val.user_balance, :precision => 2) %></td>
-					<% else %>
-						<td>$0.00</td>
-					<% end %>
 					<% if val.email_hotel_conf %>
 						<td>Yes</td>
 					<% else %>
 						<td>No</td>
+					<% end %>
+					<% if val.user_balance %>
+						<td><%= number_to_currency(val.user_balance, :precision => 2) %></td>
+					<% else %>
+						<td>$0.00</td>
 					<% end %>
 					<td>
 						<form class="form-horizontal" method="post" action="/admins/searchUsers" id="editFormTeam">
