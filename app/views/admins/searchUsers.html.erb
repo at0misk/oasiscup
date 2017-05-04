@@ -62,9 +62,9 @@
 			<% end %>
 			<h3>User info sent to hotel: <% if val.email_hotel_conf %>Yes<% else %>No<% end %></h3>
 			<% if val.email_hotel_conf %>
-				<a href="/admins/hotel_not_mailed/<%= val.id %>"><button class="btn btn-primary" data-confirm="Are you sure?">Not Sent</button></a>
+				<a href="/admins/hotel_not_mailed/<%= val.id %>"><button class="btn btn-primary">Not Sent</button></a>
 			<% else %>
-				<a href="/admins/hotel_mailed/<%= val.id %>"><button class="btn btn-primary" data-confirm="Are you sure?">Sent</button></a>
+				<a href="/admins/hotel_mailed/<%= val.id %>"><button class="btn btn-primary">Sent</button></a>
 			<% end %>
 		</div>
 	</div>
