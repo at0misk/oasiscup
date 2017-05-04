@@ -154,6 +154,7 @@ class AdminsController < ApplicationController
 		verifyAdmin
 		@user = User.find(params['id'])
 		@user.update_attribute(:email_hotel_conf, true)
+		fail
 		@user.save
 		redirect_to :back
 	end
