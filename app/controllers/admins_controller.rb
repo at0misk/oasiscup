@@ -150,4 +150,18 @@ class AdminsController < ApplicationController
 		flash[:mailed] = true
 		redirect_to :back
 	end
+	def hotel_mailed
+		verifyAdmin
+		@user = User.find(params['id'])
+		@user.update_attribute(:email_hotel_conf, true)
+		@user.save
+		redirect_to :back
+	end
+	def hotel_not_mailed
+		verifyAdmin
+		@user = User.find(params['id'])
+		@user.update_attribute(:email_hotel_conf, false)
+		@user.save
+		redirect_to :back
+	end
 end

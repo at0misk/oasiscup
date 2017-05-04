@@ -78,4 +78,6 @@ Rails.application.routes.draw do
   get '/admins/Balance' => 'admins#balance'
   get 'admins/noDown' => 'admins#no_down_payment'
   get '/admins/mail_user_report/:id' => 'admins#mail_user_report'
+  get '/admins/hotel_mailed/:id' => 'admins#hotel_mailed'
+  get '/admins/hotel_not_mailed/:id' => 'admins#hotel_not_mailed'
 end

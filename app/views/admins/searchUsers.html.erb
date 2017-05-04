@@ -60,7 +60,12 @@
 			<% if flash[:mailed] %>
 				<h4>Mail Sent!</h4>
 			<% end %>
-			<h3>User info sent to hotel: <% if val.email_hotel_conf %>yes<% else %>no<% end %></h3>
+			<h3>User info sent to hotel: <% if val.email_hotel_conf %>Yes<% else %>No<% end %></h3>
+			<% if val.email_hotel_conf %>
+				<a href="/admins/hotel_not_mailed/<%= val.id %>"><button class="btn btn-primary" data-confirm="Are you sure?">Not Sent</button></a>
+			<% else %>
+				<a href="/admins/hotel_mailed/<%= val.id %>"><button class="btn btn-primary" data-confirm="Are you sure?">Sent</button></a>
+			<% end %>
 		</div>
 	</div>
 	<hr>
