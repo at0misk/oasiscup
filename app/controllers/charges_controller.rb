@@ -3,6 +3,7 @@ class ChargesController < ApplicationController
 	  # Amount in cents
 	  # puts params['amount']
 	  # fail
+	  # Stripe Implementation
 	  @amount = params['amount'].to_i
 	  @user = User.find(session[:user_id])
 	  @team = @user.team
@@ -387,6 +388,7 @@ class ChargesController < ApplicationController
 		redirect_to '/booked'
 	end
 	def authorize
+		# Authorize.net implementation
 		# require 'rubygems'
 		#   require 'authorizenet'
 		# include AuthorizeNet::API

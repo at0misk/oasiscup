@@ -6,6 +6,7 @@ class TransactionsController < ApplicationController
 	end
 
 	def create
+		# Braintree implementation
 		@user = User.find(session[:user_id])
 		@amount = params['amount'].to_i
 		@amount = @amount/100
