@@ -54,15 +54,15 @@ class BooksController < ApplicationController
 			end
 		end
 		if @team.exempt
-			if @team.books.length <= 5
+			if @team.books.length < 5
 				session[:exemptRoomsNeeded] = true
 			elsif @team.books.length >= 5
 				session[:exemptRoomsNeeded] = false
 			end
 		else
-			if @team.books.length <= 8
+			if @team.books.length < 8
 				session[:roomsNeeded] = true
-			elsif @team.books.length >= 10
+			elsif @team.books.length >= 8
 				session[:roomsNeeded] = false
 			end
 		end
@@ -88,15 +88,15 @@ class BooksController < ApplicationController
   		@user = User.find(session[:user_id])
   		@team = @user.team
 		if @team.exempt
-			if @team.books.length <= 5
+			if @team.books.length < 5
 				session[:exemptRoomsNeeded] = true
 			elsif @team.books.length >= 5
 				session[:exemptRoomsNeeded] = false
 			end
 		else
-			if @team.books.length <= 8
+			if @team.books.length < 8
 				session[:roomsNeeded] = true
-			elsif @team.books.length >= 10
+			elsif @team.books.length >= 8
 				session[:roomsNeeded] = false
 			end
 		end
