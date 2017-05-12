@@ -95,7 +95,7 @@
 			  		<% 		@total_user += val.price %>
 			  		<% 	end %>
 					<% @total_balance_due = 0 %>
-					<% val.books.each do |val| %>
+					<% @user.books.each do |val| %>
 					<tr>
 					<td><%= val.conf_code %></td>
 					<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
