@@ -41,6 +41,7 @@
 	<% @user = val %>
 	<div class="row">
 		<div class="col-md-6">
+			<% @id = val.id %>
 			<h2>User#<%= val.id %></h2>
 			<h3>Name: <%= val.first %> <%= val.last %></h3>
 			<h3>Email: <%= val.email %></h3>
@@ -174,7 +175,7 @@
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 					<input name="amount" value="<%= (@user.user_balance) %>" type="hidden">
 					<input name="tax" value="<%= (@tax_user * 2) %>" type="hidden">
-					<input name="u_id" value="<%= session[:user_id] %>" type="hidden">
+					<input name="u_id" value="<%= @id %>" type="hidden">
 					<div id="payment-form"></div>
 					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay Balance: <%= number_to_currency(@user.user_balance, :precision => 2) %>" data-confirm="Are you sure?"></div>
 					</form>
@@ -186,7 +187,7 @@
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 					<input name="amount" value="<%= (@user.user_balance/3) %>" type="hidden">
 					<input name="tax" value="<%= (@tax_user) %>" type="hidden">
-					<input name="u_id" value="<%= session[:user_id] %>" type="hidden">
+					<input name="u_id" value="<%= @id %>" type="hidden">
 					<div id="payment-form"></div>
 					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="First Night Down Payment: <%= number_to_currency(@user.user_balance/3, :precision => 2) %>" data-confirm="Are you sure?"></div>
 					</form>
@@ -194,7 +195,7 @@
 					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 					<input name="amount" value="<%= @user.user_balance %>" type="hidden">
 					<input name="tax" value="<%= (@tax_user * 3) %>" type="hidden">
-					<input name="u_id" value="<%= session[:user_id] %>" type="hidden">
+					<input name="u_id" value="<%= @id %>" type="hidden">
 					<div id="payment-form"></div>
 					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay in Full: <%= number_to_currency(@user.user_balance, :precision => 2) %>" data-confirm="Are you sure?"></div>
 					</form>
