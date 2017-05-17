@@ -152,7 +152,7 @@ class CartsController < ApplicationController
 		redirect_to '/booked'
 	end
 	def paid_full
-		@user = User.find(session[:user_id])
+		@user = User.find(params['u_id'])
 		@team = @user.team
 		@user.update_attribute(:user_balance, nil)
 		@user.save
@@ -228,7 +228,7 @@ class CartsController < ApplicationController
 		redirect_to :back
 	end
 	def first_night
-		@user = User.find(session[:user_id])
+		@user = User.find(params['u_id'])
 		@team = @user.team
 		@amountForBalance = params['amount'].to_f
 		@amountForBalance = @amountForBalance*2
@@ -305,7 +305,7 @@ class CartsController < ApplicationController
 		redirect_to :back
 	end
 	def paid_balance
-		@user = User.find(session[:user_id])
+		@user = User.find(params['u_id'])
 		@team = @user.team
 		@user.update_attribute(:user_balance, nil)
 		@user.save
