@@ -179,7 +179,6 @@
 					<div id="payment-form"></div>
 					<div id="payButtonDiv"><input type="submit" class="btn btn-primary payButton" value="Pay Balance: <%= number_to_currency(@user.user_balance, :precision => 2) %>" data-confirm="Are you sure?"></div>
 					</form>
-					<p class="checkHeader">If paying by check, the 5% discounted total will be <span class="green"><%= number_to_currency(@total_user - (@total_user*0.05), :precision => 2) %></span></p>
 				</div>
 				<% else %>
 				<div class="payDiv">
