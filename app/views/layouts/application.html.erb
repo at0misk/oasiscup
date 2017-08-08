@@ -12,6 +12,7 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= include_gon %>
     <!-- Latest compiled and minified CSS -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
     <!-- Optional theme -->
@@ -36,6 +37,9 @@
 
     </script>
   <style>
+*{
+  font-family: 'Montserrat', sans-serif;
+}
     table{
       text-align: center;
     }
@@ -147,12 +151,12 @@
       /*padding-bottom: 40px; */
     }
     .footerDiv{
-      background-color: #0275d8;
-      color: white;
+      /*background-color: #0275d8;*/
+      /*color: white;*/
       padding-top: 8px;
     }
     footer{
-      background-color: #0275d8;
+      /*background-color: #0275d8;*/
       position: absolute;
       bottom: 0;
       /*left: 0;*/
@@ -170,7 +174,7 @@
     padding-bottom: 38px;
   }
     footer{
-      background-color: #0275d8;
+      background-color: white !important;
       position: absolute;
       bottom: 0;
       right: 0;
@@ -384,6 +388,9 @@
   width: 45px !important;
 }
 
+.footer{
+  padding: 0px 30px;
+}
   </style>
   </head>
 
@@ -543,6 +550,7 @@ $( document ).on('turbolinks:load', function() {
          // downscroll code
          console.log('down')
          $('.navbar').addClass('down')
+         $('.navbar').removeClass('up')
           $('.navbar-brand img').addClass('smallImg')
      } else {
         // upscroll code

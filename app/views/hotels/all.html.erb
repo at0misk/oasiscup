@@ -23,7 +23,8 @@
 	}
 	#map {
 		height: 600px;
-		width: 100%;
+		width: 80%;
+    margin: 0px auto;
 	}
 	.hotelBox img{
 		/*background-image: url(/assets/hotel.jpg);*/
@@ -41,6 +42,11 @@
 	.hotelBox img:hover{
 		opacity: .8;
 	}
+  .hotelBox img{
+      -moz-transition: all 0.4s;
+      -webkit-transition: all 0.4s;
+      transition: all 0.4s;
+  }
 	.priceBox:hover{
 		opacity: .8;
 	}
@@ -86,8 +92,9 @@
 	}
 	.moneyRow{
 		text-align: center;
-		margin-bottom: 2%;
-	}
+    width: 80%;
+    margin: 0px auto 25px;
+  }
 	.pagRow{
 		/*text-align: center;*/
 	}
@@ -121,7 +128,7 @@
     margin-left: 0px !important;
   }
     footer{
-      background-color: #0275d8;
+      /*background-color: #0275d8;*/
       position: relative;
       bottom: 0;
       /*left: 0;*/
@@ -131,6 +138,9 @@
     body{
       padding-bottom: 0px;
     }
+  .container{
+    width: 100%;
+  }
 </style>
 <% if @noGuests %>
 <div class="row instructionRow">
@@ -146,7 +156,11 @@
   <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <h3>Or search all rooms: </h3><input name="child" type="hidden" value="<%= session[:childCount] %>"><input name="adult" type="hidden" value="<%= session[:adultCount] %>"><button class="btn btn-primary allRoomsBtn">Find Rooms!</button></form>
 </div>
-<div id="map"></div>
+<div class="row">
+  <div class="col-sm-12 map-col">
+    <div id="map"></div>
+  </div>
+</div>
 <div id="legend"><h5>Hotels</h5></div>
 <div class="row moneyRow">
 	<div class="col-md-4 hotelBox">

@@ -127,9 +127,9 @@
 .forgot{
     float: right;
 }
-.tinyHeader{
+/*.tinyHeader{
     text-align: center;
-}
+}*/
 .invis{
     visibility: hidden;
 }
@@ -140,15 +140,55 @@
 .container{
     width: 100%;
 }
+strong{
+    /*display: inline-block;*/
+}
+p{
+    text-align: justify;
+}
+.col-md-4{
+    padding-top: 10px;
+}
+.header-img-text{
+    font-weight: 800;
+}
+.navbar{
+    background-color: transparent !important;
+}
+body{
+    padding-top: 0px;
+}
+.up{
+    background-color: #0275d8 !important;
+}
+.top-header-img{
+    margin-top: 80px;
+}
+.example3 ul.nav a:hover{
+    background-color: transparent !important;
+}
+.example3 .nav .open>a {
+    background-color: transparent !important;
+}
+.dropdown-menu>li>a:hover {
+    color: #262626 !important;
+    text-decoration: none;
+    /*background-color: #f5f5f5;*/
+}
+.dropdown-menu>li>a{
+      -moz-transition: all 0.4s;
+      -webkit-transition: all 0.4s;
+      transition: all 0.4s;
+}
 </style>
 <div class="row img-wrapper">
 <div class="col-md-12 main-col">
 <span class='landingimg'><%= image_tag("soccerBall2crop.jpg") %>
 </span>
 <div class="img-overlay">
-<h1 class='header-img'>Oasis Cup</h1>
-<h3 class='header-img-h2'>Palm Desert, CA</h3>
-<h3 class='header-img-h2'>January 16-18 2018</h3>
+<h1 class='header-img-text header-img top-header-img'>OASIS CUP</h1>
+<h3 class='header-img-text header-img-h2'>PALM DESERT CA</h3>
+<h3 class='header-img-text header-img-h2'>JANUARY 16-18 2018</h3>
 <% if session[:user_id] %>
 <a href="/hotels"><button class="btn btn-primary btn-responsive regButton">Book Rooms</button></a>
 <% else %>
@@ -159,13 +199,12 @@
 </div>
 </div>
 <div class="row">
-    <div class="col-md-6 text">
-    <h4 class="tinyHeader"><strong>Welcome!</strong></h4>
-    <p>Welcome to the 2017 Oasis Cup Tournament!  This wonderful tournament will be played in Palm Desert California where the weather is great and the fields are even better!  This event is a <strong>"Stay & Play"</strong> Tournament.  All teams are required to book through Archer Travel Service, Inc. Your full cooperation is expected.</p>   
-    <p><strong>Final</strong> acceptance into the event will be granted after your hotel reservations are confirmed.  This is in agreement & partnership with Crescenta Valley SC and the Director of the Oasis Cup respectively.</p>
+    <div class="col-md-4 text">
+    <h2 class="tinyHeader"><strong>Welcome!</strong></h2>
+    <p>Welcome to the 2017 Oasis Cup Tournament!  This wonderful tournament will be played in Palm Desert California where the weather is great and the fields are even better!  This event is a <strong>"Stay & Play"</strong> Tournament.  All teams are required to book through Archer Travel Service, Inc. Your full cooperation is expected. <strong>Final</strong> acceptance into the event will be granted after your hotel reservations are confirmed.  This is in agreement & partnership with Crescenta Valley SC and the Director of the Oasis Cup respectively.</p>
     </div>
-    <div class="col-md-6 text">
-    <h4 class="tinyHeader"><strong>Team Guidelines</strong></h4>
+    <div class="col-md-4 text">
+    <h2 class="tinyHeader"><strong>Team Guidelines</strong></h2>
     <ul>
         <% if session[:user_id] %>
         <li><% if @user.team.exempt %>5<% else %>8<% end %> rooms per team with a 3 night minimum stay required</li>
@@ -179,27 +218,15 @@
         <li>Reservations may be made here or by calling 800 272-4377 (800 ARCHERS)</li>
     </ul>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-6 text bottom">
-    <h4 class="tinyHeader"><strong>Finalizing The Reservations</strong></h4>
+    <div class="col-md-4 text">
+    <h2 class="tinyHeader"><strong>Finalizing The Reservations</strong></h2>
     <ul>
         <li>We recommend that the <strong>Team Manager</strong> finalize your reservation first with their access code, especially if you are paying for multiple rooms</li>
         <li>It is important that your families receive the assigned <strong>access code</strong>, immediately to finalize their individual reservations</li>
         <li><strong>Team Managers</strong> are required to work directly with their families to ensure a complete and accurate rooming list</li>
         <li>Any rooms allocated and <strong>NOT CONFIRMED</strong> will be given to other teams on the wait list</li>
         <li>Your families will have <strong>10 days</strong> to finalize their individual reservations</li>
-    </ul>
-    </div>
-    <div class="col-md-6 text bottom">
-    <h4 class="tinyHeader invis"><strong>A</strong></h4>
-    <p>Send an email to our Tournament Director at <a href="mailto:oasiscup@yahoo.com?Subject=Oasis%20Cup" target="_top">oasiscup@yahoo.com</a> when your reservations are complete. Please provide the following information:</p>
-    <ul>
-        <li>Team Name</li>
-        <li>Age Group</li>
-        <li>Administrative contact person and e-mail address</li>
-        <li>Name of hotel where you will be staying</li>
-        <li>Number of rooms you have booked</li>
+        <li><p>Send an email to our Tournament Director at <a href="mailto:oasiscup@yahoo.com?Subject=Oasis%20Cup" target="_top">oasiscup@yahoo.com</a> when your reservations are complete. Please provide the following information: <strong>Team Name, Age Group, Administrative contact person and e-mail address, Name of hotel where you will be staying, Number of rooms you have booked.</strong></p></li>
     </ul>
     </div>
 </div>
@@ -307,7 +334,7 @@
                                     <label for="user[password]" class="col-sm-3 control-label">
                                         Password</label>
                                     <div class="col-sm-6">
-                                        <input name="user[password]" type="password" class="form-control" id="password" placeholder="Password" class="userpw"/>
+                                        <input name="user[password]" type="password" class="form-control userpw" id="password" placeholder="Password"/>
                                     </div>
                                 </div>
                                 <div class="form-group">
