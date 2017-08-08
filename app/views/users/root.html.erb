@@ -159,49 +159,49 @@
 </div>
 </div>
 <div class="row">
-<div class="col-md-6 text">
-<h4 class="tinyHeader"><strong>Welcome!</strong></h4>
-<p>Welcome to the 2017 Oasis Cup Tournament!  This wonderful tournament will be played in Palm Desert California where the weather is great and the fields are even better!  This event is a <strong>"Stay & Play"</strong> Tournament.  All teams are required to book through Archer Travel Service, Inc. Your full cooperation is expected.</p>   
-<p><strong>Final</strong> acceptance into the event will be granted after your hotel reservations are confirmed.  This is in agreement & partnership with Crescenta Valley SC and the Director of the Oasis Cup respectively.</p>
-</div>
-<div class="col-md-6 text">
-<h4 class="tinyHeader"><strong>Team Guidelines</strong></h4>
-<ul>
-    <% if session[:user_id] %>
-    <li><% if @user.team.exempt %>5<% else %>8<% end %> rooms per team with a 3 night minimum stay required</li>
-    <% else %>
-    <li>8 rooms per team with a 3 night minimum stay required</li>
-    <% end %>
-    <li>1st night room & tax will be charged at time of reservation</li>
-    <li>First Night Down Payments on the rooms will be due by June 28, 2017</li>
-    <li>Final Payments on the rooms will be due by December 1, 2017</li>
-    <li>All guests that are being booked for must be on your <% if session[:user_id] %><a href="/guests/user">guest list</a><% else %>guest list<% end %>.</li>
-    <li>Reservations may be made here or by calling 800 272-4377 (800 ARCHERS)</li>
-</ul>
-</div>
+    <div class="col-md-6 text">
+    <h4 class="tinyHeader"><strong>Welcome!</strong></h4>
+    <p>Welcome to the 2017 Oasis Cup Tournament!  This wonderful tournament will be played in Palm Desert California where the weather is great and the fields are even better!  This event is a <strong>"Stay & Play"</strong> Tournament.  All teams are required to book through Archer Travel Service, Inc. Your full cooperation is expected.</p>   
+    <p><strong>Final</strong> acceptance into the event will be granted after your hotel reservations are confirmed.  This is in agreement & partnership with Crescenta Valley SC and the Director of the Oasis Cup respectively.</p>
+    </div>
+    <div class="col-md-6 text">
+    <h4 class="tinyHeader"><strong>Team Guidelines</strong></h4>
+    <ul>
+        <% if session[:user_id] %>
+        <li><% if @user.team.exempt %>5<% else %>8<% end %> rooms per team with a 3 night minimum stay required</li>
+        <% else %>
+        <li>8 rooms per team with a 3 night minimum stay required</li>
+        <% end %>
+        <li>1st night room & tax will be charged at time of reservation</li>
+        <li>First Night Down Payments on the rooms will be due by June 28, 2017</li>
+        <li>Final Payments on the rooms will be due by December 1, 2017</li>
+        <li>All guests that are being booked for must be on your <% if session[:user_id] %><a href="/guests/user">guest list</a><% else %>guest list<% end %>.</li>
+        <li>Reservations may be made here or by calling 800 272-4377 (800 ARCHERS)</li>
+    </ul>
+    </div>
 </div>
 <div class="row">
-<div class="col-md-6 text bottom">
-<h4 class="tinyHeader"><strong>Finalizing The Reservations</strong></h4>
-<ul>
-    <li>We recommend that the <strong>Team Manager</strong> finalize your reservation first with their access code, especially if you are paying for multiple rooms</li>
-    <li>It is important that your families receive the assigned <strong>access code</strong>, immediately to finalize their individual reservations</li>
-    <li><strong>Team Managers</strong> are required to work directly with their families to ensure a complete and accurate rooming list</li>
-    <li>Any rooms allocated and <strong>NOT CONFIRMED</strong> will be given to other teams on the wait list</li>
-    <li>Your families will have <strong>10 days</strong> to finalize their individual reservations</li>
-</ul>
-</div>
-<div class="col-md-6 text bottom">
-<h4 class="tinyHeader invis"><strong>A</strong></h4>
-<p>Send an email to our Tournament Director at <a href="mailto:oasiscup@yahoo.com?Subject=Oasis%20Cup" target="_top">oasiscup@yahoo.com</a> when your reservations are complete. Please provide the following information:</p>
-<ul>
-    <li>Team Name</li>
-    <li>Age Group</li>
-    <li>Administrative contact person and e-mail address</li>
-    <li>Name of hotel where you will be staying</li>
-    <li>Number of rooms you have booked</li>
-</ul>
-</div>
+    <div class="col-md-6 text bottom">
+    <h4 class="tinyHeader"><strong>Finalizing The Reservations</strong></h4>
+    <ul>
+        <li>We recommend that the <strong>Team Manager</strong> finalize your reservation first with their access code, especially if you are paying for multiple rooms</li>
+        <li>It is important that your families receive the assigned <strong>access code</strong>, immediately to finalize their individual reservations</li>
+        <li><strong>Team Managers</strong> are required to work directly with their families to ensure a complete and accurate rooming list</li>
+        <li>Any rooms allocated and <strong>NOT CONFIRMED</strong> will be given to other teams on the wait list</li>
+        <li>Your families will have <strong>10 days</strong> to finalize their individual reservations</li>
+    </ul>
+    </div>
+    <div class="col-md-6 text bottom">
+    <h4 class="tinyHeader invis"><strong>A</strong></h4>
+    <p>Send an email to our Tournament Director at <a href="mailto:oasiscup@yahoo.com?Subject=Oasis%20Cup" target="_top">oasiscup@yahoo.com</a> when your reservations are complete. Please provide the following information:</p>
+    <ul>
+        <li>Team Name</li>
+        <li>Age Group</li>
+        <li>Administrative contact person and e-mail address</li>
+        <li>Name of hotel where you will be staying</li>
+        <li>Number of rooms you have booked</li>
+    </ul>
+    </div>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
