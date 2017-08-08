@@ -143,6 +143,11 @@
   .container{
     width: 100%;
   }
+  .update_reminder{
+    text-align: center;
+    margin-top: -35px;
+    padding-bottom: 35px;
+  }
 </style>
 <% if @noGuests %>
 <div class="row instructionRow">
@@ -180,6 +185,7 @@
 <form action="count" method="post" class="countForm" data-turbolinks="false">
 	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 <h4>Searching for <input name="child" type="hidden" value="<%= session[:childCount] %>"><% if session[:childCount] == 1 %><%= session[:childCount] %> Child <% else %><%= session[:childCount] %> Children <% end %>and <input name="adult" type="hidden" value="<%= session[:adultCount] %>"><% if session[:adultCount] == 1 %><%= session[:adultCount] %> Adult.<% else %><%= session[:adultCount] %> Adults.<% end %></h4><button class="btn btn-primary">Find Rooms!</button></form>
+<h5 class="update_reminder">Update Your <a href="/guests/user">Guest List</a></h5>
 </div>
 </div>
 <div class="row hotelBoxRow" data-turbolinks="false">
