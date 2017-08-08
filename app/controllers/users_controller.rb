@@ -6,6 +6,7 @@ class UsersController < ApplicationController
 		puts params['team']['conf_num']
 		puts params['team']['exempt']
 		@t = Team.find_by(conf_num: params['team']['conf_num'])
+		# Confirmation number validation here
 		if @t
 			@user = User.new(user_params)
 			@user.team_id = @t.id

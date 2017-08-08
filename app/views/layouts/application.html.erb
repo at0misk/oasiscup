@@ -66,6 +66,16 @@
     table button{
       width: 100%;
     }
+    button{
+      -moz-transition: all 0.4s;
+      -webkit-transition: all 0.4s;
+      transition: all 0.4s;
+    }
+    .navbar-brand img{
+        -moz-transition: all 0.4s;
+        -webkit-transition: all 0.4s;
+        transition: all 0.4s;
+    }
     .example3 nav{
       background-color: #0275d8;
     }
@@ -113,6 +123,9 @@
       display: none;
     }
    .navbar{
+      -moz-transition: all 0.4s;
+      -webkit-transition: all 0.4s;
+      transition: all 0.4s;
       margin-bottom: 0px;
     }
     .dropdown-menu li a{
@@ -183,7 +196,7 @@
 
 @media (max-width: 1158px) {
   .navbar-brand img{
-    width: 100% !important;
+    width: 100%;
   }
     .navbar-collapse.collapse {
         display: none !important;
@@ -354,6 +367,23 @@
 .navbar-brand img{
   width: 110%;
 }
+
+.down{
+  opacity: 0;
+}
+
+.top{
+  opacity: 1;
+}
+
+.up{
+  opacity: 1;
+}
+
+.smallImg{
+  width: 45px !important;
+}
+
   </style>
   </head>
 
@@ -503,4 +533,39 @@
     </div>
   </footer>
   </body>
+  <script type="text/javascript">
+$( document ).on('turbolinks:load', function() {
+  var lastScrollTop = 0;
+  // element should be replaced with the actual target element on which you have applied scroll, use window in case of no target element.
+  window.addEventListener("scroll", function(){ // or window.addEventListener("scroll"....
+     var st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
+     if (st > lastScrollTop){
+         // downscroll code
+         console.log('down')
+         $('.navbar').addClass('down')
+          $('.navbar-brand img').addClass('smallImg')
+     } else {
+        // upscroll code
+        var vscroll = document.body.scrollTop;
+        if(vscroll == 0){
+          console.log('top')
+          $('.navbar').removeClass('down')
+          $('.navbar').removeClass('up')
+          $('.navbar-brand img').removeClass('smallImg')
+          // $('.navbar-nav>li>a').removeClass('upColor')
+          // $('.navbar-brand').removeClass('upColor')
+        }
+        else{
+        console.log('up')
+          $('.navbar').removeClass('down')
+          $('.navbar').addClass('up')
+          $('.navbar-brand img').addClass('smallImg')
+          // $('.navbar-nav>li>a').addClass('upColor')
+          // $('.navbar-brand').addClass('upColor')
+        }
+     }
+     lastScrollTop = st;
+  }, false);
+});
+  </script>
 </html>

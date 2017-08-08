@@ -133,15 +133,22 @@
 .invis{
     visibility: hidden;
 }
+.main-col{
+    padding: 0px;
+}
+
+.container{
+    width: 100%;
+}
 </style>
 <div class="row img-wrapper">
-<div class="col-md-12">
-<span class='landingimg'><%= image_tag("soccerBall2.jpg") %>
+<div class="col-md-12 main-col">
+<span class='landingimg'><%= image_tag("soccerBall2crop.jpg") %>
 </span>
 <div class="img-overlay">
-<h1 class='header-img'>Oasis Cup Housing Authority</h1>
-<h2 class='header-img-h2'>January 16-18</h2>
-<h2 class='header-img-h2'>Palm Desert, CA</h2>
+<h1 class='header-img'>Oasis Cup</h1>
+<h3 class='header-img-h2'>Palm Desert, CA</h3>
+<h3 class='header-img-h2'>January 16-18 2018</h3>
 <% if session[:user_id] %>
 <a href="/hotels"><button class="btn btn-primary btn-responsive regButton">Book Rooms</button></a>
 <% else %>
