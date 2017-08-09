@@ -236,6 +236,7 @@
 <script type="text/javascript">
 		function initMap() {
         var palmSprings = {lat: <%= @hotel.lat %>, lng: <%= @hotel.long %>};
+        var fieldLocation = {lat: 33.745525, lng: -116.363321};
         var map = new google.maps.Map(document.getElementById('map'), {
           zoom: 15,
           scrollwheel: false,
@@ -247,7 +248,7 @@
           title: '<%= @hotel.name %>'
         });
         var markerField = new google.maps.Marker({
-        	position: palmSprings,
+        	position: fieldLocation,
         	map: map,
         	icon: "<%= escape_javascript asset_path('oasiscuplogoicon.png') %>",
         	title: 'Hovley Soccer Park'
