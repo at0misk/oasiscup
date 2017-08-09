@@ -46,14 +46,22 @@
 				/*width: 660px;*/
 			}
 		}
+	.empty{
+		text-align: center;
+	}
+	.gl_header{
+		margin-left: 15px;
+	}
 </style>
 <div class="row">
 <div class="col-md-12">
 <% if @guests.empty? %>
-<h3>Your guest list is empty.</h3>
-<h4 data-turbolinks="false">If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
+<div class="empty col-md-12">
+	<h3>Your guest list is empty.</h3>
+	<h4 data-turbolinks="false">If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
+</div>
 <% else %>
-<h3>Your Guest List</h3>
+<h3 class="gl_header">Your Guest List</h3>
 		<span class="table">
 			<span class="rowG">
 				<span class="cell header">First Name</span>
