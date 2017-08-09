@@ -179,45 +179,45 @@
 			<div class="col-md-4">
 			</div>
     <% end %>
-    <div class="col-sm-12">
-	    <table class="table table-striped hotel-table">
-	    <thead>
-	    	<tr>
-		    	<th>Room Type</th>
-		    	<th>Price</th>
-		    	<th>Smoking</th>
-		    	<th>Occupancy</th>
-		    	<th>Ammount Available</th>
-		    	<th></th>
-	    	</tr>
-	    </thead>
-	    <% @roomTypes.each do |val| %>
-	    	<% @room = Hotel.find(params[:id]).rooms.find_by(room_type: val) %>
-	    	<tr class="hotel-table-row">
-		    	<td><%= @room.room_type %></td>
-		    	<td><span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</td>
-		    	<td><%= @room.smoking %></td>
-		    	<td><%= @room.occupancy_a %> Adults <% if @room.occupancy_c %><h4>/ <%= @room.occupancy_c %> Children</h4><% end %></td>
-		    	<td>Only <%= Hotel.find(params[:id]).rooms.where(room_type: val).count %><br>Left!</td>
-		    	<td>
-				<form action="/cart/create/<%= @room.id %>" method="POST">
-					<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-					<input type="hidden" name="price" value="<%= @room.price %>">
-					<input type="hidden" name="number" value="<%= @room.number %>">
-					<input type="hidden" name="smoking" value="<%= @room.smoking %>">
-					<input type="hidden" name="room_type" value="<%= @room.room_type %>">
-					<input type="hidden" name="hotel_id" value="<%= @room.hotel.id %>">
-					<input type="hidden" name="user_id" value="<%= session[:user_id] %>">
-					<input type="hidden" name="occupancy_a" value="<%= @room.occupancy_a %>">
-					<input type="hidden" name="occupancy_c" value="<%= @room.occupancy_c %>">
-					<input type="number" name="amount" value="1" class="amountToAdd" min="1" max="<%= Hotel.find(params[:id]).rooms.where(room_type: val).count %>">
-					<button type="submit" class="btn btn-primary">Add To Cart</button>
-				</form>
-		    	</td>
-		    </tr>
-	    <% end %>
-	    </table>
-    </div>
+	    <div class="col-sm-12">
+		    <table class="table table-striped hotel-table">
+		    <thead>
+		    	<tr>
+			    	<th>Room Type</th>
+			    	<th>Price</th>
+			    	<th>Smoking</th>
+			    	<th>Occupancy</th>
+			    	<th>Ammount Available</th>
+			    	<th></th>
+		    	</tr>
+		    </thead>
+		    <% @roomTypes.each do |val| %>
+		    	<% @room = Hotel.find(params[:id]).rooms.find_by(room_type: val) %>
+		    	<tr class="hotel-table-row">
+			    	<td><%= @room.room_type %></td>
+			    	<td><span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</td>
+			    	<td><%= @room.smoking %></td>
+			    	<td><%= @room.occupancy_a %> Adults <% if @room.occupancy_c %><h4>/ <%= @room.occupancy_c %> Children</h4><% end %></td>
+			    	<td>Only <%= Hotel.find(params[:id]).rooms.where(room_type: val).count %><br>Left!</td>
+			    	<td>
+					<form action="/cart/create/<%= @room.id %>" method="POST">
+						<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+						<input type="hidden" name="price" value="<%= @room.price %>">
+						<input type="hidden" name="number" value="<%= @room.number %>">
+						<input type="hidden" name="smoking" value="<%= @room.smoking %>">
+						<input type="hidden" name="room_type" value="<%= @room.room_type %>">
+						<input type="hidden" name="hotel_id" value="<%= @room.hotel.id %>">
+						<input type="hidden" name="user_id" value="<%= session[:user_id] %>">
+						<input type="hidden" name="occupancy_a" value="<%= @room.occupancy_a %>">
+						<input type="hidden" name="occupancy_c" value="<%= @room.occupancy_c %>">
+						<input type="number" name="amount" value="1" class="amountToAdd" min="1" max="<%= Hotel.find(params[:id]).rooms.where(room_type: val).count %>">
+						<button type="submit" class="btn btn-primary">Add To Cart</button>
+					</form>
+			    	</td>
+			    </tr>
+		    <% end %>
+		    </table>
+	    </div>
     </div>
 <!-- <a href="/hotels/edit/<%= @hotel.id %>">Edit</a> -->
 <!-- <h3>Register room for this hotel:</h3>
