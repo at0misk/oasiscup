@@ -107,6 +107,10 @@
     .hotelLinkh4{
     	margin-top: 30px;
     }
+    .hotel_img img{
+	    width: 100%;
+	    height: auto;
+    }
 </style>
 <div class="searchFormRow row">
 <div class="col-md-2">
@@ -159,9 +163,9 @@
 			<% else %>
 			<% end %>
     		<div class="col-md-3 roomCol">
-			<a href="/hotels/<%= @room.hotel.id %>"><%= image_tag("#{@room.hotel.image}") %></a>
     		<h4 class="hotelLinkh4"><a href="hotels/<%= @room.hotel.id %>"><%= @room.hotel.name %></a></h4>
 			<h4>Bed: <%= @room.room_type %></h4>
+			<a href="/hotels/<%= @room.hotel.id %>" class="hotel_img"><%= image_tag("#{@room.hotel.image}") %></a>
 			<h4>Price: <span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</h4>
 			<h4>Smoking: <%= @room.smoking %></h4>
 			<h4>Adults: <%= @room.occupancy_a %></h4>
