@@ -112,6 +112,9 @@
     	width: auto;
     	display: inline-block;
     }
+    .hotel-table-row td{
+    	vertical-align: middle;
+    }
 </style>
 	<h3 class="hotelNameHeader"><%= @hotel.name %></h3>
 	<% if flash[:cart_created] %>
@@ -171,7 +174,7 @@
 			</div>
     <% end %>
     <div class="col-sm-12">
-	    <table class="table">
+	    <table class="table hotel-table">
 	    <thead>
 	    	<tr>
 		    	<th>Room Type</th>
@@ -184,7 +187,7 @@
 	    </thead>
 	    <% @roomTypes.each do |val| %>
 	    	<% @room = Hotel.find(params[:id]).rooms.find_by(room_type: val) %>
-	    	<tr>
+	    	<tr class="hotel-table-row">
 		    	<td><%= @room.room_type %></td>
 		    	<td><span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</td>
 		    	<td><%= @room.smoking %></td>
