@@ -151,6 +151,10 @@
   .instructionHeader{
     margin-bottom: 20px;
   }
+  .map_image img{
+    width: 100%;
+    height: auto;
+  }
 </style>
 <% if @noGuests %>
 <div class="row instructionRow">
@@ -289,6 +293,7 @@
             '<div id="siteNotice">'+
             '</div>'+
             '<h3 id="firstHeading" class="mapHeading"><a href="hotels/<%= val.id %>"><%= val.name %></a></h3>'+
+            '<a href="/hotels/<%= val.id %>" class="map_image"><%= image_tag("#{val.image}") %></a>' +
             '<div id="bodyContent" class="bodyContent">'+
             '<p class="descriptionP"><a href="hotels/<%= val.id %>">' +
             '<%= val.description %>' +
