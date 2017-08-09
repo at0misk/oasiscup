@@ -179,7 +179,7 @@
     <% @roomTypes.each do |val| %>
     	<% @room = Hotel.find(params[:id]).rooms.find_by(room_type: val) %>
     	<tr>
-	    	<td><%= @room.toom_type %></td>
+	    	<td><%= @room.room_type %></td>
 	    	<td><span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</td>
 	    	<td><%= @room.smoking %></td>
 	    	<td><%= @room.occupancy_a %> Adults <% if @room.occupancy_c %><h4>/ <%= @room.occupancy_c %> Children</h4><% end %></td>
