@@ -197,7 +197,7 @@
 			    	<td><%= @room.room_type %></td>
 			    	<td><span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</td>
 			    	<td><%= @room.smoking %></td>
-			    	<td><%= @room.occupancy_a %> Adults <% if @room.occupancy_c %><h4>/ <%= @room.occupancy_c %> Children</h4><% end %></td>
+			    	<td><%= @room.occupancy_a %> Adults <% if @room.occupancy_c %>/ <%= @room.occupancy_c %> Children<% end %></td>
 			    	<td>Only <%= Hotel.find(params[:id]).rooms.where(room_type: val).count %><br>Left!</td>
 			    	<td>
 					<form action="/cart/create/<%= @room.id %>" method="POST">
