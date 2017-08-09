@@ -67,7 +67,6 @@
 <% if @user.user_balance %>
 <h4>You have a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
 <% end %>
-<% end %>
 <% if session[:roomsNeeded] %>
 <h3>Your team must book at least 8 rooms to participate in the tournament</h3>
 <% elsif session[:exemptRoomsNeeded] %>
