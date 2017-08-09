@@ -166,6 +166,27 @@
 			<div class="col-md-4">
 			</div>
     <% end %>
+    <table>
+    <thead>
+    	<tr>
+	    	<th>Room Type</th>
+	    	<th>Price</th>
+	    	<th>Smoking</th>
+	    	<th>Occupancy</th>
+	    	<th>Ammount Available</th>
+    	</tr>
+    </thead>
+    <% @roomTypes.each do |val| %>
+    	<% @room = Hotel.find(params[:id]).rooms.find_by(room_type: val) %>
+    	<tr>
+	    	<td><%= @room.toom_type %></td>
+	    	<td><span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</td>
+	    	<td><%= @room.smoking %></td>
+	    	<td><%= @room.occupancy_a %> Adults <% if @room.occupancy_c %><h4>/ <%= @room.occupancy_c %> Children</h4><% end %></td>
+	    	<td>Only <%= Hotel.find(params[:id]).rooms.where(room_type: val).count %><br>Left!</td>
+	    </tr>
+    <% end %>
+    </table>
     <% @roomTypes.each do |val| %>
     	<% @room = Hotel.find(params[:id]).rooms.find_by(room_type: val) %>
     		<% if @roomTypes.length == 1 %>
