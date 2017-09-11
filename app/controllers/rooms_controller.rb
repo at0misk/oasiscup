@@ -5,9 +5,9 @@ class RoomsController < ApplicationController
 	def new
 	end
   def up_price
-    @rooms = Room.where(hotel_id: 8, room_type: "Double Queens")
+    @rooms = Room.where(hotel_id: 29)
     @rooms.each do |val|
-      new_price = val.price + 10
+      new_price = val.price + 20
       val.price = new_price
       val.save
     end
