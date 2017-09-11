@@ -99,6 +99,8 @@ class UserMailer < ApplicationMailer
     mail(to: "oasiscuppalmdesert@gmail.com", subject: "Booking Form - #{@user.first} #{@user.last}" )
     end
     def end_of_day_email(user)
+      # mail all admins not just mailer email
+      # dont mail mailer email at all - less to check
       @admin = user
       @users = User.where("created_at >= ?", Time.zone.now.beginning_of_day)
       @teams = Team.where("created_at >= ?", Time.zone.now.beginning_of_day)
