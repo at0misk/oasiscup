@@ -4,6 +4,15 @@ class RoomsController < ApplicationController
 	before_action :authenticate_user!
 	def new
 	end
+  def up_price
+    @rooms = Room.all
+    @rooms.each do |val|
+      new_price = val.price + 20
+      val.price = new_price
+      val.save
+    end
+    redirect_to '/'
+  end
   def generate
     if !session[:user_id]
     else
