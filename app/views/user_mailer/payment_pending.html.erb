@@ -158,7 +158,7 @@ when your reservations are complete. Please provide the following information:</
 		<tr>
 		<td><%= val.conf_code %></td>
 		<td><a href="http://www.oasiscup.com/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
-		<td><%= val.hotel.address %> <%= val.hotel.city %> <%= val.hotel.state %> <%= val.hotel.zip %></td>
+		<td><a href="https://maps.google.com/?q=<%= val.hotel.address %> <%= val.hotel.city %> <%= val.hotel.state %> <%= val.hotel.zip %>"><%= val.hotel.address %> <%= val.hotel.city %> <%= val.hotel.state %> <%= val.hotel.zip %></a></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
