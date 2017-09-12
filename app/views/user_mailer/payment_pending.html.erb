@@ -77,9 +77,8 @@
 <p><strong>Final</strong> acceptance into the event will be granted after your hotel reservations are confirmed.  This is in agreement & partnership with Crescenta Valley SC and the Director of the Oasis Cup respectively.</p>
 <h3 class="smallH">Team Guidelines</h3>
 <ul>
-	<li><% if @team.exempt %>5<% else %>8<% end %> rooms per team with a 3 night minimum stay required</li>
-	<li>1st night room & tax will be charged at time of reservation</li>
-    <li>First Night Down Payments on the rooms will be due by July 1, 2017</li>
+	<li><% if @team.exempt %>5<% else %>7<% end %> rooms per team with a 3 night minimum stay required</li>
+	<li>1st night room & tax will be charged within 10 days of registration request.</li>
 	<li>Final Payments on the rooms will be due by December 1, 2017</li>
 	<li>All guests that are being booked for must be on your <a href="http://www.oasiscup.com/guests/user">guest list</a>.</li>
 	<li>Reservations may be made <a href="http://www.oasiscup.com">here</a> or by calling 800 272-4377 (800 ARCHERS)</li>
@@ -159,7 +158,7 @@ when your reservations are complete. Please provide the following information:</
 		<tr>
 		<td><%= val.conf_code %></td>
 		<td><a href="http://www.oasiscup.com/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
-		<td><%= val.hotel.address %></td>
+		<td><%= val.hotel.address %> <%= val.hotel.city %> <%= val.hotel.state %> <%= val.hotel.zip %></td>
 		<td><%= val.smoking %></td>
 		<td><%= val.occupancy_a %></td>
 		<td><%= val.occupancy_c %></td>
