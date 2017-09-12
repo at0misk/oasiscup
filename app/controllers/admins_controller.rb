@@ -118,7 +118,7 @@ class AdminsController < ApplicationController
 		@users = User.where(down_payment_status: false).where("user_balance > ?", 0)
 		@users.each do |val|
 			val.books.each do |book|
-				if book.created_at == Date.today - 7
+				if book.created_at == Date.today - 10
 					@userArr << val
 				end
 			end
