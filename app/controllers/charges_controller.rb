@@ -130,9 +130,9 @@ class ChargesController < ApplicationController
 					@team.mail_confirmation = true
 				end
 			else
-				if @team.books.length < 8
+				if @team.books.length < 7
 					session[:roomsNeeded] = true
-				elsif @team.books.length >= 8
+				elsif @team.books.length >= 7
 					session[:roomsNeeded] = false
 					@team.users.each do |val|
 						puts 'mailing'
@@ -163,9 +163,9 @@ class ChargesController < ApplicationController
 					@team.save
 				end
 			else
-				if @team.books.length < 8
+				if @team.books.length < 7
 					session[:roomsNeeded] = true
-				elsif @team.books.length >= 8
+				elsif @team.books.length >= 7
 					session[:roomsNeeded] = false
 					@team.users.each do |val|
 						puts 'mailing'
@@ -334,9 +334,9 @@ class ChargesController < ApplicationController
 					@team.mail_confirmation = true
 				end
 			else
-				if @team.books.length < 8
+				if @team.books.length < 7
 					session[:roomsNeeded] = true
-				elsif @team.books.length >= 8
+				elsif @team.books.length >= 7
 					session[:roomsNeeded] = false
 					@team.users.each do |val|
 						puts 'mailing'
@@ -369,9 +369,9 @@ class ChargesController < ApplicationController
 					@team.save
 				end
 			else
-				if @team.books.length < 8
+				if @team.books.length < 7
 					session[:roomsNeeded] = true
-				elsif @team.books.length >= 8
+				elsif @team.books.length >= 7
 					session[:roomsNeeded] = false
 					@team.users.each do |val|
 						puts 'mailing'

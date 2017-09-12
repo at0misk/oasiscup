@@ -66,9 +66,13 @@
 <% @discount = (@totalForCheck + @taxForTotalCheck) * @checkTax %>
 <% if @user.user_balance %>
 <h4>You have a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
+<h5>To complete payment, please call:</h5>
+<h5>1-800-272-4377</h5>
+<h5>Monday - Friday</h5>
+<h5>7 AM - 5 PM PST</h5>
 <% end %>
 <% if session[:roomsNeeded] %>
-<h3>Your team must book at least 8 rooms to participate in the tournament</h3>
+<h3>Your team must book at least 7 rooms to participate in the tournament</h3>
 <% elsif session[:exemptRoomsNeeded] %>
 <h3>Your team must book at least 5 rooms to participate in the tournmaent</h3>
 <% end %>

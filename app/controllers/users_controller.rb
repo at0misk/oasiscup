@@ -3,9 +3,8 @@ class UsersController < ApplicationController
 	def new
 	end
 	def create
-		puts params['team']['conf_num']
 		puts params['team']['exempt']
-		@t = Team.find_by(conf_num: params['team']['conf_num'])
+		@t = Team.find_by(name: params['team']['name'])
 		# Confirmation number validation here
 		if @t
 			@user = User.new(user_params)
@@ -70,6 +69,7 @@ class UsersController < ApplicationController
 		if session[:user_id]
 			@user = User.find(session[:user_id])
 		end
+		@teams = Team.all
 		# if session[:user_id] == nil
 		# 	redirect_to '/users/new'
 		# else
@@ -81,7 +81,7 @@ class UsersController < ApplicationController
   		params.require(:user).permit(:first, :last, :email, :team, :fee_status, :password, :password_confirmation, :team_id, :phone_number) 
   	end
   	def team_params
-  		params.require(:team).permit(:name, :conf_num, :exempt)
+  		params.require(:team).permit(:name, :exempt)
   	end
   	def edit
   		@user = User.find(session[:user_id])
