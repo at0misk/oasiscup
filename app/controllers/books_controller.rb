@@ -21,15 +21,16 @@ class BooksController < ApplicationController
 		@room.room_type = @book.room_type
 		@room.occupancy_a = @book.occupancy_a
 		@room.occupancy_c = @book.occupancy_c
-		@room.save
-		Book.destroy(params[:id])
-		@user = User.find(session[:user_id])
-		if @user.user_balance
-			if @user.user_balance == params['deduct'].to_f
-				@user.update_attribute(:user_balance, nil)
-			else
-			@currentBalance = @user.user_balance
-			@user.update_attribute(:user_balance, (@currentBalance - params['deduct'].to_f))
+		if @room.save
+			Book.destroy(params[:id])
+			@user = User.find(session[:user_id])
+			if @user.user_balance
+				if @user.user_balance == params['deduct'].to_f
+					@user.update_attribute(:user_balance, nil)
+				else
+				@currentBalance = @user.user_balance
+				@user.update_attribute(:user_balance, (@currentBalance - params['deduct'].to_f))
+				end
 			end
 		end
 		redirect_to :back
