@@ -180,7 +180,7 @@ body{
       -webkit-transition: all 0.4s;
       transition: all 0.4s;
 }
-.btn-primary{
+.clear-button{
     background-color: transparent;
     border-color: white;
 }
@@ -198,10 +198,10 @@ body{
 <h3 class='header-img-text header-img-h2'>PALM DESERT CA</h3>
 <h3 class='header-img-text header-img-h2'>JANUARY 16-18 2018</h3>
 <% if session[:user_id] %>
-<a href="/hotels"><button class="btn btn-primary btn-responsive regButton">Book Rooms</button></a>
+<a href="/hotels"><button class="btn btn-primary btn-responsive regButton clear-button">Book Rooms</button></a>
 <% else %>
-<button class="btn btn-primary btn-responsive regButton" data-toggle="modal" data-target="#myModal">Register</button>
-<button class="btn btn-primary btn-responsive loginButton" data-toggle="modal" data-target="#myModal">Login</button>
+<button class="btn btn-primary btn-responsive regButton clear-button" data-toggle="modal" data-target="#myModal">Register</button>
+<button class="btn btn-primary btn-responsive loginButton clear-button" data-toggle="modal" data-target="#myModal">Login</button>
 <% end %>
 </div>
 </div>
