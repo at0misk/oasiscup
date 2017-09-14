@@ -225,7 +225,10 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
-					UserMailer.tournament_confirmation(val, @transaction).deliver_now
+					@admins = User.where(team_id: 18)
+					@admins.each do |adminval|
+						UserMailer.tournament_confirmation(val, adminval, @transaction).deliver_now
+					end
 				end
 				@team.mail_confirmation = true
 				@team.save
