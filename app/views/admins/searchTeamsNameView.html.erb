@@ -12,7 +12,6 @@
 		<% else %>
 			<% @teams.each do |val| %>
 				<h3>Team Name: <%= val.name %></h3>
-				<h3>Confirmation Number: <%= val.conf_num %></h3>
 				<h3>Registered On: <%= val.created_at.strftime("%B #{val.created_at.day.ordinalize}, %Y") %></h3>
 				<h3>Exempt: <% if val.exempt %> Yes <% else %> No<% end %></h3>
 				<h3>Confirmed For Tournament: <% if val.mail_confirmation %> Yes <% else %> No <% end %></h3>
