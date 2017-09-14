@@ -406,7 +406,12 @@ body{
 		<% if flash[:errors] %>
 			<% if flash[:errors].any? %>
 			  <% flash[:errors].each do |error_message| %>
-			    <%= error_message %> <br />
+                <% if error_message == "Email has already been taken" %>
+                    <%= error_message %> <br />
+                    Please login <br />
+                <% else %>
+    			    <%= error_message %> <br />
+                <% end %>
 			  <% end %>
 			<% end %>
 		<% end %>
