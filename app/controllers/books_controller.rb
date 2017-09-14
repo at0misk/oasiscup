@@ -13,6 +13,7 @@ class BooksController < ApplicationController
 	end
 	def cancel
 		@book = Book.find(params[:id])
+		@user = User.find(@book.user_id)
 		@room = Room.new
 		@room.hotel_id = @book.hotel_id
 		@room.price = @book.price
@@ -23,7 +24,6 @@ class BooksController < ApplicationController
 		@room.occupancy_c = @book.occupancy_c
 		if @room.save
 			Book.destroy(params[:id])
-			@user = User.find(session[:user_id])
 			if @user.user_balance
 				if @user.books.length == 0
 					@user.update_attribute(:user_balance, 0)
