@@ -64,7 +64,10 @@ class AdminsController < ApplicationController
 	def mailEndOfDay
 		verifyAdmin
 		@user = User.find(session[:user_id])
-		UserMailer.end_of_day_email(@user).deliver_now
+		@admins = User.where(team_id: 18)
+		@admins.each do |val|
+			UserMailer.end_of_day_email(@user, val).deliver_now
+		end
 		redirect_to :back
 	end
 	def endOfDay

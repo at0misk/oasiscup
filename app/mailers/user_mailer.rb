@@ -98,7 +98,7 @@ class UserMailer < ApplicationMailer
         end
     mail(to: admin.email, subject: "Booking Form - #{@user.first} #{@user.last}" )
     end
-    def end_of_day_email(user)
+    def end_of_day_email(user, admin)
       # mail all admins not just mailer email
       # dont mail mailer email at all - less to check
       @admin = user
@@ -114,9 +114,9 @@ class UserMailer < ApplicationMailer
             @emptiedHotels << val
           end
         end
-      mail(to: "oasiscuppalmdesert@gmail.com", subject: "End of Day Report" )
+      mail(to: admin.email, subject: "End of Day Report" )
     end
-    def tournament_confirmation(user, transaction)
+    def tournament_confirmation(user, admin, transaction)
       @user = user
       @transaction = transaction
       @team = @user.team
@@ -137,6 +137,7 @@ class UserMailer < ApplicationMailer
         @total_user += val.price
       end
       mail(to: "#{@user.email}", subject: "Oasis Cup Tournament Confirmation" )
+      mail(to: admin.email, subject: "#{@user.first} #{@user.last} - Oasis Cup Tournament Confirmation")
     end
     def one_week_warning(user)
       @user = user
