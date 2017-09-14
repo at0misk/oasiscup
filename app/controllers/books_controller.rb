@@ -31,7 +31,10 @@ class BooksController < ApplicationController
 					@user.update_attribute(:user_balance, nil)
 				else
 				@currentBalance = @user.user_balance
-				@user.update_attribute(:user_balance, (@currentBalance - params['deduct'].to_f))
+				@deduct = BigDecimal.new(params['deduct'])
+				puts @deduct
+				fail
+				@user.update_attribute(:user_balance, (@currentBalance - @deduct)
 				end
 			end
 		end
