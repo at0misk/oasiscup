@@ -149,7 +149,7 @@ class CartsController < ApplicationController
 		UserMailer.payment_pending(@user).deliver_now
 		@admins = User.where(team_id: "18")
 		@admins.each do |val|
-			UserMailer.admin_payment_pending(val).deliver_now
+			UserMailer.admin_payment_pending(@user, val).deliver_now
 		end
 		Cart.where(user_id: @user.id).destroy_all
 		redirect_to '/booked'
