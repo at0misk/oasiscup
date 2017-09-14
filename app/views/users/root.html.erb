@@ -415,7 +415,7 @@ body{
         $('#pre-reg').click(function(){
             if(switch_reg == 0){
                 $('#pre-reg').text("My Team Isn't Listed");
-                $('#team-text-div').html("<div class='form-group'><label for='team[name]' class='col-sm-3 control-label'>Select Team</label><div class='col-sm-6'><select class='team-drop-down' name='team[name]' id='team[name]'>" + "<% @teams.each do |val| %><% if val.name != 'Archer'><option><%= val.name %></option><% end %><% end %>" + "</select></div></div>");
+                $('#team-text-div').html("<div class='form-group'><label for='team[name]' class='col-sm-3 control-label'>Select Team</label><div class='col-sm-6'><select class='team-drop-down' name='team[name]' id='team[name]'>" + "<% @teams.each do |val| %><% if val.name != 'Archer' %><option><%= val.name %></option><% end %><% end %>" + "</select></div></div>");
             }
             else{
                 $('#pre-reg').text("My Team Already Registered");
