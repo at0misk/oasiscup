@@ -105,7 +105,7 @@ when your reservations are complete. Please provide the following information:</
 <li><strong>PLEASE DO NOT CALL THE HOTELS DIRECTLY</strong></li>
 <li>All hotel related questions please email <a href="mailto:JoseL@archertravel.com?Subject=Oasis%20Cup" target="_top">JoseL@archertravel.com</a></li>
 <li>Tournament related questions please contact <a href="mailto:SDArcher@earthlink.net?Subject=Oasis%20Cup" target="_top">SDArcher@earthlink.net</a></li>
-<li>Hours of operation are Monday-Friday 9am-5pm PST</li>
+<li>Hours of operation are Monday-Friday 7am-5pm PST</li>
 </ul>
 <p class="ty">Thank you,</p>
 <p class="bottom">Archer Travel and the Oasis Cup</p>
@@ -131,7 +131,7 @@ when your reservations are complete. Please provide the following information:</
 <% if @user.user_balance %>
 <h4>You have a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
 <% if @user.user_balance == (@totalForCheck + @taxForTotalCheck) %>
-<h4>If you pay by check, you can save <span class="green"><%= number_to_currency(@discount, :precision => 2) %>!</span></h4>
+
 <% end %>
 <% end %>
 <div class="table-responsive">

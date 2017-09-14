@@ -92,7 +92,6 @@
 <% if @user.user_balance %>
 <h4><%= @user.first %> <%= @user.last %> has a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
 <% if @user.user_balance == (@totalForCheck + @taxForTotalCheck) %>
-<h4>If they pay by check, they can save <span class="green"><%= number_to_currency(@discount, :precision => 2) %></span></h4>
 <h4>User has made no down payment, rooms requested on <%= Date.today %></h4>
 <% end %>
 <% end %>
