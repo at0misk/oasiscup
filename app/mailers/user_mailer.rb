@@ -145,7 +145,10 @@ class UserMailer < ApplicationMailer
     end
     def one_week_admin(users)
       @users = users
-      mail(to: "oasiscuppalmdesert@gmail.com", subject: "Oasis Cup Tournament 1 Week Warning" )
+      @admins = User.where(team_id: 18)
+      @admins.each do |val|
+        mail(to: val.email, subject: "Oasis Cup Tournament 1 Week Warning" )
+      end
     end
     def user_report(admin, user)
       @admin = admin
