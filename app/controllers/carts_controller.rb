@@ -111,7 +111,12 @@ class CartsController < ApplicationController
 		@user.save
 	  @team = @user.team
 	  @cart = Cart.where(user_id: @user.id)
-	  @user.update_attribute(:user_balance, params['balance'])
+	  if @cart.length > 0
+	  	@old_balance = @user.user_balance
+	  	@user.update_attribute(:user_balance, (params['balance'] + @old_balance)
+	  else
+	  	@user.update_attribute(:user_balance, params['balance'])
+	  end
 		flash[:charged] = true
 		@total = 0
 		@tax = 0
