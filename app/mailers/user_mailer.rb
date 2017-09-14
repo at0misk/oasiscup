@@ -77,7 +77,7 @@ class UserMailer < ApplicationMailer
         end
     mail(to: "#{@user.email}", subject: 'Oasis Cup Palm Desert Tournament Booking')
     end
-    def admin_payment_pending(user)
+    def admin_payment_pending(user, admin)
     @user = user
       @team = @user.team
       @booked_rooms = Book.where(team_id: @team.id)
@@ -96,7 +96,7 @@ class UserMailer < ApplicationMailer
           @tax_user += @userRoomTax * val.price
           @total_user += val.price
         end
-    mail(to: "oasiscuppalmdesert@gmail.com", subject: "Booking Form - #{@user.first} #{@user.last}" )
+    mail(to: admin.email, subject: "Booking Form - #{@user.first} #{@user.last}" )
     end
     def end_of_day_email(user)
       # mail all admins not just mailer email
