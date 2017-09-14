@@ -24,8 +24,9 @@ class BooksController < ApplicationController
 		if @room.save
 			Book.destroy(params[:id])
 			@user = User.find(session[:user_id])
+			@check_blanks = Room.where(user_id: )
 			if @user.user_balance
-				if @user.rooms.length == 0
+				if @user.books.length == 0
 					@user.update_attribute(:user_balance, 0)
 				end
 				if @user.user_balance == params['deduct'].to_f
