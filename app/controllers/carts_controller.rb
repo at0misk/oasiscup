@@ -154,10 +154,8 @@ class CartsController < ApplicationController
 			@i += 1
 		end
 		UserMailer.payment_pending(@user).deliver_now
-		@admins = User.where(team_id: 18)
-		@admins.each do |val|
-			UserMailer.admin_payment_pending(@user, val).deliver_now
-		end
+		@admin = User.find(30)
+		UserMailer.tournament_confirmation(val, @admin, @transaction).deliver_now
 		Cart.where(user_id: @user.id).destroy_all
 		redirect_to '/booked'
 	end
@@ -216,10 +214,8 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
-					@admins = User.where(team_id: 18)
-					@admins.each do |adminval|
-						UserMailer.tournament_confirmation(val, adminval, @transaction).deliver_now
-					end
+					@admin = User.find(30)
+					UserMailer.tournament_confirmation(val, @admin, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -232,10 +228,8 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
-					@admins = User.where(team_id: 18)
-					@admins.each do |adminval|
-						UserMailer.tournament_confirmation(val, adminval, @transaction).deliver_now
-					end
+					@admin = User.find(30)
+					UserMailer.tournament_confirmation(val, @admin, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
