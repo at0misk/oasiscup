@@ -310,14 +310,19 @@ body{
                                 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
                                 <div id="team-text-div">
                                     <div class='form-group'>
-                                        <label for='team[name]' class='col-sm-3 control-label'>
-                                            Team Name</label>
+                                        <label for='team[name]' class='col-sm-3 control-label'>Select Team</label>
                                         <div class='col-sm-6'>
-                                            <input name='team[name]' type='text' class='form-control' id='team[name]' placeholder='Team Name' />
+                                            <select class='team-drop-down' name='team[name]' id='team[name]'>
+                                                <% @teams.each do |val| %>
+                                                    <% if val.name != 'Archer' %>
+                                                        <option><%= val.name %></option>
+                                                    <% end %>
+                                                <% end %>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
-                                <h5 class="tiny-pre-team"><a id="pre-reg" href="#">My Team Already Registered</a></h5>
+                                <h5 class="tiny-pre-team"><a id="pre-reg" href="#">My Team Isn't Listed</a></h5>
                                     <div class="form-check form-check-inline">
                                       <label class="form-check-label">
                                         <input class="form-check-input" type="checkbox" name="team[exempt]" value="true" /> My team is local (within 25 miles of Hovley Soccer Park)
@@ -426,12 +431,12 @@ body{
     var switch_reg = 0;
         $('#pre-reg').click(function(){
             if(switch_reg == 0){
-                $('#pre-reg').text("My Team Isn't Listed");
-                $('#team-text-div').html("<div class='form-group'><label for='team[name]' class='col-sm-3 control-label'>Select Team</label><div class='col-sm-6'><select class='team-drop-down' name='team[name]' id='team[name]'>" + "<% @teams.each do |val| %><% if val.name != 'Archer' %><option><%= val.name %></option><% end %><% end %>" + "</select></div></div>");
-            }
-            else{
                 $('#pre-reg').text("My Team Already Registered");
                 $('#team-text-div').html("<div class='form-group'><label for='team[name]' class='col-sm-3 control-label'>Team Name</label><div class='col-sm-6'><input name='team[name]' type='text' class='form-control' id='team[name]' placeholder='Team Name' /></div></div>");
+            }
+            else{
+                $('#pre-reg').text("My Team Isn't Listed");
+                $('#team-text-div').html("<div class='form-group'><label for='team[name]' class='col-sm-3 control-label'>Select Team</label><div class='col-sm-6'><select class='team-drop-down' name='team[name]' id='team[name]'>" + "<% @teams.each do |val| %><% if val.name != 'Archer' %><option><%= val.name %></option><% end %><% end %>" + "</select></div></div>");
             }
             if(switch_reg == 0){
                 switch_reg = 1;
