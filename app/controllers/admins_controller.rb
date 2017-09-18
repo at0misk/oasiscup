@@ -135,7 +135,7 @@ class AdminsController < ApplicationController
 	end
 	def allUsers
 		verifyAdmin
-		@users = User.all
+		@users = User.all.paginate(:page => params[:page])
 	end
 	def balance
 		verifyAdmin
