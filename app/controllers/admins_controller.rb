@@ -135,7 +135,7 @@ class AdminsController < ApplicationController
 	end
 	def allUsers
 		verifyAdmin
-		@users = User.all.paginate(:page => params[:page])
+		@users = User.all.order(created_at: :desc).paginate(:page => params[:page])
 	end
 	def balance
 		verifyAdmin
