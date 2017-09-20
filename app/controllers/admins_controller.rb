@@ -168,4 +168,16 @@ class AdminsController < ApplicationController
 		@user.save
 		redirect_to :back
 	end
+	def ten_days
+		verifyAdmin
+		@users = []
+		@users_found = User.where(down_payment_status: false).where("user_balance > ?", 0)
+		@users_found.each do |val|
+			val.books.each do |book|
+				if book.created_at == Date.today - 10
+					@users << val
+				end
+			end
+		end
+	end
 end
