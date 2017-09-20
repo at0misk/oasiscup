@@ -3,6 +3,14 @@ class HotelsController < ApplicationController
 	before_action :authenticate_user!
   @@roomSwitch = {}
 	def new
+    if !session[:user_id]
+      redirect_to '/'
+    else
+      @user = User.find(session[:user_id])
+      if !@user.permod
+        redirect_to '/'
+      end
+    end
 	end
 	def create
     if !session[:user_id]
