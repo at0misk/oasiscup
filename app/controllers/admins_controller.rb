@@ -143,7 +143,7 @@ class AdminsController < ApplicationController
 	end
 	def no_down_payment
 		verifyAdmin
-		@users = User.where(down_payment_status: false)
+		@users = User.where(down_payment_status: false).order(created_at: :desc).paginate(:page => params[:page])
 	end
 	def mail_user_report
 		verifyAdmin
