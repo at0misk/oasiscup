@@ -369,6 +369,7 @@ class CartsController < ApplicationController
 		@admin = true
 		UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
 		@admin = false
+		@admin2 = User.find(9)
 		# Paid in full from the get go - Send Emails with guestlist and confirmation
 		if @team.exempt
 			if @team.books.length < 5
@@ -378,7 +379,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
-					UserMailer.tournament_confirmation(val, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -391,7 +392,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
-					UserMailer.tournament_confirmation(val, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
