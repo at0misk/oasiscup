@@ -115,7 +115,11 @@ class CartsController < ApplicationController
 	  if @books.length > 0
 	  	@old_balance = @user.user_balance
 	  	@param_balance = BigDecimal.new(params['balance'])
-	  	@user.update_attribute(:user_balance, (@param_balance + @old_balance))
+	  	if @user.user_balance
+		  	@user.update_attribute(:user_balance, (@param_balance + @old_balance))
+		else
+		  	@user.update_attribute(:user_balance, (@param_balance + 0))
+		end
 	  else
 	  	@user.update_attribute(:user_balance, params['balance'])
 	  end
