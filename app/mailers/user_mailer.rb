@@ -136,8 +136,9 @@ class UserMailer < ApplicationMailer
         @tax_user += @userRoomTax * val.price
         @total_user += val.price
       end
-      mail(to: "#{@user.email}", subject: "Oasis Cup Tournament Confirmation" )
-      mail(to: admin.email, subject: "#{@user.first} #{@user.last} - Oasis Cup Tournament Confirmation")
+      mail(to: user.email, subject: "Oasis Cup Tournament Confirmation")
+      # Make confirmation admin email seperate
+      # mail(to: admin.email, subject: "#{@user.first} #{@user.last} - Oasis Cup Tournament Confirmation")
     end
     def one_week_warning(user)
       @user = user
