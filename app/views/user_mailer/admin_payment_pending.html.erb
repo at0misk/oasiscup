@@ -79,10 +79,6 @@
 <div class="col-md-1">
 </div>
 <div class="col-md-10">
-<% if @user_rooms.empty? %>
-<h3 class="notFound">You haven't booked any rooms.</h3>
-<h4 data-turbolinks="false" class="notFound">If you need to checkout, go to your <a href="http://www.oasiscup.com/cart">cart</a>, or book more <a href='hotels'>rooms.</a></h4>
-<% else %>
 <h3>Name: <%= @user.first %> <%= @user.last %></h3>
 <h3>Team: <%= @user.team.name %></h3>
 <% @checkTax = 0.05 %>
@@ -93,7 +89,6 @@
 <h4><%= @user.first %> <%= @user.last %> has a pending balance of <span class="green"><%= number_to_currency(@user.user_balance, :precision => 2) %></span></h4>
 <% if @user.user_balance == (@totalForCheck + @taxForTotalCheck) %>
 <h4>User has made no down payment, rooms requested on <%= Date.today %></h4>
-<% end %>
 <% end %>
 <div class="table-responsive">
 <table class="table table-striped">

@@ -154,8 +154,10 @@ class CartsController < ApplicationController
 			@i += 1
 		end
 		UserMailer.payment_pending(@user).deliver_now
-		@admin1 = User.find(30)
+		# @admin1 = User.find(30)
 		@admin2 = User.find(9)
+		# UserMailer.admin_payment_pending(@user, @admin1)
+		UserMailer.admin_payment_pending(@user, @admin2)
 		# UserMailer.tournament_confirmation(@user, @admin1, @transaction).deliver_now
 		# UserMailer.tournament_confirmation(@user, @admin2, @transaction).deliver_now
 		Cart.where(user_id: @user.id).destroy_all
