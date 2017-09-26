@@ -218,9 +218,9 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
-					@admin1 = User.find(30)
+					# @admin1 = User.find(30)
 					@admin2 = User.find(9)
-					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
+					# UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
@@ -234,9 +234,9 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
-					@admin1 = User.find(30)
+					# @admin1 = User.find(30)
 					@admin2 = User.find(9)
-					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
+					# UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
