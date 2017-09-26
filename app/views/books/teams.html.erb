@@ -31,6 +31,7 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
+			<th>Booked By</th>
 			<th>Hotel</th>
 			<th>Address</th>
 			<th>Smoking</th>
@@ -45,6 +46,7 @@
 	<tbody>
 		<% @booked_rooms.each do |val| %>
 		<tr>
+		<td><%= val.user.first %> <%= val.user.last %></td>
 		<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
 		<td><%= val.hotel.address %></td>
 		<td><%= val.smoking %></td>
@@ -53,7 +55,6 @@
 		<td><%= val.room_type %></td>
 		<% if val.paid_status %>
 		<td class="green">Paid</td>
-		<% @x += 1 %>
 		<% else %>
 		<td class="red">Payment Pending</td>
 		<% end %>
