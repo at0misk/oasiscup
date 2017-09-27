@@ -177,8 +177,11 @@
 			<a href="/hotels/<%= @room.hotel.id %>" class="hotel_img"><%= image_tag("#{@room.hotel.image}") %></a>
 			<h4>Price: <span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</h4>
 			<h4>Smoking: <%= @room.smoking %></h4>
-			<h4>Adults: <%= @room.occupancy_a %></h4>
-			<% if @room.occupancy_c %><h4>Children: <%= @room.occupancy_c %></h4><% end %>
+			<% if @room.occupancy_c %>
+				<h4>Occupancy: <%= @room.occupancy_c + @room.occupancy_a %></h4>
+			<% else %>
+				<h4>Occupancy: <%= @room.occupancy_a %></h4>
+			<% end %>
 			<% if @room.description %><h4><%= @room.description %></h4><% end %>
 			<h5 class="amountLeft">Only <%= Hotel.find(val).rooms.where(room_type: v).count %><br>Left!</h5>
 			<form action="/cart/create/<%= @room.id %>" method="POST">
