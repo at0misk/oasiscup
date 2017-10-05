@@ -4,8 +4,8 @@ class UsersController < ApplicationController
 	end
 	def create
 		puts params['team']['exempt']
-		@clean_team_params = params['team']['name'].gsub(/\s+/, "")
-		@t = Team.find_by(name: @clean_team_params)
+		# @clean_team_params = params['team']['name'].gsub(/\s+/, "")
+		@t = Team.find_by(name: params['team']['name'])
 		# Confirmation number validation here
 		if @t
 			@user = User.new(user_params)
