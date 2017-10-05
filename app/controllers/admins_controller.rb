@@ -89,7 +89,7 @@ class AdminsController < ApplicationController
 		verifyAdmin
 		@users = User.where("DATE(created_at) = ?", Date.today-1)
 		@teams = Team.where("DATE(created_at) = ?", Date.today-1)
-		@booked_rooms = Book.where("DATE(created_at) = ?", Date.today-1)
+		@booked_rooms = Cart.where("DATE(created_at) = ?", Date.today-1)
 		@transactions = Transaction.where("DATE(created_at) = ?", Date.today-1)
 		@guests = Guest.where("DATE(created_at) = ?", Date.today-1)
 		@hotels = Hotel.all
