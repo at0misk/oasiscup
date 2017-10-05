@@ -158,9 +158,9 @@ class CartsController < ApplicationController
 			@i += 1
 		end
 		UserMailer.payment_pending(@user).deliver_now
-		# @admin1 = User.find(30)
+		@admin1 = User.find(30)
 		@admin2 = User.find(9)
-		# UserMailer.admin_payment_pending(@user, @admin1)
+		UserMailer.admin_payment_pending(@user, @admin1).deliver_now
 		UserMailer.admin_payment_pending(@user, @admin2).deliver_now
 		# UserMailer.tournament_confirmation(@user, @admin1, @transaction).deliver_now
 		# UserMailer.tournament_confirmation(@user, @admin2, @transaction).deliver_now
@@ -222,9 +222,9 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
-					# @admin1 = User.find(30)
+					@admin1 = User.find(30)
 					@admin2 = User.find(9)
-					# UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
@@ -238,9 +238,9 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
-					# @admin1 = User.find(30)
+					@admin1 = User.find(30)
 					@admin2 = User.find(9)
-					# UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
@@ -370,6 +370,7 @@ class CartsController < ApplicationController
 		UserMailer.confirmation_email(@user, @transaction_type, @t, @admin).deliver_now
 		@admin = false
 		@admin2 = User.find(9)
+		@admin1 = User.find(30)
 		# Paid in full from the get go - Send Emails with guestlist and confirmation
 		if @team.exempt
 			if @team.books.length < 5
@@ -379,6 +380,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
+					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
@@ -392,6 +394,7 @@ class CartsController < ApplicationController
 				@team.users.each do |val|
 					puts 'mailing'
 					puts "#{val.first}"
+					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
