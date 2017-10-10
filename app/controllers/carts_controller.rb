@@ -160,8 +160,12 @@ class CartsController < ApplicationController
 		UserMailer.payment_pending(@user).deliver_now
 		@admin1 = User.find(30)
 		@admin2 = User.find(9)
+		@admin3 = User.find(15)
+		@admin4 = User.find(34)
 		UserMailer.admin_payment_pending(@user, @admin1).deliver_now
 		UserMailer.admin_payment_pending(@user, @admin2).deliver_now
+		UserMailer.admin_payment_pending(@user, @admin3).deliver_now
+		UserMailer.admin_payment_pending(@user, @admin4).deliver_now
 		# UserMailer.tournament_confirmation(@user, @admin1, @transaction).deliver_now
 		# UserMailer.tournament_confirmation(@user, @admin2, @transaction).deliver_now
 		Cart.where(user_id: @user.id).destroy_all
@@ -224,8 +228,12 @@ class CartsController < ApplicationController
 					puts "#{val.first}"
 					@admin1 = User.find(30)
 					@admin2 = User.find(9)
+					@admin3 = User.find(15)
+					@admin4 = User.find(34)
 					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin3, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin4, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -240,8 +248,12 @@ class CartsController < ApplicationController
 					puts "#{val.first}"
 					@admin1 = User.find(30)
 					@admin2 = User.find(9)
+					@admin3 = User.find(15)
+					@admin4 = User.find(34)
 					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin3, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin4, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -371,6 +383,8 @@ class CartsController < ApplicationController
 		@admin = false
 		@admin2 = User.find(9)
 		@admin1 = User.find(30)
+		@admin3 = User.find(15)
+		@admin4 = User.find(34)
 		# Paid in full from the get go - Send Emails with guestlist and confirmation
 		if @team.exempt
 			if @team.books.length < 5
@@ -382,6 +396,8 @@ class CartsController < ApplicationController
 					puts "#{val.first}"
 					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin3, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin4, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
@@ -396,6 +412,8 @@ class CartsController < ApplicationController
 					puts "#{val.first}"
 					UserMailer.tournament_confirmation(val, @admin1, @transaction).deliver_now
 					UserMailer.tournament_confirmation(val, @admin2, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin3, @transaction).deliver_now
+					UserMailer.tournament_confirmation(val, @admin4, @transaction).deliver_now
 				end
 				@team.mail_confirmation = true
 				@team.save
