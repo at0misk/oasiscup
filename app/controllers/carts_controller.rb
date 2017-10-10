@@ -20,7 +20,7 @@ class CartsController < ApplicationController
 			@cart.team_id = @user.team.id
 			if @cart.save
 				flash[:cart_created] = "Added to cart!"
-				Room.where(hotel_id: params['hotel_id']).first.destroy
+				Room.where(hotel_id: params['hotel_id'], room_type: params['room_type']).first.destroy
 			else
 				flash[:errors] = @cart.errors.full_messages
 			end
