@@ -128,8 +128,8 @@ class HotelsController < ApplicationController
       #   end
       end
         session[:fromCount] = false
-    		@hotels = Hotel.all.paginate(:page => params[:page], :per_page => 8)
-        @hotelsAll = Hotel.all
+    		@hotels = Hotel.where.not(shelved: true).paginate(:page => params[:page], :per_page => 8)
+        @hotelsAll = Hotel.where.not(shelved: true)
   	end
   	def search
   		searchArr = []
