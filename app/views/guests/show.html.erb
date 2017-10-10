@@ -56,6 +56,7 @@
 <h4 data-turbolinks="false">If you have any guests that you are booking for, please fill out the guest list <a href="/guests/new">form</a>.</h4>
 <% else %>
 <h3><%= @team.name %>'s Guest List</h3>
+<h4>Below are the guests you have added, as well as the guests others on your team have added</h4>
 		<span class="table">
 			<span class="rowG">
 				<span class="cell header">First Name</span>
@@ -92,7 +93,7 @@
 			<% end %>
 			<% end %>
 		</span>
-		<h4>Please Add All Guests You Are Booking For:</h4>
+		<h4>Please Add All Guests Who Will Be Staying In Your Rooms:</h4>
 		<h4>Add more <a href="/guests/new">Guests</a></h4>
 <!-- 		<div>
 			<div>
