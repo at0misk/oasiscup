@@ -127,7 +127,7 @@
 	<h3 class="flash3">Added to <a href="/cart">cart!</a></h3>
 	<% end %>
 	<% if flash[:errors] %>
-		<% flash[:errors]each do |val| %>
+		<% flash[:errors].each do |val| %>
 			<p><%= val %></p>
 		<% end %>
 	<% end %>
