@@ -141,6 +141,9 @@
 <div class="row infoRow">
 	<div class="col-md-9 infoDiv">
 		<p><%= @hotel.description %></p>
+		<% if @hotel.breakfast %>
+			<p><%= @hotel.breakfast %></p>
+		<% end %>
 	</div>
 	<div class="col-md-3 infoDiv">
 		<!-- <h4>Phone Number: <%= @hotel.phone %></h4> -->
