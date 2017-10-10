@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170504155234) do
+ActiveRecord::Schema.define(version: 20171010170846) do
 
   create_table "books", force: :cascade do |t|
     t.decimal  "price"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20170504155234) do
     t.decimal  "resortFee"
     t.string   "conf_prefix"
     t.boolean  "shelved"
+    t.string   "breakfast"
   end
 
   create_table "reservations", force: :cascade do |t|
