@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171010170846) do
+ActiveRecord::Schema.define(version: 20171011205416) do
 
   create_table "books", force: :cascade do |t|
     t.decimal  "price"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20171010170846) do
     t.boolean  "paid_status"
     t.integer  "transaction_id"
     t.string   "conf_code"
+    t.string   "note"
     t.index ["hotel_id"], name: "index_books_on_hotel_id"
     t.index ["team_id"], name: "index_books_on_team_id"
     t.index ["transaction_id"], name: "index_books_on_transaction_id"

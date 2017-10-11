@@ -35,6 +35,12 @@
 	.checkHeader{
 		float: right;
 	}
+	.yieldCont{
+		width: 100%;
+	}
+	.btn-note{
+		width: 50%;
+	}
 </style>
 <div class="con">
 <% @users.each do |val| %>
@@ -89,7 +95,8 @@
 						<th>Status</th>
 						<th>Price Per Night</th>
 						<th>Total</th>
-						<th></th>
+						<th>Cancel</th>
+						<th>Notes</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -131,6 +138,13 @@
 								<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 								<input name="deduct" value="<%= (val.price*3) + ((val.price*3) * val.hotel.tax) %>" type="hidden">
 								<button type="submit" class="btn btn-danger" data-confirm="Are you sure?">Cancel</button>
+							</form>
+						</td>
+						<td>
+							<form action="/books/notes/<%= val.id %>" method="POST">
+								<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+								<textarea name="note"><%= val.note %></textarea>
+								<button type="submit" class="btn btn-primary btn-note" data-confirm="Are you sure?">Update Note</button>
 							</form>
 						</td>
 						</tr>

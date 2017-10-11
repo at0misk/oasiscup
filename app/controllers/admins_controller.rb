@@ -180,4 +180,10 @@ class AdminsController < ApplicationController
 			end
 		end
 	end
+	def note
+		@book = Book.find(params['id'])
+		@book.note = params['note']
+		@book.save
+		redirect_back(fallback_location: '/admins/dash')
+	end
 end
