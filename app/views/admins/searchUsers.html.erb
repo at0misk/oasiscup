@@ -41,11 +41,15 @@
 	.btn-note{
 		width: 50%;
 	}
+	.user-info{
+		width: 75%;
+		margin: 0px auto;
+	}
 </style>
 <div class="con">
 <% @users.each do |val| %>
 	<% @user = val %>
-	<div class="row">
+	<div class="row user-info">
 		<div class="col-md-6">
 			<% @id = val.id %>
 			<h2>User#<%= val.id %></h2>
