@@ -179,6 +179,7 @@ class AdminsController < ApplicationController
 				end
 			end
 		end
+		@users = @users.uniq
 	end
 	def note
 		@book = Book.find(params['id'])
