@@ -189,6 +189,6 @@ class AdminsController < ApplicationController
 		redirect_back(fallback_location: '/admins/dash')
 	end
 	def books_by_hotel
-		@books = Book.where(hotel_id: params['hotel_id']).paginate(:page => params[:page])
+		@books = Book.where(hotel_id: params['hotel_id'])
 	end
 end
