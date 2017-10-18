@@ -89,6 +89,7 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						<th>Date Requested</th>
 						<th>Confirmation</th>
 						<th>Hotel</th>
 						<th>Address</th>
@@ -123,6 +124,7 @@
 					<% @total_balance_due = 0 %>
 					<% val.books.each do |val| %>
 						<tr>
+						<td><%= val.created_at.strftime("%B #{val.created_at.day.ordinalize}, %Y") %></td>
 						<td><%= val.conf_code %></td>
 						<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
 						<td><%= val.hotel.address %></td>
