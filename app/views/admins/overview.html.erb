@@ -13,16 +13,28 @@
 				<th>Payment Made</th>
 			</thead>
 			<tbody>
+				<% @final_total = 0 %>
+				<% @final_res = 0 %>
+				<% @final_pay = 0 %>
 				<% @hotels.each do |val| %>
 				<tr>
 					<td><%= val.name %></td>
 					<% total_rooms = val.books.length + val.carts.length + val.rooms.length %>
+					<% @final_total += total_rooms %>
 					<td><%= total_rooms %></td>
 					<td><%= val.books.length %></td>
+					<% @final_res += val.books.length %>
 					<% paid_rooms = Book.where("hotel_id = ? AND note IS NOT NULL", val.id).length %>
 					<td><%= paid_rooms %></td>
+					<% @final_pay += paid_rooms %>
 				</tr>
 				<% end %>
+				<tr>
+					<td>Totals</td>
+					<td><%= @final_total %></td>
+					<td><%= @final_res %></td>
+					<td><%= @final_pay %></td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
