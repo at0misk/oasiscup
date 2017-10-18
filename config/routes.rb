@@ -82,5 +82,7 @@ Rails.application.routes.draw do
   get '/admins/hotel_not_mailed/:id' => 'admins#hotel_not_mailed'
   get '/admins/ten_days' => 'admins#ten_days'
   post '/books/notes/:id' => 'admins#note'
+  post '/admins/books_by_hotel' => 'admins#books_by_hotel'
+  get '/admins/books_by_hotel' => 'admins#dash'
   # get '/up_price' => 'rooms#up_price'
 end

@@ -3,6 +3,7 @@ class AdminsController < ApplicationController
 	@@code = ''
 	def dash
 		verifyAdmin
+		@hotels = Hotel.all
 	end
 	def searchUsers
 		verifyAdmin
@@ -186,5 +187,8 @@ class AdminsController < ApplicationController
 		@book.note = params['note']
 		@book.save
 		redirect_back(fallback_location: '/admins/dash')
+	end
+	def books_by_hotel
+		@books = Book.where(hotel_id: params['hotel_id']).paginate(:page => params[:page])
 	end
 end

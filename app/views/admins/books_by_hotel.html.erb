@@ -1,0 +1,55 @@
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-sm-12">
+			<h2>Booked Rooms:</h2>
+				<% if @books.length == 0 %>
+					<h3>No booked rooms </h3>
+				<% else %>
+					<div class="table-responsive">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>Team</th>
+								<th>Hotel</th>
+								<th>Address</th>
+								<th>Type</th>
+								<th>Price Per Night</th>
+								<th>Total</th>
+								<th>Notes</th>
+							</tr>
+						</thead>
+						<tbody>
+					  		<% @total = 0 %>
+					  		<% @tax = 0 %>
+					  		<% 	@books.each do |val| %>
+					  		<% 	@roomTax = val.hotel.tax %>
+							<% 	@tax += @roomTax * val.price %>
+					  		<% 		@total += val.price %>
+					  		<% 	end %>
+							<% @total_balance_due = 0 %>
+							<% @books.each do |val| %>
+								<tr>
+								<td><%= val.user.team.name %></td>
+								<td><a href="/hotels/<%= val.hotel.id %>"><%= val.hotel.name %></a></td>
+								<td><%= val.hotel.address %></td>
+								<td><%= val.room_type %></td>
+								<td><%= number_to_currency(val.price, :precision => 2) %><br>Tax: <%= number_to_currency(val.price*val.hotel.tax, :precision => 2) %><br><span class="green">Total: <%= number_to_currency(val.price+(val.price*val.hotel.tax), :precision => 2) %></span></td>
+								<td><%= number_to_currency(val.price*3, :precision => 2) %><br>Tax: <%= number_to_currency((val.price*3)*val.hotel.tax, :precision => 2) %><br><span class="green">Total: <%= number_to_currency((val.price*3)+((val.price*3)*val.hotel.tax), :precision => 2) %></span></td>
+								<td>
+									<form action="/books/notes/<%= val.id %>" method="POST">
+										<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+										<% if val.note %>
+											<textarea name="note"><%= val.note %></textarea>
+										<% else %>
+											<textarea name="note">No Payment Made</textarea>
+										<% end %>
+									</form>
+								</td>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				<% end %>
+		</div>
+	</div>
+</div>
