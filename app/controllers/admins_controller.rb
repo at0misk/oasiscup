@@ -191,4 +191,7 @@ class AdminsController < ApplicationController
 	def books_by_hotel
 		@books = Book.where(hotel_id: params['hotel_id'])
 	end
+	def overview
+		@hotels = Hotel.all
+	end
 end

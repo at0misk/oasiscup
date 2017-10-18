@@ -1,0 +1,29 @@
+<style type="text/css">
+	.overview-table{
+		margin-top: 20px;
+	}
+</style>
+<div class="container overview-table">
+	<div class="col-sm-12">
+		<table class="table">
+			<thead>
+				<th>Hotel</th>
+				<th>Total Rooms</th>
+				<th>Rooms Reserved</th>
+				<th>Payment Made</th>
+			</thead>
+			<tbody>
+				<% @hotels.each do |val| %>
+				<tr>
+					<td><%= val.name %></td>
+					<% total_rooms = val.books.length + val.carts.length + val.rooms.length %>
+					<td><%= total_rooms %></td>
+					<td><%= val.books.length %></td>
+					<% paid_rooms = Book.where("hotel_id = ? AND note IS NOT NULL", val.id).length %>
+					<td><%= paid_rooms %></td>
+				</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
+</div>
