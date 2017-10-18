@@ -189,9 +189,11 @@ class AdminsController < ApplicationController
 		redirect_back(fallback_location: '/admins/dash')
 	end
 	def books_by_hotel
+		verifyAdmin
 		@books = Book.where(hotel_id: params['hotel_id'])
 	end
 	def overview
+		verifyAdmin
 		@hotels = Hotel.all
 	end
 end
