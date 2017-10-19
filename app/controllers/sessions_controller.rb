@@ -94,6 +94,8 @@ class SessionsController < ApplicationController
 			redirect_to '/'
 		end
 	end
+	def faqs
+	end
 	# def new
 	#   gon.client_token = generate_client_token
 	# end
