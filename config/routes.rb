@@ -43,7 +43,7 @@ Rails.application.routes.draw do
   post 'rooms/searchAll' => 'rooms#searchAll'
   patch 'users/teams' => 'users#teamupdate'
   resources :charges
-  # get 'rooms/generate/:id' => 'rooms#generate'
+  get 'rooms/generate/:id' => 'rooms#generate'
   get 'hotels/edit/:id' => 'hotels#edit'
   patch 'hotels/update/:id' => 'hotels#update'
   get 'contact' => 'sessions#contact'
