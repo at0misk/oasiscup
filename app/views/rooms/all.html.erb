@@ -182,11 +182,11 @@
 			<% else %>
 				<h4>Occupancy: <%= @room.occupancy_a %></h4>
 			<% end %>
-			<h5>Adults: <%= @room.occupancy_a %></h4>
+			<h4>Adults: <%= @room.occupancy_a %></h4>
 			<% if @room.occupancy_c %><h5>Children: <%= @room.occupancy_c %></h5><% end %>
 			<% if @room.description %><h5><%= @room.description %></h5><% end %>
 			<h5 class="amountLeft">Only <%= Hotel.find(val).rooms.where(room_type: v).count %><br>Left!</h5>
-			<form action="/cart/create/<%= @room.id %>" method="POST">
+<!-- 			<form action="/cart/create/<%= @room.id %>" method="POST">
 				<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 				<input type="hidden" name="price" value="<%= @room.price %>">
 				<input type="hidden" name="number" value="<%= @room.number %>">
@@ -198,7 +198,7 @@
 				<input type="hidden" name="occupancy_c" value="<%= @room.occupancy_c %>">
 				<input type="number" name="amount" value="1" class="amountToAdd" min="1">
 				<!-- <button type="submit" class="btn btn-primary">Add To Cart</button> -->
-			</form>
+			</form> -->
 			</div>
 			<div class="col-md-1">
 			</div>
