@@ -218,7 +218,7 @@ body{
 <h3 class='header-img-text header-img-h2'>PALM DESERT CA</h3>
 <h3 class='header-img-text header-img-h2'>JANUARY 13-15 2018</h3>
 <% if session[:user_id] %>
-<a href="/hotels"><button class="btn btn-primary btn-responsive regButton clear-button">Book Rooms</button></a>
+<a href="/hotels"><button class="btn btn-primary btn-responsive regButton clear-button">View Hotels</button></a>
 <% else %>
 <button class="btn btn-primary btn-responsive regButton clear-button" data-toggle="modal" data-target="#myModal">Register</button>
 <button class="btn btn-primary btn-responsive loginButton clear-button" data-toggle="modal" data-target="#myModal">Login</button>
@@ -234,11 +234,7 @@ body{
     <div class="col-md-6 text">
     <h2 class="tinyHeader"><strong>How to Book Rooms</strong></h2>
     <ul>
-        <li>Click register above and create and account to book rooms</li>
-        <li>Select the rooms you want from the hotels we have listed</li>
-        <li>Add all guests who will be staying in your rooms (you can also view your teams guests that have been listed by other team members)</li>
-        <li>Select Cart to checkout</li>
-        <li>An Archer Travel Representative will call you within 2 business days to process payment (payment is not processed online)</li>
+        <li>Reservations may be made by calling 800 272-4377 (800 ARCHERS) Monday-Friday 8am-5pm PST</li>
     </ul>
     </div>
 </div>
@@ -247,20 +243,20 @@ body{
     <h2 class="tinyHeader"><strong>Team Guidelines</strong></h2>
     <ul>
         <% if session[:user_id] %>
-        <li><% if @user.team.exempt %>5<% else %>7<% end %> rooms per team with a 3 night minimum stay required (Jan. 12 - 15 2018)</li>
+        <li><% if @user.team.exempt %>5<% else %>7<% end %> rooms per team with a 2 night minimum stay required (Jan. 12 - 15 2018)</li>
         <% else %>
-        <li>7 rooms per team with a 3 night minimum stay required</li>
+        <li>7 rooms per team with a 2 night minimum stay required</li>
         <% end %>
-        <li>1st night room & tax will be charged within 10 days of registration request.</li>
-        <li>Final Payments on the rooms will be due by December 1, 2017</li>
+        <!-- <li>1st night room & tax will be charged within 10 days of registration request.</li> -->
+        <!-- <li>Final Payments on the rooms will be due by December 1, 2017</li> -->
         <li>All guests that are being booked for must be on your <% if session[:user_id] %><a href="/guests/user">guest list</a><% else %>guest list<% end %>.</li>
-        <li>Reservations may be made here or by calling 800 272-4377 (800 ARCHERS) Monday-Friday 8am-5pm PST</li>
+        <li>Reservations may be made by calling 800 272-4377 (800 ARCHERS) Monday-Friday 8am-5pm PST</li>
     </ul>
     </div>
     <div class="col-md-6 text">
     <h2 class="tinyHeader"><strong>Finalizing The Reservations</strong></h2>
     <ul>
-        <li>We recommend that the <strong>Team Manager</strong> finalize your reservation first with their access code, especially if you are paying for multiple rooms</li>
+        <!-- <li>We recommend that the <strong>Team Manager</strong> finalize your reservation first with their access code, especially if you are paying for multiple rooms</li> -->
         <li><strong>Team Managers</strong> are required to work directly with their families to ensure a complete and accurate rooming list</li>
         <li>Any rooms allocated and <strong>NOT CONFIRMED</strong> will be given to other teams on the wait list</li>
         <li>Your families will have <strong>10 days</strong> to finalize their individual reservations</li>
