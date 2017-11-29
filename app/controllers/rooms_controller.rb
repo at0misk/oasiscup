@@ -121,10 +121,10 @@ class RoomsController < ApplicationController
         #   session[:searchingAll] = false
         # end
       # end
-    end
-      @@roomSwitch = @rooms
-      params[:paginate] = false
-      session[:from_cart] = false
+    # end
+    #   @@roomSwitch = @rooms
+    #   params[:paginate] = false
+    #   session[:from_cart] = false
   	end
   	def search
       # @hotelIds = Room.where(price: 176..250).select('distinct hotel_id').map(&:hotel_id)
