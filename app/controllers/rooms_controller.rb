@@ -115,7 +115,7 @@ class RoomsController < ApplicationController
         #     # puts @rooms.first
         #     # fail
         #   else
-        #     @hotelIds = Room.all.order(:price).select('distinct hotel_id').map(&:hotel_id)
+            @hotelIds = Room.all.order(:price).select('distinct hotel_id').map(&:hotel_id)
         #     @rooms = Room.all.order(:price).paginate(:page => params[:page], :per_page => 7)
         #   end
         #   session[:searchingAll] = false
