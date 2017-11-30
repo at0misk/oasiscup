@@ -58,6 +58,9 @@ class HotelsController < ApplicationController
     end
   		session[:searching] = false
       @roomSwitch = @rooms
+    if session[:user_id]
+      @user = User.find(session[:user_id])
+    end
 	end
   def edit
     if !session[:user_id]
