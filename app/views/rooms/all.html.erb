@@ -177,7 +177,7 @@
 			<a href="/hotels/<%= @room.hotel.id %>" class="hotel_img"><%= image_tag("#{@room.hotel.image}") %></a>
 			<h4>Price: <span class="green"><%= number_to_currency(@room.price, :precision => 2) %></span> per night</h4>
 			<h4>Tax: <%= number_to_currency(@room.price*@room.hotel.tax, :precision => 2) %></h4>
-			<!-- <h4>Total: <%= number_to_currency(@room.price*@room.hotel.tax, :precision => 2 + @room.price*@room.hotel.tax, :precision => 2)) %></h4> -->
+			
 			<h4>Smoking: <%= @room.smoking %></h4>
 			<% if @room.occupancy_c %>
 				<h4>Occupancy: <%= @room.occupancy_c + @room.occupancy_a %></h4>
