@@ -196,4 +196,8 @@ class AdminsController < ApplicationController
 		verifyAdmin
 		@hotels = Hotel.all
 	end
+	def booked_by_team
+		verifyAdmin
+		@teams = Team.all
+	end
 end

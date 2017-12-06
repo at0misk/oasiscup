@@ -1,0 +1,22 @@
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-responsive">
+			<thead>
+				<tr>
+					<th>Hotel</th>
+					<th>Team</th>
+					<th>Name</th>
+				</tr>
+			</thead>
+		</table>
+	<% @teams.each do |val| %>
+		<% val.books.each do |inner_val| %>
+			<tr>
+				<td><%= inner_val.hotel.name %></td>
+				<td><%= val.name %></td>
+				<td><%= val.user.first %> <%= val.user.last %></td>
+			</tr>
+		<% end %>
+	<% end %>
+	</div>
+</div>
