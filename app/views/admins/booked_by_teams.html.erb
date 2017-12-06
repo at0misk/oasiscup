@@ -6,6 +6,7 @@
 					<th>Hotel</th>
 					<th>Team</th>
 					<th>Name</th>
+					<th>Notes</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -15,6 +16,7 @@
 						<td><%= inner_val.hotel.name %></td>
 						<td><%= val.name %></td>
 						<td><%= inner_val.user.first %> <%= inner_val.user.last %></td>
+						<td><%= inner_val.note %></td>
 					</tr>
 				<% end %>
 			<% end %>
