@@ -8,15 +8,17 @@
 					<th>Name</th>
 				</tr>
 			</thead>
+			<tbody>
+			<% @teams.each do |val| %>
+				<% val.books.each do |inner_val| %>
+					<tr>
+						<td><%= inner_val.hotel.name %></td>
+						<td><%= val.name %></td>
+						<td><%= inner_val.user.first %> <%= inner_val.user.last %></td>
+					</tr>
+				<% end %>
+			<% end %>
+			</tbody>
 		</table>
-	<% @teams.each do |val| %>
-		<% val.books.each do |inner_val| %>
-			<tr>
-				<td><%= inner_val.hotel.name %></td>
-				<td><%= val.name %></td>
-				<td><%= inner_val.user.first %> <%= inner_val.user.last %></td>
-			</tr>
-		<% end %>
-	<% end %>
 	</div>
 </div>
