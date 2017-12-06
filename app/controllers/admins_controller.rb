@@ -196,7 +196,7 @@ class AdminsController < ApplicationController
 		verifyAdmin
 		@hotels = Hotel.all
 	end
-	def booked_by_team
+	def booked_by_teams
 		verifyAdmin
 		@teams = Team.all
 	end

@@ -86,6 +86,6 @@ Rails.application.routes.draw do
   get '/admins/books_by_hotel' => 'admins#dash'
   get '/overview' => 'admins#overview'
   get '/faqs' => 'sessions#faqs'
-  get '/booked_by_team' => 'admins#booked_by_team'
+  get '/booked_by_teams' => 'admins#booked_by_teams'
   # get '/up_price' => 'rooms#up_price'
 end
