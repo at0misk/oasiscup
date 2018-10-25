@@ -1,4 +1,4 @@
-<meta name="description" content="Welcome to the 2017 Oasis Cup Tournament!  This wonderful tournament will be played in Palm Desert California where the weather is great and the fields are even better!">
+<meta name="description" content="Welcome to the 2019 Oasis Cup Tournament!  This wonderful tournament will be played in Palm Desert California where the weather is great and the fields are even better!">
 <meta name="keywords" content="Oasis,Cup,Oasis Cup,Oasis Cup Palm,Oasis Cup Palm Desert,oasiscup.com,www.oasiscup.com,soccer,tournament,soccer tournament,palm,springs,palm springs">
 <style type="text/css">
 	.landingimg img{
@@ -208,13 +208,24 @@ body{
     width: 100%;
     height: 34px;
 }
+
+.top-header-img{
+    max-width: 250px !important;
+    margin-top: 0px;
+}
+
+@media (max-width:660px) { 
+    .top-header-img{
+        display: none;
+    }
+}
 </style>
 <div class="row img-wrapper">
 <div class="col-md-12 main-col">
 <span class='landingimg'><%= image_tag("soccerBall2crop.jpg") %>
 </span>
 <div class="img-overlay">
-<h1 class='header-img-text header-img top-header-img'>OASIS CUP</h1>
+<%= image_tag('oc2019.png', :class => 'top-header-img') %>
 <h3 class='header-img-text header-img-h2'>JAN 12-13, 2019</h3>
 <!-- <h3 class='header-img-text header-img-h2'><a href="" target="_blank"><button class="btn btn-primary">Book Your Rooms!</button></a></h3> -->
 <!-- <h3 class='header-img-text header-img-h2'>INFO COMING SOON</h3> -->
